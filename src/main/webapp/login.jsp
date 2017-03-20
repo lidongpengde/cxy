@@ -12,7 +12,7 @@
 </head>
 <body>
 <div>
-    <form action="user/save">
+    <form action="user/login">
     用户名：<input name="userName" type="text">
     密码：<input name="userPassword" type="text">
         <button type="submit">submit</button>

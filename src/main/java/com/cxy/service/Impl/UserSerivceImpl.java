@@ -17,4 +17,9 @@ public class UserSerivceImpl implements IuserService{
         int size=userMapper.insert(user);
         return "succces";
     }
+
+    public TCxyUser findUserByName(String userName) {
+
+        return userMapper.findByUserName(userName);
+    }
 }

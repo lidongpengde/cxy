@@ -95,19 +95,11 @@
     USER_MAIL, QQ, WECHAT, MOMO, CREATE_DATE, LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL, 
     hobby, JOB, AGE
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxy.entity.TCxyUser" >
+  <select id="findByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
     <include refid="Base_Column_List" />
     from t_cxy_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    where USER_NAME = #{userName,jdbcType=VARCHAR}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

@@ -6,6 +6,11 @@ import com.cxy.service.IuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by lidp on 2017/3/19.
@@ -22,9 +27,15 @@ public class UserController {
         return "login";
     }
     @RequestMapping("/login")
-    public String userlogin(TCxyUser user){
-        user.setUserId(UserTools.getUUID());
-        userService.saveUser(user);
-        return "/login";
+    @ResponseBody
+    public String userlogin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
+       String oldpassWord= user.getUserPassword();
+        user=userService.findUserByName(user.getUserName());
+        if (oldpassWord.equals(user.getUserPassword())){
+            Cookie cookie=new Cookie("usercook",user.getUserId());
+            response.addCookie(cookie);
+            request.getSession().setAttribute("loginuser",user);
+        }
+        return oldpassWord.equals(user.getUserPassword())?"index":"error";
     }
 }

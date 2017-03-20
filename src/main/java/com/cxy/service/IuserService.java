@@ -7,4 +7,5 @@ import com.cxy.entity.TCxyUser;
  */
 public interface IuserService {
     public String saveUser(TCxyUser user);
+    public TCxyUser findUserByName(String userName);
 }

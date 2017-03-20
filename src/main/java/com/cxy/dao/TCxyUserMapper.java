@@ -17,7 +17,7 @@ public interface TCxyUserMapper {
 
 
     TCxyUser selectByPrimaryKey(String userId);
-
+    TCxyUser findByUserName(String userName);
 
 
     int updateByPrimaryKeySelective(TCxyUser record);

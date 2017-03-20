@@ -19,13 +19,13 @@
   </div>
 </h4>
 <div class="">
-  <form id="new_session" action="/sessions" accept-charset="UTF-8" method="post">
+  <form id="new_session" action="/user/login" accept-charset="UTF-8" method="post">
     <div class="form-group" style="position: relative;">
-      <input placeholder="手机号或邮箱" type="text" name="" id="" class="form-control" style="padding: 4px 12px 4px 35px;">
+      <input placeholder="手机号或邮箱" type="text" name="userName" id="" class="form-control" style="padding: 4px 12px 4px 35px;">
       <i class="glyphicon glyphicon-user iconpass" aria-hidden="true"></i>
     </div>
     <div class="form-group" style="position: relative;">
-      <input placeholder="密码" type="password" name="password" id="password" class="form-control" style="padding: 4px 12px 4px 35px;">
+      <input placeholder="密码" type="password" name="userPassword" id="userPassword" class="form-control" style="padding: 4px 12px 4px 35px;">
       <i class="glyphicon glyphicon-lock iconpass" aria-hidden="true"></i>
     </div>
     <div class="form-group" style="float: left;">
