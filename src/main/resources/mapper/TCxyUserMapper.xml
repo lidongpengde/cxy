@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cxy.dao.TCxyUserMapper" >
-  <resultMap id="BaseResultMap" type="com.ecps.seckill.pojo.TCxyUser" >
+  <resultMap id="BaseResultMap" type="com.cxy.entity.TCxyUser" >
     <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
@@ -27,7 +27,7 @@
     <result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="VARCHAR" />
     <result column="CHARM_VALUE" property="charmValue" jdbcType="VARCHAR" />
     <result column="USER_LEVEL" property="userLevel" jdbcType="VARCHAR" />
-    <result column="LIKE" property="like" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
     <result column="JOB" property="job" jdbcType="VARCHAR" />
     <result column="AGE" property="age" jdbcType="VARCHAR" />
   </resultMap>
@@ -93,9 +93,9 @@
     USER_ID, USER_NAME, USER_PASSWORD, NICKNAME, USER_SEX, PROVINCE, CITY, AREA, HOMETOWN_PROVINCE, 
     HOMETOWN_CITY, HOMETOWN_AREA, BIRTHDAY, HEIGHT, WEIGHT, EDUCATION, INCOME, USER_TEL, 
     USER_MAIL, QQ, WECHAT, MOMO, CREATE_DATE, LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL, 
-    LIKE, JOB, AGE
+    hobby, JOB, AGE
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecps.seckill.pojo.TCxyUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxy.entity.TCxyUser" >
     select
     <if test="distinct" >
       distinct
@@ -119,13 +119,13 @@
     delete from t_cxy_user
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ecps.seckill.pojo.TCxyUserExample" >
+  <delete id="deleteByExample" parameterType="com.cxy.entity.TCxyUser" >
     delete from t_cxy_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ecps.seckill.pojo.TCxyUser" >
+  <insert id="insert" parameterType="com.cxy.entity.TCxyUser" >
     insert into t_cxy_user (USER_ID, USER_NAME, USER_PASSWORD, 
       NICKNAME, USER_SEX, PROVINCE, 
       CITY, AREA, HOMETOWN_PROVINCE, 
@@ -134,7 +134,7 @@
       INCOME, USER_TEL, USER_MAIL, 
       QQ, WECHAT, MOMO, CREATE_DATE, 
       LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL, 
-      LIKE, JOB, AGE)
+      hobby, JOB, AGE)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{userSex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
       #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{hometownProvince,jdbcType=VARCHAR}, 
@@ -143,9 +143,9 @@
       #{income,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, 
       #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{momo,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
       #{lastLoginDate,jdbcType=VARCHAR}, #{charmValue,jdbcType=VARCHAR}, #{userLevel,jdbcType=VARCHAR}, 
-      #{like,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR})
+      #{hobby,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ecps.seckill.pojo.TCxyUser" >
+  <insert id="insertSelective" parameterType="com.cxy.entity.TCxyUser" >
     insert into t_cxy_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -223,8 +223,8 @@
       <if test="userLevel != null" >
         USER_LEVEL,
       </if>
-      <if test="like != null" >
-        LIKE,
+      <if test="hobby != null" >
+        hobby,
       </if>
       <if test="job != null" >
         JOB,
@@ -309,8 +309,8 @@
       <if test="userLevel != null" >
         #{userLevel,jdbcType=VARCHAR},
       </if>
-      <if test="like != null" >
-        #{like,jdbcType=VARCHAR},
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
       </if>
       <if test="job != null" >
         #{job,jdbcType=VARCHAR},
@@ -320,7 +320,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ecps.seckill.pojo.TCxyUserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.cxy.entity.TCxyUser" resultType="java.lang.Integer" >
     select count(*) from t_cxy_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -404,8 +404,8 @@
       <if test="record.userLevel != null" >
         USER_LEVEL = #{record.userLevel,jdbcType=VARCHAR},
       </if>
-      <if test="record.like != null" >
-        LIKE = #{record.like,jdbcType=VARCHAR},
+      <if test="record.hobby != null" >
+        hobby = #{record.hobby,jdbcType=VARCHAR},
       </if>
       <if test="record.job != null" >
         JOB = #{record.job,jdbcType=VARCHAR},
@@ -445,14 +445,14 @@
       LAST_LOGIN_DATE = #{record.lastLoginDate,jdbcType=VARCHAR},
       CHARM_VALUE = #{record.charmValue,jdbcType=VARCHAR},
       USER_LEVEL = #{record.userLevel,jdbcType=VARCHAR},
-      LIKE = #{record.like,jdbcType=VARCHAR},
+      hobby = #{record.hobby,jdbcType=VARCHAR},
       JOB = #{record.job,jdbcType=VARCHAR},
       AGE = #{record.age,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ecps.seckill.pojo.TCxyUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.TCxyUser" >
     update t_cxy_user
     <set >
       <if test="userName != null" >
@@ -527,8 +527,8 @@
       <if test="userLevel != null" >
         USER_LEVEL = #{userLevel,jdbcType=VARCHAR},
       </if>
-      <if test="like != null" >
-        LIKE = #{like,jdbcType=VARCHAR},
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
       </if>
       <if test="job != null" >
         JOB = #{job,jdbcType=VARCHAR},
@@ -539,7 +539,7 @@
     </set>
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ecps.seckill.pojo.TCxyUser" >
+  <update id="updateByPrimaryKey" parameterType="com.cxy.entity.TCxyUser" >
     update t_cxy_user
     set USER_NAME = #{userName,jdbcType=VARCHAR},
       USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
@@ -565,7 +565,7 @@
       LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=VARCHAR},
       CHARM_VALUE = #{charmValue,jdbcType=VARCHAR},
       USER_LEVEL = #{userLevel,jdbcType=VARCHAR},
-      LIKE = #{like,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
       JOB = #{job,jdbcType=VARCHAR},
       AGE = #{age,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=VARCHAR}

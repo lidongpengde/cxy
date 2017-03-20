@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cxy.dao.TCxyPersonalLetterMapper" >
-  <resultMap id="BaseResultMap" type="com.ecps.seckill.pojo.TCxyPersonalLetter" >
+  <resultMap id="BaseResultMap" type="com.cxy.entity.TCxyPersonalLetter" >
     <id column="LETTER_ID" property="letterId" jdbcType="VARCHAR" />
     <result column="ASSRESSEE_ID" property="assresseeId" jdbcType="VARCHAR" />
     <result column="ASSRESSEE" property="assressee" jdbcType="VARCHAR" />
@@ -76,7 +76,7 @@
     LETTER_ID, ASSRESSEE_ID, ASSRESSEE, SENDER_ID, SENDER, SEND_TIME, ISANSWER, LETT_ID, 
     STATE, LETTER, ISDROP
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetterExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxy.entity.TCxyPersonalLetter" >
     select
     <if test="distinct" >
       distinct
@@ -100,13 +100,13 @@
     delete from t_cxy_personal_letter
     where LETTER_ID = #{letterId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetterExample" >
+  <delete id="deleteByExample" parameterType="com.cxy.entity.TCxyPersonalLetter" >
     delete from t_cxy_personal_letter
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetter" >
+  <insert id="insert" parameterType="com.cxy.entity.TCxyPersonalLetter" >
     insert into t_cxy_personal_letter (LETTER_ID, ASSRESSEE_ID, ASSRESSEE, 
       SENDER_ID, SENDER, SEND_TIME, 
       ISANSWER, LETT_ID, STATE, 
@@ -116,7 +116,7 @@
       #{isanswer,jdbcType=VARCHAR}, #{lettId,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
       #{letter,jdbcType=VARCHAR}, #{isdrop,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetter" >
+  <insert id="insertSelective" parameterType="com.cxy.entity.TCxyPersonalLetter" >
     insert into t_cxy_personal_letter
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="letterId != null" >
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetterExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.cxy.entity.TCxyPersonalLetter" resultType="java.lang.Integer" >
     select count(*) from t_cxy_personal_letter
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetter" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.TCxyPersonalLetter" >
     update t_cxy_personal_letter
     <set >
       <if test="assresseeId != null" >
@@ -289,7 +289,7 @@
     </set>
     where LETTER_ID = #{letterId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ecps.seckill.pojo.TCxyPersonalLetter" >
+  <update id="updateByPrimaryKey" parameterType="com.cxy.entity.TCxyPersonalLetter" >
     update t_cxy_personal_letter
     set ASSRESSEE_ID = #{assresseeId,jdbcType=VARCHAR},
       ASSRESSEE = #{assressee,jdbcType=VARCHAR},

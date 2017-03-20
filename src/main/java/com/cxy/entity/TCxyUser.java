@@ -51,7 +51,7 @@ public class TCxyUser {
 
     private String userLevel;
 
-    private String like;
+    private String hobby;
 
     private String job;
 
@@ -257,12 +257,12 @@ public class TCxyUser {
         this.userLevel = userLevel == null ? null : userLevel.trim();
     }
 
-    public String getLike() {
-        return like;
+    public String gethobby() {
+        return hobby;
     }
 
-    public void setLike(String like) {
-        this.like = like == null ? null : like.trim();
+    public void sethobby(String hobby) {
+        this.hobby = hobby == null ? null : hobby.trim();
     }
 
     public String getJob() {

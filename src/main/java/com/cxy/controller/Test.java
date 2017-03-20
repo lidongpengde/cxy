@@ -1,8 +1,6 @@
 package com.cxy.controller;
 
-import com.cxy.dao.BookDao;
-import com.cxy.entity.Book;
-import com.cxy.service.BookService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class Test {
     @Autowired
-    BookService service;
+   // BookService service;
     @RequestMapping(value = "/admin")
     @ResponseBody
     public String testSpring(){
-        Book book=service.getBookById(1000);
+        //Book book=service.getBookById(1000);
+
         return "My testSpring";
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cxy.dao.TCxyAnswerMapper" >
-  <resultMap id="BaseResultMap" type="com.ecps.seckill.pojo.TCxyAnswer" >
+  <resultMap id="BaseResultMap" type="com.cxy.entity.TCxyAnswer" >
     <result column="ANSWER_ID" property="answerId" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     ANSWER_ID, USER_ID, USER_NAME, ANSWER, QUESTION_ID, CREATETIME, ISDROP
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecps.seckill.pojo.TCxyAnswerExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxy.entity.TCxyAnswer" >
     select
     <if test="distinct" >
       distinct
@@ -85,13 +85,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.ecps.seckill.pojo.TCxyAnswerExample" >
+  <delete id="deleteByExample" parameterType="com.cxy.entity.TCxyAnswer" >
     delete from t_cxy_answer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ecps.seckill.pojo.TCxyAnswer" >
+  <insert id="insert" parameterType="com.cxy.entity.TCxyAnswer" >
     insert into t_cxy_answer (ANSWER_ID, USER_ID, USER_NAME, 
       ANSWER, QUESTION_ID, CREATETIME, 
       ISDROP)
@@ -99,7 +99,7 @@
       #{answer,jdbcType=VARCHAR}, #{questionId,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
       #{isdrop,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ecps.seckill.pojo.TCxyAnswer" >
+  <insert id="insertSelective" parameterType="com.cxy.entity.TCxyAnswer" >
     insert into t_cxy_answer
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="answerId != null" >
@@ -148,7 +148,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ecps.seckill.pojo.TCxyAnswerExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.cxy.entity.TCxyAnswer" resultType="java.lang.Integer" >
     select count(*) from t_cxy_answer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
