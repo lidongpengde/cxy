@@ -3,9 +3,10 @@ package com.cxy.dao;
 
 
 import com.cxy.entity.TCxyUser;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface TCxyUserMapper {
 
 
