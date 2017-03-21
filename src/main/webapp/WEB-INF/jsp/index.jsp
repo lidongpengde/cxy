@@ -5,7 +5,7 @@
 <body>
 <h2>Hello World!</h2>
 
-<a href="register.jsp">注册</a>
-<a href="/user/tologin">登录</a>
+<p>123</p>
+<p>456</p>
 </body>
 </html>

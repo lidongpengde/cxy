@@ -29,8 +29,13 @@
    <servlet-name>default</servlet-name>
    <url-pattern>*.js</url-pattern>
    <url-pattern>*.css</url-pattern>
-   <url-pattern>/aserts/*"</url-pattern>
+   <url-pattern>/asert/*"</url-pattern>
     <url-pattern>/images/*</url-pattern>
-     </servlet-mapping>
+      <url-pattern>*.eot</url-pattern>
+      <url-pattern>*.svg</url-pattern>
+      <url-pattern>*.ttf</url-pattern>
+      <url-pattern>*.woff</url-pattern>
+      <url-pattern>*.woff2</url-pattern>
+  </servlet-mapping>
 
 </web-app>

@@ -14,7 +14,7 @@
 <body>
 <div>
 
-    <form action="user/save">
+    <form action="user/savelogin">
         <div class="container">
             <h2>会员注册中心</h2>
             <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text"></div>

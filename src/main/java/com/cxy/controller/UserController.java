@@ -20,14 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController {
     @Autowired
     IuserService userService;
-    @RequestMapping("/save")
+    @RequestMapping("/savelogin")
     public String saveUser(TCxyUser user){
         user.setUserId(UserTools.getUUID());
         userService.saveUser(user);
         return "login";
     }
     @RequestMapping("/login")
-    @ResponseBody
     public String userlogin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
        String oldpassWord= user.getUserPassword();
         user=userService.findUserByName(user.getUserName());
@@ -37,5 +36,16 @@ public class UserController {
             request.getSession().setAttribute("loginuser",user);
         }
         return oldpassWord.equals(user.getUserPassword())?"index":"error";
+    }
+    @RequestMapping("/tologin")
+    public String tologin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
+
+        return "login";
+    }
+    @RequestMapping("/main")
+    @ResponseBody
+    public String mainPage(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
+
+        return "main";
     }
 }
