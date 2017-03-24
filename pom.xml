@@ -121,11 +121,13 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+    <!-- https://mvnrepository.com/artifact/jstl/jstl -->
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.1.2</version>
+      <version>1.2</version>
     </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/commons-pool/commons-pool -->
     <dependency>
