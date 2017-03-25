@@ -6,6 +6,8 @@ import com.cxy.service.IuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by lidp on 2017/3/19.
  */
@@ -21,5 +23,10 @@ public class UserSerivceImpl implements IuserService{
     public TCxyUser findUserByName(String userName) {
 
         return userMapper.findByUserName(userName);
+    }
+
+    public List<TCxyUser> findUserList(TCxyUser user) {
+
+        return userMapper.findUserList(user);
     }
 }

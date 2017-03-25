@@ -5,6 +5,8 @@ import com.cxy.entity.TCxyUser;
 import com.cxy.service.IuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,12 +32,14 @@ public class UserController {
     public String userlogin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
        String oldpassWord= user.getUserPassword();
         user=userService.findUserByName(user.getUserName());
+        if (user==null)
+            return "redirect:tologin";
         if (oldpassWord.equals(user.getUserPassword())){
             Cookie cookie=new Cookie("usercook",user.getUserId());
             response.addCookie(cookie);
             request.getSession().setAttribute("loginuser",user);
         }
-        return oldpassWord.equals(user.getUserPassword())?"index":"error";
+        return oldpassWord.equals(user.getUserPassword())?"redirect:main":"error";
     }
     @RequestMapping("/tologin")
     public String tologin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
@@ -43,9 +47,10 @@ public class UserController {
         return "login";
     }
     @RequestMapping("/main")
-    @ResponseBody
-    public String mainPage(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
-
-        return "main";
+    public String mainPage(ModelMap modelMap,TCxyUser user, HttpServletRequest request){
+        user=UserTools.getCurrentUser(request);
+        modelMap.put("userlist",userService.findUserList(user));
+        modelMap.put("user",user);
+        return "index";
     }
 }

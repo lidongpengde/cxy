@@ -31,70 +31,18 @@
     <result column="JOB" property="job" jdbcType="VARCHAR" />
     <result column="AGE" property="age" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     USER_ID, USER_NAME, USER_PASSWORD, NICKNAME, USER_SEX, PROVINCE, CITY, AREA, HOMETOWN_PROVINCE, 
     HOMETOWN_CITY, HOMETOWN_AREA, BIRTHDAY, HEIGHT, WEIGHT, EDUCATION, INCOME, USER_TEL, 
     USER_MAIL, QQ, WECHAT, MOMO, CREATE_DATE, LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL, 
     hobby, JOB, AGE
   </sql>
+  <select id="findUserList" resultMap="BaseResultMap" parameterType="com.cxy.entity.TCxyUser" >
+    select
+    <include refid="Base_Column_List" />
+    from t_cxy_user
+    where 1=1 limit 10
+  </select>
   <select id="findByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
@@ -111,12 +59,7 @@
     delete from t_cxy_user
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cxy.entity.TCxyUser" >
-    delete from t_cxy_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.cxy.entity.TCxyUser" >
     insert into t_cxy_user (USER_ID, USER_NAME, USER_PASSWORD, 
       NICKNAME, USER_SEX, PROVINCE, 
@@ -312,138 +255,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cxy.entity.TCxyUser" resultType="java.lang.Integer" >
-    select count(*) from t_cxy_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_cxy_user
-    <set >
-      <if test="record.userId != null" >
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userName != null" >
-        USER_NAME = #{record.userName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userPassword != null" >
-        USER_PASSWORD = #{record.userPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.nickname != null" >
-        NICKNAME = #{record.nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userSex != null" >
-        USER_SEX = #{record.userSex,jdbcType=VARCHAR},
-      </if>
-      <if test="record.province != null" >
-        PROVINCE = #{record.province,jdbcType=VARCHAR},
-      </if>
-      <if test="record.city != null" >
-        CITY = #{record.city,jdbcType=VARCHAR},
-      </if>
-      <if test="record.area != null" >
-        AREA = #{record.area,jdbcType=VARCHAR},
-      </if>
-      <if test="record.hometownProvince != null" >
-        HOMETOWN_PROVINCE = #{record.hometownProvince,jdbcType=VARCHAR},
-      </if>
-      <if test="record.hometownCity != null" >
-        HOMETOWN_CITY = #{record.hometownCity,jdbcType=VARCHAR},
-      </if>
-      <if test="record.hometownArea != null" >
-        HOMETOWN_AREA = #{record.hometownArea,jdbcType=VARCHAR},
-      </if>
-      <if test="record.birthday != null" >
-        BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
-      </if>
-      <if test="record.height != null" >
-        HEIGHT = #{record.height,jdbcType=VARCHAR},
-      </if>
-      <if test="record.weight != null" >
-        WEIGHT = #{record.weight,jdbcType=VARCHAR},
-      </if>
-      <if test="record.education != null" >
-        EDUCATION = #{record.education,jdbcType=VARCHAR},
-      </if>
-      <if test="record.income != null" >
-        INCOME = #{record.income,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userTel != null" >
-        USER_TEL = #{record.userTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userMail != null" >
-        USER_MAIL = #{record.userMail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.qq != null" >
-        QQ = #{record.qq,jdbcType=VARCHAR},
-      </if>
-      <if test="record.wechat != null" >
-        WECHAT = #{record.wechat,jdbcType=VARCHAR},
-      </if>
-      <if test="record.momo != null" >
-        MOMO = #{record.momo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createDate != null" >
-        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastLoginDate != null" >
-        LAST_LOGIN_DATE = #{record.lastLoginDate,jdbcType=VARCHAR},
-      </if>
-      <if test="record.charmValue != null" >
-        CHARM_VALUE = #{record.charmValue,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userLevel != null" >
-        USER_LEVEL = #{record.userLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.hobby != null" >
-        hobby = #{record.hobby,jdbcType=VARCHAR},
-      </if>
-      <if test="record.job != null" >
-        JOB = #{record.job,jdbcType=VARCHAR},
-      </if>
-      <if test="record.age != null" >
-        AGE = #{record.age,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_cxy_user
-    set USER_ID = #{record.userId,jdbcType=VARCHAR},
-      USER_NAME = #{record.userName,jdbcType=VARCHAR},
-      USER_PASSWORD = #{record.userPassword,jdbcType=VARCHAR},
-      NICKNAME = #{record.nickname,jdbcType=VARCHAR},
-      USER_SEX = #{record.userSex,jdbcType=VARCHAR},
-      PROVINCE = #{record.province,jdbcType=VARCHAR},
-      CITY = #{record.city,jdbcType=VARCHAR},
-      AREA = #{record.area,jdbcType=VARCHAR},
-      HOMETOWN_PROVINCE = #{record.hometownProvince,jdbcType=VARCHAR},
-      HOMETOWN_CITY = #{record.hometownCity,jdbcType=VARCHAR},
-      HOMETOWN_AREA = #{record.hometownArea,jdbcType=VARCHAR},
-      BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
-      HEIGHT = #{record.height,jdbcType=VARCHAR},
-      WEIGHT = #{record.weight,jdbcType=VARCHAR},
-      EDUCATION = #{record.education,jdbcType=VARCHAR},
-      INCOME = #{record.income,jdbcType=VARCHAR},
-      USER_TEL = #{record.userTel,jdbcType=VARCHAR},
-      USER_MAIL = #{record.userMail,jdbcType=VARCHAR},
-      QQ = #{record.qq,jdbcType=VARCHAR},
-      WECHAT = #{record.wechat,jdbcType=VARCHAR},
-      MOMO = #{record.momo,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
-      LAST_LOGIN_DATE = #{record.lastLoginDate,jdbcType=VARCHAR},
-      CHARM_VALUE = #{record.charmValue,jdbcType=VARCHAR},
-      USER_LEVEL = #{record.userLevel,jdbcType=VARCHAR},
-      hobby = #{record.hobby,jdbcType=VARCHAR},
-      JOB = #{record.job,jdbcType=VARCHAR},
-      AGE = #{record.age,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.TCxyUser" >
     update t_cxy_user
     <set >
