@@ -4,6 +4,7 @@
 <head>
 	<title>login</title>
 	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 	<link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/asert/css/style.css">
 </head>
@@ -30,7 +31,7 @@
     </div>
     <div class="form-group" style="float: left;">
       <input type="checkbox" value="true" checked="checked" name="session[remember_me]" id="session_remember_me"><span>记住我</span>
-      <a id="js-sign-up-btn" href="/sign_up" class="text-center">没有账号？马上注册</a>
+      <a id="js-sign-up-btn" href="/user/toregister" class="text-center">没有账号？马上注册</a>
     </div>
     <button class="btn btn-primary" type="submit" style="width: 100%">登录</button>
     

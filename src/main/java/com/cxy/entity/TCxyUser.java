@@ -41,7 +41,9 @@ public class TCxyUser {
 
     private String wechat;
 
-    private String momo;
+
+
+    private String headImage;
 
     private String createDate;
 
@@ -217,13 +219,6 @@ public class TCxyUser {
         this.wechat = wechat == null ? null : wechat.trim();
     }
 
-    public String getMomo() {
-        return momo;
-    }
-
-    public void setMomo(String momo) {
-        this.momo = momo == null ? null : momo.trim();
-    }
 
     public String getCreateDate() {
         return createDate;
@@ -279,5 +274,12 @@ public class TCxyUser {
 
     public void setAge(String age) {
         this.age = age == null ? null : age.trim();
+    }
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
     }
 }

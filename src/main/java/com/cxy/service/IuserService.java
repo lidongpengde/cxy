@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface IuserService {
     public String saveUser(TCxyUser user);
+    public TCxyUser findUserById(String userId);
     public TCxyUser findUserByName(String userName);
     public List<TCxyUser> findUserList(TCxyUser user);
+    public int updateUser(TCxyUser user);
 }

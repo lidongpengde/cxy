@@ -29,7 +29,7 @@
             </li>
 
             <li class="activeRouteClass ">
-                <a href="{{pathFor 'postSubmit'}}">我的</a>
+                <a href="/user/${user.userId}">我的</a>
             </li>
             <li class="dropdown">
             </li>
@@ -39,26 +39,30 @@
         </ul>
     </div>
 </nav>
-    <c:forEach var="user" items="${userlist}">
+    <c:forEach var="user" items="${userlist}" varStatus="status">
 
 
-<div class="post">
-    <a href="#" class="upvote"><img class="img-rounded img-responsive" src="/asert/img/Koala.jpg"></a>
+<div class="post col-md-5">
+    <a href="#" class=""><img class="img-rounded img-responsive"  src="${user.headImage}"></a>
     <div class="post-content">
         <h3><a href="{{url}}">${user.userName}</a><span>${user.job}</span></h3>
         <p>
             ${user.income},
                 ${user.age},
-            <a href="{{pathFor 'postPage'}}">${user.hometownProvince}</a>
-            <a href="{{pathFor 'postEdit'}}">${user.hobby}</a>
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${user.hometownProvince}
+                爱好:<span>${user.hobby}</span>
         </p>
     </div>
-    <a href="{{pathFor 'postPage'}}" class="discuss btn btn-default">Discuss</a>
+    <div><a href="{{pathFor 'postPage'}}" class="discuss btn btn-default">沟通一下</a></div>
+
 </div>
+<c:if test="${status.count%2=='1'}">
+    <div class=" col-md-2" style="background-color: #eee;border: #ce4844;border: 1px solid #eee;"></div>
+</c:if>
     </c:forEach>
 </div>
 
 <script src="/asert/js/jquery-3.1.1.min.js"></script>
-<script src="/asert/js/bootstrap.min.js"></script>
+<script src="/asert/js/bootstrap.js"></script>
 </body>
 </html>

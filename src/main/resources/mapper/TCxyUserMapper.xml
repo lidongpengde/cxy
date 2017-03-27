@@ -22,7 +22,7 @@
     <result column="USER_MAIL" property="userMail" jdbcType="VARCHAR" />
     <result column="QQ" property="qq" jdbcType="VARCHAR" />
     <result column="WECHAT" property="wechat" jdbcType="VARCHAR" />
-    <result column="MOMO" property="momo" jdbcType="VARCHAR" />
+    <result column="head_image" property="headImage" jdbcType="VARCHAR" />
     <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
     <result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="VARCHAR" />
     <result column="CHARM_VALUE" property="charmValue" jdbcType="VARCHAR" />
@@ -34,7 +34,7 @@
   <sql id="Base_Column_List" >
     USER_ID, USER_NAME, USER_PASSWORD, NICKNAME, USER_SEX, PROVINCE, CITY, AREA, HOMETOWN_PROVINCE, 
     HOMETOWN_CITY, HOMETOWN_AREA, BIRTHDAY, HEIGHT, WEIGHT, EDUCATION, INCOME, USER_TEL, 
-    USER_MAIL, QQ, WECHAT, MOMO, CREATE_DATE, LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL, 
+    USER_MAIL, QQ, WECHAT, head_image, CREATE_DATE, LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL,
     hobby, JOB, AGE
   </sql>
   <select id="findUserList" resultMap="BaseResultMap" parameterType="com.cxy.entity.TCxyUser" >
@@ -67,7 +67,7 @@
       HOMETOWN_CITY, HOMETOWN_AREA, BIRTHDAY, 
       HEIGHT, WEIGHT, EDUCATION, 
       INCOME, USER_TEL, USER_MAIL, 
-      QQ, WECHAT, MOMO, CREATE_DATE, 
+      QQ, WECHAT, head_image, CREATE_DATE,
       LAST_LOGIN_DATE, CHARM_VALUE, USER_LEVEL, 
       hobby, JOB, AGE)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
@@ -76,7 +76,7 @@
       #{hometownCity,jdbcType=VARCHAR}, #{hometownArea,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, 
       #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
       #{income,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, 
-      #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{momo,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR},
       #{lastLoginDate,jdbcType=VARCHAR}, #{charmValue,jdbcType=VARCHAR}, #{userLevel,jdbcType=VARCHAR}, 
       #{hobby,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR})
   </insert>
@@ -143,8 +143,8 @@
       <if test="wechat != null" >
         WECHAT,
       </if>
-      <if test="momo != null" >
-        MOMO,
+      <if test="headImage != null" >
+        head_image,
       </if>
       <if test="createDate != null" >
         CREATE_DATE,
@@ -229,8 +229,8 @@
       <if test="wechat != null" >
         #{wechat,jdbcType=VARCHAR},
       </if>
-      <if test="momo != null" >
-        #{momo,jdbcType=VARCHAR},
+      <if test="headImage != null" >
+        #{headImage,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=VARCHAR},
@@ -316,8 +316,8 @@
       <if test="wechat != null" >
         WECHAT = #{wechat,jdbcType=VARCHAR},
       </if>
-      <if test="momo != null" >
-        MOMO = #{momo,jdbcType=VARCHAR},
+      <if test="headImage != null" >
+        head_image = #{headImage,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         CREATE_DATE = #{createDate,jdbcType=VARCHAR},
@@ -364,7 +364,7 @@
       USER_MAIL = #{userMail,jdbcType=VARCHAR},
       QQ = #{qq,jdbcType=VARCHAR},
       WECHAT = #{wechat,jdbcType=VARCHAR},
-      MOMO = #{momo,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=VARCHAR},
       LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=VARCHAR},
       CHARM_VALUE = #{charmValue,jdbcType=VARCHAR},

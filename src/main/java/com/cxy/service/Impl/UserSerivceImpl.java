@@ -20,6 +20,10 @@ public class UserSerivceImpl implements IuserService{
         return "succces";
     }
 
+    public TCxyUser findUserById(String userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
     public TCxyUser findUserByName(String userName) {
 
         return userMapper.findByUserName(userName);
@@ -28,5 +32,9 @@ public class UserSerivceImpl implements IuserService{
     public List<TCxyUser> findUserList(TCxyUser user) {
 
         return userMapper.findUserList(user);
+    }
+
+    public int updateUser(TCxyUser user) {
+        return userMapper.updateByPrimaryKey(user);
     }
 }
