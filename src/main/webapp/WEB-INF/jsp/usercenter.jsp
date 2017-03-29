@@ -16,7 +16,6 @@
     <script src="/asert/js/ng-file-upload.js"></script>
 </head>
 <body>
-<div class="container">
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -48,9 +47,10 @@
             </ul>
         </div>
     </nav>
-
+<div class="container">
+    <div class="row">
     <form action="/user/update" ng-app="fileUpload" ng-controller="MyCtrl" name="form">
-
+<div class="col-xs-6">
             <h2>用户会员中心</h2>
             <input type="hidden" value="${user.userId}" name="userId">
             <div class="form-group"><label >用户名：${user.userName}</label></div>
@@ -67,13 +67,18 @@
             <div class="form-group">手机：<input name="userTel" type="phone"></div>
             <div class="form-group">爱好：<input name="hobby" type="text"></div>
             <div class="form-group"><label >性别：</label>${user.userSex}</div>
-            <c:if test="${empty user.headImage}">
-            <div class="button" ngf-select="upload($file)"><button class="btn btn-primary">上传头像</button></div>
-            </c:if>
+
             <div> <img src="${user.headImage}" id="headImage"></div>
             <input name="headImage" type="hidden" id="headImageId">
             <button type="submit" class="btn btn-default">立即认证</button>
+</div>
+        <div class="col-xs-5">
+        <c:if test="${empty user.headImage}">
+            <div class="btn-upload " ngf-select="upload($file)"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传图片</div>
+        </c:if>
+        </div>
     </form>
+    </div>
 </div>
 <script>
     //inject directives and services.

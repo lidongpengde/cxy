@@ -83,7 +83,9 @@ body {
     margin: 7px 12px 0 0;
     float: left; }
 .post .post-content {
-    float: left; }
+    float: left;
+    padding: 20px;
+}
 .post .post-content h3 {
     margin: 0;
     line-height: 1.4;
@@ -97,11 +99,13 @@ body {
     display: inline-block;
     color: #aaaaaa; }
 .post .post-content p {
-    margin: 0; }
+    margin: 0;
+    margin: auto;
+    margin-top: 15px;}
 .post .discuss {
     display: block;
     float: right;
-    margin-top: 7px; }
+    margin-top: 30px; }
 .comments {
     list-style-type: none;
     margin: 0; }
@@ -175,4 +179,16 @@ body {
     clear: both;
     margin-bottom: 5px;
     pointer-events: auto;
+}
+.btn-upload {
+    color: #d9534f;
+    border: 1px solid transparent;
+    padding: .5rem 3rem;
+    font-size: 2rem;
+    border-radius: .25rem;
+    border-color: #d9534f;
+}
+.row{
+    background-color: #ffffff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }

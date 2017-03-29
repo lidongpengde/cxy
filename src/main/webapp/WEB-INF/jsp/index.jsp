@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
 </head>
 <body>
-<div class="container">
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -39,11 +38,13 @@
         </ul>
     </div>
 </nav>
+<div class="container">
+
     <c:forEach var="user" items="${userlist}" varStatus="status">
 
 
-<div class="post col-md-5">
-    <a href="#" class=""><img class="img-rounded img-responsive"  src="${user.headImage}"></a>
+<div class="post row">
+    <a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>
     <div class="post-content">
         <h3><a href="{{url}}">${user.userName}</a><span>${user.job}</span></h3>
         <p>
@@ -56,9 +57,9 @@
     <div><a href="{{pathFor 'postPage'}}" class="discuss btn btn-default">沟通一下</a></div>
 
 </div>
-<c:if test="${status.count%2=='1'}">
+<%--<c:if test="${status.count%2=='1'}">
     <div class=" col-md-2" style="background-color: #eee;border: #ce4844;border: 1px solid #eee;"></div>
-</c:if>
+</c:if>--%>
     </c:forEach>
 </div>
 
