@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Created by lidp on 2017/3/19.
@@ -43,9 +44,18 @@ public class UserController {
         }
         return oldpassWord.equals(user.getUserPassword())?"redirect:main":"error";
     }
-    @RequestMapping("/logout/{userId}")
+
+    /**
+     * 退出
+     * @param user
+     * @param response
+     * @param request
+     * @return
+     */
+    @RequestMapping("/logout")
     public String userlogout(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
-        return null;
+        UserTools.removeUserCookie(response,null);
+        return "login";
     }
     @RequestMapping("/toregister")
     public String toregister(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
@@ -55,8 +65,20 @@ public class UserController {
     public String tologin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
         return "login";
     }
+
+    /**
+     * 完善基本信息
+     * @param userId
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("/{userId}")
     public String usercenter(@PathVariable String userId,ModelMap modelMap){
+        modelMap.put("user",userService.findUserById(userId));
+        return "usercenterIndex";
+    }
+    @RequestMapping("/toUpdatePage/{userId}")
+    public String toUpdatePage(@PathVariable String userId,ModelMap modelMap){
         modelMap.put("user",userService.findUserById(userId));
         return "usercenter";
     }
@@ -64,14 +86,18 @@ public class UserController {
     @RequestMapping("/update")
     public String toregister(TCxyUser user){
         TCxyUser oldUser=userService.findUserById(user.getUserId());
-        //BeanUtils.copyProperties(user, oldUser);
+        /*BeanUtils.copyProperties(oldUser,user,TCxyUser.class);*/
         user.setUserName(oldUser.getUserName());
         user.setUserPassword(oldUser.getUserPassword());
         user.setAge(oldUser.getAge());
         user.setJob(oldUser.getJob());
         user.setUserSex(oldUser.getUserSex());
+        user.setProvince(oldUser.getProvince());
+        user.setCity(oldUser.getCity());
+        user.setArea(oldUser.getArea());
+        user.setCreateDate(new Date().toString());
         userService.updateUser(user);
-        return "register";
+        return "redirect:main";
     }
     @RequestMapping("/main")
     public String mainPage(ModelMap modelMap,TCxyUser user, HttpServletRequest request){

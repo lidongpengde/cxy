@@ -3,7 +3,7 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <title>注册</title>
+    <title>用户基本信息完善</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/asert/css/style.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
                     <a href="/user/${user.userId}">我的</a>
                 </li>
                 <li class="dropdown">
-                    <a href="/user/logout／${user.userId}">退出</a>
+                    <a href="/user/logout">退出</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -49,34 +49,100 @@
     </nav>
 <div class="container">
     <div class="row">
-    <form action="/user/update" ng-app="fileUpload" ng-controller="MyCtrl" name="form">
-<div class="col-xs-6">
-            <h2>用户会员中心</h2>
-            <input type="hidden" value="${user.userId}" name="userId">
-            <div class="form-group"><label >用户名：${user.userName}</label></div>
-            <div class="form-group"><label>工作：${user.job}</label>
-
+    <form action="/user/update" ng-app="fileUpload" ng-controller="MyCtrl" name="form" class="form-horizontal">
+<div class="col-md-5">
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="hometownProvince">家乡所在省：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="hometownProvince" name="hometownProvince" placeholder="Large input">
             </div>
-            <div class="form-group"><label >年龄：</label>${user.age}</div>
-         <%--   <div class="form-group">家乡所在省：<input name="hometownProvince" type="text"></div>
-            <div class="form-group">家乡所在市：<input name="hometownCity" type="text"></div>
-            <div class="form-group">家乡所在区：<input name="hometownArea" type="text"></div>--%>
-            <div class="form-group">昵称：<input name="nickname" type="text"></div>
-            <div class="form-group">学历：<input name="education" type="text"></div>
-            <div class="form-group">收入：<input name="income" type="number"></div>
-            <div class="form-group">手机：<input name="userTel" type="phone"></div>
-            <div class="form-group">爱好：<input name="hobby" type="text"></div>
-            <div class="form-group"><label >性别：</label>${user.userSex}</div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="hometownCity">家乡所在市：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="hometownCity" name="hometownCity" placeholder="Small input">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="hometownArea">家乡所在区</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="hometownArea" name="hometownArea" placeholder="Large input">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="nickname">昵称：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="nickname" name="nickname" placeholder="老王">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="education">学历：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="education" name="education" placeholder="Large input">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="income">收入：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="income" name="income" placeholder="10">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="userTel">电话：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="userTel" name="userTel" placeholder="13565266598">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="hobby">爱好：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="hobby" name="hobby" placeholder="lol">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="birthday">生日：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="birthday" name="birthday" placeholder="Small input">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="height">身高：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="height" name="height" placeholder="身高">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="weight">体重：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="weight" name="weight" placeholder="体重">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="userMail">邮箱：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="userMail" name="userMail" placeholder="215@qq.com">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="qq">qq：</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="qq" name="qq" placeholder="">
+            </div>
+        </div>
 
-            <div> <img src="${user.headImage}" id="headImage"></div>
+            <input type="hidden" value="${user.userId}" name="userId">
+
             <input name="headImage" type="hidden" id="headImageId">
-            <button type="submit" class="btn btn-default">立即认证</button>
+
 </div>
-        <div class="col-xs-5">
+        <div class="col-md-5">
         <c:if test="${empty user.headImage}">
             <div class="btn-upload " ngf-select="upload($file)"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传图片</div>
         </c:if>
+            <div class="col-md-5"> <img src="${user.headImage}" id="headImage" class="img-circle img-responsive"></div>
+            <button type="submit" class="btn btn-default" style="width: 100%">立即认证</button>
         </div>
+
     </form>
     </div>
 </div>

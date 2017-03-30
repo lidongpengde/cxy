@@ -31,6 +31,7 @@
                 <a href="/user/${user.userId}">我的</a>
             </li>
             <li class="dropdown">
+                <a href="/user/logout">退出</a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

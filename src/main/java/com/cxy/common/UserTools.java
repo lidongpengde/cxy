@@ -3,7 +3,9 @@ package com.cxy.common;
 
 import com.cxy.entity.TCxyUser;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -19,5 +21,12 @@ public class UserTools {
         String str = uuid.toString();
         String uuidStr=str.replace("-", "");
         return uuidStr;
+    }
+    public static  void removeUserCookie(HttpServletResponse response, String domain){
+        Cookie cookie=new Cookie("JSESSIONID", null);
+        //cookie.setDomain(domain);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 }
