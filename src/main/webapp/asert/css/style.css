@@ -96,8 +96,7 @@ body {
 .post .post-content h3 span {
     font-weight: normal;
     font-size: 14px;
-    display: inline-block;
-    color: #aaaaaa; }
+    display: inline-block;  }
 .post .post-content p {
     margin: 0;
     margin: auto;

@@ -45,16 +45,7 @@ public class UserController {
     }
     @RequestMapping("/logout/{userId}")
     public String userlogout(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
-        String oldpassWord= user.getUserPassword();
-        user=userService.findUserByName(user.getUserName());
-        if (user==null)
-            return "redirect:tologin";
-        if (oldpassWord.equals(user.getUserPassword())){
-            Cookie cookie=new Cookie("usercook",user.getUserId());
-            response.addCookie(cookie);
-            request.getSession().setAttribute("loginuser",user);
-        }
-        return oldpassWord.equals(user.getUserPassword())?"redirect:main":"error";
+        return null;
     }
     @RequestMapping("/toregister")
     public String toregister(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
@@ -78,6 +69,7 @@ public class UserController {
         user.setUserPassword(oldUser.getUserPassword());
         user.setAge(oldUser.getAge());
         user.setJob(oldUser.getJob());
+        user.setUserSex(oldUser.getUserSex());
         userService.updateUser(user);
         return "register";
     }

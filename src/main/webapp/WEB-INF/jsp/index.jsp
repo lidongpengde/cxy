@@ -46,12 +46,18 @@
 <div class="post row">
     <a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>
     <div class="post-content">
-        <h3><a href="{{url}}">${user.userName}</a><span>${user.job}</span></h3>
+        <h3><a href="{{url}}"></a><span class="label label-danger">${user.job}</span></h3>
         <p>
-            ${user.income},
-                ${user.age},
-            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${user.hometownProvince}
-                爱好:<span>${user.hobby}</span>
+                ${user.age}岁,
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${user.city}
+                    <c:choose>
+                        <c:when test="${user.userSex=='0'}">
+                            <span class="label label-default">女</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="label label-default">男</span>
+                        </c:otherwise>
+                    </c:choose>
         </p>
     </div>
     <div><a href="{{pathFor 'postPage'}}" class="discuss btn btn-default">沟通一下</a></div>
