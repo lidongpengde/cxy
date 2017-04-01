@@ -19,8 +19,8 @@
     <form action="savelogin">
         <div class="container" id="register">
             <h2>会员注册中心</h2>
-            <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text"></div>
-            <div class="form-group"><label for="userPassword">密码：</label><input id="userPassword"class="form-control" name="userPassword" type="password"></div>
+            <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text" required></div>
+            <div class="form-group"><label for="userPassword">密码：</label><input id="userPassword"class="form-control" name="userPassword" type="password" required></div>
             <div class="form-group"><label for="job">工作：</label>
                 <select class="form-control"id="job" name="job">
                     <option>java工程师</option>
@@ -32,9 +32,9 @@
             </div>
             <div class="form-group"><label for="age">年龄：</label><input id="age" name="age" type="number"class="form-control"></div>
 
-            <input name="province" type="text" v-model="province">
-            <input name="city" type="text" v-model="city">
-             <input name="area" type="text" v-model="area">
+            <input name="province" type="hidden" v-model="province">
+            <input name="city" type="hidden" v-model="city">
+             <input name="area" type="hidden" v-model="area">
             <div class="form-group">
                 <label>
                     <input type="radio" name="userSex" value="0"> 女

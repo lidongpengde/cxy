@@ -1,5 +1,6 @@
 package com.cxy.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cxy.common.UserTools;
 import com.cxy.entity.TCxyUser;
 import com.cxy.service.IuserService;
@@ -32,17 +33,28 @@ public class UserController {
         return "login";
     }
     @RequestMapping("/login")
-    public String userlogin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
+    @ResponseBody
+    public JSONObject userlogin(TCxyUser user, HttpServletResponse response, HttpServletRequest request){
+        JSONObject jsonObject=new JSONObject();
        String oldpassWord= user.getUserPassword();
         user=userService.findUserByName(user.getUserName());
-        if (user==null)
-            return "redirect:tologin";
+        if (user==null){
+            jsonObject.put("message","用户不存在");
+            jsonObject.put("code",404);
+            return jsonObject;
+        }
         if (oldpassWord.equals(user.getUserPassword())){
             Cookie cookie=new Cookie("usercook",user.getUserId());
             response.addCookie(cookie);
             request.getSession().setAttribute("loginuser",user);
+            jsonObject.put("message","登录成功");
+            jsonObject.put("code",200);
+        }else{
+            jsonObject.put("message","用户名和密码不匹配");
+            jsonObject.put("code",500);
+            return jsonObject;
         }
-        return oldpassWord.equals(user.getUserPassword())?"redirect:main":"error";
+        return jsonObject;
     }
 
     /**

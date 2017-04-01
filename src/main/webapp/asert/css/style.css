@@ -160,14 +160,11 @@ body {
     100% {opacity: 0;}
 }
 .errors{
-    position: fixed;
-    z-index: 10000;
-    padding: 10px;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    pointer-events: none;
+    position: relative;
+    color: #e4393c;
+    padding: 3px 10px 3px 40px;
+    line-height: 15px;
+    height: auto;
 }
 .alert {
     animation: fadeOut 2700ms ease-in 0s 1 forwards;

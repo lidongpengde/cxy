@@ -54,7 +54,7 @@ public class UploadAction {
     public String download(@PathVariable String filename, HttpServletRequest request,
                            HttpServletResponse response) {
         String path = request.getSession().getServletContext().getRealPath("upload");
-        path=path+"/"+filename+".jpg";
+        path=path+File.separator+filename;
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");
         response.setHeader("Content-Disposition", "attachment;fileName="
