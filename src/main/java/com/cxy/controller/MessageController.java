@@ -1,5 +1,6 @@
 package com.cxy.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cxy.common.UserTools;
 import com.cxy.entity.Message;
 import com.cxy.entity.TCxyUser;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,11 +22,20 @@ public class MessageController {
     @Autowired
     private ImessageService messageService;
     @RequestMapping(value = "/addMessage",method = RequestMethod.POST)
-    public String addMessage(HttpServletRequest request, Message message){
+    @ResponseBody
+    public JSONObject addMessage(HttpServletRequest request, Message message){
+        JSONObject jsonObject=new JSONObject();
         TCxyUser user=UserTools.getCurrentUser(request);
         message.setSenderId(user.getUserId());
         message.setSenderName(user.getUserName());
-        messageService.sendMessage(message);
-        return null;
+        int size=messageService.sendMessage(message);
+        if (size==0){
+            jsonObject.put("message","发送成功");
+            jsonObject.put("code","200");
+        }else{
+            jsonObject.put("message","发送失败");
+            jsonObject.put("code","500");
+        }
+        return jsonObject;
     }
 }

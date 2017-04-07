@@ -78,7 +78,7 @@
                 <input type="hidden" name="receiverName" value="${user.userName}">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" onclick="sendMessage()">发送</button>
+                    <button type="button" class="btn btn-primary" onclick="sendMessage()" data-dismiss="modal">发送</button>
                 </div>
             </div>
             </form>
@@ -104,7 +104,7 @@
                 alert("Connection error");
             },
             success: function(data) {
-                alert("seccess");
+                alert(data.message)
             }
         });
     }
