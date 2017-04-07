@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soft.mapping.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.soft.model.Message">
+    <id column="msg_id" jdbcType="VARCHAR" property="msg_id" />
+    <result column="sender_id" jdbcType="VARCHAR" property="sender_id" />
+    <result column="sender_name" jdbcType="VARCHAR" property="sender_name" />
+    <result column="receiver_id" jdbcType="VARCHAR" property="receiver_id" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiver_name" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="is_read" jdbcType="INTEGER" property="is_read" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="send_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msg_id, sender_id, sender_name, receiver_id, receiver_name, content, is_read, send_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from message
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.soft.model.Message">
+    insert into message (msg_id, sender_id, sender_name, 
+      receiver_id, receiver_name, content, 
+      is_read, send_time)
+    values (#{msg_id,jdbcType=VARCHAR}, #{sender_id,jdbcType=VARCHAR}, #{sender_name,jdbcType=VARCHAR}, 
+      #{receiver_id,jdbcType=VARCHAR}, #{receiver_name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{is_read,jdbcType=INTEGER}, #{send_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soft.model.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msg_id != null">
+        msg_id,
+      </if>
+      <if test="sender_id != null">
+        sender_id,
+      </if>
+      <if test="sender_name != null">
+        sender_name,
+      </if>
+      <if test="receiver_id != null">
+        receiver_id,
+      </if>
+      <if test="receiver_name != null">
+        receiver_name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="is_read != null">
+        is_read,
+      </if>
+      <if test="send_time != null">
+        send_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msg_id != null">
+        #{msg_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sender_id != null">
+        #{sender_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sender_name != null">
+        #{sender_name,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_id != null">
+        #{receiver_id,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_name != null">
+        #{receiver_name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="is_read != null">
+        #{is_read,jdbcType=INTEGER},
+      </if>
+      <if test="send_time != null">
+        #{send_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soft.model.Message">
+    update message
+    <set>
+      <if test="sender_id != null">
+        sender_id = #{sender_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sender_name != null">
+        sender_name = #{sender_name,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_id != null">
+        receiver_id = #{receiver_id,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_name != null">
+        receiver_name = #{receiver_name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="is_read != null">
+        is_read = #{is_read,jdbcType=INTEGER},
+      </if>
+      <if test="send_time != null">
+        send_time = #{send_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soft.model.Message">
+    update message
+    set sender_id = #{sender_id,jdbcType=VARCHAR},
+      sender_name = #{sender_name,jdbcType=VARCHAR},
+      receiver_id = #{receiver_id,jdbcType=VARCHAR},
+      receiver_name = #{receiver_name,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      is_read = #{is_read,jdbcType=INTEGER},
+      send_time = #{send_time,jdbcType=TIMESTAMP}
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.soft.model.Message">
+    <id column="msg_id" jdbcType="VARCHAR" property="msg_id" />
+    <result column="sender_id" jdbcType="VARCHAR" property="sender_id" />
+    <result column="sender_name" jdbcType="VARCHAR" property="sender_name" />
+    <result column="receiver_id" jdbcType="VARCHAR" property="receiver_id" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiver_name" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="is_read" jdbcType="INTEGER" property="is_read" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="send_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msg_id, sender_id, sender_name, receiver_id, receiver_name, content, is_read, send_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from message
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.soft.model.Message">
+    insert into message (msg_id, sender_id, sender_name, 
+      receiver_id, receiver_name, content, 
+      is_read, send_time)
+    values (#{msg_id,jdbcType=VARCHAR}, #{sender_id,jdbcType=VARCHAR}, #{sender_name,jdbcType=VARCHAR}, 
+      #{receiver_id,jdbcType=VARCHAR}, #{receiver_name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{is_read,jdbcType=INTEGER}, #{send_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soft.model.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msg_id != null">
+        msg_id,
+      </if>
+      <if test="sender_id != null">
+        sender_id,
+      </if>
+      <if test="sender_name != null">
+        sender_name,
+      </if>
+      <if test="receiver_id != null">
+        receiver_id,
+      </if>
+      <if test="receiver_name != null">
+        receiver_name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="is_read != null">
+        is_read,
+      </if>
+      <if test="send_time != null">
+        send_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msg_id != null">
+        #{msg_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sender_id != null">
+        #{sender_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sender_name != null">
+        #{sender_name,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_id != null">
+        #{receiver_id,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_name != null">
+        #{receiver_name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="is_read != null">
+        #{is_read,jdbcType=INTEGER},
+      </if>
+      <if test="send_time != null">
+        #{send_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soft.model.Message">
+    update message
+    <set>
+      <if test="sender_id != null">
+        sender_id = #{sender_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sender_name != null">
+        sender_name = #{sender_name,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_id != null">
+        receiver_id = #{receiver_id,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver_name != null">
+        receiver_name = #{receiver_name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="is_read != null">
+        is_read = #{is_read,jdbcType=INTEGER},
+      </if>
+      <if test="send_time != null">
+        send_time = #{send_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soft.model.Message">
+    update message
+    set sender_id = #{sender_id,jdbcType=VARCHAR},
+      sender_name = #{sender_name,jdbcType=VARCHAR},
+      receiver_id = #{receiver_id,jdbcType=VARCHAR},
+      receiver_name = #{receiver_name,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      is_read = #{is_read,jdbcType=INTEGER},
+      send_time = #{send_time,jdbcType=TIMESTAMP}
+    where msg_id = #{msg_id,jdbcType=VARCHAR}
+  </update>
+</mapper>
