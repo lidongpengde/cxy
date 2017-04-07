@@ -65,19 +65,23 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal${status.count}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
+            <form action="" method="post" id="message">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">${user.userName}</h4>
                 </div>
                 <div class="modal-body">
-                    <textarea class="form-control" rows="3"></textarea>
+                    <textarea class="form-control" rows="3" name="content"></textarea>
                 </div>
+                <input type="hidden" name="receiverId" value="${user.userId}">
+                <input type="hidden" name="receiverName" value="${user.userName}">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">发送</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="sendMessage()">发送</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -89,5 +93,22 @@
 
 <script src="/asert/js/jquery-3.1.1.min.js"></script>
 <script src="/asert/js/bootstrap.js"></script>
+<script>
+    function sendMessage() {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url:"/message/addMessage",
+            data:$('#message').serialize(),// 你的formid
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(data) {
+                alert("seccess");
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

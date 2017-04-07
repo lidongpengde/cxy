@@ -1,62 +1,62 @@
-package com.soft.model;
+package com.cxy.entity;
 
 import java.util.Date;
 
 public class Message {
-    private String msg_id;
+    private String msgId;
 
-    private String sender_id;
+    private String senderId;
 
-    private String sender_name;
+    private String senderName;
 
-    private String receiver_id;
+    private String receiverId;
 
-    private String receiver_name;
+    private String receiverName;
 
     private String content;
 
-    private Integer is_read;
+    private Integer isRead;
 
-    private Date send_time;
+    private Date sendTime;
 
-    public String getMsg_id() {
-        return msg_id;
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setMsg_id(String msg_id) {
-        this.msg_id = msg_id == null ? null : msg_id.trim();
+    public void setMsgId(String msgId) {
+        this.msgId = msgId == null ? null : msgId.trim();
     }
 
-    public String getSender_id() {
-        return sender_id;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setSender_id(String sender_id) {
-        this.sender_id = sender_id == null ? null : sender_id.trim();
+    public void setSenderId(String senderId) {
+        this.senderId = senderId == null ? null : senderId.trim();
     }
 
-    public String getSender_name() {
-        return sender_name;
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setSender_name(String sender_name) {
-        this.sender_name = sender_name == null ? null : sender_name.trim();
+    public void setSenderName(String senderName) {
+        this.senderName = senderName == null ? null : senderName.trim();
     }
 
-    public String getReceiver_id() {
-        return receiver_id;
+    public String getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiver_id(String receiver_id) {
-        this.receiver_id = receiver_id == null ? null : receiver_id.trim();
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId == null ? null : receiverId.trim();
     }
 
-    public String getReceiver_name() {
-        return receiver_name;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setReceiver_name(String receiver_name) {
-        this.receiver_name = receiver_name == null ? null : receiver_name.trim();
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName == null ? null : receiverName.trim();
     }
 
     public String getContent() {
@@ -67,19 +67,19 @@ public class Message {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getIs_read() {
-        return is_read;
+    public Integer getIsRead() {
+        return isRead;
     }
 
-    public void setIs_read(Integer is_read) {
-        this.is_read = is_read;
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 
-    public Date getSend_time() {
-        return send_time;
+    public Date getSendTime() {
+        return sendTime;
     }
 
-    public void setSend_time(Date send_time) {
-        this.send_time = send_time;
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
     }
 }

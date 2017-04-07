@@ -1,15 +1,19 @@
-package com.soft.mapping;
+package com.cxy.dao;
 
-import com.soft.model.Message;
 
+import com.cxy.entity.Message;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
 public interface MessageMapper {
-    int deleteByPrimaryKey(String msg_id);
+    int deleteByPrimaryKey(String msgId);
 
     int insert(Message record);
 
     int insertSelective(Message record);
 
-    Message selectByPrimaryKey(String msg_id);
+    Message selectByPrimaryKey(String msgId);
 
     int updateByPrimaryKeySelective(Message record);
 

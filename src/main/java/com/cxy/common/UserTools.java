@@ -6,6 +6,8 @@ import com.cxy.entity.TCxyUser;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -28,5 +30,9 @@ public class UserTools {
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+    }
+    public static Date getCurrentTime() {
+
+        return new Date();
     }
 }
