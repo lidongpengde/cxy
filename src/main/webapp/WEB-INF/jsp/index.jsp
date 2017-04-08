@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
 </head>
-<body>
+<body style="background-color: #eee">
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -49,7 +49,7 @@
 <div class="post row">
     <a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>
     <div class="post-content">
-        <h3><a href="{{url}}"></a><span class="label label-danger">${user.job}</span></h3>
+        <h3><a href="#">${user.nickname}</a><span class="label label-danger">${user.job}</span></h3>
         <p>
             <b><span class="label label-warning">${user.age}岁</span></b>
             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${user.city}
@@ -71,13 +71,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">${user.userName}</h4>
+                    <h4 class="modal-title" id="myModalLabel">${user.nickname}</h4>
                 </div>
                 <div class="modal-body">
                     <textarea class="form-control" rows="3" name="content"></textarea>
                 </div>
                 <input type="hidden" name="receiverId" value="${user.userId}">
-                <input type="hidden" name="receiverName" value="${user.userName}">
+                <input type="hidden" name="receiverName" value="${user.nickname}">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" onclick="sendMessage()" data-dismiss="modal">发送</button>

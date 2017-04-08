@@ -30,7 +30,7 @@ public class MessageController {
         JSONObject jsonObject=new JSONObject();
         TCxyUser user=UserTools.getCurrentUser(request);
         message.setSenderId(user.getUserId());
-        message.setSenderName(user.getUserName());
+        message.setSenderName(user.getNickname());
         int size=messageService.sendMessage(message);
         if (size==0){
             jsonObject.put("message","发送成功");

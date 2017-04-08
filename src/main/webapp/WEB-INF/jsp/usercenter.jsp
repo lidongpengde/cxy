@@ -53,7 +53,7 @@
     <div class="row">
     <form action="/user/update" ng-app="fileUpload" ng-controller="MyCtrl" name="form" class="form-horizontal">
 <div class="col-md-5">
-        <div class="form-group ">
+       <%-- <div class="form-group ">
             <label class="col-sm-2 control-label" for="hometownProvince">家乡所在省：</label>
             <div class="col-sm-10">
                 <input class="form-control" type="text" id="hometownProvince" name="hometownProvince" placeholder="Large input">
@@ -70,29 +70,36 @@
             <div class="col-sm-10">
                 <input class="form-control" type="text" id="hometownArea" name="hometownArea" placeholder="Large input">
             </div>
-        </div>
+        </div>--%>
         <div class="form-group ">
             <label class="col-sm-2 control-label" for="nickname">昵称：</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="nickname" name="nickname" placeholder="老王">
+                <input class="form-control" type="text" id="nickname" name="nickname" placeholder="老王" required>
             </div>
         </div>
         <div class="form-group ">
             <label class="col-sm-2 control-label" for="education">学历：</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="education" name="education" placeholder="Large input">
+                <select class="form-control" name="education" id="education">
+                <option>高中及以下</option>
+                <option>中专</option>
+                <option>大专</option>
+                <option>硕士</option>
+                <option>博士</option>
+                </select>
+
             </div>
         </div>
         <div class="form-group ">
             <label class="col-sm-2 control-label" for="income">收入：</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="income" name="income" placeholder="10">
+                <input class="form-control" type="number" id="income" name="income" placeholder="10">
             </div>
         </div>
         <div class="form-group ">
             <label class="col-sm-2 control-label" for="userTel">电话：</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="userTel" name="userTel" placeholder="13565266598">
+                <input class="form-control" type="text" pattern="^1[3-9]\d{9}$" id="userTel" name="userTel" placeholder="13565266598" required>
             </div>
         </div>
         <div class="form-group ">
@@ -104,7 +111,7 @@
         <div class="form-group ">
             <label class="col-sm-2 control-label" for="birthday">生日：</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="birthday" name="birthday" placeholder="Small input">
+                <input class="form-control" type="date" id="birthday" name="birthday" placeholder="Small input">
             </div>
         </div>
         <div class="form-group ">
@@ -138,11 +145,13 @@
 
 </div>
         <div class="col-md-5">
+            <div  style="height: 140px;width: 140px;"> <img src="${user.headImage}" id="headImage" class=" img-responsive"></div>
         <c:if test="${empty user.headImage}">
-            <div class="btn-upload " ngf-select="upload($file)"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传图片</div>
+            <div class="btn-upload text-center" ngf-select="upload($file)"><span class=" glyphicon glyphicon-upload " aria-hidden="true"></span>上传图片</div>
         </c:if>
-            <div class="col-md-5"> <img src="${user.headImage}" id="headImage" class="img-circle img-responsive"></div>
+        <div style="margin-top: 10px">
             <button type="submit" class="btn btn-default" style="width: 100%">立即认证</button>
+        </div>
         </div>
 
     </form>

@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -104,7 +105,9 @@ public class UserController {
     public String toregister(TCxyUser user){
         TCxyUser oldUser=userService.findUserById(user.getUserId());
         /*BeanUtils.copyProperties(oldUser,user,TCxyUser.class);*/
-        user.setHeadImage(oldUser.getHeadImage());
+        if (StringUtils.isEmpty(user.getHeadImage())){
+            user.setHeadImage(oldUser.getHeadImage());
+        }
         user.setUserName(oldUser.getUserName());
         user.setUserPassword(oldUser.getUserPassword());
         user.setAge(oldUser.getAge());
