@@ -14,11 +14,23 @@
   <sql id="Base_Column_List">
     msg_id, sender_id, sender_name, receiver_id, receiver_name, content, is_read, send_time
   </sql>
+  <select id="selectMessageList" parameterType="java.lang.String" resultMap="BaseResultMap" useCache="true" fetchSize="20">
+    select
+    <include refid="Base_Column_List" />
+    from message
+    where  receiver_id = #{receiver_id,jdbcType=VARCHAR} and is_read=0
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from message
     where msg_id = #{msgId,jdbcType=VARCHAR}
+  </select>
+  <select id="countMessage" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    count(*)
+    from message
+    where receiver_id = #{receiver_id,jdbcType=VARCHAR} and is_read=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from message

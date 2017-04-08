@@ -1,18 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lidp
-  Date: 2017/3/19
-  Time: 下午8:03
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>会员注册中心</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/asert/css/style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=23834821b1465df3fa84571571947619"></script>
     <script type="text/javascript" src="/asert/js/vue.js"></script>
+    <script type="text/javascript" src="/asert/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/asert/js/bootstrap.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -103,18 +99,41 @@
             area:''
         }
     })
-    var map = new AMap.Map('container', {
+    /***************************************
+     由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
+     ***************************************/
+    var map, geolocation;
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map('container', {
         resizeEnable: true
     });
-
-    map.on('moveend', getCity);
-    function getCity() {
-        map.getCity(function(data) {
-            debugger
-            if (data['province'] && typeof data['province'] === 'string') {
-                document.getElementById('info').innerHTML = '城市：' + (data['city'] || data['province']);
-            }
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
         });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+        debugger
+        register.province=data.addressComponent.province;
+        if(data.addressComponent.city)
+            register.city=data.addressComponent.city;
+        else
+            register.city=data.addressComponent.province;
+        register.area=data.addressComponent.district;
+        var alladdress=data.formattedAddress;
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('tip').innerHTML = '定位失败';
     }
 </script>
 </body>

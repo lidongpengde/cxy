@@ -3,6 +3,7 @@ package com.cxy.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.cxy.common.UserTools;
 import com.cxy.entity.TCxyUser;
+import com.cxy.service.ImessageService;
 import com.cxy.service.IuserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ import java.util.Date;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    IuserService userService;
+    private IuserService userService;
+    @Autowired
+    private ImessageService messageService;
     @RequestMapping("/savelogin")
     public String saveUser(TCxyUser user){
         user.setUserId(UserTools.getUUID());
@@ -86,7 +89,9 @@ public class UserController {
      */
     @RequestMapping("/{userId}")
     public String usercenter(@PathVariable String userId,ModelMap modelMap){
+       int msgCount= messageService.getMyMessageCount(userId);
         modelMap.put("user",userService.findUserById(userId));
+        modelMap.put("msgCount",msgCount);
         return "usercenterIndex";
     }
     @RequestMapping("/toUpdatePage/{userId}")
@@ -99,6 +104,7 @@ public class UserController {
     public String toregister(TCxyUser user){
         TCxyUser oldUser=userService.findUserById(user.getUserId());
         /*BeanUtils.copyProperties(oldUser,user,TCxyUser.class);*/
+        user.setHeadImage(oldUser.getHeadImage());
         user.setUserName(oldUser.getUserName());
         user.setUserPassword(oldUser.getUserPassword());
         user.setAge(oldUser.getAge());

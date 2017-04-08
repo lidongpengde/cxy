@@ -7,11 +7,14 @@ import com.cxy.entity.TCxyUser;
 import com.cxy.service.ImessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by lidongpeng on 2017/4/7.
@@ -38,4 +41,13 @@ public class MessageController {
         }
         return jsonObject;
     }
+    @RequestMapping(value = "/list/{userId}",method = RequestMethod.GET)
+    public String listMessage(@PathVariable String userId, ModelMap map){
+        JSONObject jsonObject=new JSONObject();
+
+        List<Message> list=messageService.getMessageList(userId);
+        map.put("msgList",list);
+        return "messageList";
+    }
+
 }
