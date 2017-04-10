@@ -59,8 +59,9 @@
                     if(response.body.code==200){
                         debugger
                         location.href="/user/main";
+                    }else {
+                        this.error=response.body.message;
                     }
-                    this.error=response.body.message;
                 });
 
             }
