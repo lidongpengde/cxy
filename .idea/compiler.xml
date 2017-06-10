@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="cxy" target="1.5" />
+      <module name="cxy" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

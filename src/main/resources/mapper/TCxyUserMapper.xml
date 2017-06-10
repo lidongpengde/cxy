@@ -41,7 +41,7 @@
     select
     <include refid="Base_Column_List" />
     from t_cxy_user
-    where 1=1 limit 10
+    where USER_SEX!=#{userSex} and USER_ID!=#{userId} limit 10
   </select>
   <select id="findByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select

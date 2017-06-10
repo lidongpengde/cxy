@@ -127,4 +127,9 @@ public class UserController {
         modelMap.put("user",user);
         return "index";
     }
+    @RequestMapping("/random")
+    public String mainPage(HttpServletRequest request){
+
+        return "random";
+    }
 }

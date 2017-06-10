@@ -18,7 +18,7 @@
     select
     <include refid="Base_Column_List" />
     from message
-    where  receiver_id = #{receiver_id,jdbcType=VARCHAR} and is_read=0
+    where  receiver_id = #{receiver_id,jdbcType=VARCHAR} and is_read=0 order by send_time desc
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
