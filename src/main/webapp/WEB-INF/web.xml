@@ -28,17 +28,52 @@
     <!-- 默认匹配所有的请求 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-   <servlet-name>default</servlet-name>
-   <url-pattern>*.js</url-pattern>
-   <url-pattern>*.css</url-pattern>
-   <url-pattern>/asert/*"</url-pattern>
-    <url-pattern>/images/*</url-pattern>
-      <url-pattern>*.eot</url-pattern>
-      <url-pattern>*.svg</url-pattern>
-      <url-pattern>*.ttf</url-pattern>
-      <url-pattern>*.woff</url-pattern>
-      <url-pattern>*.woff2</url-pattern>
-  </servlet-mapping>
+<!--过滤器-->
+    <filter>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>
+            <param-value>http://localhost:8080/login</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://localhost:8081</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+<!--过滤器验证st-->
+    <filter>
+        <filter-name>CAS Validation Filter</filter-name>
+        <filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>http://localhost:8080</param-value>
+        </init-param>
+        <init-param> <param-name>serverName</param-name>
+            <param-value>http://localhost:8081</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS Validation Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>CAS Single Sign Out Filter</filter-name>
+        <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS Single Sign Out Filter</filter-name>
+    <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
 </web-app>

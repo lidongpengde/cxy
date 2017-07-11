@@ -2,6 +2,8 @@ package com.cxy.test;
 
 import redis.clients.jedis.Jedis;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -25,5 +27,7 @@ loop();
     public static   void loop(){
         List<String> list = Arrays.asList("a", "b", "c", "d", "e", "f");
         list.forEach(s -> System.out.println(s));
+        InputStream inputStream;
+        InputStreamReader inputStreamReader;
     }
 }

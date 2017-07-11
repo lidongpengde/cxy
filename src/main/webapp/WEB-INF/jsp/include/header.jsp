@@ -34,6 +34,8 @@
             </li>
             <li class="dropdown">
                 <a href="/user/logout">退出</a>
+                <a href="http://localhost:8080/logout">登出sso</a>
+
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

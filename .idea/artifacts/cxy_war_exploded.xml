@@ -47,6 +47,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-oxm:4.3.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.24" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.24" />
+          <element id="library" level="project" name="Maven: org.jasig.cas.client:cas-client-core:3.2.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
