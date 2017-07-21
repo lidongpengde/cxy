@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxy.dao.LineInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cxy.entity.LineInfo">
+    <id column="lid" jdbcType="INTEGER" property="lid" />
+    <result column="start" jdbcType="VARCHAR" property="start" />
+    <result column="end" jdbcType="VARCHAR" property="end" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="plate_number" jdbcType="INTEGER" property="plateNumber" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="isBargin" jdbcType="INTEGER" property="isbargin" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="person_count" jdbcType="INTEGER" property="personCount" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    lid, start, end, start_time, plate_number, price, isBargin, status, person_count, 
+    type, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from line_info
+    where lid = #{lid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from line_info
+    where lid = #{lid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cxy.entity.LineInfo">
+    insert into line_info (lid, start, end, 
+      start_time, plate_number, price, 
+      isBargin, status, person_count, 
+      type, user_id)
+    values (#{lid,jdbcType=INTEGER}, #{start,jdbcType=VARCHAR}, #{end,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{plateNumber,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{isbargin,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{personCount,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxy.entity.LineInfo">
+    insert into line_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lid != null">
+        lid,
+      </if>
+      <if test="start != null">
+        start,
+      </if>
+      <if test="end != null">
+        end,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="plateNumber != null">
+        plate_number,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="isbargin != null">
+        isBargin,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="personCount != null">
+        person_count,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lid != null">
+        #{lid,jdbcType=INTEGER},
+      </if>
+      <if test="start != null">
+        #{start,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null">
+        #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plateNumber != null">
+        #{plateNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="isbargin != null">
+        #{isbargin,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="personCount != null">
+        #{personCount,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.LineInfo">
+    update line_info
+    <set>
+      <if test="start != null">
+        start = #{start,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null">
+        end = #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plateNumber != null">
+        plate_number = #{plateNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="isbargin != null">
+        isBargin = #{isbargin,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="personCount != null">
+        person_count = #{personCount,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxy.entity.LineInfo">
+    update line_info
+    set start = #{start,jdbcType=VARCHAR},
+      end = #{end,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      plate_number = #{plateNumber,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      isBargin = #{isbargin,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      person_count = #{personCount,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+  <sql id="sql_where" >
+    <where >
+      <if test="start != null" >
+        and start = #{start}
+      </if>
+      <if test="end != null" >
+        and end = #{end}
+      </if>
+      <if test="startTime != null" >
+        and start_time = #{startTime}
+      </if>
+      <if test="plateNumber != null" >
+        and plate_number = #{plateNumber}
+      </if>
+      <if test="price != null" >
+        and price = #{accountId}
+      </if>
+      <if test="isbargin != null" >
+        and isBargin = #{isbargin}
+      </if>
+      <if test="status != null" >
+        and status = #{status}
+      </if>
+      <if test="personCount != null" >
+        and person_count = #{personCount}
+      </if>
+      <if test="type != null" >
+        and type = #{type}
+      </if>
+      <if test="userId != null" >
+        and user_id = #{userId}
+      </if>
+    </where>
+  </sql>
+  <select id="getLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
+    select * from line_info
+    <include refid="sql_where" />
+  </select>
+</mapper>

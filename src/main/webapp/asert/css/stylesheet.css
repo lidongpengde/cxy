@@ -1,0 +1,45 @@
+.container{
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.form-group{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+ .login-tab-l,  .login-tab-r {
+    width: 173px;
+     background-color: #fff;
+     padding-bottom: 20px;
+}
+ .login-tab {
+    height: 40px;
+    font-size: 18px;
+    font-family: "microsoft yahei";
+    text-align: center;
+    display: block;
+}
+ .login-tab-r {
+    right: 30px;
+}
+.login-tab-l,  .login-tab-r {
+    width: 173px;
+}
+ .login-tab {
+    height: 40px;
+    font-size: 18px;
+    font-family: "microsoft yahei";
+    text-align: center;
+    position: absolute;
+    display: block;
+}
+.aaa{
+    padding-bottom: 40px;
+    background-color: #fff;
+}
+.login-tab a.checked,  .login-tab a:hover {
+    font-weight: 700;
+    color: #e4393c;
+}
+

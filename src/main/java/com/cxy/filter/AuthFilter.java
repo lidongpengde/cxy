@@ -1,6 +1,8 @@
 package com.cxy.filter;
 
 
+import com.cxy.entity.User;
+
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -8,6 +10,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,24 +21,25 @@ import javax.servlet.http.HttpSession;
  */
 public class AuthFilter implements Filter {
 
-
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest httpRequest=(HttpServletRequest)request;
-        HttpServletResponse httpResponse=(HttpServletResponse)response;
-        HttpSession session=httpRequest.getSession();
-        if(session.getAttribute("username")!=null){
-            filterChain.doFilter(request, response);
-        }
-        else{
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }
-    }
-
     public void destroy() {
+        // TODO Auto-generated method stub
+    }
 
+    public void doFilter(ServletRequest arg0, ServletResponse arg1,
+                         FilterChain arg2) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest)arg0;
+        HttpServletResponse resp =(HttpServletResponse) arg1;
+        HttpSession session = req.getSession();
+        String path = req.getRequestURI();
+        User password = (User) session.getAttribute("const_user");
+        if (password == null || "".equals(password)) {
+            // 跳转到登陆页面
+            resp.sendRedirect("login.jsp");
+        } else {
+            arg2.doFilter(req, resp);
+        }
+    }
+    public void init(FilterConfig arg0) throws ServletException {
+        // TODO Auto-generated method stub
     }
 }

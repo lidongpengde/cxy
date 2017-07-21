@@ -8,77 +8,46 @@
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
 </head>
 <body style="background-color: #eee">
-<jsp:include page="include/header.jsp"></jsp:include>
-<div class="container">
+<%--<jsp:include page="include/header.jsp"></jsp:include>--%>
+<div class="container" id="app">
 
-    <c:forEach var="user" items="${userlist}" varStatus="status">
-
-
-<div class="post row">
-    <a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>
-    <div class="post-content">
-        <h3><a href="#">${user.nickname}</a><span class="label label-danger">${user.job}</span></h3>
-        <p>
-            <b><span class="label label-warning">${user.age}岁</span></b>
-            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${user.city}
-                    <c:choose>
-                        <c:when test="${user.userSex=='0'}">
-                            <span class="label label-default">女</span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="label label-default">男</span>
-                        </c:otherwise>
-                    </c:choose>
-        </p>
-    </div>
-    <div><a href="#" class="discuss btn btn-default" data-toggle="modal" data-target="#myModal${status.count}">沟通一下</a></div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal${status.count}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <form action="" method="post" id="message">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">${user.nickname}</h4>
-                </div>
-                <div class="modal-body">
-                    <textarea class="form-control" rows="3" name="content"></textarea>
-                </div>
-                <input type="hidden" name="receiverId" value="${user.userId}">
-                <input type="hidden" name="receiverName" value="${user.nickname}">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" onclick="sendMessage()">发送</button>
-                </div>
-            </div>
-            </form>
+    <%--头部搜索栏--%>
+<div class="row">出发地<input name="start"> 目的地<input name="end">  <button>查询</button><a href="/v1/toPublishlineInfoPage">发布</a></div>
+        <%--tab切换栏--%>
+        <div class="row">
+            <span>司机</span>
+            <span>乘客</span>
         </div>
-    </div>
+        <%--内容信息--%>
+<div class="post row" v-for="item in items">
+    {{ item.message }}
 </div>
-<%--<c:if test="${status.count%2=='1'}">
-    <div class=" col-md-2" style="background-color: #eee;border: #ce4844;border: 1px solid #eee;"></div>
-</c:if>--%>
-    </c:forEach>
 </div>
-
 <script src="/asert/js/jquery-3.1.1.min.js"></script>
 <script src="/asert/js/bootstrap.js"></script>
+<script src="/asert/js/vue.js"></script>
 <script>
-    function sendMessage() {
+    var app = new Vue({
+        el: '#app',
+        data: {
+            items: []
+        }
+    })
+    $(document).ready(function(){
         $.ajax({
             cache: true,
-            type: "POST",
-            url:"/message/addMessage",
-            data:$('#message').serialize(),// 你的formid
+            type: "GET",
+            url:"/v1/lineInfos",
             error: function(request) {
                 alert("Connection error");
             },
             success: function(data) {
                 debugger
-                location.reload();
+                app.data=data;
             }
         });
-    }
+    });
+
 
 </script>
 </body>

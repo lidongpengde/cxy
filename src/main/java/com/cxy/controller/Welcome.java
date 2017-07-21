@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Welcome {
     @RequestMapping("/")
     public String hello() {
-        return "redirect:user/main";
+        return "register";
     }
 }

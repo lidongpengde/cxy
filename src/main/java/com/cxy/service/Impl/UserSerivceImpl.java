@@ -1,12 +1,11 @@
 package com.cxy.service.Impl;
 
-import com.cxy.dao.TCxyUserMapper;
-import com.cxy.entity.TCxyUser;
+import com.cxy.dao.UserMapper;
+import com.cxy.entity.User;
 import com.cxy.service.IuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 /**
  * Created by lidp on 2017/3/19.
@@ -14,27 +13,23 @@ import java.util.List;
 @Service
 public class UserSerivceImpl implements IuserService{
     @Autowired
-    TCxyUserMapper userMapper;
-    public String saveUser(TCxyUser user) {
+    private UserMapper userMapper;
+    public int saveUser(User user) {
         int size=userMapper.insert(user);
-        return "succces";
+        return size;
     }
 
-    public TCxyUser findUserById(String userId) {
+    public User findUserById(Long userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
 
-    public TCxyUser findUserByName(String userName) {
+    public User findUserByName(String userName) {
 
-        return userMapper.findByUserName(userName);
+        return userMapper.selectByPrimaryName(userName);
     }
 
-    public List<TCxyUser> findUserList(TCxyUser user) {
 
-        return userMapper.findUserList(user);
-    }
-
-    public int updateUser(TCxyUser user) {
+    public int updateUser(User user) {
         return userMapper.updateByPrimaryKey(user);
     }
 }
