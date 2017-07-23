@@ -1,5 +1,6 @@
 package com.cxy.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class LineInfo {
@@ -9,7 +10,7 @@ public class LineInfo {
 
     private String end;
 
-    private Date startTime;
+    private String startTime;
 
     private Integer plateNumber;
 
@@ -49,11 +50,11 @@ public class LineInfo {
         this.end = end == null ? null : end.trim();
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 

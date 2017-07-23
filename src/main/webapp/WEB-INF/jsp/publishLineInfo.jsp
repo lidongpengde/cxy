@@ -25,7 +25,7 @@
   <div ><transition name="fade">
     <p class="errors">{{error}}</p>
   </transition></div>
-  <form id="message" @submit.prevent="submit">
+  <form id="message" onsubmit="return false">
     <div class="form-group">
       <label>
         <input type="radio"name="type"value="1" checked v-on:click="selectType(1)"> 司机
@@ -39,9 +39,9 @@
     <div class="form-group" >
       <input placeholder="目的地" type="text" name="end" id="end" class="form-control" ></div>
       <div class="form-group" >
-      <input placeholder="出发时间" type="datetime-local" name="startTime" id="startTime" class="form-control" ></div>
+      <input placeholder="出发时间" type="date" name="startTime" id="startTime" class="form-control" ></div>
         <div class="form-group" >
-      <input placeholder="价格" type="text" name="price" id="price" class="form-control" ></div>
+      <input placeholder="价格" type="" name="price" id="price" class="form-control" ></div>
             <div class="form-group" >
                 <label>
                   <input type="radio"name="isbargin"value="1" checked > 接受议价
@@ -54,7 +54,7 @@
       <input placeholder="人数" type="number" name="personCount" id="personCount" class="form-control" ></div>
               <div class="form-group" >
       <input placeholder="车牌号" type="number" name="plateNumber" id="plateNumber" class="form-control"  ></div>
-    <button class="btn btn-primary" type="submit" style="width: 100%">提交</button>
+    <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
 </form>
 </div>
     </div>
@@ -71,14 +71,18 @@
         },
         methods: {
             submit: function(event) {
-                var formData = new FormData(event.target);
-                this.$http.post('/v1/lineInfos', formData).then((response) => {
-                    if(response.body.code==200){
-                        debugger
-                        alert(1)
-                    }
-                    this.error=response.body.message;
-                });
+                debugger
+                //ajax提交
+
+                    var params = $("#message").serialize();
+                    $.ajax( {
+                        type : "POST",
+                        url : "/v1/lineInfos",
+                        data : params,
+                        success : function(msg) {
+                            alert("success: " + msg);
+                        }
+                    });
 
             },
             selectType:function(message){
@@ -93,7 +97,21 @@
             }
         }
 
-    })
+    });
+     function submitline(){
+        //ajax提交
+        var params = $("#message").serialize();
+         debugger
+        $.ajax({
+            type : "POST",
+            url : "/v1/lineInfo",
+            data : params,
+            success : function(msg) {
+                location.href="toIndexPage";
+            }
+        });
+
+    }
 </script>
 </body>
 </html>

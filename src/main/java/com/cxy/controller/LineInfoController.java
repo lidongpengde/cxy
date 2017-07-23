@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -23,16 +24,18 @@ import java.util.List;
 public class LineInfoController {
     @Autowired
     ILineInfoService lineInfoService;
-    @RequestMapping(value = "lineInfos",method = RequestMethod.POST)
+    @RequestMapping(value = "lineInfo",method = RequestMethod.POST)
+    @ResponseBody
     public JSONObject publishInfo(HttpServletRequest request, LineInfo lineInfo){
         JSONObject jsonObject=new JSONObject();
         User user=(User)request.getSession().getAttribute("const_user");
         lineInfo.setUserId(user.getId().toString());
+        lineInfo.setStatus(1);
         int size=lineInfoService.saveLineInfo(lineInfo);
         jsonObject.put("count",size);
         return jsonObject;
     }
-    @RequestMapping(value = "lineInfos",method = RequestMethod.GET)
+    @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo( LineInfo lineInfo){
         JSONObject jsonObject=new JSONObject();
@@ -43,5 +46,10 @@ public class LineInfoController {
     public String toPublishlineInfoPage(HttpServletRequest request, LineInfo lineInfo){
 
         return "publishLineInfo";
+    }
+    @RequestMapping("toIndexPage")
+    public String toIndexPage(HttpServletRequest request, HttpServletResponse response){
+
+        return "index";
     }
 }
