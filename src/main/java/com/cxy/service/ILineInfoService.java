@@ -1,6 +1,7 @@
 package com.cxy.service;
 
 import com.cxy.entity.LineInfo;
+import com.cxy.entity.LineInfoAndUserInfo;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 public interface ILineInfoService {
     public int saveLineInfo(LineInfo lineInfo);
-    public List<LineInfo> queryLineInfoList(LineInfo lineInfo);
+    public List<LineInfoAndUserInfo> queryLineInfoList(LineInfo lineInfo);
 }

@@ -205,3 +205,36 @@ h1{
     background-color: #47CF73;
     min-height: 50px;
 }
+ .address{
+     padding-left: 20px;
+     padding-right: 20px;
+ }
+ .price{
+     display: block;
+     float: right;
+     margin-top: 18px;
+     margin-right: 60px;
+     font-style: normal;
+     font-size: 24px;
+     font-weight: 700;
+     color: #e3101e;
+ }
+ em{
+     font-size: 16px;
+     display: block;
+     float: left;
+     margin-right: 18px;
+     font-style: normal;
+     color: #337ab7;
+     font-weight: 600;
+ }
+.identity{
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #de4f4f;
+ }
+.hover{
+    background-color: #de4f4f;
+    color: #fff;
+}

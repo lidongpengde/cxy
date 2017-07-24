@@ -2,8 +2,10 @@ package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cxy.entity.LineInfo;
+import com.cxy.entity.LineInfoAndUserInfo;
 import com.cxy.entity.User;
 import com.cxy.service.ILineInfoService;
+import com.cxy.service.IuserService;
 import jdk.nashorn.internal.objects.annotations.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import java.util.List;
 public class LineInfoController {
     @Autowired
     ILineInfoService lineInfoService;
+    @Autowired
+    IuserService userService;
     @RequestMapping(value = "lineInfo",method = RequestMethod.POST)
     @ResponseBody
     public JSONObject publishInfo(HttpServletRequest request, LineInfo lineInfo){
@@ -39,7 +43,8 @@ public class LineInfoController {
     @ResponseBody
     public String publishInfo( LineInfo lineInfo){
         JSONObject jsonObject=new JSONObject();
-        List<LineInfo> list=lineInfoService.queryLineInfoList(lineInfo);
+        List<LineInfoAndUserInfo> list=lineInfoService.queryLineInfoList(lineInfo);
+        List<LineInfoAndUserInfo> listAll=null;
         return JSONObject.toJSONString(list);
     }
     @RequestMapping("toPublishlineInfoPage")

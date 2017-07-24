@@ -10,29 +10,39 @@
     <script src="/asert/js/vue.js"></script>
 </head>
 <body >
-<%--<jsp:include page="include/header.jsp"></jsp:include>--%>
+<jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app">
 
-    <%--头部搜索栏--%>
-<div class="row">出发地<input name="start"> 目的地<input name="end">  <button>查询</button><a href="/v1/toPublishlineInfoPage">发布</a></div>
-        <%--tab切换栏--%>
+        <%--头部搜索栏--%>
         <div class="row">
-            <span>司机</span>
-            <span>乘客</span>
+            <form id="searchForm" class="form-inline">
+                <input name="type" value="1" hidden id="type">
+            <label for="start">出发地</label><input name="start" id="start" class="form-control">
+                <label for="end">目的地</label><input name="end" id="end" class="form-control">
+                <button class="btn btn-info">查询</button>
+            </form>
+            <a href="/v1/toPublishlineInfoPage">发布</a>
+        </div>
+        <%--tab切换栏--%>
+        <div class="row identity">
+            <a href="#" onclick="changeIdentity(1)"><span class="col-md-6 text-center hover" id="tabdriver">司机</span></a>
+            <a href="#" onclick="changeIdentity(0)"><span class="col-md-6 text-center" id="tabpassenger">乘客</span></a>
         </div>
 
         <div class="post row" v-for="item in items">
             <%--<a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>--%>
             <div class="post-content">
-                <h3>{{ item.start }}至{{ item.end }}</h3>
+                <h3><strong class="address">{{ item.start }}</strong><small>至</small><strong class="address">{{ item.end }}</strong></h3>
                 <p>
-                    <b><span class="label label-warning">出发时间：{{ item.startTime }}</span></b>
-                    </span>价格：{{ item.price }}
-                    是否接受议价<span>{{ item.isbargin }}</span>
-                    人数<span>{{ item.personCount }}</span>
+                    <em>出发时间：{{ item.startTime }}</em>
+
+                    <em>是否接受议价{{ item.isbargin }}</em>
+                    <em>人数{{ item.personCount }}</em>
+                    <em >电话：{{ item.user.mobile }}</em>
+                <em>发布人：{{ item.user.userName }}</em>
                 </p>
             </div>
-                <div><a href="#" class="discuss btn btn-default" data-toggle="modal" data-target="#myModal${status.count}">沟通</a></div>
+                </span><em class="price">¥{{ item.price }}</em>
         </div>
 </div>
 <script src="/asert/js/jquery-3.1.1.min.js"></script>
@@ -43,9 +53,6 @@
         el: '#app',
         data: {
             items: [
-                { text: '学习 JavaScript' },
-                { text: '学习 Vue' },
-                { text: '整个牛项目' }
             ]
         }
     })
@@ -63,8 +70,30 @@
             }
         });
     });
-
-
+    function changeIdentity(type){
+        if(type==0){
+            $('#tabpassenger').addClass("hover");
+            $('#tabdriver').removeClass("hover");
+            $('#type').val(0);
+        }else{
+            $('#tabdriver').addClass("hover");
+            $('#tabpassenger').removeClass("hover");
+            $('#type').val(1);
+        }
+    }
+    function searchLineInfo(){
+        //ajax提交
+        var params = $("#searchForm").serialize();
+        debugger
+        $.ajax({
+            type : "GET",
+            url : "/v1/lineInfos",
+            data : params,
+            success : function(data) {
+                app.items=data;
+            }
+        });
+    }
 </script>
 </body>
 </html>

@@ -51,7 +51,7 @@
                 </label>
               </div>
     <div class="form-group" >
-      <input placeholder="人数" type="number" name="personCount" id="personCount" class="form-control" ></div>
+      <input placeholder="人数" type="number" maxlength="1" name="personCount" id="personCount" class="form-control" ></div>
               <div class="form-group" >
       <input placeholder="车牌号" type="number" name="plateNumber" id="plateNumber" class="form-control"  ></div>
     <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>

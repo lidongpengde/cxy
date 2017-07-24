@@ -2,6 +2,7 @@ package com.cxy.service.Impl;
 
 import com.cxy.dao.LineInfoMapper;
 import com.cxy.entity.LineInfo;
+import com.cxy.entity.LineInfoAndUserInfo;
 import com.cxy.service.ILineInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class LineInfoServiceImpl implements ILineInfoService {
     }
 
     @Override
-    public List<LineInfo> queryLineInfoList(LineInfo lineInfo) {
-        List<LineInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
+    public List<LineInfoAndUserInfo> queryLineInfoList(LineInfo lineInfo) {
+        List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
         return list;
     }
 }

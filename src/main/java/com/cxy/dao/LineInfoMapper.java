@@ -2,6 +2,7 @@ package com.cxy.dao;
 
 
 import com.cxy.entity.LineInfo;
+import com.cxy.entity.LineInfoAndUserInfo;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface LineInfoMapper {
     int updateByPrimaryKeySelective(LineInfo record);
 
     int updateByPrimaryKey(LineInfo record);
-    List<LineInfo> getLineInfoList(LineInfo record);
+    List<LineInfoAndUserInfo> getLineInfoList(LineInfo record);
 }
