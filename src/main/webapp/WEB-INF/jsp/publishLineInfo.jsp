@@ -6,8 +6,6 @@
 	<title>login</title>
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-	<link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/asert/css/style.css">
 </head>
 <body c>
 <div class="container">
@@ -59,9 +57,7 @@
 </div>
     </div>
   </div>
-<script src="/asert/js/vue.js"></script>
-<script src="/asert/js/jquery-3.1.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
+
 <script>
     var app=new Vue({
 

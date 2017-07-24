@@ -5,9 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
-    <script src="/asert/js/vue.js"></script>
+
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
@@ -15,13 +13,13 @@
 
         <%--头部搜索栏--%>
         <div class="row">
-            <form id="searchForm" class="form-inline">
+            <form id="searchForm" class="form-inline" onsubmit="return false">
                 <input name="type" value="1" hidden id="type">
             <label for="start">出发地</label><input name="start" id="start" class="form-control">
                 <label for="end">目的地</label><input name="end" id="end" class="form-control">
-                <button class="btn btn-info">查询</button>
+                <button class="btn btn-info" onclick="searchLineInfo()">查询</button>
             </form>
-            <a href="/v1/toPublishlineInfoPage">发布</a>
+            <a href="/cxy/v1/toPublishlineInfoPage">发布</a>
         </div>
         <%--tab切换栏--%>
         <div class="row identity">
@@ -45,8 +43,6 @@
                 </span><em class="price">¥{{ item.price }}</em>
         </div>
 </div>
-<script src="/asert/js/jquery-3.1.1.min.js"></script>
-<script src="/asert/js/bootstrap.js"></script>
 
 <script>
     var app = new Vue({
@@ -60,7 +56,7 @@
         $.ajax({
             cache: true,
             type: "GET",
-            url:"/v1/lineInfos",
+            url:path+"/v1/lineInfos",
             error: function(request) {
                 alert("Connection error");
             },
@@ -87,7 +83,7 @@
         debugger
         $.ajax({
             type : "GET",
-            url : "/v1/lineInfos",
+            url : path+"/v1/lineInfos",
             data : params,
             success : function(data) {
                 app.items=data;

@@ -3,8 +3,7 @@
 <head>
     <title>会员注册中心</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link href="/asert/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/asert/css/stylesheet.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
@@ -41,7 +40,7 @@
             <button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button>
             </div>
         </form>
-        <form action="/user/login" name="loginForm">
+        <form action="user/login" name="loginForm">
             <div class="thumbnail" id="login">
                 <div class="form-group"><label >用户名：</label><input  class="form-control" name="userName"  type="text" required></div>
                 <%--这里把密码type改为password  console就会报错，不知道咋回事--%>
@@ -109,7 +108,7 @@ function loginPage(){
            $.ajax({
                cache: true,
                type: "POST",
-               url:"user/register",
+               url:path+"user/register",
                data:$('#registerForm').serialize(),// 你的formid
                async: false,
                error: function(request) {
