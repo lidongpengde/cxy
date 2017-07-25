@@ -19,7 +19,7 @@
                 <label for="end">目的地</label><input name="end" id="end" class="form-control">
                 <button class="btn btn-info" onclick="searchLineInfo()">查询</button>
             </form>
-            <a href="/cxy/v1/toPublishlineInfoPage">发布</a>
+            <a href="/v1/toPublishlineInfoPage">发布</a>
         </div>
         <%--tab切换栏--%>
         <div class="row identity">
@@ -56,7 +56,7 @@
         $.ajax({
             cache: true,
             type: "GET",
-            url:path+"/v1/lineInfos",
+            url:"/v1/lineInfos",
             error: function(request) {
                 alert("Connection error");
             },
@@ -83,7 +83,7 @@
         debugger
         $.ajax({
             type : "GET",
-            url : path+"/v1/lineInfos",
+            url : "/v1/lineInfos",
             data : params,
             success : function(data) {
                 app.items=data;

@@ -40,12 +40,12 @@
             <button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button>
             </div>
         </form>
-        <form action="user/login" name="loginForm">
+        <form action="user/login" name="loginForm" id="loginForm" onsubmit="return false">
             <div class="thumbnail" id="login">
                 <div class="form-group"><label >用户名：</label><input  class="form-control" name="userName"  type="text" required></div>
                 <%--这里把密码type改为password  console就会报错，不知道咋回事--%>
                 <div class="form-group"><label >密码：</label><input class="form-control" name="passWord" type="password" required></div>
-                <button type="submit" class="btn btn-primary  btn-block">登录</button>
+                <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button>
             </div>
         </form>
         </div>
@@ -75,7 +75,6 @@ function loginPage(){
         var flag = false;
         var message = "";
         var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        debugger
         if(phone == ''){
             message = "手机号码不能为空！";
         }else if(phone.length !=11){
@@ -108,7 +107,7 @@ function loginPage(){
            $.ajax({
                cache: true,
                type: "POST",
-               url:path+"user/register",
+               url:"/user/register",
                data:$('#registerForm').serialize(),// 你的formid
                async: false,
                error: function(request) {
@@ -121,6 +120,26 @@ function loginPage(){
        }else{
            alert("您填写信息有误！")
        }
+    }
+    function realLogin(){
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url:"/user/login",
+                data:$('#loginForm').serialize(),// 你的formid
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    if (data.code==200){
+                        location.href="/v1/toIndexPage";
+                    }else{
+                        alert(data.message);
+                    }
+
+                }
+            });
     }
 
 </script>

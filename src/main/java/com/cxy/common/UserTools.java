@@ -35,4 +35,11 @@ public class UserTools {
 
         return new Date();
     }
+    public static  void addUserCookie(HttpServletResponse response, String domain){
+        Cookie cookie=new Cookie("token", null);
+        //cookie.setDomain(domain);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 }
