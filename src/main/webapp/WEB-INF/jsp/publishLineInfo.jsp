@@ -7,7 +7,8 @@
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 </head>
-<body c>
+<jsp:include page="include/header.jsp"></jsp:include>
+<body>
 <div class="container">
     <div class="logo"><a href="/"><img src="http://cdn-qn0.jianshu.io/assets/web/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a></div>
     <div class="main">
