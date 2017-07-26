@@ -34,7 +34,10 @@
                 <p>
                     <em>出发时间：{{ item.startTime }}</em>
 
-                    <em>是否接受议价{{ item.isbargin }}</em>
+                    <em v-if="item.isbargin === 0">不接受议价
+                    </em>
+                    <em v-if="item.isbargin === 1">接受议价
+                    </em>
                     <em>人数{{ item.personCount }}</em>
                     <em >电话：{{ item.user.mobile }}</em>
                 <em>发布人：{{ item.user.userName }}</em>

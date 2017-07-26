@@ -167,10 +167,10 @@
   </update>
   <sql id="sql_where" >
     <where >
-      <if test="start != null" >
+      <if test="start != null and start != ''">
         and start = #{start}
       </if>
-      <if test="end != null" >
+      <if test="end != null and end != ''">
         and end = #{end}
       </if>
       <if test="startTime != null" >

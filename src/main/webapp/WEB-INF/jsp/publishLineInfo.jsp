@@ -34,13 +34,13 @@
       </label>
     </div>
     <div class="form-group" >
-      <input placeholder="出发地" type="text" name="start" id="start" class="form-control" ></div>
+      <input placeholder="出发地" type="text" name="start" id="start" class="form-control" required></div>
     <div class="form-group" >
-      <input placeholder="目的地" type="text" name="end" id="end" class="form-control" ></div>
+      <input placeholder="目的地" type="text" name="end" id="end" class="form-control" required></div>
       <div class="form-group" >
-      <input placeholder="出发时间" type="date" name="startTime" id="startTime" class="form-control" ></div>
+      <input placeholder="出发时间" type="date" name="startTime" id="startTime" class="form-control" required></div>
         <div class="form-group" >
-      <input placeholder="价格" type="" name="price" id="price" class="form-control" ></div>
+      <input placeholder="价格" type="" name="price" id="price" class="form-control"required ></div>
             <div class="form-group" >
                 <label>
                   <input type="radio"name="isbargin"value="1" checked > 接受议价
@@ -50,7 +50,7 @@
                 </label>
               </div>
     <div class="form-group" >
-      <input placeholder="人数" type="number" maxlength="1" name="personCount" id="personCount" class="form-control" ></div>
+      <input placeholder="人数" type="number" maxlength="1" name="personCount" id="personCount" class="form-control" required></div>
               <div class="form-group" >
       <input placeholder="车牌号" type="number" name="plateNumber" id="plateNumber" class="form-control"  ></div>
     <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
