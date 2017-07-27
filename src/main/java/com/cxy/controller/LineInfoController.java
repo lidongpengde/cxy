@@ -9,10 +9,8 @@ import com.cxy.service.IuserService;
 import jdk.nashorn.internal.objects.annotations.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,4 +55,25 @@ public class LineInfoController {
 
         return "index";
     }
+    @RequestMapping("myPublishLineInfo")
+    public String myPublish(HttpServletRequest request, ModelMap modelMap){
+        User user=(User)request.getSession().getAttribute("const_user");
+        LineInfo lineInfo=new LineInfo();
+        lineInfo.setUserId(user.getId().toString());
+        final List<LineInfoAndUserInfo> mylist=lineInfoService.queryLineInfoList(lineInfo);
+        modelMap.put("mylist",mylist);
+        return "myPublishLineInfo";
+    }
+    @RequestMapping(value = "lineInfo/{lid}",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String updatePublishInfo( @PathVariable  String lid){
+        JSONObject jsonObject=new JSONObject();
+        int size=lineInfoService.updateLineInfo(Integer.parseInt(lid));
+        if (size>0){
+            jsonObject.put("message","发布已取消");
+            return JSONObject.toJSONString(jsonObject);
+        }
+        return JSONObject.toJSONString(jsonObject.put("message","操作异常"));
+    }
+
 }

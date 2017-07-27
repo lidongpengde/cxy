@@ -11,4 +11,5 @@ import java.util.List;
 public interface ILineInfoService {
     public int saveLineInfo(LineInfo lineInfo);
     public List<LineInfoAndUserInfo> queryLineInfoList(LineInfo lineInfo);
+    public int updateLineInfo(int lid);
 }

@@ -41,6 +41,7 @@
                     <em>人数{{ item.personCount }}</em>
                     <em >电话：{{ item.user.mobile }}</em>
                 <em>发布人：{{ item.user.userName }}</em>
+                    <em v-if="item.type === 1">车牌号：{{ item.plateNumber }}</em>
                 </p>
             </div>
                 </span><em class="price">¥{{ item.price }}</em>
@@ -56,10 +57,12 @@
         }
     })
     $(document).ready(function(){
+        var params = $("#searchForm").serialize();
         $.ajax({
             cache: true,
             type: "GET",
             url:"/v1/lineInfos",
+            data : params,
             error: function(request) {
                 alert("Connection error");
             },
@@ -74,11 +77,13 @@
             $('#tabpassenger').addClass("hover");
             $('#tabdriver').removeClass("hover");
             $('#type').val(0);
+
         }else{
             $('#tabdriver').addClass("hover");
             $('#tabpassenger').removeClass("hover");
             $('#type').val(1);
         }
+        searchLineInfo();
     }
     function searchLineInfo(){
         //ajax提交

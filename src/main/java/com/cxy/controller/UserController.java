@@ -51,5 +51,10 @@ public class UserController {
         }
         return jsonObject.toJSONString();
     }
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
+       request.getSession().removeAttribute("const_user");
+        return "register";
+    }
 
 }

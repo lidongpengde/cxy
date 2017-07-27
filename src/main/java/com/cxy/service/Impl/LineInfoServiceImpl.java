@@ -24,7 +24,15 @@ public class LineInfoServiceImpl implements ILineInfoService {
 
     @Override
     public List<LineInfoAndUserInfo> queryLineInfoList(LineInfo lineInfo) {
+        lineInfo.setStatus(1);//已发布
         List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
         return list;
+    }
+    @Override
+    public int updateLineInfo(int lid) {
+        LineInfo lineInfo=lineInfoMapper.selectByPrimaryKey(lid);
+        lineInfo.setStatus(0);//已取消
+        int size= lineInfoMapper.updateByPrimaryKey(lineInfo);
+        return size;
     }
 }
