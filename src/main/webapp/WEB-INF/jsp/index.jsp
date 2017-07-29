@@ -17,6 +17,7 @@
                 <input name="type" value="1" hidden id="type">
             <label for="start">出发地</label><input name="start" id="start" class="form-control">
                 <label for="end">目的地</label><input name="end" id="end" class="form-control">
+                <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control">
                 <button class="btn btn-info" onclick="searchLineInfo()">查询</button>
             </form>
             <a href="/v1/toPublishlineInfoPage">发布</a>

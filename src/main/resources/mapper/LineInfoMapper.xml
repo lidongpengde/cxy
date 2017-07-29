@@ -173,7 +173,7 @@
       <if test="end != null and end != ''">
         and end = #{end}
       </if>
-      <if test="startTime != null" >
+      <if test="startTime != null and startTime != ''" >
         and start_time = #{startTime}
       </if>
       <if test="plateNumber != null" >
