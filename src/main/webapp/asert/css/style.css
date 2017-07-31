@@ -238,4 +238,4 @@ h1{
     background-color: #de4f4f;
     color: #fff;
 }
- a{text-decoration:none}
+ a:focus{text-decoration: none}

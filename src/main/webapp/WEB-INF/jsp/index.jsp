@@ -12,18 +12,18 @@
 <div class="container" id="app">
 
         <%--头部搜索栏--%>
-        <div class="row">
+        <div class="row form-inline">
             <form id="searchForm" class="form-inline" onsubmit="return false">
                 <input name="type" value="1" hidden id="type">
-            <label for="start">出发地</label><input name="start" id="start" class="form-control">
-                <label for="end">目的地</label><input name="end" id="end" class="form-control">
-                <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control">
-                <button class="btn btn-info" onclick="searchLineInfo()">查询</button>
+             <div class="col-md-3"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
+             <div class="col-md-3"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
+             <div class="col-md-4"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
+             <div class="col-md-2"><button class="btn btn-info" onclick="searchLineInfo()">查询</button></div>
             </form>
-            <a href="/v1/toPublishlineInfoPage">发布</a>
+
         </div>
         <%--tab切换栏--%>
-        <div class="row identity">
+        <div class="identity row">
             <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">司机</div></a>
             <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">乘客</div></a>
         </div>
