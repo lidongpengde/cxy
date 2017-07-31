@@ -12,41 +12,36 @@
 <div class="container" id="app">
 
         <%--头部搜索栏--%>
-        <div class="row form-inline">
+        <div class="row">
             <form id="searchForm" class="form-inline" onsubmit="return false">
                 <input name="type" value="1" hidden id="type">
-             <div class="col-md-3"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
-             <div class="col-md-3"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
-             <div class="col-md-4"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
-             <div class="col-md-2"><button class="btn btn-info" onclick="searchLineInfo()">查询</button></div>
+             <div class="form-group"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
+             <div class="form-group"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
+             <div class="form-group"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
+             <div class="form-group"><button class="btn btn-info" onclick="searchLineInfo()">查询</button></div>
             </form>
 
         </div>
         <%--tab切换栏--%>
-        <div class="identity row">
+        <div class="identity ">
             <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">司机</div></a>
             <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">乘客</div></a>
         </div>
+            <div class="post" v-for="item in items">
 
-        <div class="post row" v-for="item in items">
-            <%--<a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>--%>
-            <div class="post-content">
-                <h3><strong class="address">{{ item.start }}</strong><small>至</small><strong class="address">{{ item.end }}</strong></h3>
-                <p>
-                    <em>出发时间：{{ item.startTime }}</em>
-
-                    <em v-if="item.isbargin === 0">不接受议价
-                    </em>
-                    <em v-if="item.isbargin === 1">接受议价
-                    </em>
-                    <em>人数{{ item.personCount }}</em>
-                    <em >电话：{{ item.user.mobile }}</em>
-                <em>发布人：{{ item.user.userName }}</em>
-                    <em v-if="item.type === 1">车牌号：{{ item.plateNumber }}</em>
-                </p>
+                <div class="post-content">
+                    <h3><a href="">{{ item.start }}</a><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong><a>{{ item.end }}</a><span>电话：{{ item.user.mobile }}</span></h3>
+                    <p>
+                        人数:<strong>{{ item.personCount }}</strong>,车牌号：{{ item.plateNumber }}
+                        发布人：<a href="">{{ item.user.userName }}</a>
+                        <span>出发时间：{{ item.startTime }}</span>
+                        <span class="label label-default" v-if="item.isbargin === 0">不议价</span>
+                        <span class="label label-default" v-if="item.isbargin === 1">可议价</span>
+                        <span class="price">¥{{ item.price }}</span>
+                    </p>
+                </div>
+                <a href="" class="discuss btn btn-default">Discuss</a>
             </div>
-                </span><em class="price">¥{{ item.price }}</em>
-        </div>
 </div>
 
 <script>
