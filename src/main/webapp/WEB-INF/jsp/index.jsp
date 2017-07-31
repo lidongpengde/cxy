@@ -24,8 +24,8 @@
         </div>
         <%--tab切换栏--%>
         <div class="row identity">
-            <a href="#" onclick="changeIdentity(1)"><span class="col-md-6 text-center hover" id="tabdriver">司机</span></a>
-            <a href="#" onclick="changeIdentity(0)"><span class="col-md-6 text-center" id="tabpassenger">乘客</span></a>
+            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">司机</div></a>
+            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">乘客</div></a>
         </div>
 
         <div class="post row" v-for="item in items">
@@ -89,7 +89,6 @@
     function searchLineInfo(){
         //ajax提交
         var params = $("#searchForm").serialize();
-        debugger
         $.ajax({
             type : "GET",
             url : "/v1/lineInfos",

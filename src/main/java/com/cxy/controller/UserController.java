@@ -42,6 +42,7 @@ public class UserController {
     }
         if (oldpassWord.equals(user.getPassWord())){
             request.getSession().setAttribute("const_user",user);
+
             HttpSession session=request.getSession();
             jsonObject.put("message","登录成功");
             jsonObject.put("code",200);
@@ -54,6 +55,11 @@ public class UserController {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request){
        request.getSession().removeAttribute("const_user");
+        return "register";
+    }
+    @RequestMapping("/tologin")
+    public String tologin(HttpServletRequest request){
+        request.getSession().removeAttribute("const_user");
         return "register";
     }
 
