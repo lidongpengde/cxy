@@ -19,7 +19,7 @@
                </association>
   </resultMap>
   <sql id="Base_Column_List">
-    lid, start, end, start_time, plate_number, price, isBargin, status, person_count, 
+    lid, start, end,date_format(start_time, '%Y-%m-%d %h:%i:%s') as start_time, plate_number, price, isBargin, status, person_count,
     type, user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -174,7 +174,7 @@
         and end = #{end}
       </if>
       <if test="startTime != null and startTime != ''" >
-        and start_time = #{startTime}
+        and   start_time= #{startTime}
       </if>
       <if test="plateNumber != null" >
         and plate_number = #{plateNumber}
@@ -200,7 +200,7 @@
     </where>
   </sql>
   <select id="getLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
-    select * from line_info a left JOIN  user b ON  a.user_id=b.id
+    select <include refid="Base_Column_List" />,b.user_name,b.mobile from line_info a left JOIN  user b ON  a.user_id=b.id
     <include refid="sql_where" />
   </select>
 </mapper>

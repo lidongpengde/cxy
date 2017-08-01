@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
     <link href="/asert/css/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
