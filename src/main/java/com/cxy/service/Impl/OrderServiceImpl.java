@@ -2,7 +2,10 @@ package com.cxy.service.Impl;
 
 import com.cxy.dao.LineInfoMapper;
 import com.cxy.dao.OrderFromMapper;
+import com.cxy.dao.UserMapper;
+import com.cxy.entity.LineInfo;
 import com.cxy.entity.OrderFrom;
+import com.cxy.entity.User;
 import com.cxy.service.IorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +22,25 @@ public class OrderServiceImpl implements IorderService{
     OrderFromMapper orderMapper;
     @Autowired
     LineInfoMapper lineInfoMapper;
+    @Autowired
+    UserMapper userMapper;
     private final int waitConfirm=0;
     @Override
-    public OrderFrom createOrder(OrderFrom order) {
+    public OrderFrom createOrder(int lid,OrderFrom order) {
         order.setCreateTime(new Date());
         order.setOrderStatus(waitConfirm);
-        String publisherId=lineInfoMapper.selectByPrimaryKey(order.getLineInfoId()).getUserId();
-        order.setPublisherId(Integer.parseInt(publisherId));
+        LineInfo lineInfo=lineInfoMapper.selectByPrimaryKey(lid);
+        User user=userMapper.selectByPrimaryKey(Long.parseLong(lineInfo.getUserId()));
+        if (lineInfo!=null ){
+            order.setPublisherId(Integer.parseInt(lineInfo.getUserId()));
+            order.setLineInfoStart(lineInfo.getStart());
+            order.setLineInfoEnd(lineInfo.getEnd());
+            order.setLineInfoPrice(lineInfo.getPrice());
+        }
+        if (user!=null){
+            order.setPublisherName(user.getUserName());
+            order.setPublisherMobile(user.getMobile());
+        }
         orderMapper.insert(order);
         return order;
     }

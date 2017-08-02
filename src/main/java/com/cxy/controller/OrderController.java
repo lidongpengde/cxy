@@ -29,9 +29,10 @@ public class OrderController {
     public String createOrder(@PathVariable int lid, OrderFrom order, HttpServletRequest request){
         User user=UserTools.getCurrentUser(request);
         order.setSubscriberId(user.getId().intValue());
-        order.setLineInfoId(lid);
-         order=orderService.createOrder(order);
-        return null;
+        order.setSubscriberName(user.getUserName());
+        order.setSubscriberMobile(user.getMobile());
+         order=orderService.createOrder(lid,order);
+        return "myOrderInfo";
     }
     /**取消
      * @param orderId

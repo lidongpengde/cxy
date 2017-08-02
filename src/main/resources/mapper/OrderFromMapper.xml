@@ -8,9 +8,18 @@
     <result column="subscriber_id" jdbcType="INTEGER" property="subscriberId" />
     <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="line_info_price" jdbcType="DOUBLE" property="lineInfoPrice" />
+    <result column="line_info_start" jdbcType="VARCHAR" property="lineInfoStart" />
+    <result column="line_info_end" jdbcType="VARCHAR" property="lineInfoEnd" />
+    <result column="publisher_name" jdbcType="VARCHAR" property="publisherName" />
+    <result column="publisher_mobile" jdbcType="BIGINT" property="publisherMobile" />
+    <result column="subscriber_name" jdbcType="VARCHAR" property="subscriberName" />
+    <result column="subscriber_mobile" jdbcType="BIGINT" property="subscriberMobile" />
   </resultMap>
   <sql id="Base_Column_List">
-    order_id, line_info_id, publisher_id, subscriber_id, order_status, create_time
+    order_id, line_info_id, publisher_id, subscriber_id, order_status, create_time, line_info_price, 
+    line_info_start, line_info_end, publisher_name, publisher_mobile, subscriber_name, 
+    subscriber_mobile
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +33,15 @@
   </delete>
   <insert id="insert" parameterType="com.cxy.entity.OrderFrom">
     insert into order_from (order_id, line_info_id, publisher_id, 
-      subscriber_id, order_status, create_time
-      )
+      subscriber_id, order_status, create_time, 
+      line_info_price, line_info_start, line_info_end, 
+      publisher_name, publisher_mobile, subscriber_name, 
+      subscriber_mobile)
     values (#{orderId,jdbcType=INTEGER}, #{lineInfoId,jdbcType=INTEGER}, #{publisherId,jdbcType=INTEGER}, 
-      #{subscriberId,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{subscriberId,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lineInfoPrice,jdbcType=DOUBLE}, #{lineInfoStart,jdbcType=VARCHAR}, #{lineInfoEnd,jdbcType=VARCHAR}, 
+      #{publisherName,jdbcType=VARCHAR}, #{publisherMobile,jdbcType=BIGINT}, #{subscriberName,jdbcType=VARCHAR}, 
+      #{subscriberMobile,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.cxy.entity.OrderFrom">
     insert into order_from
@@ -51,6 +64,27 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="lineInfoPrice != null">
+        line_info_price,
+      </if>
+      <if test="lineInfoStart != null">
+        line_info_start,
+      </if>
+      <if test="lineInfoEnd != null">
+        line_info_end,
+      </if>
+      <if test="publisherName != null">
+        publisher_name,
+      </if>
+      <if test="publisherMobile != null">
+        publisher_mobile,
+      </if>
+      <if test="subscriberName != null">
+        subscriber_name,
+      </if>
+      <if test="subscriberMobile != null">
+        subscriber_mobile,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -70,6 +104,27 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lineInfoPrice != null">
+        #{lineInfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="lineInfoStart != null">
+        #{lineInfoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="lineInfoEnd != null">
+        #{lineInfoEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherName != null">
+        #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherMobile != null">
+        #{publisherMobile,jdbcType=BIGINT},
+      </if>
+      <if test="subscriberName != null">
+        #{subscriberName,jdbcType=VARCHAR},
+      </if>
+      <if test="subscriberMobile != null">
+        #{subscriberMobile,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -91,6 +146,27 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="lineInfoPrice != null">
+        line_info_price = #{lineInfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="lineInfoStart != null">
+        line_info_start = #{lineInfoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="lineInfoEnd != null">
+        line_info_end = #{lineInfoEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherName != null">
+        publisher_name = #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherMobile != null">
+        publisher_mobile = #{publisherMobile,jdbcType=BIGINT},
+      </if>
+      <if test="subscriberName != null">
+        subscriber_name = #{subscriberName,jdbcType=VARCHAR},
+      </if>
+      <if test="subscriberMobile != null">
+        subscriber_mobile = #{subscriberMobile,jdbcType=BIGINT},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
@@ -100,7 +176,14 @@
       publisher_id = #{publisherId,jdbcType=INTEGER},
       subscriber_id = #{subscriberId,jdbcType=INTEGER},
       order_status = #{orderStatus,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      line_info_price = #{lineInfoPrice,jdbcType=DOUBLE},
+      line_info_start = #{lineInfoStart,jdbcType=VARCHAR},
+      line_info_end = #{lineInfoEnd,jdbcType=VARCHAR},
+      publisher_name = #{publisherName,jdbcType=VARCHAR},
+      publisher_mobile = #{publisherMobile,jdbcType=BIGINT},
+      subscriber_name = #{subscriberName,jdbcType=VARCHAR},
+      subscriber_mobile = #{subscriberMobile,jdbcType=BIGINT}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
 </mapper>

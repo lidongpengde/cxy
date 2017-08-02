@@ -11,7 +11,7 @@ import java.util.List;
  * Created by lidongpeng on 2017/8/2.
  */
 public interface IorderService {
-    public OrderFrom createOrder(OrderFrom order);
+    public OrderFrom createOrder(int lid,OrderFrom order);
     public String cancelOrder( String orderId);
     public OrderFrom findOrder( String userId);
     public List<OrderFrom> findOrderForList( String userId);

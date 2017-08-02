@@ -15,6 +15,20 @@ public class OrderFrom {
 
     private Date createTime;
 
+    private Double lineInfoPrice;
+
+    private String lineInfoStart;
+
+    private String lineInfoEnd;
+
+    private String publisherName;
+
+    private Long publisherMobile;
+
+    private String subscriberName;
+
+    private Long subscriberMobile;
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -61,5 +75,61 @@ public class OrderFrom {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Double getLineInfoPrice() {
+        return lineInfoPrice;
+    }
+
+    public void setLineInfoPrice(Double lineInfoPrice) {
+        this.lineInfoPrice = lineInfoPrice;
+    }
+
+    public String getLineInfoStart() {
+        return lineInfoStart;
+    }
+
+    public void setLineInfoStart(String lineInfoStart) {
+        this.lineInfoStart = lineInfoStart == null ? null : lineInfoStart.trim();
+    }
+
+    public String getLineInfoEnd() {
+        return lineInfoEnd;
+    }
+
+    public void setLineInfoEnd(String lineInfoEnd) {
+        this.lineInfoEnd = lineInfoEnd == null ? null : lineInfoEnd.trim();
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName == null ? null : publisherName.trim();
+    }
+
+    public Long getPublisherMobile() {
+        return publisherMobile;
+    }
+
+    public void setPublisherMobile(Long publisherMobile) {
+        this.publisherMobile = publisherMobile;
+    }
+
+    public String getSubscriberName() {
+        return subscriberName;
+    }
+
+    public void setSubscriberName(String subscriberName) {
+        this.subscriberName = subscriberName == null ? null : subscriberName.trim();
+    }
+
+    public Long getSubscriberMobile() {
+        return subscriberMobile;
+    }
+
+    public void setSubscriberMobile(Long subscriberMobile) {
+        this.subscriberMobile = subscriberMobile;
     }
 }

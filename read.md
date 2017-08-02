@@ -32,8 +32,16 @@ CREATE TABLE `order_from` (
   `subscriber_id` int(11) DEFAULT NULL,
   `order_status` int(11) DEFAULT NULL COMMENT '0待确认1已确认2已完成',
   `create_time` datetime DEFAULT NULL,
+  `line_info_price` double DEFAULT NULL,
+  `line_info_start` varchar(45) DEFAULT NULL,
+  `line_info_end` varchar(45) DEFAULT NULL,
+  `publisher_name` varchar(45) DEFAULT NULL,
+  `publisher_mobile` bigint(13) DEFAULT NULL,
+  `subscriber_name` varchar(45) DEFAULT NULL,
+  `subscriber_mobile` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订单';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='订单';
+
 CREATE TABLE `comment` (
   `cid` int(11) NOT NULL AUTO_INCREMENT,
   `commenter_id` int(11) DEFAULT NULL,
