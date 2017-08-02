@@ -40,7 +40,7 @@
                         <span class="price">¥{{ item.price }}</span>
                     </p>
                 </div>
-                <a href="" class="discuss btn btn-default">Discuss</a>
+                <a v-bind:href="'/api/order/'+item.lid" class="discuss btn btn-default">Discuss</a>
             </div>
 </div>
 

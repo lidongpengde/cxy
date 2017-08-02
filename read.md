@@ -1,3 +1,4 @@
+--------------------------
 CREATE TABLE `line_info` (
   `lid` int(11) NOT NULL AUTO_INCREMENT,
   `start` varchar(100) DEFAULT NULL COMMENT '出发地',
@@ -24,5 +25,25 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `order_from` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `line_info_id` int(11) DEFAULT NULL,
+  `publisher_id` int(11) DEFAULT NULL,
+  `subscriber_id` int(11) DEFAULT NULL,
+  `order_status` int(11) DEFAULT NULL COMMENT '0待确认1已确认2已完成',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订单';
+CREATE TABLE `comment` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `commenter_id` int(11) DEFAULT NULL,
+  `commenter_name` varchar(45) DEFAULT NULL,
+  `commentered_id` int(11) DEFAULT NULL,
+  `commentered_name` varchar(45) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `comment_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评价';
 
 qq:821888642

@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 public class UserTools {
     public static User getCurrentUser(HttpServletRequest request){
-        User user=(User)request.getSession().getAttribute("loginuser");
+        User user=(User)request.getSession().getAttribute("const_user");
         return user;
     }
     public static String getUUID(){

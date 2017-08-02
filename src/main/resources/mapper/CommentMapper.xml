@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxy.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.cxy.entity.Comment">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="commenter_id" jdbcType="INTEGER" property="commenterId" />
+    <result column="commenter_name" jdbcType="VARCHAR" property="commenterName" />
+    <result column="commentered_id" jdbcType="INTEGER" property="commenteredId" />
+    <result column="commentered_name" jdbcType="VARCHAR" property="commenteredName" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, commenter_id, commenter_name, commentered_id, commentered_name, score, description, 
+    comment_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cxy.entity.Comment">
+    insert into comment (cid, commenter_id, commenter_name, 
+      commentered_id, commentered_name, score, 
+      description, comment_time)
+    values (#{cid,jdbcType=INTEGER}, #{commenterId,jdbcType=INTEGER}, #{commenterName,jdbcType=VARCHAR}, 
+      #{commenteredId,jdbcType=INTEGER}, #{commenteredName,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{commentTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxy.entity.Comment">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="commenterId != null">
+        commenter_id,
+      </if>
+      <if test="commenterName != null">
+        commenter_name,
+      </if>
+      <if test="commenteredId != null">
+        commentered_id,
+      </if>
+      <if test="commenteredName != null">
+        commentered_name,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="commentTime != null">
+        comment_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="commenterId != null">
+        #{commenterId,jdbcType=INTEGER},
+      </if>
+      <if test="commenterName != null">
+        #{commenterName,jdbcType=VARCHAR},
+      </if>
+      <if test="commenteredId != null">
+        #{commenteredId,jdbcType=INTEGER},
+      </if>
+      <if test="commenteredName != null">
+        #{commenteredName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null">
+        #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.Comment">
+    update comment
+    <set>
+      <if test="commenterId != null">
+        commenter_id = #{commenterId,jdbcType=INTEGER},
+      </if>
+      <if test="commenterName != null">
+        commenter_name = #{commenterName,jdbcType=VARCHAR},
+      </if>
+      <if test="commenteredId != null">
+        commentered_id = #{commenteredId,jdbcType=INTEGER},
+      </if>
+      <if test="commenteredName != null">
+        commentered_name = #{commenteredName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null">
+        comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxy.entity.Comment">
+    update comment
+    set commenter_id = #{commenterId,jdbcType=INTEGER},
+      commenter_name = #{commenterName,jdbcType=VARCHAR},
+      commentered_id = #{commenteredId,jdbcType=INTEGER},
+      commentered_name = #{commenteredName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      comment_time = #{commentTime,jdbcType=TIMESTAMP}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>
