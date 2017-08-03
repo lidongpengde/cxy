@@ -13,7 +13,8 @@ import java.util.List;
 public interface IorderService {
     public OrderFrom createOrder(int lid,OrderFrom order);
     public String cancelOrder( String orderId);
-    public OrderFrom findOrder( String userId);
-    public List<OrderFrom> findOrderForList( String userId);
-    public OrderFrom updateOrder( String userId);
+    public OrderFrom findOrder( int orderId);
+    public List<OrderFrom> findOrderForListBySubScribeId( OrderFrom order);
+    public List<OrderFrom> findOrderForListByuserId( int userId);
+    public OrderFrom updateOrder( OrderFrom record);
 }

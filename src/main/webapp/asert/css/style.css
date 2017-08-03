@@ -238,3 +238,13 @@ h1{
     color: #fff;
 }
  a:focus{text-decoration: none}
+ .product-card {
+     background-color: #fff;
+     max-width: 460px;
+     margin: 0 auto;
+     overflow: hidden;
+     border-radius: 8px;
+     box-shadow: 0 5px 40px 0 rgba(26,44,57,0.2);
+     border: 1px solid #CDD6DC;
+     padding: 30px;
+ }

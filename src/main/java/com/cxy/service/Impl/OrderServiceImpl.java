@@ -36,6 +36,7 @@ public class OrderServiceImpl implements IorderService{
             order.setLineInfoStart(lineInfo.getStart());
             order.setLineInfoEnd(lineInfo.getEnd());
             order.setLineInfoPrice(lineInfo.getPrice());
+            order.setLineInfoId(lid);
         }
         if (user!=null){
             order.setPublisherName(user.getUserName());
@@ -51,17 +52,27 @@ public class OrderServiceImpl implements IorderService{
     }
 
     @Override
-    public OrderFrom findOrder(String userId) {
+    public OrderFrom findOrder(int orderId) {
+        orderMapper.deleteByPrimaryKey(orderId);
         return null;
     }
 
     @Override
-    public List<OrderFrom> findOrderForList(String userId) {
-        return null;
+    public List<OrderFrom> findOrderForListBySubScribeId( OrderFrom order) {
+        List<OrderFrom> list=orderMapper.selectByUserId(order);
+        return list;
     }
 
     @Override
-    public OrderFrom updateOrder(String userId) {
-        return null;
+    public List<OrderFrom> findOrderForListByuserId(int userId) {
+        List<OrderFrom> orders=orderMapper.selectOrderListByUserId(userId);
+        return orders;
+    }
+
+    @Override
+    public OrderFrom updateOrder(OrderFrom record) {
+        int size=orderMapper.updateByPrimaryKeySelective(record);
+
+        return size>0?record:null;
     }
 }

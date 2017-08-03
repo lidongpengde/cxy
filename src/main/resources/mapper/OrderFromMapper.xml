@@ -27,11 +27,25 @@
     from order_from
     where order_id = #{orderId,jdbcType=INTEGER}
   </select>
+  <select id="selectByUserId" parameterType="com.cxy.entity.OrderFrom" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_from
+    where <if test="orderStatus != null">order_status = #{orderStatus,jdbcType=VARCHAR}</if>
+    <if test="subscriberId != null">subscriber_id = #{subscriberId,jdbcType=VARCHAR}</if>
+  </select>
+
+  <select id="selectOrderListByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_from
+    where publisher_id = #{userId,jdbcType=VARCHAR} or subscriber_id = #{userId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from order_from
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cxy.entity.OrderFrom">
+  <insert id="insert" parameterType="com.cxy.entity.OrderFrom" keyProperty="orderId">
     insert into order_from (order_id, line_info_id, publisher_id, 
       subscriber_id, order_status, create_time, 
       line_info_price, line_info_start, line_info_end, 

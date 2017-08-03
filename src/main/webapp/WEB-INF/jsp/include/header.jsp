@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
@@ -34,6 +34,7 @@
             <ul class="nav navbar-nav pull-right">
                 <li data-home="" class="active"><a href="/v1/toPublishlineInfoPage">发布</a></li>
                 <li data-services=""><a href="/v1/myPublishLineInfo">我的发布</a></li>
+                <li data-orders=""><a href="/api/orders">我的订单</a></li>
                 <li data-pricing=""><a href="/user/logout">退出</a></li>
                 <%--<li data-support=""><a href="/Support">Support</a></li>--%>
 
