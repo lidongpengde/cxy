@@ -53,8 +53,8 @@ public class OrderServiceImpl implements IorderService{
 
     @Override
     public OrderFrom findOrder(int orderId) {
-        orderMapper.deleteByPrimaryKey(orderId);
-        return null;
+
+        return orderMapper.selectByPrimaryKey(orderId);
     }
 
     @Override

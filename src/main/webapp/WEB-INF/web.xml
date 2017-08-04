@@ -30,6 +30,7 @@
         <filter-name>Login</filter-name>
         <!--这里的/admin/* 表示是指定路径下的文件需要过滤   也可以写为 <url-pattern>/*</url-pattern> 表示所有文件都需要过滤-->
         <url-pattern>/v1/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </filter-mapping>
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <welcome-file-list>

@@ -32,7 +32,7 @@
                     <mark id="waitensure">待确认</mark>  <a class="btn btn-default" href="#" onclick="ensureOrder('${myOrder.orderId}')">确认订单</a>
                 </c:when>
                 <c:when test="${myOrder.orderStatus=='1'}">
-                    <mark id="ensured">已确认</mark> onclick="ensureOrder('${myOrder.orderId}')">结束订单</a>
+                    <mark id="ensured">已确认</mark> <a class="btn btn-default" href="#" onclick="endOrder('${myOrder.orderId}')">结束订单</a>
                 </c:when>
                 <c:when test="${myOrder.orderStatus=='2'}">
                     <mark id="finished">已完成</mark>
@@ -61,15 +61,39 @@
         }
         searchLineInfo();
     }
-    function searchLineInfo(){
-        //ajax提交
-        var params = $("#searchForm").serialize();
+    function endOrder(orderId){
         $.ajax({
-            type : "GET",
-            url : "/v1/lineInfos",
-            data : params,
-            success : function(data) {
-                app.items=data;
+            cache: true,
+            type: "PATCH",
+            url:"/api/order/"+orderId,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(data) {
+                if (data.code==200){
+                    $("#ensured").text("已完成");
+                    $(this).hide();
+                }else{
+                    alert(data);
+                }
+            }
+        });
+    }
+    function ensureOrder(orderId){
+        $.ajax({
+            cache: true,
+            type: "PUT",
+            url:"/api/order/"+orderId,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(data) {
+                if (data.code==200){
+                    location.reload();
+                }else{
+                    alert(data);
+                }
+
             }
         });
     }

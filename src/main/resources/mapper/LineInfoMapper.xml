@@ -6,7 +6,7 @@
     <result column="start" jdbcType="VARCHAR" property="start" />
     <result column="end" jdbcType="VARCHAR" property="end" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="plate_number" jdbcType="INTEGER" property="plateNumber" />
+    <result column="plate_number" jdbcType="VARCHAR" property="plateNumber" />
     <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="isBargin" jdbcType="INTEGER" property="isbargin" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -38,7 +38,7 @@
       isBargin, status, person_count, 
       type, user_id)
     values (#{lid,jdbcType=INTEGER}, #{start,jdbcType=VARCHAR}, #{end,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=TIMESTAMP}, #{plateNumber,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{plateNumber,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
       #{isbargin,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{personCount,jdbcType=INTEGER}, 
       #{type,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR})
   </insert>
@@ -128,7 +128,7 @@
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="plateNumber != null">
-        plate_number = #{plateNumber,jdbcType=INTEGER},
+        plate_number = #{plateNumber,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DOUBLE},
@@ -156,7 +156,7 @@
     set start = #{start,jdbcType=VARCHAR},
       end = #{end,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=TIMESTAMP},
-      plate_number = #{plateNumber,jdbcType=INTEGER},
+      plate_number = #{plateNumber,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       isBargin = #{isbargin,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},

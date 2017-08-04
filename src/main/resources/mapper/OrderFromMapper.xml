@@ -31,8 +31,8 @@
     select
     <include refid="Base_Column_List" />
     from order_from
-    where <if test="orderStatus != null">order_status = #{orderStatus,jdbcType=VARCHAR}</if>
-    <if test="subscriberId != null">subscriber_id = #{subscriberId,jdbcType=VARCHAR}</if>
+    where <if test="orderStatus != null">order_status = #{orderStatus,jdbcType=INTEGER}</if>
+    <if test="subscriberId != null">AND subscriber_id = #{subscriberId,jdbcType=INTEGER}</if>
   </select>
 
   <select id="selectOrderListByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -85,26 +86,43 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "/order/{orderId}",method = RequestMethod.PUT)
-    public String updateOrder(@PathVariable String orderId,HttpServletRequest request){
+    @ResponseBody
+    public String updateOrder(@PathVariable int orderId,HttpServletRequest request){
         JSONObject jsonObject=new JSONObject();
         User user=UserTools.getCurrentUser(request);
         int CurrentUserId=user.getId().intValue();
-        OrderFrom orderFrom=orderService.findOrder(CurrentUserId);
+        OrderFrom orderFrom=orderService.findOrder(orderId);
         if (orderFrom.getPublisherId().equals(CurrentUserId)){
             orderFrom.setOrderStatus(1);
             //执行更新
             orderService.updateOrder(orderFrom);
-            jsonObject.put("message",WarningEnum.update_success);
+            jsonObject.put("code",WarningEnum.update_success.getCode());
+            jsonObject.put("message",WarningEnum.update_success.getMsg());
+            return jsonObject.toJSONString();
         }
         jsonObject.put("message",WarningEnum.no_privilege);
         return jsonObject.toJSONString();
     }
     /**结束
-     * @param userId
+     * @param orderId
      * @return
      */
     @RequestMapping(value = "/order/{orderId}",method = RequestMethod.PATCH)
-    public OrderFrom finishOrder(@PathVariable String userId){
-        return null;
+    @ResponseBody
+    public String finishOrder(@PathVariable int orderId,HttpServletRequest request){
+        JSONObject jsonObject=new JSONObject();
+        User user=UserTools.getCurrentUser(request);
+        int CurrentUserId=user.getId().intValue();
+        OrderFrom orderFrom=orderService.findOrder(orderId);
+        if (orderFrom.getSubscriberId().equals(CurrentUserId)){
+            orderFrom.setOrderStatus(2);
+            //执行更新
+            orderService.updateOrder(orderFrom);
+            jsonObject.put("code",WarningEnum.update_success.getCode());
+            jsonObject.put("message",WarningEnum.update_success.getMsg());
+            return jsonObject.toJSONString();
+        }
+        jsonObject.put("message",WarningEnum.no_privilege);
+        return jsonObject.toJSONString();
     }
 }

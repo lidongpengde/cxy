@@ -12,7 +12,7 @@ public class LineInfo {
 
     private String startTime;
 
-    private Integer plateNumber;
+    private String plateNumber;
 
     private Double price;
 
@@ -58,11 +58,11 @@ public class LineInfo {
         this.startTime = startTime;
     }
 
-    public Integer getPlateNumber() {
+    public String getPlateNumber() {
         return plateNumber;
     }
 
-    public void setPlateNumber(Integer plateNumber) {
+    public void setPlateNumber(String plateNumber) {
         this.plateNumber = plateNumber;
     }
 
