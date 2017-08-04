@@ -18,7 +18,7 @@
              <div class="form-group"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
              <div class="form-group"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
              <div class="form-group"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
-             <div class="form-group"><button class="btn btn-info" onclick="searchLineInfo()">查询</button></div>
+             <div class="form-group"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
             </form>
 
         </div>

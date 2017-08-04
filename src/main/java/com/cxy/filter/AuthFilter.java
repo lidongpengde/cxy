@@ -40,7 +40,7 @@ public class AuthFilter implements Filter {
         User password = (User) session.getAttribute("const_user");
         if (password == null || "".equals(password)) {
             // 跳转到登陆页面
-            resp.sendRedirect(loginUrltest);
+            resp.sendRedirect(loginUrlOnline);
         } else {
             arg2.doFilter(req, resp);
         }

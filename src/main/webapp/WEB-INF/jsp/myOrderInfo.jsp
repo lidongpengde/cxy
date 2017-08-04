@@ -11,8 +11,7 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 
 <div class="container">
-<mark>展示单个订单信息</mark>
-    <div class="col-sm-6 col-sm-offset-2">
+    <div class="col-sm-6 ">
         <div class="product-card">
             <a class="img-link" target="_blank" href="https://learn.vegetablegardeninglife.com/ebook-companion-planting-grow-better-vegetables"><img class="img-responsive" src="https://www.withcoach.com/assets/marketing/product-cards/teach-live-convert-deec0b7f5597d3e14da7af1cc5000b088ff05721495e3aae651ba67efcbd4b8c.png" alt="Companion planting">
             </a><div class="product-info">
@@ -29,10 +28,10 @@
             <p class="product-desc"><fmt:formatDate  pattern="yyyy:mm:dd HH:mm:ss" value="${myOrder.createTime}"/></p>
         <c:choose>
             <c:when test="${myOrder.orderStatus=='0'}">
-                <mark id="waitensure">待确认</mark>  <a class="btn btn-default" href="#" onclick="ensureOrder('${myOrder.orderId}')">确认订单</a>
+                <mark id="waitensure">待确认</mark>  <a class=" ensurebtn" href="#" onclick="ensureOrder('${myOrder.orderId}')">确认订单</a>
             </c:when>
             <c:when test="${myOrder.orderStatus=='1'}">
-                <mark id="ensured">已确认</mark> <a class="btn btn-default" href="#" onclick="ensureOrder('${myOrder.orderId}')">结束订单</a>
+                <mark id="ensured">已确认</mark> <a class=" ensurebtn" href="#" onclick="endOrder('${myOrder.orderId}')">结束订单</a>
             </c:when>
             <c:when test="${myOrder.orderStatus=='2'}">
                 <mark id="finished">已完成</mark>
@@ -54,16 +53,34 @@
                     alert("Connection error");
                 },
                 success: function(data) {
+                    debugger
                     if (data.code==200){
                        location.reload();
                     }else{
-                        alert(data);
+                        alert(data.message);
                     }
 
                 }
             });
     }
-
+    function endOrder(orderId){
+        $.ajax({
+            cache: true,
+            type: "PATCH",
+            url:"/api/order/"+orderId,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(data) {
+                if (data.code==200){
+                    alert("订单已完成");
+                    location.href="/api/orders"
+                }else{
+                    alert(data.message);
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

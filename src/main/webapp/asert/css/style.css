@@ -14,7 +14,10 @@ body {
 p {
     line-height: 3;
 }
-
+ a:hover {
+     color: #337ab7;
+     text-decoration: none;
+ }
 #main {
     position: relative;
 }
@@ -120,8 +123,8 @@ p {
     height: 100px;
 }
 
-.jumbotron{
-    text-align: center;
+.btn{
+    min-width: 100px;
 }
 .jumbotron h2{
     font-size: 60px;
@@ -247,4 +250,24 @@ h1{
      box-shadow: 0 5px 40px 0 rgba(26,44,57,0.2);
      border: 1px solid #CDD6DC;
      padding: 30px;
+ }
+ .ensurebtn {
+     color: #dc3545;
+     background-color: transparent;
+     background-image: none;
+     border: 1px solid transparent;
+     border-color: #dc3545;
+     padding: .5rem .75rem;
+     font-weight: 400;
+ }
+ .ensurebtn:active{
+     color: #fff;
+     background-color: #dc3545;
+     border-color: #dc3545;
+ }
+
+ .ensurebtn:hover {
+     color: #fff;
+     background-color: #dc3545;
+     border-color: #dc3545;
  }

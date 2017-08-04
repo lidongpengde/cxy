@@ -1,6 +1,7 @@
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cxy.common.MessageResult;
 import com.cxy.common.UserTools;
 import com.cxy.common.WarningEnum;
 import com.cxy.entity.OrderFrom;
@@ -34,7 +35,6 @@ public class OrderController {
         OrderFrom order=new OrderFrom();
         User user=UserTools.getCurrentUser(request);
         order.setSubscriberId(user.getId().intValue());
-        order.setOrderStatus(0);
         List<OrderFrom> list;
         list=orderService.findOrderForListBySubScribeId(order);
         //如果已经预约，只直接展示已有订单
@@ -48,6 +48,7 @@ public class OrderController {
             modelMap.put("warningMsg", WarningEnum.unfinished_order.getMsg());
             return "error";
         }
+        order.setOrderStatus(0);
         order.setSubscriberName(user.getUserName());
         order.setSubscriberMobile(user.getMobile());
         order=orderService.createOrder(lid,order);
@@ -87,8 +88,8 @@ public class OrderController {
      */
     @RequestMapping(value = "/order/{orderId}",method = RequestMethod.PUT)
     @ResponseBody
-    public String updateOrder(@PathVariable int orderId,HttpServletRequest request){
-        JSONObject jsonObject=new JSONObject();
+    public MessageResult updateOrder(@PathVariable int orderId,HttpServletRequest request){
+        MessageResult result=new MessageResult();
         User user=UserTools.getCurrentUser(request);
         int CurrentUserId=user.getId().intValue();
         OrderFrom orderFrom=orderService.findOrder(orderId);
@@ -96,12 +97,14 @@ public class OrderController {
             orderFrom.setOrderStatus(1);
             //执行更新
             orderService.updateOrder(orderFrom);
-            jsonObject.put("code",WarningEnum.update_success.getCode());
-            jsonObject.put("message",WarningEnum.update_success.getMsg());
-            return jsonObject.toJSONString();
+            result.setSuccess(true);
+            result.setCode(WarningEnum.update_success.getCode());
+            result.setMessage(WarningEnum.update_success.getMsg());
+            return result;
         }
-        jsonObject.put("message",WarningEnum.no_privilege);
-        return jsonObject.toJSONString();
+        result.setCode(WarningEnum.no_privilege.getCode());
+        result.setMessage(WarningEnum.no_privilege.getMsg());
+        return result;
     }
     /**结束
      * @param orderId
@@ -109,7 +112,8 @@ public class OrderController {
      */
     @RequestMapping(value = "/order/{orderId}",method = RequestMethod.PATCH)
     @ResponseBody
-    public String finishOrder(@PathVariable int orderId,HttpServletRequest request){
+    public MessageResult finishOrder(@PathVariable int orderId,HttpServletRequest request){
+        MessageResult result=new MessageResult();
         JSONObject jsonObject=new JSONObject();
         User user=UserTools.getCurrentUser(request);
         int CurrentUserId=user.getId().intValue();
@@ -118,11 +122,13 @@ public class OrderController {
             orderFrom.setOrderStatus(2);
             //执行更新
             orderService.updateOrder(orderFrom);
-            jsonObject.put("code",WarningEnum.update_success.getCode());
-            jsonObject.put("message",WarningEnum.update_success.getMsg());
-            return jsonObject.toJSONString();
+            result.setSuccess(true);
+            result.setCode(WarningEnum.update_success.getCode());
+            result.setMessage(WarningEnum.update_success.getMsg());
+            return result;
         }
-        jsonObject.put("message",WarningEnum.no_privilege);
-        return jsonObject.toJSONString();
+        result.setCode(WarningEnum.no_privilege.getCode());
+        result.setMessage(WarningEnum.no_privilege.getMsg());
+        return result;
     }
 }

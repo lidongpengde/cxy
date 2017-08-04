@@ -12,7 +12,7 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app">
     <c:forEach var="myOrder"   items="${orders}"   varStatus="status">
-    <div class="col-sm-6 col-sm-offset-2">
+    <div class="col-sm-6 " style="padding-top: 20px">
         <div class="product-card">
             <a class="img-link" target="_blank" href="https://learn.vegetablegardeninglife.com/ebook-companion-planting-grow-better-vegetables"><img class="img-responsive" src="https://www.withcoach.com/assets/marketing/product-cards/teach-live-convert-deec0b7f5597d3e14da7af1cc5000b088ff05721495e3aae651ba67efcbd4b8c.png" alt="Companion planting">
             </a><div class="product-info">
@@ -29,10 +29,10 @@
             <p class="product-desc"><fmt:formatDate  pattern="yyyy:mm:dd HH:mm:ss" value="${myOrder.createTime}"/></p>
             <c:choose>
                 <c:when test="${myOrder.orderStatus=='0'}">
-                    <mark id="waitensure">待确认</mark>  <a class="btn btn-default" href="#" onclick="ensureOrder('${myOrder.orderId}')">确认订单</a>
+                    <mark id="waitensure">待确认</mark>  <a class="ensurebtn" href="#" onclick="ensureOrder('${myOrder.orderId}')">确认订单</a>
                 </c:when>
                 <c:when test="${myOrder.orderStatus=='1'}">
-                    <mark id="ensured">已确认</mark> <a class="btn btn-default" href="#" onclick="endOrder('${myOrder.orderId}')">结束订单</a>
+                    <mark id="ensured">已确认</mark> <a class=" ensurebtn" href="#" onclick="endOrder('${myOrder.orderId}')">结束订单</a>
                 </c:when>
                 <c:when test="${myOrder.orderStatus=='2'}">
                     <mark id="finished">已完成</mark>
@@ -74,7 +74,7 @@
                     $("#ensured").text("已完成");
                     $(this).hide();
                 }else{
-                    alert(data);
+                    alert(data.message);
                 }
             }
         });
@@ -91,7 +91,7 @@
                 if (data.code==200){
                     location.reload();
                 }else{
-                    alert(data);
+                    alert(data.message);
                 }
 
             }

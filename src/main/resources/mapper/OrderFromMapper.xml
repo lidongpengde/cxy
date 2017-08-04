@@ -31,7 +31,7 @@
     select
     <include refid="Base_Column_List" />
     from order_from
-    where <if test="orderStatus != null">order_status = #{orderStatus,jdbcType=INTEGER}</if>
+    where order_status !=2
     <if test="subscriberId != null">AND subscriber_id = #{subscriberId,jdbcType=INTEGER}</if>
   </select>
 
@@ -39,7 +39,7 @@
     select
     <include refid="Base_Column_List" />
     from order_from
-    where publisher_id = #{userId,jdbcType=VARCHAR} or subscriber_id = #{userId,jdbcType=VARCHAR}
+    where publisher_id = #{userId,jdbcType=VARCHAR} or subscriber_id = #{userId,jdbcType=VARCHAR} order by  create_time desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from order_from
