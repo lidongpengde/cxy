@@ -32,6 +32,15 @@
         <url-pattern>/v1/*</url-pattern>
         <url-pattern>/api/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>com.cxy.filter.HeadersCORSFilter</filter-class><!--你过滤器的包 -->
+    </filter>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern><!-- 你开放的接口前缀  -->
+    </filter-mapping>
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

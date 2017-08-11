@@ -26,9 +26,11 @@ p {
     top: 0px;
     width: 100%;
 }
+ .shadow{
+     box-shadow: 0 5px 40px 0 rgba(26,44,57,0.2);
+     background-color: #fff;
+ }
 
-.navbar {
-    margin-bottom: 10px; }
 /* line 32, ../sass/style.scss */
 .navbar .navbar-inner {
     border-radius: 0px 0px 3px 3px; }

@@ -8,21 +8,20 @@
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 ">
-            <div class="aaa">
-                <div class="login-tab login-tab-l">
-                    <a href="#"  onclick="registerPage()" id="registerPage" class="checked" > 注册</a>
-                </div>
-                <div class="login-tab login-tab-r">
-                    <a href="#"  onclick="loginPage()" id="loginPage"  class="">账户登录</a>
-                </div>
-            </div>
+<div class="container" >
+        <div class="col-md-6">
             <form action="user/register" id="registerForm" name="registerForm" onsubmit="return false">
-            <div class="thumbnail" id="register">
-                <div>
-                <strong id="errorMsg"  class="text-danger text-center"></strong></div>
+                <div class="shadow">
+                <div class="aaa">
+                    <div class="login-tab login-tab-l">
+                        <a href="#"  onclick="registerPage()" id="registerPage" class="checked" > 注册</a>
+                    </div>
+                    <div class="login-tab login-tab-r">
+                        <a href="#"  onclick="loginPage()" id="loginPage"  class="">账户登录</a>
+                    </div>
+                </div>
+            <div class=" " id="register" >
+             <div><strong id="errorMsg"  class="text-danger text-center"></strong></div>
              <div class="form-group"><label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"   onblur="vailPhone()"></div>
             <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text" required></div>
             <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" type="password" required></div>
@@ -37,20 +36,23 @@
                 </label>
             </div>
              <div class="form-group"><label for="idCard">身份证号：</label><input id="idCard" name="idCard" type="number" minlength="15" maxlength="18" class="form-control"></div>
-            <button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button>
+                <div class="form-group"><button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button></div>
+                <br>
             </div>
         </form>
         <form action="user/login" name="loginForm" id="loginForm" onsubmit="return false">
-            <div class="thumbnail" id="login">
+            <div class="" id="login">
                 <div class="form-group"><label >用户名：</label><input  class="form-control" name="userName"  type="text" required></div>
                 <%--这里把密码type改为password  console就会报错，不知道咋回事--%>
                 <div class="form-group"><label >密码：</label><input class="form-control" name="passWord" type="password" required></div>
-                <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button>
+                <div class="form-group"> <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button></div>
+
             </div>
         </form>
+            <br>
+        </div>
         </div>
     </div>
-</div>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#login").hide();
