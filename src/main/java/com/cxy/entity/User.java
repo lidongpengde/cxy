@@ -13,7 +13,7 @@ public class User {
 
     private String passWord;
 
-    private Long idCard;
+    private String nickName;
 
     private Long identifyStatus;
 
@@ -65,14 +65,13 @@ public class User {
         this.passWord = passWord == null ? null : passWord.trim();
     }
 
-    public Long getIdCard() {
-        return idCard;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setIdCard(Long idCard) {
-        this.idCard = idCard;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
-
     public Long getIdentifyStatus() {
         return identifyStatus;
     }

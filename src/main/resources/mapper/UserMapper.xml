@@ -8,11 +8,11 @@
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
-    <result column="id_card" jdbcType="BIGINT" property="idCard" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="identify_status" jdbcType="BIGINT" property="identifyStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, mobile, age, sex, user_name, pass_word, id_card, identify_status
+    id, mobile, age, sex, user_name, pass_word, nick_name, identify_status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -33,10 +33,10 @@
   <insert id="insert" parameterType="com.cxy.entity.User">
     insert into user (id, mobile, age, 
       sex, user_name, pass_word, 
-      id_card, identify_status)
+      nick_name, identify_status)
     values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=BIGINT}, #{age,jdbcType=BIGINT}, 
       #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=BIGINT}, #{identifyStatus,jdbcType=BIGINT})
+      #{nickName,jdbcType=BIGINT}, #{identifyStatus,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.cxy.entity.User">
     insert into user
@@ -59,8 +59,8 @@
       <if test="passWord != null">
         pass_word,
       </if>
-      <if test="idCard != null">
-        id_card,
+      <if test="nickName != null">
+          nick_name,
       </if>
       <if test="identifyStatus != null">
         identify_status,
@@ -85,8 +85,8 @@
       <if test="passWord != null">
         #{passWord,jdbcType=VARCHAR},
       </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=BIGINT},
+      <if test="nickName != null">
+        #{nickName,jdbcType=BIGINT},
       </if>
       <if test="identifyStatus != null">
         #{identifyStatus,jdbcType=BIGINT},
@@ -111,8 +111,8 @@
       <if test="passWord != null">
         pass_word = #{passWord,jdbcType=VARCHAR},
       </if>
-      <if test="idCard != null">
-        id_card = #{idCard,jdbcType=BIGINT},
+      <if test="nickName != null">
+          nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="identifyStatus != null">
         identify_status = #{identifyStatus,jdbcType=BIGINT},
@@ -127,7 +127,7 @@
       sex = #{sex,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       pass_word = #{passWord,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=BIGINT},
+      nick_name = #{nickName,jdbcType=VARCHAR},
       identify_status = #{identifyStatus,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>

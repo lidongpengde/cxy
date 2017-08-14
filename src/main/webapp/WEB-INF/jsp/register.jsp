@@ -21,7 +21,7 @@
                     </div>
                 </div>
             <div class=" " id="register" >
-             <div><strong id="errorMsg"  class="text-danger text-center"></strong></div>
+             <div><strong id="errorMsg"  style="color: red;margin-left: 18px;"></strong></div>
              <div class="form-group"><label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"   onblur="vailPhone()"></div>
             <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text" required></div>
             <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" type="password" required></div>
@@ -35,7 +35,7 @@
                     <input type="radio" name="sex" value="0"> 女
                 </label>
             </div>
-             <div class="form-group"><label for="idCard">身份证号：</label><input id="idCard" name="idCard" type="number" minlength="15" maxlength="18" class="form-control"></div>
+             <div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" class="form-control"></div>
                 <div class="form-group"><button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button></div>
                 <br>
             </div>
@@ -43,7 +43,6 @@
         <form action="user/login" name="loginForm" id="loginForm" onsubmit="return false">
             <div class="" id="login">
                 <div class="form-group"><label >用户名：</label><input  class="form-control" name="userName"  type="text" required></div>
-                <%--这里把密码type改为password  console就会报错，不知道咋回事--%>
                 <div class="form-group"><label >密码：</label><input class="form-control" name="passWord" type="password" required></div>
                 <div class="form-group"> <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button></div>
 

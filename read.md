@@ -20,7 +20,7 @@ CREATE TABLE `user` (
   `sex` varchar(10) NOT NULL COMMENT '性别',
   `user_name` varchar(30) DEFAULT NULL COMMENT '用户名）',
   `pass_word` varchar(30) DEFAULT NULL COMMENT '密码',
-  `id_card` bigint(30) DEFAULT NULL COMMENT '身份证号',
+  `nick_name` bigint(30) DEFAULT NULL COMMENT '身份证号',
   `identify_status` bigint(10) DEFAULT NULL COMMENT '实名认证状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
