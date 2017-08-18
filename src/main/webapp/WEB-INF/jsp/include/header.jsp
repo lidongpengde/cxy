@@ -19,7 +19,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand crawler-logo" href="/"><b class="app-name">A ride whenever you need one</b></a>
+            <a class="navbar-brand crawler-logo" href="/"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" alt="BlaBlaCar" width="126" height="21"></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">

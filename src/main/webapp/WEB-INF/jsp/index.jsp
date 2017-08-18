@@ -39,6 +39,7 @@
                         <span class="label label-default" v-if="item.isbargin === 1">可议价</span>
                         <span class="price">¥{{ item.price }}</span>
                     </p>
+
                 </div>
                 <a v-bind:href="'/api/order/'+item.lid" class="discuss btn btn-default">马上预约</a>
             </div>

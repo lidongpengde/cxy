@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="gbk">
+<head >
+<meta charset="utf-8">
+<script src="jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src="main.js" type="text/javascript"></script>
+<script src="jquery.autocompleter.js" type="text/javascript"></script>
+  <title></title>
+</head>
+<body style="background-color: #000">
+<main>
+
+      <div class="field">
+
+        <input type="text" name="name" id="name">
+
+      </div>
+</main>
+<script type="text/javascript">
+$(function () {
+  $('#name').autocompleter({
+        cache: false,
+        // marker for autocomplete matches
+        highlightMatches: true,
+
+        // object to local or url to remote search
+        source: 'http://localhost:8080/v2//HintInfo' ,
+
+        template: '{{ name }}',
+        // show hint
+        hint: true,
+
+        // abort source if empty field
+        empty: false,
+
+        // max results
+        limit: 5,
+    });
+});
+</script>
+</body>
+</html>

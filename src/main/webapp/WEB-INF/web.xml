@@ -41,6 +41,20 @@
         <filter-name>cors</filter-name>
         <url-pattern>/*</url-pattern><!-- 你开放的接口前缀  -->
     </filter-mapping>
+
+
+    <filter>
+        <filter-name>encode</filter-name>
+        <filter-class>com.cxy.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encode</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encode</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

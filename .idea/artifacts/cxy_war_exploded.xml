@@ -48,6 +48,9 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.24" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.24" />
           <element id="library" level="project" name="Maven: org.jasig.cas.client:cas-client-core:3.2.0" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongodb-driver:3.5.0" />
+          <element id="library" level="project" name="Maven: org.mongodb:bson:3.5.0" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongodb-driver-core:3.5.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
