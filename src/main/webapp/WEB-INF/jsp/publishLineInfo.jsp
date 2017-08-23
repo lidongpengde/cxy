@@ -1,5 +1,6 @@
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="include/header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 
 
 </head>
-<jsp:include page="include/header.jsp"></jsp:include>
+
 <body>
 <div class="container">
     <div class="main">
@@ -51,18 +52,21 @@
                 </label>
               </div>
     <div class="form-group" >
-      <input placeholder="人数" type="number" maxlength="1" name="personCount" id="personCount" class="form-control" onblur="checkValid(this)"></div>
+      <input placeholder="人数" type="number" max="3" min="1" name="personCount" id="personCount" class="form-control" onblur="checkValid(this)"></div>
               <div class="form-group" >
       <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  onblur="checkValid(this)"></div>
       <div class="form-group">
-          <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
+          <div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
               <input class="form-control" size="16" type="text" value="" name="startTime" id="startTime" readonly placeholder="出发时间" onblur="checkValid(this)">
               <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
               <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
           </div>
-          <input type="hidden" id="dtp_input1" value="" /><br/>
+          <input type="hidden" id="dtp_input1" style="margin-top: 350px" value="" />
       </div>
+      <br/>
+      <div class="form-group">
     <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
+          </div>
 </form>
 </div>
     </div>
@@ -154,7 +158,6 @@
         showMeridian: 1
     });
      function checkValid(form) {
-         debugger
         var inputVal=form.value;
          if (inputVal){
              $("#errormsg").fadeOut();
