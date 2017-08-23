@@ -30,18 +30,22 @@
             <div class="post" v-for="item in items">
 
                 <div class="post-content">
-                    <h3><a href="">{{ item.start }}</a><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong><a>{{ item.end }}</a><span>电话：{{ item.user.mobile }}</span></h3>
+                    <h3>{{ item.start }}	&nbsp;<strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong>	&nbsp;{{ item.end }}&nbsp;<span class="glyphicon glyphicon-earphone" aria-hidden="true">{{ item.user.mobile }}</span></h3>
                     <p>
-                        人数:<strong>{{ item.personCount }}</strong>,车牌号：{{ item.plateNumber }}
-                        发布人：<a href="">{{ item.user.userName }}</a>
-                        <span>出发时间：{{ item.startTime }}</span>
-                        <span class="label label-default" v-if="item.isbargin === 0">不议价</span>
-                        <span class="label label-default" v-if="item.isbargin === 1">可议价</span>
-                        <span class="price">¥{{ item.price }}</span>
+                        人数:	&nbsp;<span class="badge">{{ item.personCount }}</span>		&nbsp;&nbsp;车牌号：{{ item.plateNumber }}
+                        &nbsp;	&nbsp;
+                        <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.user.userName }}</span>
+                        &nbsp;	&nbsp;
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true">	{{ item.startTime }}</span>
+                        <%--<span class="price">¥{{ item.price }}</span>--%>
                     </p>
-
+                <p><span class="price">¥{{ item.price }}</span>
+                    <span class="" v-if="item.isbargin === 0">不议价</span>
+                    <span class="" v-if="item.isbargin === 1">可议价</span>
+                </p>
                 </div>
                 <a v-bind:href="'/api/order/'+item.lid" class="discuss btn btn-default">马上预约</a>
+
             </div>
 </div>
 
