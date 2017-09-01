@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxy.dao.IdentityMapper">
+  <resultMap id="BaseResultMap" type="com.cxy.entity.Identity">
+    <id column="identity_id" jdbcType="INTEGER" property="identityId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="graduation" jdbcType="VARCHAR" property="graduation" />
+    <result column="license" jdbcType="VARCHAR" property="license" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    identity_id, user_id, id_card, graduation, license, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from identity
+    where identity_id = #{identityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from identity
+    where identity_id = #{identityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cxy.entity.Identity">
+    insert into identity (identity_id, user_id, id_card, 
+      graduation, license, create_time
+      )
+    values (#{identityId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{idCard,jdbcType=VARCHAR}, 
+      #{graduation,jdbcType=VARCHAR}, #{license,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxy.entity.Identity">
+    insert into identity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="identityId != null">
+        identity_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="graduation != null">
+        graduation,
+      </if>
+      <if test="license != null">
+        license,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="identityId != null">
+        #{identityId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="graduation != null">
+        #{graduation,jdbcType=VARCHAR},
+      </if>
+      <if test="license != null">
+        #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.Identity">
+    update identity
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="graduation != null">
+        graduation = #{graduation,jdbcType=VARCHAR},
+      </if>
+      <if test="license != null">
+        license = #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where identity_id = #{identityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxy.entity.Identity">
+    update identity
+    set user_id = #{userId,jdbcType=BIGINT},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      graduation = #{graduation,jdbcType=VARCHAR},
+      license = #{license,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where identity_id = #{identityId,jdbcType=INTEGER}
+  </update>
+</mapper>
