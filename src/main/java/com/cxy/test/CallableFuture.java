@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 
 /**
  * Created by lidongpeng on 2017/8/10.
+ *
  */
 public class CallableFuture {
     public static void main(String[] args) throws Exception {

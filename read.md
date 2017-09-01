@@ -54,5 +54,5 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评价';
 
-qq:821888642
+
 配色方案：http://www.colorhunt.co/c/65978
