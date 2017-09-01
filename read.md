@@ -54,5 +54,16 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评价';
 
+CREATE TABLE `identity` (
+  `identity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(10) DEFAULT NULL,
+  `id_card` varchar(100) DEFAULT NULL,
+  `graduation` varchar(100) DEFAULT NULL,
+  `license` varchar(100) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`identity_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+
 
 配色方案：http://www.colorhunt.co/c/65978

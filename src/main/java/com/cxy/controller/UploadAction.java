@@ -46,9 +46,7 @@ public class UploadAction {
             e.printStackTrace();
         }
         String fileurl="/upload/"+fileName;
-        Map<String,String> map =new HashMap<String, String>();
-        map.put("fileurl",fileurl);
-        return JSONObject.toJSONString(map);
+        return fileurl;
     }
     @RequestMapping("/download/{filename}")
     public String download(@PathVariable String filename, HttpServletRequest request,

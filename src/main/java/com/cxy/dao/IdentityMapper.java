@@ -2,6 +2,10 @@ package com.cxy.dao;
 
 
 import com.cxy.entity.Identity;
+import com.cxy.service.Iidentity;
+
+import java.util.List;
+import java.util.Map;
 
 public interface IdentityMapper {
     int deleteByPrimaryKey(Integer identityId);
@@ -15,4 +19,5 @@ public interface IdentityMapper {
     int updateByPrimaryKeySelective(Identity record);
 
     int updateByPrimaryKey(Identity record);
+    public List<Iidentity> getIdentityListByPage(Map<String,String> map);
 }

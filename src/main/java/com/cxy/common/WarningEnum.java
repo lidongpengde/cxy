@@ -9,6 +9,7 @@ public enum WarningEnum {
 	update_failed(101,"更新失败"),
 	update_success(200,"更新成功"),
 	no_privilege(102,"没有权限操作"),
+	identify_wait(402,"您的认证信息已经成功提交，我们会尽快为您审核，请耐心等待通知"),
 	mobile_used_byother(3,"手机号已经被其他人使用"),
 	send_max_date(4,"发送次数超过限制"),
 	too_often(5,"发送的短信太频繁"),

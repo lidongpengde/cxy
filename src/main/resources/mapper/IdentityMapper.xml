@@ -18,6 +18,8 @@
     from identity
     where identity_id = #{identityId,jdbcType=INTEGER}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from identity
     where identity_id = #{identityId,jdbcType=INTEGER}
@@ -30,49 +32,7 @@
       #{graduation,jdbcType=VARCHAR}, #{license,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cxy.entity.Identity">
-    insert into identity
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="identityId != null">
-        identity_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="idCard != null">
-        id_card,
-      </if>
-      <if test="graduation != null">
-        graduation,
-      </if>
-      <if test="license != null">
-        license,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="identityId != null">
-        #{identityId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="graduation != null">
-        #{graduation,jdbcType=VARCHAR},
-      </if>
-      <if test="license != null">
-        #{license,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.Identity">
     update identity
     <set>
@@ -103,4 +63,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where identity_id = #{identityId,jdbcType=INTEGER}
   </update>
+
+  <select id="getIdentityListByPage" resultType="Map" parameterType="com.cxy.entity.Identity">
+    select * from identity
+    <if test="start!=null and pagesize!=null">
+      limit #{start},#{pagesize}
+    </if>
+  </select>
 </mapper>
