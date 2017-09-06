@@ -1,5 +1,7 @@
 package com.cxy.test;
 
+import com.sun.istack.internal.NotNull;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
@@ -14,17 +16,30 @@ import static org.junit.Assert.assertEquals;
  * Created by lidongpeng on 2017/9/1.
  */
 public class URLToDomain {
+    @NotNull
+    String aaa;
     /**
      * 根据url获取domain
      * @return
      * @throws IOException
      */
-    @Test
+
     public void parseDomain() throws IOException {
             Long START=System.currentTimeMillis();
             String urlAddress = "http://xueshu.baidu.com/";
             URL url = new URL(urlAddress);
             System.out.println(url.getHost());
             System.out.println(System.currentTimeMillis()-START);
+    }
+    @Test
+    public  void main() {
+
+        setasdsds(this.aaa);
+
+    }
+
+    public void setasdsds(String aaa) {
+        //Assert.assertNotNull(aaa);
+        String bbb= aaa;
     }
 }

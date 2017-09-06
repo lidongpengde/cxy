@@ -13,7 +13,16 @@ public class Identity {
 
     private String license;
 
-    private Date createTime;
+    private String createTime;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getIdentityId() {
         return identityId;
@@ -55,11 +64,11 @@ public class Identity {
         this.license = license == null ? null : license.trim();
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

@@ -31,9 +31,11 @@ public class UserTools {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
-    public static Date getCurrentTime() {
-
-        return new Date();
+    public static String getCurrentTime() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(currentTime);
+        return dateString;
     }
     public static  void addUserCookie(HttpServletResponse response, String domain){
         Cookie cookie=new Cookie("token", null);

@@ -24,12 +24,10 @@
   </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->
 
-
 		<div v-for="todo in todos" class="thumbnail" style="min-height: 120px">
-            <img style="float: left;min-height: 100px" name="upload" v-bind:src="''" class="img-rounded" />
-		<h3 style="float: left;margin-left: 10px">{{todo.theme}} <small>被捐助人：{{todo.personName}}（收款账号：{{todo.alipay}}）---{{todo.createTime}}</small></h3>
-            <a href="#" v-on:click="del(todo.infoId)" style="float: right;margin: 40px" class="btn btn-default">删除</a>
-            <a v-bind:href="'updateInformation?mid='+todo.infoId"  style="float: right;margin: 40px" class="btn btn-default">修改</a>
+            <img  name="upload" v-bind:src="'/download/?filename='+todo.idCard" class="img-rounded" width="80px" style="float: left"/>
+            <h3 style="float: left;margin-left: 10px">{{todo.user.userName}}<small>手机：{{todo.user.mobile}}</small><small>提交时间：{{todo.createTime}}</small></h3>
+            <a v-bind:href="'/user/'+todo.userId"  style="float: right;margin: 40px" class="btn btn-default">通过</a>
 		<h5 style="float:left;margin-left: -150px;
     margin-top: 70px; ">{{todo.content}}</h5>
 	</div>
@@ -63,12 +61,6 @@
             }
         }
     })
-   $(document).ready(function(){
-        $.get( "/api/Identifys", function( data ) {
-            data= JSON.parse(data);
-            app.todos=data;
-        });
-    });
    function  search(title){
        debugger
        $.get( "Identifys?information.theme="+title, function( data ) {
@@ -76,17 +68,17 @@
            app.todos=data.list;
        });
    }
-/*    $("#page").pagination({
+    $("#page").pagination({
         pageSize: 10,
         remote: {
-            url: 'queryInformationList',
+            url: '/api/Identifys',
             success: function (data) {
                 debugger
                 app.todos=data.list;
             },
             totalName:'total'
         }
-    });*/
+    });
 </script>
 
 </body>

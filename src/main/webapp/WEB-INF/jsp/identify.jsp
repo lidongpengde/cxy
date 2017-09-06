@@ -50,7 +50,7 @@
             contentType: false,
             success:function(data){
                 $('#file').fadeOut();
-                $('#previewPicture').attr("src",data).fadeIn();
+                $('#previewPicture').attr("src","/download/?filename="+data).fadeIn();
                 $('#path').val(data);
             },
             error:function(e){

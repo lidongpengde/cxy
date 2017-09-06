@@ -36,4 +36,10 @@ public class Welcome {
 
         return callBack;
     }
+    @RequestMapping("/httpclienttest")
+    @ResponseBody
+    public String httpclienttest(String key,Map<String,String> map) {
+
+        return key+"oo";
+    }
 }

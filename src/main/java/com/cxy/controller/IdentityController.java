@@ -1,6 +1,7 @@
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cxy.common.Pager;
 import com.cxy.common.UserTools;
 import com.cxy.common.WarningEnum;
 import com.cxy.entity.Identity;
@@ -40,10 +41,10 @@ public class IdentityController {
     }
     @RequestMapping(value = "Identifys",method = RequestMethod.GET)
     @ResponseBody
-    public String getIdentifyList(String start, String size, ModelMap modelMap){
-        List<Iidentity> list=identityService.findIdentityList(start,size);
+    public String getIdentifyList(Integer pageIndex, Integer pageSize, ModelMap modelMap){
+        Pager pager=identityService.findIdentityList(pageIndex,pageSize);
 
-        return JSONObject.toJSONString(list);
+        return JSONObject.toJSONString(pager);
     }
     @RequestMapping(value = "toIdentifys",method = RequestMethod.GET)
     public String toIdentifyList(){

@@ -1,5 +1,7 @@
 package com.cxy.service.Impl;
 
+import com.cxy.common.Pager;
+import com.cxy.common.UserTools;
 import com.cxy.dao.IdentityMapper;
 import com.cxy.entity.Identity;
 import com.cxy.service.Iidentity;
@@ -28,16 +30,21 @@ public class IdentityImpl implements Iidentity{
         }else if (!StringUtils.isEmpty(identity.getGraduation())){
             identity.setGraduation(path);
         }
-        identity.setCreateTime(new Date());
+        identity.setCreateTime(UserTools.getCurrentTime());
         return mapper.insert(identity);
     }
 
     @Override
-    public List<Iidentity> findIdentityList(String start, String pageSize) {
-        Map<String,String> map=new HashMap<>();
-        map.put("start",start);
+    public Pager findIdentityList(Integer pageIndex, Integer pageSize) {
+        Pager pager=new Pager();
+        Map<String,Integer> map=new HashMap<>();
+        map.put("start",pageIndex*pageSize);
         map.put("pageSize",pageSize);
-        return mapper.getIdentityListByPage(map);
+        List<Iidentity> list=mapper.getIdentityListByPage(map);
+        Integer total=mapper.getIdentityCount(null);
+        pager.setTotal(total.toString());
+        pager.setList(list);
+        return pager;
     }
 
 }

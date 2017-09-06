@@ -19,5 +19,6 @@ public interface IdentityMapper {
     int updateByPrimaryKeySelective(Identity record);
 
     int updateByPrimaryKey(Identity record);
-    public List<Iidentity> getIdentityListByPage(Map<String,String> map);
+    public List<Iidentity> getIdentityListByPage(Map<String,Integer> map);
+    int getIdentityCount(Identity record);
 }

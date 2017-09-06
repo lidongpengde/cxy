@@ -25,15 +25,13 @@ import java.util.Map;
  */
 @Controller
 public class UploadAction {
-
+String picpath="E:\\upload";
     @RequestMapping(value = "/upload.do")
     @ResponseBody
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
         System.out.println("开始");
-        String path = request.getSession().getServletContext().getRealPath("upload");
+        String path = picpath;
         String fileName = file.getOriginalFilename();
-//        String fileName = new Date().getTime()+".jpg";
-        System.out.println(path);
         File targetFile = new File(path, fileName);
         if(!targetFile.exists()){
             targetFile.mkdirs();
@@ -45,13 +43,13 @@ public class UploadAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String fileurl="/upload/"+fileName;
+        String fileurl=fileName;
         return fileurl;
     }
-    @RequestMapping("/download/{filename}")
-    public String download(@PathVariable String filename, HttpServletRequest request,
+    @RequestMapping("/download")
+    public String download(String filename, HttpServletRequest request,
                            HttpServletResponse response) {
-        String path = request.getSession().getServletContext().getRealPath("upload");
+        String path = picpath;
         path=path+File.separator+filename;
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");

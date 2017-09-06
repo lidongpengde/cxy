@@ -26,6 +26,7 @@
                 <li data-home="" class="active"><a href="/v1/toPublishlineInfoPage">发布</a></li>
                 <li data-services=""><a href="/v1/myPublishLineInfo">我的发布</a></li>
                 <li data-orders=""><a href="/api/orders">我的订单</a></li>
+                <li data-orders=""><a href="/api/toIdentify">实名认证</a></li>
                 <li data-pricing=""><a href="/user/logout">退出</a></li>
             </ul>
         </div>

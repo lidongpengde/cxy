@@ -1,5 +1,6 @@
 package com.cxy.service;
 
+import com.cxy.common.Pager;
 import com.cxy.entity.Identity;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
  */
 public interface Iidentity {
     public int saveIdentity(Identity identity,String path);
-    public List<Iidentity> findIdentityList(String start, String pageSize);
+    public Pager findIdentityList(Integer start, Integer pageSize);
 }

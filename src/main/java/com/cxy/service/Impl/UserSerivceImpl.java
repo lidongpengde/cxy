@@ -28,8 +28,13 @@ public class UserSerivceImpl implements IuserService{
         return userMapper.selectByPrimaryName(userName);
     }
 
-
+    /**
+     * 0未认证1已认证2黑名单
+     * @param user
+     * @return
+     */
     public int updateUser(User user) {
+        user.setIdentifyStatus(1L);
         return userMapper.updateByPrimaryKey(user);
     }
 }

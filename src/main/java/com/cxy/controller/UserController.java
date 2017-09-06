@@ -1,12 +1,14 @@
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cxy.common.UserTools;
 import com.cxy.entity.User;
 import com.cxy.service.IuserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +63,15 @@ public class UserController {
     public String tologin(HttpServletRequest request){
         request.getSession().removeAttribute("const_user");
         return "register";
+    }
+    @RequestMapping("/{userId}")
+    public String tologin(@PathVariable Long userId, HttpServletRequest request){
+       User user= UserTools.getCurrentUser(request);
+       if (user.getId()==1){
+           User identifyUser=userService.findUserById(userId);
+           userService.updateUser(identifyUser);
+       }
+        return "identityList";
     }
 
 }
