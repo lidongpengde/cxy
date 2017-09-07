@@ -1,5 +1,8 @@
 package com.cxy.test;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.HttpEntity;
@@ -10,6 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
@@ -22,13 +26,32 @@ public class ClientFormLogin {
 
     public static void main(String[] args) throws Exception {
 
-        /*DefaultHttpClient httpclient = new DefaultHttpClient();
+        DefaultHttpClient httpclient = new DefaultHttpClient(new ThreadSafeClientConnManager());
+        HttpResponse response;
 
-        HttpGet httpget = new HttpGet("http://localhost:8080/");*/
+        HttpGet httpget = new HttpGet("http://login.atguat.com.cn/getQrcode.no?width=165&height=165");
 
-       /* HttpResponse response = httpclient.execute(httpget);*//*
-        HttpEntity entity = response.getEntity();*/
-/*
+         response = httpclient.execute(httpget);
+        synchronized (httpclient){
+        HttpPost httppost = new HttpPost("http://login.atguat.com.cn/LoadingBarcodeLogin.no?loginStep=waitScan&sendtimestamp=1504776400993");
+        response = httpclient.execute(httppost);
+        }
+        HttpEntity entity = response.getEntity();
+        if (entity != null) {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(entity.getContent(),"UTF-8"), 8 * 1024);
+                StringBuilder entityStringBuilder = new StringBuilder();
+                String line = null;
+                while ((line = bufferedReader.readLine()) != null) {
+                    entityStringBuilder.append(line + "/n");
+                }
+                // 利用从HttpEntity中得到的String生成JsonObject
+                System.out.println(entityStringBuilder.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         System.out.println("Login form get: " + response.getStatusLine());
         if (entity != null) {
             entity.consumeContent();
@@ -41,8 +64,8 @@ public class ClientFormLogin {
             for (int i = 0; i < cookies.size(); i++) {
                 System.out.println("- " + cookies.get(i).toString());
             }
-        }*/
-        List<Cookie> cookies ;
+        }}
+  /*      List<Cookie> cookies ;
         DefaultHttpClient httpclient = new DefaultHttpClient();
         HttpPost httpost = new HttpPost("http://localhost:8080/httpclienttest");
 
@@ -69,5 +92,5 @@ public class ClientFormLogin {
                 System.out.println("- " + cookies.get(i).toString());
             }
         }
-    }
+    }*/
 }

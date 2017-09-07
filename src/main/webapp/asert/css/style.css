@@ -18,6 +18,9 @@ p {
      color: #337ab7;
      text-decoration: none;
  }
+ ol, ul {
+     list-style: none;
+ }
 #main {
     position: relative;
 }
@@ -100,13 +103,14 @@ p {
 .comments li p:last-child {
     margin-bottom: 0; }
 
-.dropdown-menu span {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    line-height: 20px;
-    color: #bbb;
-    white-space: nowrap; }
+ span {
+     margin: 0;
+     padding: 0;
+     border: 0;
+     font-size: 100%;
+     font: inherit;
+     vertical-align: baseline;
+ }
 
 .load-more {
     display: block;
@@ -272,4 +276,50 @@ h1{
      color: #fff;
      background-color: #dc3545;
      border-color: #dc3545;
+ }
+ .sub-menu-secondary {
+     top: 35px;
+     position: absolute;
+     display: none;
+     border-left: 1px solid #dadeeb;
+     width: 220px;
+ }
+ .sub-menu-secondary li:hover {
+     background: #a83636;
+ }
+ .menu-main:hover,.menu-main:active {
+     color: #de4f4f !important;
+ }
+ li {
+     line-height: 40px;
+     font-size: 14px;
+     font-weight: 600;
+     height: 35px;
+     letter-spacing: 1px;
+     transition: all 0.05s linear;
+     -moz-transition: all 0.05s linear;
+     -webkit-transition: all 0.05s linear;
+     font-family: 'ProximaNova-Regular', arial, sans-serif;
+ }
+ .sub-menu-secondary li a {
+     color: #fff;
+     width: 100%;
+ }
+ .sub-menu-secondary li{
+     line-height: 40px;
+     font-size: 11px;
+     height: 35px;
+     letter-spacing: 1px;
+     transition: all 0.05s linear;
+     -moz-transition: all 0.05s linear;
+     -webkit-transition: all 0.05s linear;
+     font-family: 'ProximaNova-Regular', arial, sans-serif;
+     margin-left: -25px;
+ }
+ .sub-menu-secondary {
+     top: 45px;
+     position: absolute;
+     display: none;
+     width: 220px;
+     background: #de4f4f;
  }

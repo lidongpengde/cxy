@@ -23,11 +23,20 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li data-home="" class="active"><a href="/v1/toPublishlineInfoPage">发布</a></li>
-                <li data-services=""><a href="/v1/myPublishLineInfo">我的发布</a></li>
-                <li data-orders=""><a href="/api/orders">我的订单</a></li>
-                <li data-orders=""><a href="/api/toIdentify">实名认证</a></li>
-                <li data-pricing=""><a href="/user/logout">退出</a></li>
+                <li data-home="" ><a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
+
+                <li id="我的" class="menu-main has-sub-menu" data-letters="Solutions" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
+                    <a id="Solutions" href="/solutions" class="menu-main" data-letters="Solutions" >
+                        <span>我的</span>
+                        <ul class="sub-menu-secondary">
+                            <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a></li>
+                            <li data-orders=""><a class="menu-child" href="/api/orders">我的订单</a></li>
+                        </ul>
+                    </a>
+                </li>
+
+                <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
+                <li data-pricing=""><a href="/user/logout" class="menu-main"><span>退出</span></a></li>
             </ul>
         </div>
     </div>
@@ -39,6 +48,15 @@
 <script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
 <script>
     var path='/cxy';
+    function viewDetaiMenu(o) {
+        if (o){
+            $('.sub-menu-secondary').attr('style','display:block;');
+        }else{
+
+            $('.sub-menu-secondary').attr('style','display:none;');
+        }
+
+    }
 </script>
 </body>
 </html>
