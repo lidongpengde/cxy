@@ -42,7 +42,7 @@
     <div class="form-group" >
       <input placeholder="目的地" type="text" name="end" id="end" class="form-control" onblur="checkValid(this)"></div>
         <div class="form-group" >
-      <input placeholder="价格" type="" name="price" id="price" class="form-control" onblur="checkValid(this)" ></div>
+      <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" ></div>
             <div class="form-group" >
                 <label>
                   <input type="radio"name="isbargin"value="1" checked > 接受议价
@@ -141,8 +141,13 @@
             type : "POST",
             url : "/v1/lineInfo",
             data : params,
-            success : function(msg) {
-                location.href="toIndexPage";
+            success : function(data) {
+                if(data.code==200){
+                    location.href="toIndexPage";
+                }else{
+                    alert(data.message)
+                }
+
             }
         });
 
@@ -163,8 +168,9 @@
              $("#errormsg").fadeOut();
              return true;
          }else{
+             var  errormsg=$("#errormsg");
              $("#errormsg").text("所填信息不能为空");
-             $("#errormsg").fadeIn();
+             $("#errormsg").fadeIn().focus(errormsg);
              return false;
          }
 

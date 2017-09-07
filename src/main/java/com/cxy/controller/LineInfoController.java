@@ -1,6 +1,8 @@
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cxy.common.MessageResult;
+import com.cxy.common.Pager;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.LineInfoAndUserInfo;
 import com.cxy.entity.User;
@@ -26,22 +28,17 @@ public class LineInfoController {
     ILineInfoService lineInfoService;
     @Autowired
     IuserService userService;
-    @RequestMapping(value = "lineInfo",method = RequestMethod.POST)
+    @RequestMapping(value = "lineInfo",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public JSONObject publishInfo(HttpServletRequest request, LineInfo lineInfo){
-        JSONObject jsonObject=new JSONObject();
-        User user=(User)request.getSession().getAttribute("const_user");
-        lineInfo.setUserId(user.getId().toString());
-        lineInfo.setStatus(1);
-        int size=lineInfoService.saveLineInfo(lineInfo);
-        jsonObject.put("count",size);
-        return jsonObject;
+    public String publishInfo(HttpServletRequest request, LineInfo lineInfo){
+        MessageResult messageResult=lineInfoService.saveLineInfo(lineInfo,request);
+        return JSONObject.toJSONString(messageResult);
     }
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String publishInfo( LineInfo lineInfo){
+    public String publishInfo( LineInfo lineInfo,Integer pageIndex,Integer pageSize){
         JSONObject jsonObject=new JSONObject();
-        List<LineInfoAndUserInfo> list=lineInfoService.queryLineInfoList(lineInfo);
+        Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize);
         List<LineInfoAndUserInfo> listAll=null;
         return JSONObject.toJSONString(list);
     }
@@ -56,11 +53,11 @@ public class LineInfoController {
         return "index";
     }
     @RequestMapping("myPublishLineInfo")
-    public String myPublish(HttpServletRequest request, ModelMap modelMap){
+    public String myPublish(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){
         User user=(User)request.getSession().getAttribute("const_user");
         LineInfo lineInfo=new LineInfo();
         lineInfo.setUserId(user.getId().toString());
-        final List<LineInfoAndUserInfo> mylist=lineInfoService.queryLineInfoList(lineInfo);
+        final Pager mylist=lineInfoService.queryLineInfoList(lineInfo,pageIndex,pageSize);
         modelMap.put("mylist",mylist);
         return "myPublishLineInfo";
     }

@@ -19,4 +19,5 @@ public interface LineInfoMapper {
 
     int updateByPrimaryKey(LineInfo record);
     List<LineInfoAndUserInfo> getLineInfoList(LineInfo record);
+    int countLineInfo(LineInfo record);
 }

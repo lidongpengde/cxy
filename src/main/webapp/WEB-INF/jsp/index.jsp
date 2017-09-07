@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-
+    <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
+    <script src="/asert/js/mricode.pagination.js"></script>
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
@@ -48,6 +49,7 @@
                 <a v-bind:href="'/api/order/'+item.lid" class="discuss btn btn-default">马上预约</a>
 
             </div>
+            <div id="page" class="m-pagination" style="margin-left: 80px"></div>
 </div>
 
 <script>
@@ -70,7 +72,7 @@
             },
             success: function(data) {
                 //var jsonData=JSON.parse(data);
-                app.items=data;
+                app.items=data.list;
             }
         });
     });
@@ -95,10 +97,21 @@
             url : "/v1/lineInfos",
             data : params,
             success : function(data) {
-                app.items=data;
+                app.items=data.list;
             }
         });
     }
+    $("#page").pagination({
+        pageSize: 10,
+        remote: {
+            url: '/v1/lineInfos',
+            success: function (data) {
+                debugger
+                app.todos=data.list;
+            },
+            totalName:'total'
+        }
+    });
 </script>
 </body>
 </html>

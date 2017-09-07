@@ -1,13 +1,21 @@
 package com.cxy.service.Impl;
 
+import com.cxy.common.MessageResult;
+import com.cxy.common.Pager;
+import com.cxy.common.WarningEnum;
 import com.cxy.dao.LineInfoMapper;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.LineInfoAndUserInfo;
+import com.cxy.entity.User;
 import com.cxy.service.ILineInfoService;
+import com.cxy.service.Iidentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lidongpeng on 2017/7/21.
@@ -15,18 +23,40 @@ import java.util.List;
 @Service
 public class LineInfoServiceImpl implements ILineInfoService {
     @Autowired
-    LineInfoMapper lineInfoMapper;
+    private LineInfoMapper lineInfoMapper;
     @Override
-    public int saveLineInfo(LineInfo lineInfo) {
+    public MessageResult saveLineInfo(LineInfo lineInfo,HttpServletRequest request) {
+        MessageResult messageResult=new MessageResult();
+        User user=(User)request.getSession().getAttribute("const_user");
+        if (user.getIdentifyStatus()!=1L){
+            messageResult.setCode(WarningEnum.need_identified.getCode());
+            messageResult.setMessage(WarningEnum.need_identified.getMsg());
+            messageResult.setSuccess(false);
+            return messageResult;
+        }
+        lineInfo.setUserId(user.getId().toString());
+        lineInfo.setStatus(1);
         int size=lineInfoMapper.insert(lineInfo);
-        return size;
+        if (size>0){
+            messageResult.setCode(WarningEnum.update_success.getCode());
+            messageResult.setMessage(WarningEnum.update_success.getMsg());
+            messageResult.setSuccess(true);
+        }
+        return messageResult;
     }
 
     @Override
-    public List<LineInfoAndUserInfo> queryLineInfoList(LineInfo lineInfo) {
+    public Pager queryLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize) {
         lineInfo.setStatus(1);//已发布
+        //这里很重要，先查总数，再加下面分页条件
+        Integer total=lineInfoMapper.countLineInfo(lineInfo);
+        lineInfo.setBegin(pageIndex*pageSize);
+        lineInfo.setPageSize(pageSize);
         List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
-        return list;
+        Pager pager=new Pager();
+        pager.setTotal(total.toString());
+        pager.setList(list);
+        return pager;
     }
     @Override
     public int updateLineInfo(int lid) {

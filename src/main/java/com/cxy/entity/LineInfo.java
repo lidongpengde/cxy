@@ -26,6 +26,26 @@ public class LineInfo {
 
     private String userId;
 
+    public Integer getBegin() {
+        return begin;
+    }
+
+    public void setBegin(Integer begin) {
+        this.begin = begin;
+    }
+
+    private Integer begin;
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    private Integer pageSize;
+
     public Integer getLid() {
         return lid;
     }

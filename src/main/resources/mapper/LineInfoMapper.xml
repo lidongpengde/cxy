@@ -28,6 +28,11 @@
     from line_info
     where lid = #{lid,jdbcType=INTEGER}
   </select>
+
+  <select id="countLineInfo" parameterType="com.cxy.entity.LineInfo" resultMap="java.lang.Integer">
+    select count(*) from line_info <include refid="sql_where" />
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from line_info
     where lid = #{lid,jdbcType=INTEGER}
@@ -113,6 +118,7 @@
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
       </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.LineInfo">
@@ -196,6 +202,9 @@
       </if>
       <if test="userId != null" >
         and user_id = #{userId}
+      </if>
+      <if test="begin!=null and pageSize!=null">
+        limit #{begin},#{pageSize}
       </if>
     </where>
   </sql>

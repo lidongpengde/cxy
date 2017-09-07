@@ -33,13 +33,10 @@ public class URLToDomain {
     }
     @Test
     public  void main() {
-
-        setasdsds(this.aaa);
+        int a = 0;
+        Integer integera = null;
+        System.out.println("a="+a+"integera="+integera);
 
     }
 
-    public void setasdsds(String aaa) {
-        //Assert.assertNotNull(aaa);
-        String bbb= aaa;
-    }
 }
