@@ -29,7 +29,7 @@
     where lid = #{lid,jdbcType=INTEGER}
   </select>
 
-  <select id="countLineInfo" parameterType="com.cxy.entity.LineInfo" resultMap="java.lang.Integer">
+  <select id="countLineInfo" parameterType="com.cxy.entity.LineInfo" resultType="java.lang.Integer">
     select count(*) from line_info <include refid="sql_where" />
   </select>
 

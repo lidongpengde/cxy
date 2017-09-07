@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page isELIgnored="false" %>
+<jsp:include page="include/header.jsp"></jsp:include>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <script src="/asert/js/mricode.pagination.js"></script>
 </head>
 <body >
-<jsp:include page="include/header.jsp"></jsp:include>
+
 <div class="container" id="app">
 
         <%--头部搜索栏--%>
@@ -49,7 +49,7 @@
                 <a v-bind:href="'/api/order/'+item.lid" class="discuss btn btn-default">马上预约</a>
 
             </div>
-            <div id="page" class="m-pagination" style="margin-left: 80px"></div>
+            <div id="page" class="m-pagination" ></div>
 </div>
 
 <script>
@@ -60,22 +60,6 @@
             ]
         }
     })
-    $(document).ready(function(){
-        var params = $("#searchForm").serialize();
-        $.ajax({
-            cache: true,
-            type: "GET",
-            url:"/v1/lineInfos",
-            data : params,
-            error: function(request) {
-                alert("Connection error");
-            },
-            success: function(data) {
-                //var jsonData=JSON.parse(data);
-                app.items=data.list;
-            }
-        });
-    });
     function changeIdentity(type){
         if(type==0){
             $('#tabpassenger').addClass("hover");
@@ -107,7 +91,7 @@
             url: '/v1/lineInfos',
             success: function (data) {
                 debugger
-                app.todos=data.list;
+                app.items=data.list;
             },
             totalName:'total'
         }
