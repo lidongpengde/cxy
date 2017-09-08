@@ -35,7 +35,9 @@ public class URLToDomain {
     public  void main() {
         int a = 0;
         Integer integera = null;
-        System.out.println("a="+a+"integera="+integera);
+        String aa="10";
+        Integer.parseInt(aa);
+        System.out.println(5%2);
 
     }
 
