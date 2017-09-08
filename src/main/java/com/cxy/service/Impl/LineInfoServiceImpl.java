@@ -50,8 +50,10 @@ public class LineInfoServiceImpl implements ILineInfoService {
         lineInfo.setStatus(1);//已发布
         //这里很重要，先查总数，再加下面分页条件
         Integer total=lineInfoMapper.countLineInfo(lineInfo);
-        lineInfo.setBegin(pageIndex*pageSize);
-        lineInfo.setPageSize(pageSize);
+        if (pageIndex!=null && pageSize!=null){
+            lineInfo.setBegin(pageIndex*pageSize);
+            lineInfo.setPageSize(pageSize);
+        }
         List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
         Pager pager=new Pager();
         pager.setTotal(total.toString());

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
     <script src="/asert/js/mricode.pagination.js"></script>
+    <script src="/asert/js/jquery.serializejson.js"></script>
 </head>
 <body >
 
@@ -74,7 +75,7 @@
         searchLineInfo();
     }
     function searchLineInfo(){
-        //ajax提交
+      /*  //ajax提交
         var params = $("#searchForm").serialize();
         $.ajax({
             type : "GET",
@@ -83,14 +84,25 @@
             success : function(data) {
                 app.items=data.list;
             }
-        });
+        });*/
+        $("#page").pagination('remote');
     }
     $("#page").pagination({
         pageSize: 10,
         remote: {
             url: '/v1/lineInfos',
+            pageParams: function(data){
+                var params = $("#searchForm").serializeJSON();
+                return {
+                    pageIndex:data.pageIndex,
+                    pageSize:data.pageSize,
+                    type:params.type,
+                    start:params.start,
+                    end:params.end,
+                    startTime:params.startTime
+                };
+            },
             success: function (data) {
-                debugger
                 app.items=data.list;
             },
             totalName:'total'
