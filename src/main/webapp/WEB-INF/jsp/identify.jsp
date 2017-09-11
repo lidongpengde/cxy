@@ -11,6 +11,7 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app">
     <form action="/api/Identify"  method="post" id="form">
+        <div class="form-group" >
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-primary active">
                 <input type="radio" name="idCard" id="idCard" autocomplete="off" checked> 身份证
@@ -22,15 +23,18 @@
                 <input type="radio" name="license" id="license" autocomplete="off"> 毕业证
             </label>
         </div>
+        </div>
     <div class="form-group" >
-            <input type="file" value="上传认真信息" name="file" id="file" onchange="submitIdentity()">
+            <input type="file"  name="file" id="file" onchange="submitIdentity()">
     </div>
-        <div>
+        <div class="form-group">
             <input name="path" hidden id="path">
 
-            <img src="/" id="previewPicture">
+            <img src="/" id="previewPicture" class="img-responsive">
         </div>
-        <button type="submit" >submit</button>
+        <div class="form-group" >
+        <button type="submit" class="btn btn-danger">提交认证</button>
+        </div>
     </form>
 </div>
 <script>
