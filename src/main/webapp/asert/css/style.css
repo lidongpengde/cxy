@@ -314,7 +314,7 @@ h1{
      -moz-transition: all 0.05s linear;
      -webkit-transition: all 0.05s linear;
      font-family: 'ProximaNova-Regular', arial, sans-serif;
-     margin-left: -40px;
+   /*  margin-left: -40px;*/
      padding-left: 10px;
  }
  .sub-menu-secondary {

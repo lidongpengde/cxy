@@ -21,7 +21,7 @@
         <%--</form>--%>
         <%--<a href="/v1/toPublishlineInfoPage">发布</a>--%>
     <%--</div>--%>
-        <c:forEach var="item"   items="${mylist}"   varStatus="status">
+        <c:forEach var="item"   items="${mylist.list}"   varStatus="status">
             <div class="post row" v-for="item in items">
                     <%--<a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>--%>
                 <div class="post-content">

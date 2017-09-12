@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
     <link href="/asert/css/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 </head>
 <body>
 <div id="navigation" class="navbar navbar-inverse navbar-fixed-top" >
@@ -26,7 +27,7 @@
                 <li data-home="" ><a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
 
                 <li id="我的" class="menu-main has-sub-menu" data-letters="Solutions" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
-                    <a id="Solutions" href="/solutions" class="menu-main" data-letters="Solutions" >
+                    <a id="Solutions" href="" class="menu-main" data-letters="Solutions" >
                         <span>我的</span>
                         <ul class="sub-menu-secondary">
                             <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a></li>

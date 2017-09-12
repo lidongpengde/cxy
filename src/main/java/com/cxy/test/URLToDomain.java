@@ -33,12 +33,14 @@ public class URLToDomain {
     }
     @Test
     public  void main() {
-        int a = 0;
-        Integer integera = null;
-        String aa="10";
-        Integer.parseInt(aa);
-        System.out.println(5%2);
+        observe();
 
+    }
+    public void observe() {
+        final long free = Runtime.getRuntime().freeMemory();
+        final long total = Runtime.getRuntime().totalMemory();
+
+        System.out.println(free+"----"+total);
     }
 
 }

@@ -8,7 +8,8 @@
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>
-
+    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
+    <script src="/asert/js/jquery.autocompleter.js"></script>
 
 </head>
 
@@ -54,7 +55,7 @@
     <div class="form-group" >
       <input placeholder="人数" type="number" max="3" min="1" name="personCount" id="personCount" class="form-control" onblur="checkValid(this)"></div>
               <div class="form-group" >
-      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  onblur="checkValid(this)"></div>
+      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  ></div>
       <div class="form-group">
           <div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
               <input class="form-control" size="16" type="text" value="" name="startTime" id="startTime" readonly placeholder="出发时间" onblur="checkValid(this)">
@@ -122,7 +123,7 @@
         var personCount=$('#personCount').val();
         var plateNumber=$('#plateNumber').val();
         var startTime=$('#startTime').val()
-        if (start && end &&price &&personCount&&plateNumber&&startTime){
+        if (start && end &&price &&personCount&&startTime){
             flag=true;
         }else{
             $("#errormsg").text("所填信息不完整");
@@ -175,6 +176,47 @@
          }
 
      }
+    /**
+     * 提示输入
+     */
+    $(function () {
+        $('#start').autocompleter({
+            cache: false,
+            // marker for autocomplete matches
+            highlightMatches: true,
+
+            // object to local or url to remote search
+            source: 'http://localhost:8080/v2//HintInfo' ,
+
+            template: '{{ name }}',
+            // show hint
+            hint: false,
+
+            // abort source if empty field
+            empty: false,
+
+            // max results
+            limit: 5,
+        });
+        $('#end').autocompleter({
+            cache: false,
+            // marker for autocomplete matches
+            highlightMatches: true,
+
+            // object to local or url to remote search
+            source: 'http://localhost:8080/v2//HintInfo' ,
+
+            template: '{{ name }}',
+            // show hint
+            hint: false,
+
+            // abort source if empty field
+            empty: false,
+
+            // max results
+            limit: 5,
+        });
+    });
 </script>
 </body>
 </html>
