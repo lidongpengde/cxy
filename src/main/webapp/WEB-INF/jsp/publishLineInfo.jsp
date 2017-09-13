@@ -39,7 +39,7 @@
       </label>
     </div>
     <div class="form-group" >
-      <input placeholder="出发地" type="text" name="start" id="start" class="form-control"  onblur="checkValid(this)"></div>
+      <input placeholder="出发地" type="text" name="start" id="start"  class="form-control"  onblur="checkValid(this)"></div>
     <div class="form-group" >
       <input placeholder="目的地" type="text" name="end" id="end" class="form-control" onblur="checkValid(this)"></div>
         <div class="form-group" >

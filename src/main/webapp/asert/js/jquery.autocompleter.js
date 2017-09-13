@@ -731,6 +731,7 @@
                 data.$autocompleter.find('.autocompleter-hint').removeClass('autocompleter-hint-show');
             }
             var value = data.$selected.attr('data-value') ? data.$selected.attr('data-value') : data.$selected.attr('data-label');
+            value=data.$selected[0].innerText;
             data.$node.val(value);
         } else {
             if (data.hintText && !data.$autocompleter.find('.autocompleter-hint').hasClass('autocompleter-hint-show')) {
