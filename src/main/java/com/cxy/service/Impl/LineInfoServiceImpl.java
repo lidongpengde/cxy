@@ -67,4 +67,10 @@ public class LineInfoServiceImpl implements ILineInfoService {
         int size= lineInfoMapper.updateByPrimaryKey(lineInfo);
         return size;
     }
+
+    @Override
+    public LineInfo queryLineInfoById(Integer lid) {
+        LineInfo lineInfo=lineInfoMapper.selectByPrimaryKey(lid);
+        return lineInfo;
+    }
 }

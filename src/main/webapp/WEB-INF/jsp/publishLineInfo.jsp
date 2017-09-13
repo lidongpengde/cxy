@@ -188,7 +188,7 @@
             // object to local or url to remote search
             source: 'http://localhost:8080/v2//HintInfo' ,
 
-            template: '{{ name }}',
+            template: '{{ cityName }} {{ name }}',
             // show hint
             hint: false,
 
@@ -206,7 +206,7 @@
             // object to local or url to remote search
             source: 'http://localhost:8080/v2//HintInfo' ,
 
-            template: '{{ name }}',
+            template: '{{cityName}}{{ name }}',
             // show hint
             hint: false,
 

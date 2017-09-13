@@ -15,4 +15,5 @@ public interface ILineInfoService {
     public MessageResult saveLineInfo(LineInfo lineInfo, HttpServletRequest request);
     public Pager queryLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
     public int updateLineInfo(int lid);
+    LineInfo queryLineInfoById(Integer lid);
 }

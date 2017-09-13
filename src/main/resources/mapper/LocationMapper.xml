@@ -9,6 +9,7 @@
     <result column="level" jdbcType="VARCHAR" property="level" />
     <result column="longitude" jdbcType="DOUBLE" property="longitude" />
     <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="cityName" jdbcType="VARCHAR" property="cityName" />
   </resultMap>
   <sql id="Base_Column_List">
     _id, city_code, ad_code, name, level, longitude, latitude
@@ -20,10 +21,8 @@
     where _id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from location
-    where name like  CONCAT(CONCAT('%', #{name}), '%');
+    select b.name as cityName ,a.* from location a left join (select distinct city_code,name from location where level='city') b on a.city_code=b.city_code
+    where a.name like  CONCAT(CONCAT('%', #{name}), '%');
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from location

@@ -203,9 +203,11 @@
       <if test="userId != null" >
         and user_id = #{userId}
       </if>
+      and start_time>curdate()
       <if test="begin!=null and pageSize!=null">
         limit #{begin},#{pageSize}
       </if>
+
     </where>
   </sql>
   <select id="getLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >

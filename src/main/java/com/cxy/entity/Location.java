@@ -15,6 +15,16 @@ public class Location {
 
     private Double latitude;
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    private String cityName;
+
     public String getId() {
         return id;
     }

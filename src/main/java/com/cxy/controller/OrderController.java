@@ -6,6 +6,7 @@ import com.cxy.common.UserTools;
 import com.cxy.common.WarningEnum;
 import com.cxy.entity.OrderFrom;
 import com.cxy.entity.User;
+import com.cxy.service.ILineInfoService;
 import com.cxy.service.IorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class OrderController {
     @Autowired
-    IorderService orderService;
+    private IorderService orderService;
+    @Autowired
+    private ILineInfoService lineInfoService;
     /**生成
      * @param lid
      * @return
@@ -43,7 +46,7 @@ public class OrderController {
             return "myOrderInfo";
         }
         //如果有多个，说明系统漏洞，不可能有多个未完成订单
-        if (list!=null && list.size()>1){
+        if (list!=null && list.size()>1 || user.getId().equals(lineInfoService.queryLineInfoById(lid).getUserId())){
             modelMap.put("myOrder",list.get(0));
             modelMap.put("warningMsg", WarningEnum.unfinished_order.getMsg());
             return "error";
