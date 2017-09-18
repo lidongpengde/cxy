@@ -32,14 +32,14 @@ public class AuthFilter implements Filter {
         //线上换成这个，不然重定向找不到路径
         final String loginUrlOnline="http://go366.club/user/tologin";
         //调试用这个
-        final String loginUrltest="/";
+        final String loginUrltest="/user/tologin";
         HttpServletRequest req = (HttpServletRequest)arg0;
         HttpServletResponse resp =(HttpServletResponse) arg1;
         HttpSession session = req.getSession();
         String host = req.getHeader("Host");
         User password = (User) session.getAttribute("const_user");
         if (password == null || "".equals(password)) {
-            // 跳转到登陆页面
+            // 跳转到登录页面
             resp.sendRedirect(loginUrltest);
         } else {
             arg2.doFilter(req, resp);

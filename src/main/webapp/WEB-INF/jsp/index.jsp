@@ -32,12 +32,13 @@
             <div class="post" v-for="item in items">
 
                 <div class="post-content">
+                    <a v-bind:href="'/api/mySubscibe/'+item.lid">
                     <h3><strong>{{ item.start }}</strong>	&nbsp;</strong><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong>	&nbsp;<strong>{{ item.end }}</strong>	&nbsp;
-                        <span class="glyphicon glyphicon-earphone" aria-hidden="true">{{ item.user.mobile }}</span></h3>
+                        <span class="glyphicon glyphicon-earphone" aria-hidden="true">{{ item.user.mobile }}</span></h3></a>
                     <p>
                         人数:	&nbsp;<span class="">{{ item.personCount }}</span>		&nbsp;&nbsp;<span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
                         &nbsp;	&nbsp;
-                        <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.user.userName }}</span>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.user.nickName }}</span>
                         &nbsp;	&nbsp;
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true">	{{ item.startTime }}</span>
                         <%--<span class="price">¥{{ item.price }}</span>--%>
@@ -47,8 +48,8 @@
                     <span class="" v-if="item.isbargin === 1">可议价</span>
                 </p>
                 </div>
-                <a v-bind:href="'/api/order/'+item.lid" class="discuss btn btn-default">马上预约</a>
-
+                <a v-bind:href="'/api/toSubscibe/'+item.lid" class="discuss btn btn-default">马上预约</a>
+                <%--<span class="price discuss">¥{{ item.price }}</span>--%>
             </div>
             <div id="page" class="m-pagination" ></div>
 </div>

@@ -21,9 +21,8 @@ public class Welcome {
     @RequestMapping("/")
     public String hello(HttpServletRequest request, HttpServletResponse response) {
         User user=(User)request.getSession().getAttribute("const_user");
-        if (user!=null){
+        if (user!=null)
             return "index";
-        }
         return "register";
     }
     @RequestMapping("/jsonpTest")

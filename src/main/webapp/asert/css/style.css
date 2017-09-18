@@ -172,7 +172,7 @@ p {
     pointer-events: auto;
 }
 .tiptitle{
-    border-bottom: 5px solid #47CF73;
+    border-bottom: 4px solid #d9534f;
     position: relative;
     margin: 40px 0 25px 0;
 
@@ -185,16 +185,7 @@ h1{
     color: #fff;
 
 }
-.myrow{
-    /*background-color: #5cb85c;*/
-    color: #fff;
-    border-radius: 3px;
-    margin-right: 0px;
-    margin-left: 0px;
-    border-top: 5px solid #777;
-    border-bottom: 5px solid #777;
-    margin: 40px 0 25px 0;
-}
+
 .order{
     background-color: #337ab7;
     color: #fff;
@@ -325,3 +316,11 @@ h1{
      width: 220px;
      background: #de4f4f;
  }
+
+ /*弧度阴影*/
+ .effect {
+     padding: 5px;
+        position: relative;
+        box-shadow: 0px 1px 4px rgba(0,0,0,0.3),
+        0 0 10px rgba(0,0,0,0.1) inset;
+        }
