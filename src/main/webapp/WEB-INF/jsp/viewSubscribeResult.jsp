@@ -10,7 +10,7 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 <html>
 <head>
-    <title>Title</title>
+    <title>点滴出行</title>
 </head>
 <body style="background-color: #fff">
 <div class="container" >
@@ -18,11 +18,11 @@
 
     <div class="post-content">
         <h3><strong>${ lineinfo.start }</strong>	&nbsp;</strong><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong>	&nbsp;<strong>${ lineinfo.end }</strong>	&nbsp;
-            <span class="glyphicon glyphicon-earphone" aria-hidden="true">{{ item.user.mobile }}</span></h3>
+            <span class="glyphicon glyphicon-earphone" aria-hidden="true">${ lineinfo.user.mobile }</span></h3>
         <p>
             人数:	&nbsp;<span class="">${ lineinfo.personCount }</span>		&nbsp;&nbsp;<span v-if="item.plateNumber ">车牌号：${ lineinfo.plateNumber }</span>
             &nbsp;	&nbsp;
-            <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.user.nickName }}</span>
+            <span class="glyphicon glyphicon-user" aria-hidden="true">${ lineinfo.user.nickName }</span>
             &nbsp;	&nbsp;
             <span class="glyphicon glyphicon-calendar" aria-hidden="true">	${ lineinfo.startTime }</span>
             <%--<span class="price">¥{{ item.price }}</span>--%>

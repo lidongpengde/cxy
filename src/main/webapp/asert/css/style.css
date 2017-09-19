@@ -4,12 +4,12 @@
     border-radius: 3px;
     padding: 10px;
     margin-bottom: 10px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15); }
+    -webkit-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
+    -moz-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
+    box-shadow: 0px 14px 42px 3px rgba(163, 174, 184, 0.4); }
 
 body {
-    background: #eee;
+    background: #fff;
     color: #666666; }
 p {
     line-height: 1.6;
@@ -30,7 +30,7 @@ p {
     width: 100%;
 }
  .shadow{
-     box-shadow: 0 5px 40px 0 rgba(26,44,57,0.2);
+     box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
      background-color: #fff;
  }
 
@@ -152,14 +152,11 @@ p {
 }
 
 .errors{
-    position: fixed;
-    z-index: 10000;
-    padding: 10px;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    pointer-events: none;
+    position: relative;
+    margin: 5px 20px;
+    background: #fee;
+    color: #e3111e;
+    font-family: 'ProximaNova-Regular', arial, sans-serif;
 }
 .alert {
     animation: fadeOut 2700ms ease-in 0s 1 forwards;

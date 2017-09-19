@@ -25,11 +25,8 @@
 </h4>
 <div id="app">
 
-  <div ><transition name="fade">
-    <p class="errors">{{error}}</p>
-  </transition></div>
   <form id="message" onsubmit="return false">
-      <div class="alert-danger form-group" id="errormsg"></div>
+      <div class="errors" ><span id="errormsg"></span></div>
     <div class="form-group">
       <label>
         <input type="radio"name="type"value="1" checked v-on:click="selectType(1)"> 司机
