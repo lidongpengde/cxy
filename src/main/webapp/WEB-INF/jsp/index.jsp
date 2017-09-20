@@ -44,8 +44,8 @@
                         <%--<span class="price">¥{{ item.price }}</span>--%>
                     </p>
                 <p><span class="price">¥{{ item.price }}</span>
-                    <span class="" v-if="item.isbargin === 0">不议价</span>
-                    <span class="" v-if="item.isbargin === 1">可议价</span>
+                    <span class="bargin-label" v-if="item.isbargin === 0">不议价</span>
+                    <span class="bargin-label" v-if="item.isbargin === 1">可议价</span>
                 </p>
                 </div>
                 <a v-bind:href="'/api/toSubscibe/'+item.lid" class="discuss btn btn-default">马上预约</a>

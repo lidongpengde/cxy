@@ -38,9 +38,21 @@
     padding-top: 10px;
     padding-bottom: 40px;
     background-color: #fff;
+    margin-top: 150px;
+
 }
 .login-tab a.checked,  .login-tab a:hover {
     font-weight: 700;
     color: #e4393c;
+}
+.bargin-label{
+    border: 1px solid #d9534f;
+    padding: 3px;
+    color: #d9534f;
+    font-size: 14px;
+}
+.bargin-label:hover{
+    background-color: #d9534f;
+    color: #fff;
 }
 

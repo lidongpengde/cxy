@@ -32,7 +32,8 @@ public class URLToDomain {
         final long free = Runtime.getRuntime().freeMemory();
         final long total = Runtime.getRuntime().totalMemory();
 
-        System.out.println(free+"----"+total);
+
+        System.out.println(System.getProperties().getProperty("user.home"));
     }
 
 }

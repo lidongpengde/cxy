@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-<title>无标题文档</title>
+<title>实名认证审批</title>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
     <script src="/asert/js/mricode.pagination.js"></script>
 </head>
@@ -25,7 +25,7 @@
 </div><!-- /.row -->
 
 		<div v-for="todo in todos" class="thumbnail" style="min-height: 120px">
-            <img  name="upload" v-bind:src="'/download/?filename='+todo.idCard" class="img-rounded" width="80px" style="float: left"/>
+            <img  name="upload" v-bind:src="'/download/?filename='+todo.idCard" class="img-rounded" width="150px" style="float: left"/>
             <h3 style="float: left;margin-left: 10px">{{todo.user.userName}}<small>手机：{{todo.user.mobile}}</small><small>提交时间：{{todo.createTime}}</small></h3>
             <a v-bind:href="'/user/'+todo.userId"  style="float: right;margin: 40px" class="btn btn-default">通过</a>
 		<h5 style="float:left;margin-left: -150px;

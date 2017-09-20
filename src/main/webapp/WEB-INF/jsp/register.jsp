@@ -7,7 +7,13 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-
+<header style="
+    background-size: cover;
+    background: url(http://destinesia.io/images/bg-image-1.jpg) no-repeat center top fixed;
+    -webkit-background-size: cover;
+    background-attachment: scroll !important;
+}">
+    <div style="background: rgba(0, 0, 0, 0.6);">
 <div class="container" >
         <div class="col-md-6">
             <form action="user/register" id="registerForm" name="registerForm" onsubmit="return false">
@@ -39,6 +45,7 @@
                 <div class="form-group"><button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button></div>
                 <br>
             </div>
+
         </form>
         <form action="user/login" name="loginForm" id="loginForm" onsubmit="return false">
             <div class="" id="login">
@@ -51,7 +58,10 @@
             <br>
         </div>
         </div>
+        </div>
     </div>
+    </div>
+</header>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#login").hide();
@@ -145,4 +155,5 @@ function loginPage(){
 
 </script>
 </body>
+<jsp:include page="include/foot.jsp"></jsp:include>
 </html>

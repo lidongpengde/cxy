@@ -9,8 +9,14 @@
     box-shadow: 0px 14px 42px 3px rgba(163, 174, 184, 0.4); }
 
 body {
-    background: #fff;
-    color: #666666; }
+    background: #ffffff;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #727272;
+    overflow-x: hidden !important;
+    margin: auto !important;
+
+
+    }
 p {
     line-height: 1.6;
 }
@@ -213,15 +219,6 @@ h1{
      font-weight: 700;
      color: #e3101e;
  }
- /*em{*/
-     /*font-size: 16px;*/
-     /*display: block;*/
-     /*float: left;*/
-     /*margin-right: 18px;*/
-     /*font-style: normal;*/
-     /*color: #337ab7;*/
-     /*font-weight: 600;*/
- /*}*/
 .identity{
     height: auto;
     min-height: 35px;

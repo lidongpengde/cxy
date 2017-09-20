@@ -25,7 +25,8 @@ import java.util.Map;
  */
 @Controller
 public class UploadAction {
-String picpath="E:\\upload";
+
+    private final String picpath=System.getProperties().getProperty("user.home")+"/upload";
     @RequestMapping(value = "/upload.do")
     @ResponseBody
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {

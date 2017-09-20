@@ -42,7 +42,6 @@
         </div>
     </div>
 </div>
-<div style="margin-bottom: 80px"></div>
 <script src="/asert/js/jquery-3.1.1.min.js"></script>
 <script src="/asert/js/bootstrap.js"></script>
 <script src="/asert/js/vue.js"></script>
