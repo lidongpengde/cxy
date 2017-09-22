@@ -156,6 +156,7 @@ function loginPage(){
     }
 
 </script>
-</body>
 <jsp:include page="include/foot.jsp"></jsp:include>
+</body>
+
 </html>
