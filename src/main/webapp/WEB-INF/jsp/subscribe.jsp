@@ -12,7 +12,7 @@
     <title>提交预约</title>
 </head>
 <body style="background-color: #fff">
-<div class="container">
+<div class="container" style="margin-top: 90px">
 <form action="/api/subscibe" method="post">
 <input name="lineinfoId" id="lineInfoId" type="hidden"   value="${lineInfoId}">
     <div class="form-group"><label>人数</label>

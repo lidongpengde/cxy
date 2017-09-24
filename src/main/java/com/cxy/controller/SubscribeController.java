@@ -29,6 +29,10 @@ public class SubscribeController {
     @RequestMapping(value = "subscibe",method = RequestMethod.POST)
     public String sebscribeLineinfo(HttpServletRequest request, Subscribe subscribe,ModelMap modelMap){
         MessageResult result= subscribeService.addSubscibe(request,subscribe);
+        if (!result.isSuccess()){
+            modelMap.put("result",result.getMessage());
+            return "result";
+        }
         List<Subscribe> subscribeList=subscribeService.querySubscibeList((LineInfo) result.getBuessObj());
         modelMap.put("lineinfo",result.getBuessObj());
         modelMap.put("subscribeList",subscribeList);

@@ -173,13 +173,13 @@
   <sql id="sql_where" >
     <where >
       <if test="start != null and start != ''">
-        and start = #{start}
+        and start  like  CONCAT(CONCAT('%', #{start}), '%')
       </if>
       <if test="end != null and end != ''">
-        and end = #{end}
+        and end LIKE CONCAT(CONCAT('%', #{end}), '%')
       </if>
       <if test="startTime != null and startTime != ''" >
-        and   start_time= #{startTime}
+        and  Date(start_time) = #{startTime}
       </if>
       <if test="plateNumber != null" >
         and plate_number = #{plateNumber}

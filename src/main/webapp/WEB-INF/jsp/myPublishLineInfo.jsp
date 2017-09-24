@@ -9,7 +9,7 @@
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" id="app">
+<div class="container" id="app" style="margin-top: 90px">
 
     <%--头部搜索栏--%>
     <%--<div class="row">--%>

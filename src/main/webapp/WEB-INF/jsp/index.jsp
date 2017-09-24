@@ -11,7 +11,7 @@
 </head>
 <body >
 
-<div class="container" id="app">
+<div class="container" id="app" style="margin-top: 90px">
 
         <%--头部搜索栏--%>
         <div class="row">
@@ -26,8 +26,8 @@
         </div>
         <%--tab切换栏--%>
         <div class="identity ">
-            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">司机</div></a>
-            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">乘客</div></a>
+            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">人找车</div></a>
+            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">车找人</div></a>
         </div>
             <div class="post" v-for="item in items">
 

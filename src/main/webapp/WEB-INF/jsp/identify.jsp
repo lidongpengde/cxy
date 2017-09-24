@@ -10,7 +10,7 @@
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" id="app">
+<div class="container" id="app" style="margin-top: 90px">
     <form action="/api/Identify"  method="post" id="form">
         <div class="form-group" >
         <div class="btn-group" data-toggle="buttons">

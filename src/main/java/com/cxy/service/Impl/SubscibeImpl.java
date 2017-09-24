@@ -44,6 +44,7 @@ public class SubscibeImpl implements IsubscribeService{
            if (leftSeat<0){
                messageResult.setSuccess(false);
                messageResult.setMessage("座位都被小伙伴占满了！");
+               return messageResult;
            }
            lineInfo.setPersonCount(leftSeat);
            lineInfoMapper.updateByPrimaryKey(lineInfo);

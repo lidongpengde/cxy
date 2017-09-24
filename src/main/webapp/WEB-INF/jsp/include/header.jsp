@@ -12,7 +12,45 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 </head>
 <body>
-<div id="navigation" class="navbar navbar-inverse navbar-fixed-top" >
+<nav class="navbar navbar-default navbar-fixed-top"><div class="container">
+    <div class="navbar-header">
+        <a href="/" class="navbar-brand"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" width="126" height="21"></a>
+        <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span></a>
+    </div>
+    <c:choose><c:when test="${sessionScope.const_user== null}">
+        <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
+            <ul class="nav navbar-nav navbar-right">
+                <li data-pricing=""><a href="/" class="menu-main"><span>绿色出行，任我行</span></a></li>
+            </ul>
+        </div>
+    </c:when>
+        <c:otherwise>
+            <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-services="" class="menu-main has-sub-menu" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
+                        <a class="menu-child" href="/v1/myPublishLineInfo" style="color: #FF8400;">
+                            <span>${ sessionScope.const_user.nickName}...<span class=" glyphicon glyphicon-chevron-down" aria-hidden="true"></span></span>
+                            <ul class="sub-menu-secondary">
+                                <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li data-home="" >
+                        <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
+                    <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a></li>
+                    <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
+                    <li data-pricing=""><a href="/" class="menu-main"><span>首页</span></a></li>
+                </ul>
+            </div>
+        </c:otherwise>
+    </c:choose>
+
+</div>
+</nav>
+<%--<div id="navigation" class="navbar navbar-inverse navbar-fixed-top " >
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -21,7 +59,7 @@
             </button>
             <a class="navbar-brand crawler-logo" href="/"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" alt="BlaBlaCar" width="126" height="21"></a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse ">
             <ul class="nav navbar-nav pull-right">
                 <li data-home="" ><a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
 
@@ -39,7 +77,7 @@
                 <li data-pricing=""><a href="/user/logout" class="menu-main"><span>退出</span></a></li>
             </ul>
         </div>
-</div>
+</div>--%>
 <script src="/asert/js/jquery-3.1.1.min.js"></script>
 <script src="/asert/js/bootstrap.js"></script>
 <script src="/asert/js/vue.js"></script>

@@ -270,19 +270,7 @@ h1{
      background-color: #dc3545;
      border-color: #dc3545;
  }
- .sub-menu-secondary {
-     top: 35px;
-     position: absolute;
-     display: none;
-     border-left: 1px solid #dadeeb;
-     width: 220px;
- }
- .sub-menu-secondary li:hover {
-     background: #a83636;
- }
- .menu-main:hover,.menu-main:active {
-     color: #de4f4f !important;
- }
+
  li {
      line-height: 40px;
      font-size: 14px;
@@ -294,31 +282,38 @@ h1{
      -webkit-transition: all 0.05s linear;
      font-family: 'ProximaNova-Regular', arial, sans-serif;
  }
- .sub-menu-secondary li a {
-     color: #fff;
-     width: 100%;
- }
- .sub-menu-secondary li{
-     line-height: 40px;
-     font-size: 11px;
-     height: 35px;
-     letter-spacing: 1px;
-     transition: all 0.05s linear;
-     -moz-transition: all 0.05s linear;
-     -webkit-transition: all 0.05s linear;
-     font-family: 'ProximaNova-Regular', arial, sans-serif;
-   /*  margin-left: -40px;*/
-     padding-left: 10px;
- }
- .sub-menu-secondary {
-     top: 50px;
-     position: absolute;
-     display: none;
-     min-height: 100px;
-     width: 220px;
-     background: #de4f4f;
- }
 
+ .sub-menu-secondary li{
+
+    line-height: 31px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+     text-align: center;
+     width: 110px;
+
+ }
+.sub-menu-secondary li:hover{
+    display:inherit;
+    color: #E67902;
+    text-align: center;
+    text-decoration: none;
+    width: 110px;
+}
+
+ .sub-menu-secondary {
+     background-color: #EDEEF0 !important;
+     display: none;
+     margin: 0 0 -2px;
+     padding: 2px;
+     width: 120px;
+ }
+.menu-child:hover{
+    border-color: #EDEEF0;
+    background-color: #EDEEF0 !important;
+    text-decoration: none;
+    color: #ff8400;
+}
  /*弧度阴影*/
  .effect {
      padding: 5px;
