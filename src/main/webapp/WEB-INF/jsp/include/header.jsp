@@ -14,7 +14,7 @@
 <body>
 <nav class="navbar navbar-default navbar-fixed-top"><div class="container">
     <div class="navbar-header">
-        <a href="/" class="navbar-brand"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" width="126" height="21"></a>
+        <a href="${pageContext.request.contextPath}" class="navbar-brand"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" width="126" height="21"></a>
         <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed" aria-expanded="false">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -23,7 +23,7 @@
     <c:choose><c:when test="${sessionScope.const_user== null}">
         <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
             <ul class="nav navbar-nav navbar-right">
-                <li data-pricing=""><a href="/" class="menu-main"><span>绿色出行，任我行</span></a></li>
+                <li data-pricing=""><a href="${pageContext.request.contextPath}" class="menu-main"><span>绿色出行，任我行</span></a></li>
             </ul>
         </div>
     </c:when>
@@ -31,7 +31,7 @@
             <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
                 <ul class="nav navbar-nav navbar-right">
                     <li data-services="" class="menu-main has-sub-menu" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
-                        <a class="menu-child" href="${pageContext.request.contextPath}/v1/myPublishLineInfo" style="color: #FF8400;">
+                        <a class="menu-child" href="${pageContext.request.contextPath}/user/inner/${ sessionScope.const_user.id}" style="color: #FF8400;">
                             <span>${ sessionScope.const_user.nickName}...<span class=" glyphicon glyphicon-chevron-down" aria-hidden="true"></span></span>
                             <ul class="sub-menu-secondary">
                                 <li data-orders=""><a class="menu-child" href="${pageContext.request.contextPath}/user/logout">退出</a></li>

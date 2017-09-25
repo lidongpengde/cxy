@@ -15,6 +15,17 @@ public class User {
 
     private String nickName;
 
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    private String headImage;
+
+
     private Long identifyStatus;
 
     public Long getId() {

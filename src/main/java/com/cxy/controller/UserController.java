@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,6 +73,16 @@ public class UserController {
            userService.updateUser(identifyUser);
        }
         return "identityList";
+    }
+    @RequestMapping("inner/{userId}")
+    public String getUserinfo(@PathVariable Long userId, HttpServletRequest request, ModelMap modelMap){
+        User user= UserTools.getCurrentUser(request);
+        if (!user.getId().equals(userId)){
+            modelMap.put("result","信息油污");
+            return "result";
+        }
+        modelMap.put("userInfo",userService.findUserById(userId));
+        return "usercenter";
     }
 
 }
