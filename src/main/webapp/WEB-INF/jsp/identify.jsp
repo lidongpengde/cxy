@@ -11,7 +11,7 @@
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app" style="margin-top: 90px">
-    <form action="/api/Identify"  method="post" id="form">
+    <form action="${pageContext.request.contextPath}/api/Identify"  method="post" id="form">
         <div class="form-group" >
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-primary active">
@@ -47,7 +47,7 @@
     function submitIdentity() {
         var form = new FormData(document.getElementById("form"));
         $.ajax({
-            url:"/upload.do",
+            url:"${pageContext.request.contextPath}/upload.do",
             type:"post",
             data:form,
             cache: false,
@@ -55,7 +55,7 @@
             contentType: false,
             success:function(data){
                 $('#file').fadeOut();
-                $('#previewPicture').attr("src","/download/?filename="+data).fadeIn();
+                $('#previewPicture').attr("src","${pageContext.request.contextPath}/download/?filename="+data).fadeIn();
                 $('#path').val(data);
             },
             error:function(e){

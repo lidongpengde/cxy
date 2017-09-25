@@ -76,5 +76,6 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient-cache:4.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpmime:4.1.2" level="project" />
+    <orderEntry type="library" name="vue-resource" level="application" />
   </component>
 </module>

@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-7">
-                <h2>任我行，就是行</h2>
+                <h2 style="color: #fff">“顺路接一单，油费全省了，小金库也富裕了”</h2>
             </div>
             <div class="col-xs-5" style="z-index: 2">
                     <div class="shadow">
@@ -63,6 +63,33 @@
 
     </div>
     </div>
+<div id="statisics">
+    <div class="titleAll color-white">
+        <h3>Community</h3>
+    </div>
+    <div id="all-object-list-statisics">
+        <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s;"><i class="icon"></i>
+            <span id="number-packages" class="number-statisics">12707</span>
+            <span class="description">每日信息发布</span>
+        </div>
+        <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s;"><i class="icon"></i>
+            <span id="number-service" class="number-statisics">226</span>
+            <span class="description">已注册司机</span>
+        </div>
+        <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s;"><i class="icon"></i>
+            <span id="number-question" class="number-statisics">26598</span>
+            <span class="description">已注册会员</span>
+        </div>
+        <div class="object-list-statisics width-65 wow fadeInRightBig" data-wow-delay=".8s" style="visibility: visible; animation-delay: 0.8s;"><i class="icon"></i>
+            <span id="number-uniqueinstall" class="number-statisics">508K</span>
+            <span class="description">UNIQUE<br> INSTALLS</span>
+        </div>
+        <div class="object-list-statisics width-65 wow fadeInRightBig" data-wow-delay="1s" style="visibility: visible; animation-delay: 1s;"><i class="icon"></i>
+            <span id="number-event" class="number-statisics">16</span>
+            <span class="description">UPCOMING<br> EVENTS</span>
+        </div>
+    </div>
+</div>
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -120,7 +147,7 @@ function loginPage(){
            $.ajax({
                cache: true,
                type: "POST",
-               url:"/user/register",
+               url:"${pageContext.request.contextPath}/user/register",
                data:$('#registerForm').serialize(),// 你的formid
                async: false,
                error: function(request) {
@@ -138,7 +165,7 @@ function loginPage(){
             $.ajax({
                 cache: true,
                 type: "POST",
-                url:"/user/login",
+                url:"${pageContext.request.contextPath}/user/login",
                 data:$('#loginForm').serialize(),// 你的formid
                 async: false,
                 error: function(request) {
@@ -146,7 +173,7 @@ function loginPage(){
                 },
                 success: function(data) {
                     if (data.code==200){
-                        location.href="/v1/toIndexPage";
+                        location.href="${pageContext.request.contextPath}/v1/toIndexPage";
                     }else{
                         alert(data.message);
                     }

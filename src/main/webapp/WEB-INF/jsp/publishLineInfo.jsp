@@ -7,9 +7,9 @@
 	<title>login</title>
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
-    <script src="/asert/js/jquery.autocompleter.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/asert/css/main.css" media="screen"/>
+    <script src="${pageContext.request.contextPath}/asert/js/jquery.autocompleter.js"></script>
 
 </head>
 
@@ -69,8 +69,8 @@
 </div>
     </div>
   </div>
-<script src="/asert/js/bootstrap-datetimepicker.js"></script>
-<script src="/asert/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="${pageContext.request.contextPath}/asert/js/bootstrap-datetimepicker.js"></script>
+<script src="${pageContext.request.contextPath}/asert/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script>
 
     var app=new Vue({
@@ -137,11 +137,11 @@
         var params = $("#message").serialize();
         $.ajax({
             type : "POST",
-            url : "/v1/lineInfo",
+            url : "${pageContext.request.contextPath}/v1/lineInfo",
             data : params,
             success : function(data) {
                 if(data.code==200){
-                    location.href="toIndexPage";
+                    location.href="${pageContext.request.contextPath}/v1/toIndexPage";
                 }else{
                     alert(data.message)
                 }
@@ -183,7 +183,7 @@
             highlightMatches: true,
 
             // object to local or url to remote search
-            source: 'http://localhost:8080/v2//HintInfo' ,
+            source: '${pageContext.request.contextPath}/v2/HintInfo' ,
 
             template: '{{ cityName }} {{ name }}',
             // show hint
@@ -201,7 +201,7 @@
             highlightMatches: true,
 
             // object to local or url to remote search
-            source: 'http://localhost:8080/v2//HintInfo' ,
+            source: '${pageContext.request.contextPath}/v2/HintInfo' ,
 
             template: '{{ cityName }} {{ name }}',
             // show hint

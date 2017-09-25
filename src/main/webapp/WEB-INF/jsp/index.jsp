@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
-    <script src="/asert/js/mricode.pagination.js"></script>
-    <script src="/asert/js/jquery.serializejson.js"></script>
+    <link href="${pageContext.request.contextPath}/asert/css/jquery.pagination.css" rel="stylesheet" />
+    <script src="${pageContext.request.contextPath}/asert/js/mricode.pagination.js"></script>
+    <script src="${pageContext.request.contextPath}/asert/js/jquery.serializejson.js"></script>
 </head>
 <body >
 
@@ -91,7 +91,7 @@
     $("#page").pagination({
         pageSize: 10,
         remote: {
-            url: '/v1/lineInfos',
+            url: '${pageContext.request.contextPath}/v1/lineInfos',
             pageParams: function(data){
                 var params = $("#searchForm").serializeJSON();
                 return {

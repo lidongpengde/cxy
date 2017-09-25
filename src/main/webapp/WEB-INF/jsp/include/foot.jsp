@@ -52,7 +52,7 @@
 
           </div>
       </div>--%>
-<div class="copyright" STYLE="position: absolute;
+<div class="copyright" STYLE="position: relative;
     bottom: 0;
     width: 100%;
     height: 50px;">
@@ -61,7 +61,7 @@
             <div class="col-sm-12">
                 <span>Copyright © <a href="http://expo.bootcss.com">任我行</a></span> |
                 <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span>|
-                <span><a href="http://www.miibeian.gov.cn/" target="_blank">加入我们</a></span>
+                <span><a href="${pageContext.request.contextPath}/template/joinus.html" target="_blank" >加入我们</a></span>
             </div>
         </div>
     </div>
