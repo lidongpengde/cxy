@@ -10,38 +10,45 @@
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app" style="margin-top: 90px">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>出发地</th>
+            <th>目的地</th>
+            <th>价格</th>
+            <th>出发时间</th>
+            <th>人数</th>
+            <th>手机号</th>
+            <th>车牌号</th>
+            <th>是否议价</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+<c:forEach var="item"   items="${mylist.list}"   varStatus="status">
+        <tr>
+            <td><a href="/api/mySubscibe/${item.lid}">${ item.start }</a></td>
+            <td>${ item.end }</td>
+            <td>¥${ item.price }</td>
+            <td>${ item.startTime }</td>
+            <td>${ item.personCount }</td>
+            <td>${ item.user.mobile }</td>
+            <td>${ item.plateNumber }</td>
+            <td>
+                <c:choose>
+                    <c:when test="${item.isbargin== '0'}">
+                        不接受议价
+                    </c:when>
+                    <c:otherwise>
+                        接受议价
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td><a href="#" onclick="cancelPublish('${item.lid}')">取消发布</a></td>
+            <td></td>
+        </tr>
+</c:forEach>
+    </table>
 
-    <%--头部搜索栏--%>
-    <%--<div class="row">--%>
-        <%--<form id="searchForm" class="form-inline" onsubmit="return false">--%>
-            <%--<input name="type" value="1" hidden id="type">--%>
-            <%--<label for="start">出发地</label><input name="start" id="start" class="form-control">--%>
-            <%--<label for="end">目的地</label><input name="end" id="end" class="form-control">--%>
-            <%--<button class="btn btn-info" onclick="searchLineInfo()">查询</button>--%>
-        <%--</form>--%>
-        <%--<a href="/v1/toPublishlineInfoPage">发布</a>--%>
-    <%--</div>--%>
-        <c:forEach var="item"   items="${mylist.list}"   varStatus="status">
-            <div class="post row" v-for="item in items">
-                    <%--<a href="#" class=""><img class="img-circle img-responsive" style="width: 100px;height: 100px;float: left"  src="${user.headImage}"></a>--%>
-                <div class="post-content">
-                    <h3><strong class="address">${ item.start }</strong><small>至</small><strong class="address">${ item.end }</strong></span><em class="text-center">¥${ item.price }</em></h3>
-                    <p>
-                        <em>出发时间：${ item.startTime }</em>
-
-                        <em v-if="item.isbargin === 0">不接受议价
-                        </em>
-                        <em v-if="item.isbargin === 1">接受议价
-                        </em>
-                        <em>人数：${ item.personCount }</em>
-                        <em >电话：${ item.user.mobile }</em>
-                        <em>发布人：${ item.user.userName }</em>
-                        <em v-if="item.type === 1">车牌号：${ item.plateNumber }</em>
-                    </p>
-                </div>
-                <button class="discuss btn btn-default" onclick="cancelPublish('${item.lid}')">取消发布</button>
-            </div>
-        </c:forEach>
 </div>
 <script>
 

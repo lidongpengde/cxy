@@ -1,6 +1,8 @@
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cxy.common.MessageResult;
+import com.cxy.common.WarningEnum;
 import com.cxy.dao.AdviceBoxMapper;
 import com.cxy.entity.AdviceBox;
 import com.cxy.entity.User;
@@ -49,17 +51,20 @@ public class Welcome {
     }
     @RequestMapping(value = "/advice",method = RequestMethod.POST)
     @ResponseBody
-    public String httpclienttest(AdviceBox adviceBox) {
+    public MessageResult addAdvice(AdviceBox adviceBox) {
+        MessageResult result=new MessageResult();
        int size= adviceBoxMapper.insert(adviceBox);
        if (size>0){
-           return "seccess";
+           result.setCode(WarningEnum.update_success.getCode());
+           result.setSuccess(true);
+           return result;
        }
-        return "fail";
+        result.setSuccess(false);
+        return result;
     }
     @RequestMapping(value = "/advices",method = RequestMethod.GET)
-    @ResponseBody
-    public String httpclienttest(HttpServletRequest request) {
+    public String toAddAdvice(HttpServletRequest request) {
 
-        return "oo";
+        return "advice/addAdvice";
     }
 }

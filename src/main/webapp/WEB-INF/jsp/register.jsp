@@ -64,29 +64,13 @@
     </div>
     </div>
 <div id="statisics">
-    <div class="titleAll color-white">
-        <h3>Community</h3>
-    </div>
-    <div id="all-object-list-statisics">
+    <div id="titleAll color-white">
         <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s;"><i class="icon"></i>
-            <span id="number-packages" class="number-statisics">12707</span>
-            <span class="description">每日信息发布</span>
-        </div>
-        <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s;"><i class="icon"></i>
-            <span id="number-service" class="number-statisics">226</span>
-            <span class="description">已注册司机</span>
-        </div>
-        <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s;"><i class="icon"></i>
-            <span id="number-question" class="number-statisics">26598</span>
-            <span class="description">已注册会员</span>
-        </div>
-        <div class="object-list-statisics width-65 wow fadeInRightBig" data-wow-delay=".8s" style="visibility: visible; animation-delay: 0.8s;"><i class="icon"></i>
-            <span id="number-uniqueinstall" class="number-statisics">508K</span>
-            <span class="description">UNIQUE<br> INSTALLS</span>
+            <img src="/asert/image/IMG_1948.JPG" width="280px" height="360px">
         </div>
         <div class="object-list-statisics width-65 wow fadeInRightBig" data-wow-delay="1s" style="visibility: visible; animation-delay: 1s;"><i class="icon"></i>
-            <span id="number-event" class="number-statisics">16</span>
-            <span class="description">UPCOMING<br> EVENTS</span>
+            <span id="number-event" class="number-statisics">百名用户体验改善计划</span>
+            <span class="description">您的需求，我们来实现</span>
         </div>
     </div>
 </div>
@@ -147,7 +131,7 @@ function loginPage(){
            $.ajax({
                cache: true,
                type: "POST",
-               url:"${pageContext.request.contextPath}/user/register",
+               url:"/user/register",
                data:$('#registerForm').serialize(),// 你的formid
                async: false,
                error: function(request) {
@@ -165,7 +149,7 @@ function loginPage(){
             $.ajax({
                 cache: true,
                 type: "POST",
-                url:"${pageContext.request.contextPath}/user/login",
+                url:"/user/login",
                 data:$('#loginForm').serialize(),// 你的formid
                 async: false,
                 error: function(request) {
@@ -173,7 +157,7 @@ function loginPage(){
                 },
                 success: function(data) {
                     if (data.code==200){
-                        location.href="${pageContext.request.contextPath}/v1/toIndexPage";
+                        location.href="/v1/toIndexPage";
                     }else{
                         alert(data.message);
                     }

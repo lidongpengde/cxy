@@ -85,4 +85,15 @@ public class UserController {
         return "usercenter";
     }
 
+    @RequestMapping(value = "/update")
+    public String updateUserinfo(User user, HttpServletRequest request, ModelMap modelMap){
+         User olduser= UserTools.getCurrentUser(request);
+        if (!user.getId().equals(olduser.getId())){
+            modelMap.put("result","信息有误");
+            return "result";
+        }
+        userService.updateUser(user);
+        return "usercenter";
+    }
+
 }

@@ -9,14 +9,13 @@
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" style="margin-top: 90px">
-    <div class="row">
-    <form action="/user/update" id="form" class="form-horizontal">
+    <form action="/user/update" id="form" class="form-horizontal" onsubmit="return false">
 
 
             <div class="col-md-4">
                 <img src="" id="previewPicture" hidden class="img-circle" height="200px" width="200px">
                 <c:if test="${!empty userInfo.headImage}">
-                <img class="img-circle"  src="${userInfo.headImage}">
+                <img class="img-circle"  src="/download/?filename=${userInfo.headImage}" height="200px" width="200px">
                 </c:if>
             </div>
 
@@ -49,25 +48,24 @@
     <div class="form-group ">
         <c:if test="${empty userInfo.headImage}">
                 <input  name="file" type="file" onchange="submitIdentity()">
-
         </c:if>
     </div>
 
 
-            <input type="hidden" value="${user.userId}" name="userId">
+            <input type="hidden" value="${userInfo.id}" name="id">
 
             <input name="headImage" type="hidden" id="headImage">
-
+<div class="form-group" style="margin-left: 20px">
+    <button class="btn btn-danger" onclick="updateUserInfo()">保存</button>
 </div>
-
+</div>
     </form>
-    </div>
 </div>
 <script>
     function submitIdentity() {
     var form = new FormData(document.getElementById("form"));
     $.ajax({
-        url:"${pageContext.request.contextPath}/upload.do",
+        url:"/upload.do",
         type:"post",
         data:form,
         cache: false,
@@ -75,14 +73,24 @@
         contentType: false,
         success:function(data){
             $('#file').fadeOut();
-            $('#previewPicture').attr("src","${pageContext.request.contextPath}/download/?filename="+data).fadeIn();
+            $('#previewPicture').attr("src","/download/?filename="+data).fadeIn();
             $('#headImage').val(data);
         },
         error:function(e){
             alert("网络错误，请重试！！");
         }
     });}
+function updateUserInfo() {
+        $.ajax({
+            url:'/user/update',
+            data:$('#form').serialize(),
+            type:'post',
+            success:function (data) {
+               alert("修改成功")
+            }
+        })
 
+}
 </script>
 <script src="/asert/js/bootstrap.js"></script>
 </body>

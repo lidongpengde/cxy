@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link href="${pageContext.request.contextPath}/asert/css/jquery.pagination.css" rel="stylesheet" />
-    <script src="${pageContext.request.contextPath}/asert/js/mricode.pagination.js"></script>
-    <script src="${pageContext.request.contextPath}/asert/js/jquery.serializejson.js"></script>
+    <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
+    <script src="/asert/js/mricode.pagination.js"></script>
+    <script src="/asert/js/jquery.serializejson.js"></script>
 </head>
 <body >
 
@@ -48,7 +48,7 @@
                     <span class="bargin-label" v-if="item.isbargin === 1">可议价</span>
                 </p>
                 </div>
-                <a v-bind:href="'/api/toSubscibe/'+item.lid" class="discuss btn btn-default">马上预约</a>
+                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-default">马上预约</a>
                 <%--<span class="price discuss">¥{{ item.price }}</span>--%>
             </div>
             <div id="page" class="m-pagination" ></div>
@@ -91,7 +91,7 @@
     $("#page").pagination({
         pageSize: 10,
         remote: {
-            url: '${pageContext.request.contextPath}/v1/lineInfos',
+            url: '/v1/lineInfos',
             pageParams: function(data){
                 var params = $("#searchForm").serializeJSON();
                 return {

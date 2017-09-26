@@ -35,6 +35,6 @@ public class UserSerivceImpl implements IuserService{
      */
     public int updateUser(User user) {
         user.setIdentifyStatus(1L);
-        return userMapper.updateByPrimaryKey(user);
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 }

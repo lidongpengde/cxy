@@ -12,7 +12,7 @@
     <result column="identify_status" jdbcType="BIGINT" property="identifyStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, mobile, age, sex, user_name, pass_word, nick_name, identify_status
+    id, mobile, age, sex, user_name, pass_word, nick_name, identify_status,head_image
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -96,26 +96,29 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.User">
     update user
     <set>
-      <if test="mobile != null">
+      <if test="mobile != null and mobile != ''">
         mobile = #{mobile,jdbcType=BIGINT},
       </if>
-      <if test="age != null">
+      <if test="age != null and age != ''">
         age = #{age,jdbcType=BIGINT},
       </if>
-      <if test="sex != null">
+      <if test="sex != null and sex != ''">
         sex = #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null">
+      <if test="userName != null and userName != ''">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="passWord != null">
+      <if test="passWord != null and passWord != ''">
         pass_word = #{passWord,jdbcType=VARCHAR},
       </if>
-      <if test="nickName != null">
+      <if test="nickName != null and nickName != ''">
           nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="identifyStatus != null">
+      <if test="identifyStatus != null and identifyStatus != ''">
         identify_status = #{identifyStatus,jdbcType=BIGINT},
+      </if>
+      <if test="headImage != null and headImage != ''">
+        head_image = #{headImage,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
