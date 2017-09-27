@@ -13,7 +13,7 @@
 </head>
 <body style="background-color: #fff">
 <div class="container" style="margin-top: 90px">
-<form action="/api/subscibe" method="post" id="subForm" onsubmit="return false">
+<form action="/api/subscibe" method="post" id="subForm">
 <input name="lineinfoId" id="lineInfoId" type="hidden"   value="${lineInfoId}">
     <div class="form-group"><label>人数</label>
         <select type="number"  class="form-control" name="personCount" id="personCount">
@@ -69,17 +69,6 @@
         $("subForm").submit(function(e){
             alert("Submitted");
         });
-        $.ajax({
-            url:'/api/subscibe',
-            type:'post',
-            data:$('#subForm').serialize(),
-            error:function (e) {
-                
-            },
-            success:function (data) {
-                
-            }
-        })
     }
 </script>
 </body>

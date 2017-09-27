@@ -41,7 +41,8 @@ public class AuthFilter implements Filter {
         User password = (User) session.getAttribute("const_user");
         if (password == null || "".equals(password)) {
             // 跳转到登录页面
-            resp.sendRedirect(prefix+host+loginUrltest);
+            //resp.sendRedirect(prefix+host+loginUrltest);
+            resp.sendRedirect(loginUrltest);
         } else {
             arg2.doFilter(req, resp);
         }

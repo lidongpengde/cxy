@@ -24,7 +24,6 @@ public class SubscribeController {
     @Autowired
     ILineInfoService lineInfoService;
     @RequestMapping(value = "subscibe",method = RequestMethod.POST)
-    @ResponseBody
     public String sebscribeLineinfo(HttpServletRequest request, Subscribe subscribe,ModelMap modelMap){
         MessageResult result= subscribeService.addSubscibe(request,subscribe);
         if (!result.isSuccess()){
