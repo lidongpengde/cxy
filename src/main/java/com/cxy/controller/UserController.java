@@ -77,8 +77,12 @@ public class UserController {
     @RequestMapping("inner/{userId}")
     public String getUserinfo(@PathVariable Long userId, HttpServletRequest request, ModelMap modelMap){
         User user= UserTools.getCurrentUser(request);
+        if (user==null){
+            modelMap.put("result","您还没有登录");
+            return "result";
+        }
         if (!user.getId().equals(userId)){
-            modelMap.put("result","信息油污");
+            modelMap.put("result","信息有误！");
             return "result";
         }
         modelMap.put("userInfo",userService.findUserById(userId));

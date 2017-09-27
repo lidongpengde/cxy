@@ -50,7 +50,14 @@
                 </label>
               </div>
     <div class="form-group" >
-      <input placeholder="人数" type="number" max="3" min="1" name="personCount" id="personCount" class="form-control" onblur="checkValid(this)"></div>
+        <select name="personCount" id="personCount">
+            <option disabled="disabled" selected value="0">请选择人数</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+      </div>
               <div class="form-group" >
       <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  ></div>
       <div class="form-group">
@@ -183,7 +190,7 @@
             highlightMatches: true,
 
             // object to local or url to remote search
-            source: 'http://localhost:8080/v2//HintInfo' ,
+            source: '/v2//HintInfo' ,
 
             template: '{{ cityName }} {{ name }}',
             // show hint
@@ -201,7 +208,7 @@
             highlightMatches: true,
 
             // object to local or url to remote search
-            source: 'http://localhost:8080/v2//HintInfo' ,
+            source: '/v2//HintInfo' ,
 
             template: '{{ cityName }} {{ name }}',
             // show hint

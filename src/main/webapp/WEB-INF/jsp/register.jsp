@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>go366.club</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 
 </head>
@@ -11,10 +12,10 @@
 <div class="header" style="background-image: url(http://static.bootcss.com/expo/img/d/dd/2de797545de56274f03a5920eb3a1.jpg);">
     <div class="container">
         <div class="row">
-            <div class="col-xs-7">
+            <div class="col-xs-0 col-md-8">
                 <h2 style="color: #fff">“顺路接一单，油费全省了，小金库也富裕了”</h2>
             </div>
-            <div class="col-xs-5" style="z-index: 2">
+            <div class="col-xs-12 col-md-4" >
                     <div class="shadow">
                         <form action="user/register" id="registerForm" name="registerForm" onsubmit="return false">
 

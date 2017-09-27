@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <span>Copyright © <a href="http://expo.bootcss.com">任我行</a></span> |
+                <span>Copyright © <a href="#">任我行</a></span> |
                 <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span>|
                 <span><a href="/template/joinus.html" target="_blank" >加入我们</a></span>|
                 <span><a href="/advices" target="_blank" >意见箱</a></span>
