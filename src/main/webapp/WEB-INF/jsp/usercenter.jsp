@@ -40,10 +40,8 @@
             </div>
         </div>
     <div class="form-group ">
-        <label class="col-sm-2 control-label" for="qq">认证状态：</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text"  value="${userInfo.identifyStatus}">
-        </div>
+        <label class="col-sm-2 control-label" >认证状态：</label>
+        <label class="col-sm-2 control-label" >${userInfo.identifyStatus}</label>
     </div>
     <div class="form-group ">
         <c:if test="${empty userInfo.headImage}">
