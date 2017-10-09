@@ -13,4 +13,5 @@ public interface IuserService {
     public User findUserByName(String userName);
 
     public int updateUser(User user);
+    public User findUserByMobile(String login);
 }

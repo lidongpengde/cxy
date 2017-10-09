@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lidp on 2017/3/19.
@@ -25,19 +27,35 @@ public class UserController {
     @Autowired
     private IuserService userService;
     @RequestMapping("/register")
-    public String saveUser(User user){
+    public String saveUser(User user,HttpServletRequest request){
         int size=userService.saveUser(user);
         if (size>0){
+            request.getSession().setAttribute("const_user",user);
             return "index";
         }
         return "login";
     }
+    @RequestMapping("/validateExists/{userName}")
+    @ResponseBody
+    public String validateExists(@PathVariable String userName){
+        User existUser=userService.findUserByName(userName);
+        if (existUser!=null){
+            return "true";
+        }
+        return "false";
+    }
     @RequestMapping(value = "/login",produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String userlogin(User user, HttpServletResponse response, HttpServletRequest request){
+    public String userlogin(User user, HttpServletRequest request){
         JSONObject jsonObject=new JSONObject();
        String oldpassWord= user.getPassWord();
-        user=userService.findUserByName(user.getUserName());
+       String login=user.getUserName();
+       if (isMobile(login)){
+           user=userService.findUserByMobile(login);
+       }else{
+           user=userService.findUserByName(user.getUserName());
+       }
+
         if (user==null){
             jsonObject.put("message","用户不存在");
             jsonObject.put("code",404);
@@ -99,5 +117,13 @@ public class UserController {
         userService.updateUser(user);
         return "usercenter";
     }
+    public  boolean isMobile(String mobiles) {
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
 
+        Matcher m = p.matcher(mobiles);
+
+        System.out.println(m.matches()+"---");
+
+        return m.matches();
+    }
 }

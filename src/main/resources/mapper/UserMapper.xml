@@ -26,11 +26,17 @@
     from user
     where user_name = #{userName,jdbcType=BIGINT}
   </select>
+  <select id="selectByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where mobile = #{mobile,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.cxy.entity.User">
+  <insert id="insert" parameterType="com.cxy.entity.User" keyProperty="id">
     insert into user (id, mobile, age, 
       sex, user_name, pass_word, 
       nick_name, identify_status)

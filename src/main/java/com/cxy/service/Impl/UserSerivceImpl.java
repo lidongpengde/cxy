@@ -65,4 +65,10 @@ public class UserSerivceImpl implements IuserService{
         user.setIdentifyStatus(1L);
         return userMapper.updateByPrimaryKeySelective(user);
     }
+
+    @Override
+    public User findUserByMobile(String login) {
+        User user= userMapper.selectByMobile(login);
+        return user;
+    }
 }

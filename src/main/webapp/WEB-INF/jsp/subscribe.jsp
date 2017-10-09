@@ -13,7 +13,7 @@
 </head>
 <body style="background-color: #fff">
 <div class="container" style="margin-top: 90px">
-<form action="/api/subscibe" method="post" id="subForm">
+<form action="/api/subscibe" method="post" id="subForm" onsubmit="return submitSubscribe()">
 <input name="lineinfoId" id="lineInfoId" type="hidden"   value="${lineInfoId}">
     <div class="form-group"><label>人数</label>
         <select type="number"  class="form-control" name="personCount" id="personCount">
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group"><label>联系方式</label><input type="phone" class="form-control" name="personMobile" id="personMobile"></div>
     <div class="form-group"><label>描述</label><input type="text" class="form-control" name="description" id="description"></div>
-    <div class="form-group"><button type="submit" class="btn btn-danger" onclick="submitSubscribe()">提交</button></div>
+    <div class="form-group"><button  class="btn btn-danger">提交</button></div>
 </form>
 </div>
 <script>
@@ -54,21 +54,29 @@
        var personCount= $('#personCount').val();
        var personMobile=$('#personMobile').val();
        var description=$('#description').val();
+       var flag=true;
        if(!personCount){
-           alert("请选择出行人数")
-           return;
+           flag=false;
+           alert("请选择出行人数");
+           return false;
        }
         if(!vailPhone(personMobile)){
+           flag=false;
             alert("请输入正确的手机，方便司机联系您")
-            return;
+            return false;
         }
         if(!description){
+            flag=false;
             alert("说点什么吧")
-            return;
+            return false;
         }
-        $("subForm").submit(function(e){
-            alert("Submitted");
-        });
+        debugger
+        if (flag){
+            $("subForm").submit(function(e){
+                alert("Submitted");
+            });
+        }
+
     }
 </script>
 </body>
