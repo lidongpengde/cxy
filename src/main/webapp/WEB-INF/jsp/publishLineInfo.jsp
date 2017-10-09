@@ -50,7 +50,7 @@
                 </label>
               </div>
     <div class="form-group" >
-        <select name="personCount" id="personCount">
+        <select name="personCount" id="personCount" class="form-control">
             <option disabled="disabled" selected value="0">请选择人数</option>
             <option value="1">1</option>
             <option value="2">2</option>

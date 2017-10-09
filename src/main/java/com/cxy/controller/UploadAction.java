@@ -1,6 +1,7 @@
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cxy.common.UserTools;
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +34,10 @@ public class UploadAction {
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
         System.out.println("开始");
         String path = picpath;
-        String fileName = file.getOriginalFilename();
+        String oldfileName=file.getOriginalFilename();
+        String prefix=oldfileName.substring(oldfileName.lastIndexOf("."));
+        String fileName= UserTools.getUUID()+prefix;
+        //
         File targetFile = new File(path, fileName);
         if(!targetFile.exists()){
             targetFile.mkdirs();

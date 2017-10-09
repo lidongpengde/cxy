@@ -182,11 +182,9 @@ p {
     margin-bottom: 5px;
     pointer-events: auto;
 }
-.tiptitle{
-    border-bottom: 4px solid #d9534f;
-    position: relative;
-    margin: 40px 0 25px 0;
-
+.bordered{
+    border: 1px solid #dddddd;
+    width:200px;
 }
 h1{
     font-family: "Telefon Black", Sans-Serif;

@@ -23,14 +23,8 @@ public class IdentityImpl implements Iidentity{
     private IdentityMapper mapper;
     @Override
     public int saveIdentity(Identity identity,String path) {
-        if (!StringUtils.isEmpty(identity.getIdCard())){
-            identity.setIdCard(path);
-        }else if (!StringUtils.isEmpty(identity.getLicense())){
-            identity.setLicense(path);
-        }else if (!StringUtils.isEmpty(identity.getGraduation())){
-            identity.setGraduation(path);
-        }
-        identity.setCreateTime(UserTools.getCurrentTime());
+
+        identity.setCreateTime(new Date());
         return mapper.insert(identity);
     }
 

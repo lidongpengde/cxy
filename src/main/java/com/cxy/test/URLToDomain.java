@@ -29,11 +29,11 @@ public class URLToDomain {
 
     }
     public void observe() {
-        final long free = Runtime.getRuntime().freeMemory();
-        final long total = Runtime.getRuntime().totalMemory();
+        String oldfileName="abc.jgp";
+        String prefix=oldfileName.substring(oldfileName.lastIndexOf("."));
+        System.out.println(prefix);
 
 
-        System.out.println(System.getProperties().getProperty("user.home"));
     }
 
 }
