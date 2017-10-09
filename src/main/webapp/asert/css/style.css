@@ -182,10 +182,11 @@ p {
     margin-bottom: 5px;
     pointer-events: auto;
 }
-.tiptitle{
+.tiptitle {
     border-top: 2px solid #d9534f;
     position: relative;
     margin: 40px 0 25px 0;
+}
 
 .bordered{
     border: 1px solid #dddddd;
