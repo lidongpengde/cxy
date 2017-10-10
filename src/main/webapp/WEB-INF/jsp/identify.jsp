@@ -14,22 +14,20 @@
     <form action="/api/Identify"  method="post" id="form">
         <div class="form-group"><label for="realName">真实姓名：</label><input id="realName" class="form-control" name="realName"></div>
         <div class="form-group"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" name="idCardNumber"   ></div>
-        <div class="form-group"><label for="positive">正面：</label><input id="positive" class="form-control" name="positive"></div>
-        <div class="form-group"><label for="negative">反面：</label><input id="negative" class="form-control" name="negative" ></div>
+        <div class="form-group"><%--<label for="positive">正面：</label>--%><input id="positive" type="hidden" class="form-control" name="positive" ></div>
+        <div class="form-group"><%--<label for="negative">反面：</label>--%><input id="negative" type="hidden" class="form-control" name="negative" ></div>
         <div class="form-group">
-            <div class="form-inline">
-        <div class="bordered" style="float: left">
-            <img src="/" id="previewpositive" class="img-responsive"  width="200px" height="125px">
+        <div class="bordered col-xs-5 col-md-6" style="float: left">
+            <img src="/asert/image/positive.jpg" id="previewpositive" class="img-responsive" height="297px">
                 <input type="file"  name="file" id="positivefile" onchange="submitIdentity('positivefile','previewpositive','positive')">
         </div>
-            <div class=" col-md-4" style="border-right: 1px solid #dddddd"></div>
-        <div class="bordered " style="float: right">
-            <img src="/" id="previewnegative" class="img-responsive" width="200px" height="125px">
+
+        <div class="bordered col-xs-5 col-md-6" style="float: right">
+            <img src="/asert/image/negetive.jpg" id="previewnegative" class="img-responsive"  height="297px">
             <input type="file"  name="file1" id="negativefile" onchange="submitIdentity('negativefile','previewnegative','negative')">
         </div>
-            </div>
         </div>
-        <div class="form-group" style="margin-top: 30px">
+        <div class="form-group" style="padding-top: 30px;float: left">
         <button type="submit" class="btn btn-danger">提交认证</button>
         </div>
     </form>
