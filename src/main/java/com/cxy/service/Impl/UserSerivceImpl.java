@@ -29,6 +29,8 @@ public class UserSerivceImpl implements IuserService{
     }
 
     public int saveUser(User user) {
+        //新增用户默认状态为未认证
+        user.setIdentifyStatus(0L);
         int size=userMapper.insert(user);
         return size;
     }
