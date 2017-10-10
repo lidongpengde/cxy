@@ -13,6 +13,10 @@
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
     <result column="id_card_number" property="idCardNumber" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <association property="user" javaType="com.cxy.entity.User">
+      <id property="userName" column="user_name"/>
+      <result property="mobile" column="mobile"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -146,4 +150,13 @@
     create_time = #{createTime,jdbcType=TIMESTAMP}
     where identity_id = #{identityId,jdbcType=INTEGER}
   </update>
+  <select id="getIdentityListByPage" resultMap="BaseResultMap" parameterType="com.cxy.entity.Identity">
+    select * from identity a left join user b  on a.user_id=b.id where b.identify_status=0
+    <if test="start!=null and pageSize!=null">
+      limit #{start},#{pageSize}
+    </if>
+  </select>
+  <select id="getIdentityCount" resultType="java.lang.Integer" parameterType="com.cxy.entity.Identity">
+    select count(*) from identity a left join user b  on a.user_id=b.id where b.identify_status=0
+  </select>
 </mapper>

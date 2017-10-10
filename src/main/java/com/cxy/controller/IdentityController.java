@@ -39,7 +39,7 @@ public class IdentityController {
         modelMap.put("result", WarningEnum.identify_wait.getMsg());
         return "result";
     }
-    @RequestMapping(value = "Identifys",method = RequestMethod.GET)
+    @RequestMapping(value = "Identifys",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String getIdentifyList(Integer pageIndex, Integer pageSize, ModelMap modelMap){
         Pager pager=identityService.findIdentityList(pageIndex,pageSize);

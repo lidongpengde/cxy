@@ -15,5 +15,6 @@
 <div class="container" style="margin-top: 90px">
 <h3>${result}</h3>
 </div>
+<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 </html>

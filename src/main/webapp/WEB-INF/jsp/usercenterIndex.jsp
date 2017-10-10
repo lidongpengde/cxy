@@ -34,5 +34,6 @@
 
 </script>
 <script src="/asert/js/bootstrap.js"></script>
+<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 </html>
