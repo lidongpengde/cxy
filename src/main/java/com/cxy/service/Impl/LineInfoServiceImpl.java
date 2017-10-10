@@ -28,7 +28,7 @@ public class LineInfoServiceImpl implements ILineInfoService {
     public MessageResult saveLineInfo(LineInfo lineInfo,HttpServletRequest request) {
         MessageResult messageResult=new MessageResult();
         User user=(User)request.getSession().getAttribute("const_user");
-        if (user.getIdentifyStatus()!=1L){
+        if (user.getIdentifyStatus()==null||user.getIdentifyStatus()!=1L){
             messageResult.setCode(WarningEnum.need_identified.getCode());
             messageResult.setMessage(WarningEnum.need_identified.getMsg());
             messageResult.setSuccess(false);
