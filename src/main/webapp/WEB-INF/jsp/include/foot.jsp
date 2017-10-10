@@ -11,10 +11,7 @@
 </head>
 <body>
 <footer class="main-footer" >
-<div class="copyright" STYLE="position: relative;
-    bottom: 0;
-    width: 100%;
-    height: 50px;">
+<div class="copyright" >
     <div class="container">
         <div class="row">
             <div class="col-sm-12">

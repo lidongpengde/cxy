@@ -104,3 +104,13 @@
     -webkit-animation-name: fadeInRightBig;
     animation-name: fadeInRightBig;
 }
+footer{
+    /* 設定footer的高度 */
+   height: 40px;
+   box-sizing: border-box;
+   /* 設定footer絕對位置在底部 */
+    position: absolute;
+   bottom: 0;
+   /* 展開footer寬度 */
+   width: 100%;
+}
