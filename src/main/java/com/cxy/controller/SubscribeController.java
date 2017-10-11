@@ -3,6 +3,7 @@ package com.cxy.controller;
 import com.cxy.common.MessageResult;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.Subscribe;
+import com.cxy.entity.User;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IsubscribeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,13 @@ public class SubscribeController {
         return "viewSubscribeResult";
     }
     @RequestMapping(value = "toSubscibe/{lid}",method = RequestMethod.GET)
-    public String toSubscibe(@PathVariable String lid,ModelMap modelMap){
+    public String toSubscibe(HttpServletRequest request,@PathVariable String lid,ModelMap modelMap){
+        User user=(User)request.getSession().getAttribute("const_user");
+        LineInfo lineInfo = lineInfoService.queryLineInfoById(Integer.parseInt(lid));
+        if(lineInfo.getUserId().equals(user.getId().toString())){
+            modelMap.put("result","无法对自己的订单进行预约");
+            return "result";
+        }
         modelMap.put("lineInfoId",lid);
         return "subscribe";
     }
