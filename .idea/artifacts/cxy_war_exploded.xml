@@ -58,6 +58,7 @@
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.4" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient-cache:4.1.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.1.2" />
+          <element id="library" level="project" name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210" />
         </element>
       </element>
       <element id="directory" name="META-INF">

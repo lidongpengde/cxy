@@ -41,7 +41,14 @@
         </div>
     <div class="form-group ">
         <label class="col-sm-2 control-label" >认证状态：</label>
-        <label class="col-sm-2 control-label" >${userInfo.identifyStatus}</label>
+        <label class="col-sm-2 control-label" >
+            <c:if test="${userInfo.identifyStatus=='1'}">
+                <span style="color: #008200;">已认证</span>
+            </c:if>
+            <c:if test="${userInfo.identifyStatus=='0'}">
+                <a href="/api/toIdentify">未认证</a>
+            </c:if>
+        </label>
     </div>
     <div class="form-group ">
         <c:if test="${empty userInfo.headImage}">
@@ -53,7 +60,7 @@
             <input type="hidden" value="${userInfo.id}" name="id">
 
             <input name="headImage" type="hidden" id="headImage">
-<div class="form-group" style="margin-left: 20px">
+<div class="form-group" style="margin-left: 1px">
     <button class="btn btn-danger" onclick="updateUserInfo()">保存</button>
 </div>
 </div>

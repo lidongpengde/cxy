@@ -8,9 +8,13 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
     <script src="/asert/js/mricode.pagination.js"></script>
     <script src="/asert/js/jquery.serializejson.js"></script>
+    <style type="text/css">
+        .copyright{
+            position: relative;
+        }
+    </style>
 </head>
 <body >
-
 <div class="container" id="app" style="margin-top: 90px">
 
         <%--头部搜索栏--%>
@@ -22,7 +26,6 @@
              <div class="form-group"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
              <div class="form-group"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
             </form>
-
         </div>
         <%--tab切换栏--%>
         <div class="identity ">
@@ -33,22 +36,22 @@
 
                 <div class="post-content">
                     <a v-bind:href="'/api/mySubscibe/'+item.lid">
-                    <h3><strong>{{ item.start }}</strong>	&nbsp;</strong><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong>	&nbsp;<strong>{{ item.end }}</strong>	&nbsp;
-                        <span class="glyphicon glyphicon-earphone" aria-hidden="true">{{ item.user.mobile }}</span></h3></a>
+                    <h4><strong>{{ item.start }}</strong></strong><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong><strong>{{ item.end }}</strong>
+                        </h4></a>
                     <p>
-                        人数:	&nbsp;<span class="">{{ item.personCount }}</span>		&nbsp;&nbsp;<span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
-                        &nbsp;	&nbsp;
+                    <ul class="inline"></ul>
+                        人数:<span class="">{{ item.personCount }}</span><span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
+                        <a v-bind:href="'tel:'+item.user.mobile">{{ item.user.mobile }}</a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.user.nickName }}</span>
-                        &nbsp;	&nbsp;
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true">	{{ item.startTime }}</span>
-                        <%--<span class="price">¥{{ item.price }}</span>--%>
                     </p>
                 <p><span class="price">¥{{ item.price }}</span>
                     <span class="bargin-label" v-if="item.isbargin === 0">不议价</span>
                     <span class="bargin-label" v-if="item.isbargin === 1">可议价</span>
+                    <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-default">马上预约</a>
                 </p>
                 </div>
-                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-default">马上预约</a>
+
                 <%--<span class="price discuss">¥{{ item.price }}</span>--%>
             </div>
             <div id="page" class="m-pagination" ></div>
@@ -108,6 +111,47 @@
             },
             totalName:'total'
         }
+    });
+    /**
+     * 提示输入
+     */
+    $(function () {
+        $('#start').autocompleter({
+            cache: false,
+            // marker for autocomplete matches
+            highlightMatches: true,
+
+            // object to local or url to remote search
+            source: '/v2//HintInfo' ,
+
+            template: '{{ name }}',
+            // show hint
+            hint: false,
+
+            // abort source if empty field
+            empty: false,
+
+            // max results
+            limit: 5,
+        });
+        $('#end').autocompleter({
+            cache: false,
+            // marker for autocomplete matches
+            highlightMatches: true,
+
+            // object to local or url to remote search
+            source: '/v2//HintInfo' ,
+
+            template: '{{ name }}',
+            // show hint
+            hint: false,
+
+            // abort source if empty field
+            empty: false,
+
+            // max results
+            limit: 5,
+        });
     });
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>

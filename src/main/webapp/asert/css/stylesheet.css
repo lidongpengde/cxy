@@ -43,7 +43,7 @@
     border: 1px solid #d9534f;
     padding: 3px;
     color: #d9534f;
-    font-size: 14px;
+    font-size: 12px;
 }
 .bargin-label:hover{
     background-color: #d9534f;
@@ -56,8 +56,11 @@
     color: #555;
     padding-top: 14px;
     padding-bottom: 20px;
+    position: absolute;
+    bottom: 0;
 }
 .copyright a {
+
     color: #555;
 }
 .footer {
@@ -103,14 +106,4 @@
 .fadeInRightBig {
     -webkit-animation-name: fadeInRightBig;
     animation-name: fadeInRightBig;
-}
-footer{
-    /* 設定footer的高度 */
-   height: 40px;
-   box-sizing: border-box;
-   /* 設定footer絕對位置在底部 */
-    position: absolute;
-   bottom: 0;
-   /* 展開footer寬度 */
-   width: 100%;
 }

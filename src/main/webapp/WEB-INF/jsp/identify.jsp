@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="GB2312">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 
@@ -12,7 +12,7 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app" style="margin-top: 90px">
     <form action="/api/Identify"  method="post" id="form">
-        <div class="form-group"><label for="realName">真实姓名：</label><input id="realName" class="form-control" name="realName"></div>
+        <div class="form-group"><label for="realName">真实姓名真是的：</label><input id="realName" class="form-control" name="realName"></div>
         <div class="form-group"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" name="idCardNumber"   ></div>
         <div class="form-group"><%--<label for="positive">正面：</label>--%><input id="positive" type="hidden" class="form-control" name="positive" ></div>
         <div class="form-group"><%--<label for="negative">反面：</label>--%><input id="negative" type="hidden" class="form-control" name="negative" ></div>

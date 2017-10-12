@@ -100,8 +100,7 @@ p {
     margin: 0; }
 .post .discuss {
     display: block;
-    float: right;
-    margin-top: 7px; }
+    float: right; }
 
 .comments {
     list-style-type: none;
