@@ -32,10 +32,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li data-services="" class="menu-main has-sub-menu" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
                         <a class="menu-child" href="/user/inner/${ sessionScope.const_user.id}" style="color: #FF8400;">
-                            <span>${ sessionScope.const_user.nickName}...<span class=" glyphicon glyphicon-chevron-down" aria-hidden="true"></span></span>
-                            <ul class="sub-menu-secondary">
-                                <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
-                            </ul>
+                            <span>${ sessionScope.const_user.nickName}</span></span>
                         </a>
                     </li>
                     <li data-home="" >
@@ -43,6 +40,7 @@
                     <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a></li>
                     <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
                     <li data-pricing=""><a href="/" class="menu-main"><span>首页</span></a></li>
+                    <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
                 </ul>
             </nav>
         </c:otherwise>

@@ -18,15 +18,20 @@
 <div class="container" id="app" style="margin-top: 90px">
 
         <%--头部搜索栏--%>
-        <div class="row">
+
             <form id="searchForm" class="form-inline" onsubmit="return false">
+                <div class="row">
                 <input name="type" value="1" hidden id="type">
-             <div class="form-group"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
-             <div class="form-group"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
-             <div class="form-group"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
-             <div class="form-group"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
+             <div class="col-xs-3"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
+             <div class="col-xs-3"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
+             <div class="col-xs-6"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
+                </div>
+                <br>
+                <div class="row">
+             <div class="col-xs-2"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
+                </div>
             </form>
-        </div>
+
         <%--tab切换栏--%>
         <div class="identity ">
             <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">人找车</div></a>

@@ -30,9 +30,9 @@
                             <div class=" " id="register" >
                                 <div><strong id="errorMsg"  style="color: red;margin-left: 18px;"></strong></div>
                                 <div class="form-group"><label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"   onblur="vailPhone()"></div>
-                                <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text" onblur="validateUserName()"required></div>
-                                <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" type="password" required></div>
-                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" name="confirmPassWord" type="password" required></div>
+                                <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text" onblur="validateUserName()"required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
                                 <div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>
                                 <div class="form-group">
                                     <label>
@@ -119,7 +119,7 @@ function loginPage(){
         var phone = $("#mobile").val();
         var flag = false;
         var message = "";
-        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{9})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
         if(phone == ''){
             message = "手机号码不能为空！";
         }else if(phone.length !=11){

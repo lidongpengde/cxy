@@ -5,12 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-
+    <title>任我行-我的发布</title>
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app" style="margin-top: 90px">
-    <table class="table table-hover">
+    <div class="table-responsive">
+    <table class="table table-hover ">
         <thead>
         <tr>
             <th>出发地</th>
@@ -24,38 +25,47 @@
             <th>操作</th>
         </tr>
         </thead>
-<c:forEach var="item"   items="${mylist.list}"   varStatus="status">
-        <tr>
-            <td><a href="/api/mySubscibe/${item.lid}">${ item.start }</a></td>
-            <td>${ item.end }</td>
-            <td>¥${ item.price }</td>
-            <td>${ item.startTime }</td>
-            <td>${ item.personCount }</td>
-            <td>${ item.user.mobile }</td>
-            <td>${ item.plateNumber }</td>
-            <td>
-                <c:choose>
-                    <c:when test="${item.isbargin== '0'}">
-                        不接受议价
-                    </c:when>
-                    <c:otherwise>
-                        接受议价
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td><a href="#" onclick="cancelPublish('${item.lid}')">取消发布</a></td>
-            <td></td>
-        </tr>
-</c:forEach>
+        <tbody>
+        <c:forEach var="item"   items="${mylist.list}"   varStatus="status">
+            <tr>
+                <td><a href="/api/mySubscibe/${item.lid}">${ item.start }</a></td>
+                <td>${ item.end }</td>
+                <td>¥${ item.price }</td>
+                <td>${ item.startTime }</td>
+                <td>${ item.personCount }</td>
+                <td>${ item.user.mobile }</td>
+                <td>${ item.plateNumber }</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${item.isbargin== '0'}">
+                            不接受议价
+                        </c:when>
+                        <c:otherwise>
+                            接受议价
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <a href="#" onclick="cancelPublish('${item.lid}')">取消发布</a>
+                </td>
+                <td></td>
+            </tr>
+        </c:forEach>
+        </tbody>
     </table>
-
+</div>
 </div>
 <script>
 
     function cancelPublish(lid){
-debugger
-        updateLineInfo(lid);
-
+        $.ajax({
+            type : "post",
+            url : "/v1/lineInfo/"+lid,
+            success : function(data) {
+                alert(data.message);
+                location.reload();
+            }
+        });
     }
     function updateLineInfo(lid){
         //ajax提交
