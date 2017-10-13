@@ -73,4 +73,29 @@ public class LineInfoServiceImpl implements ILineInfoService {
         LineInfo lineInfo=lineInfoMapper.selectByPrimaryKey(lid);
         return lineInfo;
     }
+
+    public String getMsgByUser(User user){
+        String msg = "";
+        Integer cnt =  lineInfoMapper.getLineInfoSubCount(user.getId());
+        if(cnt!=null&&cnt>0){
+            msg = "已预约<a class=\"menu-child\" href=\"/v1/mySubLineInfo\">【"+cnt+"】</a>";
+        }
+        return msg;
+    }
+
+    @Override
+    public Pager querySubLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize) {
+        lineInfo.setStatus(1);//已发布
+        //这里很重要，先查总数，再加下面分页条件
+        Integer total=lineInfoMapper.countSubLineInfo(lineInfo);
+        if (pageIndex!=null && pageSize!=null){
+            lineInfo.setBegin(pageIndex*pageSize);
+            lineInfo.setPageSize(pageSize);
+        }
+        List<LineInfoAndUserInfo> list= lineInfoMapper.getSubLineInfoList(lineInfo);
+        Pager pager=new Pager();
+        pager.setTotal(total.toString());
+        pager.setList(list);
+        return pager;
+    }
 }

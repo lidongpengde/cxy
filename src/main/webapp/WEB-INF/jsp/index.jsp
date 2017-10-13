@@ -8,6 +8,7 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
     <script src="/asert/js/mricode.pagination.js"></script>
     <script src="/asert/js/jquery.serializejson.js"></script>
+    <script src="/asert/js/jquery.messager.js"></script>
 </head>
 <body >
 
@@ -109,6 +110,20 @@
             totalName:'total'
         }
     });
+    $(document).ready(function(){
+        $.ajax({
+            type:'post',
+            url:'/v1/getMsgByUser',
+            success:function (data){
+               $('#userMsg').html(data);  //我的发布下面的span标签
+               // $.messager.anim('fade',1000);//messager消息提示
+               // $.messager.show(0,data);
+            },
+            error:function (e) {
+                alert("系统繁忙"+e);
+            }
+        })
+    })
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

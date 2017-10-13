@@ -4,6 +4,7 @@ package com.cxy.dao;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.LineInfoAndUserInfo;
 
+import javax.sound.sampled.Line;
 import java.util.List;
 
 public interface LineInfoMapper {
@@ -19,5 +20,8 @@ public interface LineInfoMapper {
 
     int updateByPrimaryKey(LineInfo record);
     List<LineInfoAndUserInfo> getLineInfoList(LineInfo record);
+    List<LineInfoAndUserInfo> getSubLineInfoList(LineInfo lineInfo);
     int countLineInfo(LineInfo record);
+    int countSubLineInfo(LineInfo record);
+    int getLineInfoSubCount(Long  userId);
 }

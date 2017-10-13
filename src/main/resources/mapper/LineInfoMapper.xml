@@ -213,4 +213,18 @@
     select <include refid="Base_Column_List" />,b.user_name,b.mobile,b.nick_name from line_info a left JOIN  user b ON  a.user_id=b.id
     <include refid="sql_where" />
   </select>
+  <select id="getLineInfoSubCount" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select count(1) from subscribe where 1=1
+      and lineinfo_id in( select  lid from line_info where user_id = #{userId} and `status` = 1 and start_time>curdate())
+  </select>
+  <select id="getSubLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
+    select <include refid="Base_Column_List" />,b.user_name,b.mobile,b.nick_name from line_info a left JOIN  user b ON  a.user_id=b.id
+    where  status = #{status} and   start_time>curdate()   and user_id = #{userId}
+    and a.lid in ( select lineinfo_id from subscribe GROUP BY lineinfo_id)
+    order by start_time desc
+  </select>
+  <select id="countSubLineInfo" parameterType="com.cxy.entity.LineInfo" resultType="java.lang.Integer">
+    select count(1) from line_info where  status = #{status} and   start_time>curdate()   and user_id = #{userId}
+    and lid in ( select lineinfo_id from subscribe GROUP BY lineinfo_id)
+  </select>
 </mapper>
