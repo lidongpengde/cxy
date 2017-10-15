@@ -124,7 +124,7 @@ public class RemoteExecuteCommand {
     public static String processStdout(InputStream in, String charset,String group){
         IpCountUtil ipCountUtil=new IpCountUtil();
         InputStream    stdout = new StreamGobbler(in);
-        StringBuffer buffer = new StringBuffer();;
+        StringBuffer buffer = new StringBuffer();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(stdout,charset));
             String line=null;
@@ -133,11 +133,13 @@ public class RemoteExecuteCommand {
                 line=line.trim();
                 if (!StringUtils.isEmpty(line)){
                     arrs=line.split(" ");
-                    IpCountModel ipCountModel=new IpCountModel();
-                    ipCountModel.setCount(arrs[0]);
-                    ipCountModel.setIpAddress(arrs[1]);
-                    ipCountModel.setGroup(group);
-                    ipCountUtil.insert(ipCountModel);
+                    if (arrs.length>1) {
+                        IpCountModel ipCountModel = new IpCountModel();
+                        ipCountModel.setCount(arrs[0]);
+                        ipCountModel.setIpAddress(arrs[1]);
+                        ipCountModel.setGroup(group);
+                        ipCountUtil.insert(ipCountModel);
+                    }
                 }
                 buffer.append(line+"\n");
             }
@@ -149,7 +151,102 @@ public class RemoteExecuteCommand {
         return buffer.toString();
     }
 
+    public static void UserCenterIpCount(){
 
+        String userCenterLogin="cat /app/atglogs/sso/userCenter*/userCenter.log_2017-10-12 |grep '提交登录处理=doLogin登录后台处理'|awk '{print $6}'|awk -F'=' '{print $2}'|awk -F']' '{print $1}' |sort|uniq -c|sort -rn|head -n 50";
+        String userCenterRegister="cat /app/atglogs/sso/userCenter*/userCenter.log_2017-10-12 |grep 'com.gome.userCenter.facade.impl.register.UserRegisterFacade.regUser'|awk -F'registerIp\":\"' '{print $2}'|awk -F'\",\"' '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+        List<String> wirelessIps=new ArrayList<>();
+        wirelessIps.add("10.58.188.220");
+        wirelessIps.add("10.58.51.57");
+        wirelessIps.add("10.58.51.58");
+        List<String> pcIps=new ArrayList<>();
+        pcIps.add("10.58.209.11");
+        pcIps.add("10.58.22.7");
+        pcIps.add("10.58.22.8");
+        pcIps.add("10.58.50.165");
+        pcIps.add("10.58.62.243");
+        List<String> jituanIps=new ArrayList<>();
+        jituanIps.add("10.58.209.11");
+        jituanIps.add("10.58.211.11");
+        jituanIps.add("10.58.211.12");
+
+        List<String> unionIps=new ArrayList<>();
+        unionIps.add("10.58.192.23");
+        unionIps.add("10.58.62.127");
+        unionIps.add("10.58.62.128");
+        Session session= null;//打开一个会话
+        try {
+            for (String ip: wirelessIps) {
+                RemoteExecuteCommand rec=new RemoteExecuteCommand(ip, "gome_guest","searchlog678!");
+                if(rec.login()){
+                    session= conn.openSession();
+                    //TODO:loginUserCenter
+                    session.execCommand(userCenterLogin);//执行命令
+                    String result2=processStdout(session.getStdout(),DEFAULTCHART,"loginUserCenterForGroupWireless");
+                    session.close();
+                    session= conn.openSession();
+                    //TODO:registerUserCenter
+                    session.execCommand(userCenterRegister);//执行命令
+                    String result3=processStdout(session.getStdout(),DEFAULTCHART,"registerUserCenterForGroupWireless");
+                    session.close();
+                }
+
+            }
+            for (String ip: pcIps) {
+                RemoteExecuteCommand rec=new RemoteExecuteCommand(ip, "gome_guest","searchlog678!");
+                if(rec.login()){
+                    session= conn.openSession();
+                    //TODO:loginUserCenter
+                    session.execCommand(userCenterLogin);//执行命令
+                    String result2=processStdout(session.getStdout(),DEFAULTCHART,"loginUserCenterForGroupPc");
+                    session.close();
+                    session= conn.openSession();
+                    //TODO:registerUserCenter
+                    session.execCommand(userCenterRegister);//执行命令
+                    String result3=processStdout(session.getStdout(),DEFAULTCHART,"registerUserCenterForGroupPc");
+                    session.close();
+                }
+
+            }
+            for (String ip: jituanIps) {
+                RemoteExecuteCommand rec=new RemoteExecuteCommand(ip, "gome_guest","searchlog678!");
+                if(rec.login()){
+                    session= conn.openSession();
+                    //TODO:loginUserCenter
+                    session.execCommand(userCenterLogin);//执行命令
+                    String result2=processStdout(session.getStdout(),DEFAULTCHART,"loginUserCenterForGroupJituan");
+                    session.close();
+                    session= conn.openSession();
+                    //TODO:registerUserCenter
+                    session.execCommand(userCenterRegister);//执行命令
+                    String result3=processStdout(session.getStdout(),DEFAULTCHART,"registerUserCenterForGroupJituan");
+                    session.close();
+                }
+
+            }
+            for (String ip: unionIps) {
+                RemoteExecuteCommand rec=new RemoteExecuteCommand(ip, "gome_guest","searchlog678!");
+                if(rec.login()){
+                    session= conn.openSession();
+                    //TODO:loginUserCenter
+                    session.execCommand(userCenterLogin);//执行命令
+                    String result2=processStdout(session.getStdout(),DEFAULTCHART,"loginUserCenterForGroupUnion");
+                    session.close();
+                    session= conn.openSession();
+                    //TODO:registerUserCenter
+                    session.execCommand(userCenterRegister);//执行命令
+                    String result3=processStdout(session.getStdout(),DEFAULTCHART,"registerUserCenterForGroupUnion");
+                    session.close();
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     public static void main(String[] args) {
         List<String> frontIps=new ArrayList<>();
@@ -172,8 +269,9 @@ public class RemoteExecuteCommand {
 
                 System.out.println("=====第一个步骤=====");
                 Session session= conn.openSession();//打开一个会话
-                String loginFrontCommand="cat /app/atglogs/sso/loginFront*/access/access_2017_10_11.log |awk '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
-                String registerFrontCommand="cat /app/atglogs/sso/registerFront*/access/access_2017_10_11.log |awk '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+                String loginFrontCommand="cat /app/atglogs/sso/loginFront*/access/access_2017_10_12.log |awk '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+                String registerFrontCommand="cat /app/atglogs/sso/registerFront*/access/access_2017_10_12.log |awk '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+
                 //TODO:loginfront
                 session.execCommand(loginFrontCommand);//执行命令
                 String result=processStdout(session.getStdout(),DEFAULTCHART,"loginFront");
@@ -182,6 +280,9 @@ public class RemoteExecuteCommand {
                 //TODO:registerfront
                 session.execCommand(registerFrontCommand);//执行命令
                 String result1=processStdout(session.getStdout(),DEFAULTCHART,"registerFront");
+                session.close();
+
+                session= conn.openSession();
                 //如果为得到标准输出为空，说明脚本执行出错了
                 if(StringUtils.isEmpty(result)){
                     System.out.println("脚本出错");
@@ -189,27 +290,13 @@ public class RemoteExecuteCommand {
                 }
                 System.out.println(result);
                 session.close();
-
-/*                System.out.println("=====第二个步骤=====");
-                Session session2= conn.openSession();//打开一个会话
-                //TODO:多条命令
-                session2.execCommand("cd /home/ubuntu/Desktop/music_rec/user_sim/result;cat xyy_result_m10d.json");//执行命令
-                String result2=processStdout(session2.getStdout(),DEFAULTCHART);
-                //如果为得到标准输出为空，说明脚本执行出错了
-                if(StringUtils.isEmpty(result2)){
-                    System.out.println("脚本出错");
-                    result2=processStdout(session2.getStderr(),DEFAULTCHART);
-                }
-                System.out.println(result2);
-                session2.close();*/
-
-
                 conn.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         }
+        UserCenterIpCount();
     }
 
 
