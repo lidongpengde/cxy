@@ -25,8 +25,7 @@ public class URLToDomain {
     }
     @Test
     public  void main() {
-        Son son=new Son();
-        Parent parent=son;
+
         System.out.println(1);
 
     }
