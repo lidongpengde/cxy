@@ -8,11 +8,6 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
     <script src="/asert/js/mricode.pagination.js"></script>
     <script src="/asert/js/jquery.serializejson.js"></script>
-    <style type="text/css">
-        .copyright{
-            position: relative;
-        }
-    </style>
 </head>
 <body >
 <div class="container" id="app" style="margin-top: 90px">
@@ -34,8 +29,8 @@
 
         <%--tab切换栏--%>
         <div class="identity ">
-            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">人找车</div></a>
-            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">车找人</div></a>
+            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">找车</div></a>
+            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">找人</div></a>
         </div>
             <div class="post" v-for="item in items">
 
@@ -53,10 +48,10 @@
                 <p><span class="price">¥{{ item.price }}</span>
                     <span class="bargin-label" v-if="item.isbargin === 0">不议价</span>
                     <span class="bargin-label" v-if="item.isbargin === 1">可议价</span>
-                    <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-default">马上预约</a>
+
                 </p>
                 </div>
-
+                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-danger">马上预约</a>
                 <%--<span class="price discuss">¥{{ item.price }}</span>--%>
             </div>
             <div id="page" class="m-pagination" ></div>

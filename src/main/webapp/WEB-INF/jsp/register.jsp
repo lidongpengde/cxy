@@ -5,14 +5,18 @@
     <title>go366.club</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-
+<style type="text/css">
+/*    .copyright{
+        position: inherit !important;
+    }*/
+</style>
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="header" style="background-image: url(http://static.bootcss.com/expo/img/d/dd/2de797545de56274f03a5920eb3a1.jpg);">
     <div class="container">
         <div class="row">
-            <div class="col-xs-0 col-md-8">
+            <div class="hidden-xs col-md-8">
                 <h2 style="color: #fff">“顺路接一单，油费全省了，小金库也富裕了”</h2>
             </div>
             <div class="col-xs-12 col-md-4" >
@@ -70,31 +74,7 @@
 
     </div>
     </div>
-<div id="statisics">
-    <div id="titleAll color-white">
-        <div class="object-list-statisics wow fadeInRightBig" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s;"><i class="icon"></i>
-            <img src="/asert/image/IMG_1948.JPG" width="280px" height="360px">
-        </div>
-        <div class="object-list-statisics width-65 wow fadeInRightBig" data-wow-delay="1s" style="visibility: visible; animation-delay: 1s;"><i class="icon"></i>
-            <span id="number-event" class="number-statisics">百名用户体验改善计划</span>
-            <span class="description">您的需求，我们来实现</span>
-        </div>
-    </div>
-</div>
-<footer class="main-footer" style="position: relative">
-    <div class="copyright" >
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <span>Copyright © <a href="#">任我行</a></span> |
-                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span>|
-                    <span><a href="/template/joinus.html" target="_blank" >加入我们</a></span>|
-                    <span><a href="/advices" target="_blank" >意见箱</a></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -203,7 +183,7 @@ if (userName){
     }
 
 </script>
-
+<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 
 </html>
