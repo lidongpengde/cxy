@@ -37,8 +37,6 @@ public class SubscibeImpl implements IsubscribeService{
         subscribe.setPersonId(user.getId());
         subscribe.setPersonName(user.getNickName());
         subscribe.setCreateTime(UserTools.getCurrentTime());
-        int size=subscribeMapper.insertSelective(subscribe);
-        if (size>0){
            LineInfo lineInfo= lineInfoMapper.selectByPrimaryKey(subscribe.getLineinfoId());
            int leftSeat=lineInfo.getPersonCount()-subscribe.getPersonCount();
            if (leftSeat<0){
@@ -46,11 +44,11 @@ public class SubscibeImpl implements IsubscribeService{
                messageResult.setMessage("座位都被小伙伴占满了！");
                return messageResult;
            }
+            int size=subscribeMapper.insertSelective(subscribe);
            lineInfo.setPersonCount(leftSeat);
            lineInfoMapper.updateByPrimaryKey(lineInfo);
             messageResult.setSuccess(true);
             messageResult.setBuessObj(lineInfo);
-        }
         return messageResult;
     }
 
