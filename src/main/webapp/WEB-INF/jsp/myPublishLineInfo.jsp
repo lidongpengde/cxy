@@ -33,7 +33,7 @@
                 <td>¥${ item.price }</td>
                 <td>${ item.startTime }</td>
                 <td>${ item.personCount }</td>
-                <td>${ item.user.mobile }</td>
+                <td>${ item.userMobile }</td>
                 <td>${ item.plateNumber }</td>
                 <td>
                     <c:choose>
