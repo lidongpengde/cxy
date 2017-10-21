@@ -39,8 +39,14 @@
       <input placeholder="出发地" type="text" name="start" id="start"  class="form-control"  onblur="checkValid(this)"></div>
     <div class="form-group" >
       <input placeholder="目的地" type="text" name="end" id="end" class="form-control" onblur="checkValid(this)"></div>
-        <div class="form-group" >
-      <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" ></div>
+    <%--<div class="form-group" >
+      <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
+    </div>--%>
+      <div class="input-group form-group">
+          <span class="input-group-addon">$</span>
+          <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
+          <span class="input-group-addon">.00</span>
+      </div>
             <div class="form-group" >
                 <label>
                   <input type="radio"name="isbargin"value="1" checked > 接受议价
@@ -72,6 +78,12 @@
       <div class="form-group">
     <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
           </div>
+      <input name="startAdcode" id="startAdcode" hidden="hidden">
+      <input name="startLongitude" id="startLongitude" hidden="hidden">
+      <input name="startLatitude" id="startLatitude" hidden="hidden">
+      <input name="endAdcode" id="endAdcode" hidden="hidden">
+      <input name="endLongitude" id="endLongitude" hidden="hidden">
+      <input name="endLatitude" id="endLatitude" hidden="hidden">
 </form>
 </div>
     </div>
@@ -84,6 +96,7 @@
 
         el: '#app',
         data: {
+            options:'',
             error: ''
         },
         methods: {
@@ -192,7 +205,8 @@
             // object to local or url to remote search
             source: '/v2//HintInfo' ,
 
-            template: '{{ cityName }} {{ name }}',
+           /* template: '<img src="{{ id }}" alt="Image for autocompleter list item" /> {{ label }}{{ cityName }} {{ name }}',*/
+            template: '{{ cityName }} {{ name }}<em>{{ id }}</em>',
             // show hint
             hint: false,
 
@@ -201,6 +215,14 @@
 
             // max results
             limit: 5,
+
+            callback: function (value, index, selected) {
+                if (selected) {
+                    $('#startAdcode').val(selected.adCode);
+                    $('#startLongitude').val(selected.longitude);
+                    $('#startLatitude').val(selected.latitude);
+                }
+            }
         });
         $('#end').autocompleter({
             cache: false,
@@ -219,6 +241,13 @@
 
             // max results
             limit: 5,
+            callback: function (value, index, selected) {
+                if (selected) {
+                    $('#endAdcode').val(selected.adCode);
+                    $('#endLongitude').val(selected.longitude);
+                    $('#endLatitude').val(selected.latitude);
+                }
+            }
         });
     });
 </script>

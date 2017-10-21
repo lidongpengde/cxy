@@ -153,8 +153,8 @@ public class RemoteExecuteCommand {
 
     public static void UserCenterIpCount(){
 
-        String userCenterLogin="cat /app/atglogs/sso/userCenter*/userCenter.log_2017-10-12 |grep '提交登录处理=doLogin登录后台处理'|awk '{print $6}'|awk -F'=' '{print $2}'|awk -F']' '{print $1}' |sort|uniq -c|sort -rn|head -n 50";
-        String userCenterRegister="cat /app/atglogs/sso/userCenter*/userCenter.log_2017-10-12 |grep 'com.gome.userCenter.facade.impl.register.UserRegisterFacade.regUser'|awk -F'registerIp\":\"' '{print $2}'|awk -F'\",\"' '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+        String userCenterLogin="cat /app/atglogs/sso/userCenter*/userCenter.log_2017-10-15 |grep '提交登录处理=doLogin登录后台处理'|awk '{print $6}'|awk -F'=' '{print $2}'|awk -F']' '{print $1}' |sort|uniq -c|sort -rn|head -n 50";
+        String userCenterRegister="cat /app/atglogs/sso/userCenter*/userCenter.log_2017-10-15 |grep 'com.gome.userCenter.facade.impl.register.UserRegisterFacade.regUser'|awk -F'registerIp\":\"' '{print $2}'|awk -F'\",\"' '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
         List<String> wirelessIps=new ArrayList<>();
         wirelessIps.add("10.58.188.220");
         wirelessIps.add("10.58.51.57");
@@ -269,8 +269,8 @@ public class RemoteExecuteCommand {
 
                 System.out.println("=====第一个步骤=====");
                 Session session= conn.openSession();//打开一个会话
-                String loginFrontCommand="cat /app/atglogs/sso/loginFront*/access/access_2017_10_12.log |awk '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
-                String registerFrontCommand="cat /app/atglogs/sso/registerFront*/access/access_2017_10_12.log |awk '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+                String loginFrontCommand="cat /app/atglogs/sso/loginFront*/access/access_2017_10_15.log |awk '{print $1}' |awk -F ',' '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
+                String registerFrontCommand="cat /app/atglogs/sso/registerFront*/access/access_2017_10_15.log |awk '{print $1}' |awk -F ',' '{print $1}'|sort|uniq -c|sort -rn|head -n 50";
 
                 //TODO:loginfront
                 session.execCommand(loginFrontCommand);//执行命令

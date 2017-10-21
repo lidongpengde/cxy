@@ -137,6 +137,9 @@ p.caption {
 .autocompleter-item span {
     color: #777;
 }
+.autocompleter-item em {
+    display: none;
+}
 
 .autocompleter-hint {
     color: #ccc;

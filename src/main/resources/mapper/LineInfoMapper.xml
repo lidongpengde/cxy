@@ -2,29 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxy.dao.LineInfoMapper">
   <resultMap id="BaseResultMap" type="com.cxy.entity.LineInfoAndUserInfo">
-    <id column="lid" jdbcType="INTEGER" property="lid" />
-    <result column="start" jdbcType="VARCHAR" property="start" />
-    <result column="end" jdbcType="VARCHAR" property="end" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="plate_number" jdbcType="VARCHAR" property="plateNumber" />
-    <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="isBargin" jdbcType="INTEGER" property="isbargin" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="person_count" jdbcType="INTEGER" property="personCount" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <association property="user" javaType="com.cxy.entity.User">
-                   <id property="userName" column="user_name"/>
-                   <result property="mobile" column="mobile"/>
-                    <result property="nickName" column="nick_name"/>
-               </association>
+    <id column="lid" property="lid" jdbcType="INTEGER" />
+    <result column="start" property="start" jdbcType="VARCHAR" />
+    <result column="end" property="end" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="plate_number" property="plateNumber" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="isBargin" property="isbargin" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="person_count" property="personCount" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="start_adcode" property="startAdcode" jdbcType="VARCHAR" />
+    <result column="start_longitude" property="startLongitude" jdbcType="DOUBLE" />
+    <result column="start_latitude" property="startLatitude" jdbcType="DOUBLE" />
+    <result column="end_adcode" property="endAdcode" jdbcType="VARCHAR" />
+    <result column="end_longitude" property="endLongitude" jdbcType="DOUBLE" />
+    <result column="end_latitude" property="endLatitude" jdbcType="DOUBLE" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List">
     lid, start, end,date_format(start_time, '%Y-%m-%d %h:%i:%s') as start_time, plate_number, price, isBargin, status, person_count,
-    type, user_id
+    type, user_id, start_adcode, start_longitude, start_latitude, end_adcode, end_longitude,
+    end_latitude, user_nickname, user_mobile
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" />,b.user_name,b.mobile,b.nick_name from line_info a left JOIN  user b ON  a.user_id=b.id
+    select <include refid="Base_Column_List" />from line_info
     where lid = #{lid,jdbcType=INTEGER}
   </select>
 
@@ -48,110 +52,181 @@
   </insert>
   <insert id="insertSelective" parameterType="com.cxy.entity.LineInfo">
     insert into line_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="lid != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lid != null" >
         lid,
       </if>
-      <if test="start != null">
+      <if test="start != null" >
         start,
       </if>
-      <if test="end != null">
+      <if test="end != null" >
         end,
       </if>
-      <if test="startTime != null">
+      <if test="startTime != null" >
         start_time,
       </if>
-      <if test="plateNumber != null">
+      <if test="plateNumber != null" >
         plate_number,
       </if>
-      <if test="price != null">
+      <if test="price != null" >
         price,
       </if>
-      <if test="isbargin != null">
+      <if test="isbargin != null" >
         isBargin,
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status,
       </if>
-      <if test="personCount != null">
+      <if test="personCount != null" >
         person_count,
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type,
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id,
       </if>
+      <if test="startAdcode != null" >
+        start_adcode,
+      </if>
+      <if test="startLongitude != null" >
+        start_longitude,
+      </if>
+      <if test="startLatitude != null" >
+        start_latitude,
+      </if>
+      <if test="endAdcode != null" >
+        end_adcode,
+      </if>
+      <if test="endLongitude != null" >
+        end_longitude,
+      </if>
+      <if test="endLatitude != null" >
+        end_latitude,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="lid != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lid != null" >
         #{lid,jdbcType=INTEGER},
       </if>
-      <if test="start != null">
+      <if test="start != null" >
         #{start,jdbcType=VARCHAR},
       </if>
-      <if test="end != null">
+      <if test="end != null" >
         #{end,jdbcType=VARCHAR},
       </if>
-      <if test="startTime != null">
+      <if test="startTime != null" >
         #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="plateNumber != null">
-        #{plateNumber,jdbcType=INTEGER},
+      <if test="plateNumber != null" >
+        #{plateNumber,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
+      <if test="price != null" >
         #{price,jdbcType=DOUBLE},
       </if>
-      <if test="isbargin != null">
+      <if test="isbargin != null" >
         #{isbargin,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="personCount != null">
+      <if test="personCount != null" >
         #{personCount,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
       </if>
-
+      <if test="startAdcode != null" >
+        #{startAdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="startLongitude != null" >
+        #{startLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="startLatitude != null" >
+        #{startLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endAdcode != null" >
+        #{endAdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="endLongitude != null" >
+        #{endLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endLatitude != null" >
+        #{endLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cxy.entity.LineInfo">
     update line_info
-    <set>
-      <if test="start != null">
+    <set >
+      <if test="start != null" >
         start = #{start,jdbcType=VARCHAR},
       </if>
-      <if test="end != null">
+      <if test="end != null" >
         end = #{end,jdbcType=VARCHAR},
       </if>
-      <if test="startTime != null">
+      <if test="startTime != null" >
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="plateNumber != null">
+      <if test="plateNumber != null" >
         plate_number = #{plateNumber,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
+      <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
       </if>
-      <if test="isbargin != null">
+      <if test="isbargin != null" >
         isBargin = #{isbargin,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="personCount != null">
+      <if test="personCount != null" >
         person_count = #{personCount,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="startAdcode != null" >
+        start_adcode = #{startAdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="startLongitude != null" >
+        start_longitude = #{startLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="startLatitude != null" >
+        start_latitude = #{startLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endAdcode != null" >
+        end_adcode = #{endAdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="endLongitude != null" >
+        end_longitude = #{endLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endLatitude != null" >
+        end_latitude = #{endLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="userNickname != null" >
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
       </if>
     </set>
     where lid = #{lid,jdbcType=INTEGER}
@@ -174,6 +249,9 @@
     <where >
       <if test="start != null and start != ''">
         and start  like  CONCAT(CONCAT('%', #{start}), '%')
+      </if>
+      <if test="startAdcode != null and startAdcode != ''">
+        start_adcode = #{startAdcode,jdbcType=VARCHAR},
       </if>
       <if test="end != null and end != ''">
         and end LIKE CONCAT(CONCAT('%', #{end}), '%')
@@ -206,11 +284,10 @@
       <if test="begin!=null and pageSize!=null">
         limit #{begin},#{pageSize}
       </if>
-
     </where>
   </sql>
   <select id="getLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
-    select <include refid="Base_Column_List" />,b.user_name,b.mobile,b.nick_name from line_info a left JOIN  user b ON  a.user_id=b.id
+    select <include refid="Base_Column_List" /> from line_info
     <include refid="sql_where" />
   </select>
 </mapper>

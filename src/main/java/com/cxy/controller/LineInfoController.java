@@ -1,21 +1,25 @@
 package com.cxy.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.cxy.common.LocationUtil;
 import com.cxy.common.MessageResult;
 import com.cxy.common.Pager;
-import com.cxy.entity.LineInfo;
-import com.cxy.entity.LineInfoAndUserInfo;
-import com.cxy.entity.User;
+import com.cxy.entity.*;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IuserService;
 import jdk.nashorn.internal.objects.annotations.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,7 +40,11 @@ public class LineInfoController {
     }
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String publishInfo( LineInfo lineInfo,Integer pageIndex,Integer pageSize){
+    public String publishInfo(HttpServletRequest request, LineInfo lineInfo,Integer pageIndex,Integer pageSize){
+        if (StringUtils.isEmpty(lineInfo.getStart())){
+           String address= getStartAdressIfLineInfoNull(request);
+           lineInfo.setStart(address);
+        }
         JSONObject jsonObject=new JSONObject();
         Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize);
         List<LineInfoAndUserInfo> listAll=null;
@@ -72,5 +80,25 @@ public class LineInfoController {
         }
         return JSONObject.toJSONString(jsonObject.put("message","操作异常"));
     }
+    private String getStartAdressIfLineInfoNull(HttpServletRequest request){
+        String ip=request.getRemoteAddr();
+        String defaltAddress=null;
+        try {
+            defaltAddress=LocationUtil.getLocation(ip);
+            Address location = JSON.parseObject(defaltAddress, Address.class);
+            String[] array=defaltAddress.split(",");
+            List list=Arrays.asList(array);
+            if (location.getAdcode().replace("[]","")=="") {
+                return "";
+            }else{
+                return location.getCity().replace("[]","");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  defaltAddress;
+    }
+
 
 }

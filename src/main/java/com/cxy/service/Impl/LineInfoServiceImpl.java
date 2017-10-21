@@ -35,8 +35,10 @@ public class LineInfoServiceImpl implements ILineInfoService {
             return messageResult;
         }
         lineInfo.setUserId(user.getId().toString());
+        lineInfo.setUserMobile(user.getMobile().toString());
+        lineInfo.setUserNickname(user.getNickName());
         lineInfo.setStatus(1);
-        int size=lineInfoMapper.insert(lineInfo);
+        int size=lineInfoMapper.insertSelective(lineInfo);
         if (size>0){
             messageResult.setCode(WarningEnum.update_success.getCode());
             messageResult.setMessage(WarningEnum.update_success.getMsg());

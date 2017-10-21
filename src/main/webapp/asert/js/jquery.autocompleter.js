@@ -686,7 +686,6 @@
     function _select(e) {
         // Disable middle & right mouse click
         if (e.type === "mousedown" && $.inArray(e.which, [2, 3]) !== -1) { return; }
-
         var data = e.data;
 
         e.preventDefault();
@@ -732,6 +731,8 @@
             }
             var value = data.$selected.attr('data-value') ? data.$selected.attr('data-value') : data.$selected.attr('data-label');
             value=data.$selected[0].innerText;
+            value=data.$selected[0].childNodes[0].data
+
             data.$node.val(value);
         } else {
             if (data.hintText && !data.$autocompleter.find('.autocompleter-hint').hasClass('autocompleter-hint-show')) {
