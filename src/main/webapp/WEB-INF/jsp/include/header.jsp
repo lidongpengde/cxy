@@ -37,7 +37,7 @@
                     </li>
                     <li data-home="" >
                         <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
-                    <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a></li>
+                    <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a><span id="userMsg"></span></li>
                     <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
                     <li data-pricing=""><a href="/" class="menu-main"><span>首页</span></a></li>
                     <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
@@ -82,6 +82,7 @@
 <script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
 <script>
     var path='/cxy';
+
     function viewDetaiMenu(o) {
         if (o){
             $('.sub-menu-secondary').attr('style','display:block;');

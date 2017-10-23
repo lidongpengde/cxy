@@ -1,11 +1,14 @@
 package com.cxy.controller;
 
+import com.cxy.common.AtomUtils;
 import com.cxy.common.MessageResult;
+import com.cxy.common.NoticeThread;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.Subscribe;
 import com.cxy.entity.User;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IsubscribeService;
+import com.cxy.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +27,8 @@ public class SubscribeController {
     IsubscribeService subscribeService;
     @Autowired
     ILineInfoService lineInfoService;
+    @Autowired
+    NoticeService noticeService;
     @RequestMapping(value = "subscibe",method = RequestMethod.POST)
     public String sebscribeLineinfo(HttpServletRequest request, Subscribe subscribe,ModelMap modelMap){
         MessageResult result= subscribeService.addSubscibe(request,subscribe);
@@ -34,6 +39,9 @@ public class SubscribeController {
         List<Subscribe> subscribeList=subscribeService.querySubscibeList((LineInfo) result.getBuessObj());
         modelMap.put("lineinfo",result.getBuessObj());
         modelMap.put("subscribeList",subscribeList);
+        //保存至notice中用作消息提醒
+        LineInfo lineInfo = lineInfoService.queryLineInfoById(subscribe.getLineinfoId());
+        noticeService.saveByNoticeThread(lineInfo);
         return "viewSubscribeResult";
     }
     @RequestMapping(value = "toSubscibe/{lid}",method = RequestMethod.GET)
@@ -49,11 +57,16 @@ public class SubscribeController {
     }
 
     @RequestMapping(value = "mySubscibe/{lid}",method = RequestMethod.GET)
-    public String toSubscibe(@PathVariable Integer lid,ModelMap modelMap){
+    public String toSubscibe(@PathVariable Integer lid,ModelMap modelMap,HttpServletRequest request){
         LineInfo lineInfo=lineInfoService.queryLineInfoById(lid);
         List<Subscribe> subscribeList=subscribeService.querySubscibeList(lineInfo);
         modelMap.put("lineinfo",lineInfoService.queryLineInfoById(lid));
         modelMap.put("subscribeList",subscribeList);
+        //查看后设置通知信息已读
+        String id = request.getParameter("id");
+        if(!AtomUtils.isEmpty(id)){
+            noticeService.updById(Long.parseLong(id));
+        }
         return "viewSubscribeResult";
     }
 }

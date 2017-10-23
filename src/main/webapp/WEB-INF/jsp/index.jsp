@@ -11,6 +11,7 @@
     <script src="/asert/js/jquery.serializejson.js"></script>
     <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
 
+    <script src="/asert/js/jquery.messager.js"></script>
 </head>
 <body >
 <div class="container" id="app" style="margin-top: 90px">
@@ -195,6 +196,29 @@
             limit: 5,
         });
     });
+    $(document).ready(function(){
+        var  classes = "LineInfo";
+        var  htmltext="" ;
+        $.ajax({
+            type:'post',
+            url:'/notice/getMsgByUser?classes='+classes,
+            success:function (data){
+                var dataitem = eval(data);
+                jQuery.each(dataitem,function(rec){
+                    htmltext = "<a class=\"menu-child\" href=\"/api/mySubscibe/"+this.businessid+"?id="+this.id+"\">"+this.messages+"</a><br>"+htmltext;
+                });
+                if(htmltext!=""){
+                    // $('#userMsg').html(htmltext);  //我的发布下面的span标签
+                    $.messager.lays(500, 200);
+                    $.messager.anim('fade',2000);//messager消息提示
+                    $.messager.show(0,htmltext);
+                }
+            },
+            error:function (e) {
+                alert("系统繁忙"+e);
+            }
+        })
+    })
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

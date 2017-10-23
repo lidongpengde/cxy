@@ -108,4 +108,33 @@ public class LineInfoController {
     }*/
 
 
+    /**
+     * 获取我的预约消息msg
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "getMsgByUser",produces = "application/text; charset=utf-8")
+    @ResponseBody
+    public String getMsgByUser(HttpServletRequest request){
+        User user=(User)request.getSession().getAttribute("const_user");
+        return lineInfoService.getMsgByUser(user);
+    }
+
+    /**
+     * 获取我的被预约的发布
+     * @param request
+     * @param modelMap
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("mySubLineInfo")
+    public String mySub(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){
+        User user=(User)request.getSession().getAttribute("const_user");
+        LineInfo lineInfo=new LineInfo();
+        lineInfo.setUserId(user.getId().toString());
+        final Pager mylist=lineInfoService.querySubLineInfoList(lineInfo,pageIndex,pageSize);
+        modelMap.put("mylist",mylist);
+        return "myPublishLineInfo";
+    }
 }
