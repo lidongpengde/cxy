@@ -34,9 +34,9 @@
                             <div class=" " id="register" >
                                 <div><strong id="errorMsg"  style="color: red;margin-left: 18px;"></strong></div>
                                 <div class="form-group"><label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"   onblur="vailPhone()"></div>
-                                <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" type="text" onblur="validateUserName()"required onkeydown="if(event.keyCode==32) return false"></div>
-                                <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
-                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" maxlength="10" type="text" onblur="validateUserName()"required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" maxlength="10" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10"  name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
                                 <div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>
                                 <div class="form-group">
                                     <label>
@@ -62,7 +62,7 @@
                                     <label >密码：</label>
                                     <input class="form-control" name="passWord" type="password" required placeholder="密码">
                                 </div>
-                                <div class="form-group"> <input type="checkbox" name="remind" >一周免登录</div>
+                                <div class="form-group"> <input type="checkbox" name="remindMe" >一周免登录</div>
                                 <div class="form-group"> <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button></div>
 
                             </div>
@@ -109,6 +109,20 @@ function loginPage(){
         }else{
             flag = true;
         }
+        $.ajax({
+            url:'/user/validateExists/'+phone,
+            type:'post',
+            async:false,
+            success:function(data){
+                if (data=='true'){
+                    message="手机号已存在，建议换一个！";
+                    $('#errorMsg').fadeIn();
+                    flag=false;
+                }else{
+                    $('#errorMsg').fadeOut();
+                }
+            }
+        });
         if(!flag){
             $('#errorMsg').text(message);
         }else{

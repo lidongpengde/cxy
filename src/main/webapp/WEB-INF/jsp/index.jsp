@@ -115,7 +115,27 @@
     }
     //解析定位错误信息
     function onError(data) {
-        document.getElementById('tip').innerHTML = '定位失败';
+        $("#page").pagination({
+            pageSize: 10,
+            remote: {
+                url: '/v1/lineInfos',
+                pageParams: function(data){
+                    var params = $("#searchForm").serializeJSON();
+                    return {
+                        pageIndex:data.pageIndex,
+                        pageSize:data.pageSize,
+                        type:params.type,
+                        start:params.start,
+                        end:params.end,
+                        startTime:params.startTime
+                    };
+                },
+                success: function (data) {
+                    app.items=data.list;
+                },
+                totalName:'total'
+            }
+        });
     }
 
 

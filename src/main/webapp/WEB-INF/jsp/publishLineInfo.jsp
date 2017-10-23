@@ -173,6 +173,7 @@
     $('.form_datetime').datetimepicker({
         language:  'zh-CN',
         weekStart: 1,
+        startDate:new Date(),
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,

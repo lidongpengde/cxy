@@ -38,7 +38,12 @@ public class UserController {
     @RequestMapping("/validateExists/{userName}")
     @ResponseBody
     public String validateExists(@PathVariable String userName){
-        User existUser=userService.findUserByName(userName);
+        User existUser=null;
+        if (isMobile(userName)){
+            existUser=userService.findUserByMobile(userName);
+        }else{
+            existUser=userService.findUserByName(userName);
+        }
         if (existUser!=null){
             return "true";
         }
@@ -46,7 +51,7 @@ public class UserController {
     }
     @RequestMapping(value = "/login",produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String userlogin(User user, HttpServletRequest request){
+    public String userlogin(User user, HttpServletRequest request,String remindMe){
         JSONObject jsonObject=new JSONObject();
        String oldpassWord= user.getPassWord();
        String login=user.getUserName();
@@ -62,9 +67,12 @@ public class UserController {
             return jsonObject.toJSONString();
     }
         if (oldpassWord.equals(user.getPassWord())){
-            request.getSession().setAttribute("const_user",user);
-
             HttpSession session=request.getSession();
+            session.setAttribute("const_user",user);
+            if (remindMe=="on"){
+                //如果点了一周免登录按钮，直接将session设置为永久
+                session.setMaxInactiveInterval(0);
+            }
             jsonObject.put("message","登录成功");
             jsonObject.put("code",200);
         }else{

@@ -52,7 +52,7 @@
     </div>
     <div class="form-group ">
         <c:if test="${empty userInfo.headImage}">
-                <input  name="file" type="file" onchange="submitIdentity()">
+                <input  name="file" type="file" accept = "image/*" onchange="submitIdentity()">
         </c:if>
     </div>
 
