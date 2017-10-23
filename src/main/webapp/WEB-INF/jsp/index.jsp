@@ -6,8 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=23834821b1465df3fa84571571947619"></script>
     <script src="/asert/js/mricode.pagination.js"></script>
     <script src="/asert/js/jquery.serializejson.js"></script>
+    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
+
 </head>
 <body >
 <div class="container" id="app" style="margin-top: 90px">
@@ -17,9 +20,11 @@
             <form id="searchForm" class="form-inline" onsubmit="return false">
                 <div class="row">
                 <input name="type" value="1" hidden id="type">
-             <div class="col-xs-3"><label for="start">出发地</label><input name="start" id="start" class="form-control"></div>
-             <div class="col-xs-3"><label for="end">目的地</label><input name="end" id="end" class="form-control"></div>
-             <div class="col-xs-6"> <label for="startTime">出发时间</label><input name="startTime" id="startTime" type="date" class="form-control"></div>
+             <div class="col-xs-3"><input name="start" id="start" class="form-control" placeholder="出发地"></div>
+             <div class="col-xs-3"><input name="end" id="end" class="form-control" placeholder="目的地"></div>
+             <div class="col-xs-6"><input name="startTime" id="startTime" type="date" class="form-control" placeholder="出发时间"></div>
+                    <input name="startAdcode" id="startAdcode" hidden="hidden" >
+
                 </div>
                 <br>
                 <div class="row">
@@ -58,6 +63,63 @@
 </div>
 
 <script>
+    /***************************************
+     由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
+     ***************************************/
+    var map, geolocation;
+    var adCode
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map('container', {
+        resizeEnable: true
+    });
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+        adCode=data.addressComponent.adcode;
+        console.log(adCode);
+        $("#page").pagination({
+            pageSize: 10,
+            remote: {
+                url: '/v1/lineInfos',
+                pageParams: function(data){
+                    var params = $("#searchForm").serializeJSON();
+                    return {
+                        pageIndex:data.pageIndex,
+                        pageSize:data.pageSize,
+                        type:params.type,
+                        start:params.start,
+                        end:params.end,
+                        startTime:params.startTime,
+                        startAdcode:adCode
+                    };
+                },
+                success: function (data) {
+                    app.items=data.list;
+                },
+                totalName:'total'
+            }
+        });
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('tip').innerHTML = '定位失败';
+    }
+
+
+
+
     var app = new Vue({
         el: '#app',
         data: {
@@ -91,27 +153,7 @@
         });*/
         $("#page").pagination('remote');
     }
-    $("#page").pagination({
-        pageSize: 10,
-        remote: {
-            url: '/v1/lineInfos',
-            pageParams: function(data){
-                var params = $("#searchForm").serializeJSON();
-                return {
-                    pageIndex:data.pageIndex,
-                    pageSize:data.pageSize,
-                    type:params.type,
-                    start:params.start,
-                    end:params.end,
-                    startTime:params.startTime
-                };
-            },
-            success: function (data) {
-                app.items=data.list;
-            },
-            totalName:'total'
-        }
-    });
+
     /**
      * 提示输入
      */

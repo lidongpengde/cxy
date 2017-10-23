@@ -251,7 +251,7 @@
         and start  like  CONCAT(CONCAT('%', #{start}), '%')
       </if>
       <if test="startAdcode != null and startAdcode != ''">
-        start_adcode = #{startAdcode,jdbcType=VARCHAR},
+        start_adcode = #{startAdcode,jdbcType=VARCHAR}
       </if>
       <if test="end != null and end != ''">
         and end LIKE CONCAT(CONCAT('%', #{end}), '%')

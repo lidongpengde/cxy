@@ -3,6 +3,7 @@ package com.cxy.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cxy.common.IpAddress;
 import com.cxy.common.LocationUtil;
 import com.cxy.common.MessageResult;
 import com.cxy.common.Pager;
@@ -10,6 +11,8 @@ import com.cxy.entity.*;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IuserService;
 import jdk.nashorn.internal.objects.annotations.Property;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,6 +31,7 @@ import java.util.List;
 @Controller
 @RequestMapping("v1")
 public class LineInfoController {
+    private static final Log log = LogFactory.getLog(LineInfoController.class);
     @Autowired
     ILineInfoService lineInfoService;
     @Autowired
@@ -41,10 +45,10 @@ public class LineInfoController {
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo,Integer pageIndex,Integer pageSize){
-        if (StringUtils.isEmpty(lineInfo.getStart())){
-           String address= getStartAdressIfLineInfoNull(request);
-           lineInfo.setStart(address);
-        }
+        /*if (StringUtils.isEmpty(lineInfo.getStart())){
+           String adcode= getStartAdressIfLineInfoNull(request);
+           lineInfo.setStartAdcode(adcode);
+        }*/
         JSONObject jsonObject=new JSONObject();
         Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize);
         List<LineInfoAndUserInfo> listAll=null;
@@ -80,25 +84,28 @@ public class LineInfoController {
         }
         return JSONObject.toJSONString(jsonObject.put("message","操作异常"));
     }
-    private String getStartAdressIfLineInfoNull(HttpServletRequest request){
-        String ip=request.getRemoteAddr();
+/*    private String getStartAdressIfLineInfoNull(HttpServletRequest request){
+        String clientIp = IpAddress.getIpAddrForManyIps(request);
+        log.debug("clientIp="+clientIp);
+        System.out.println("clientIp="+clientIp);
         String defaltAddress=null;
         try {
-            defaltAddress=LocationUtil.getLocation(ip);
+            defaltAddress=LocationUtil.getLocation(clientIp);
             Address location = JSON.parseObject(defaltAddress, Address.class);
             String[] array=defaltAddress.split(",");
             List list=Arrays.asList(array);
+            log.debug("clientIp="+clientIp);
             if (location.getAdcode().replace("[]","")=="") {
                 return "";
             }else{
-                return location.getCity().replace("[]","");
+                return location.getAdcode().replace("[]","");
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return  defaltAddress;
-    }
+    }*/
 
 
 }
