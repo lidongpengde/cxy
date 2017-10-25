@@ -46,17 +46,50 @@ public class LineInfoServiceImpl implements ILineInfoService {
         }
         return messageResult;
     }
-
     @Override
-    public Pager queryLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize) {
+    public MessageResult updateByLineInfo(LineInfo lineInfo){
+        MessageResult messageResult=new MessageResult();
+        int size = lineInfoMapper.updateByPrimaryKeySelective(lineInfo);
+        if(size>0){
+            messageResult.setCode(WarningEnum.update_success.getCode());
+            messageResult.setMessage(WarningEnum.update_success.getMsg());
+            messageResult.setSuccess(true);
+        }else{
+            messageResult.setCode(WarningEnum.update_failed.getCode());
+            messageResult.setMessage(WarningEnum.update_failed.getMsg());
+            messageResult.setSuccess(false);
+        }
+        return messageResult;
+    }
+
+    /**
+     *
+     * @param lineInfo
+     * @param pageIndex
+     * @param pageSize
+     * @param isPublish  ---用于区分我的发布和首页找车信息
+     * @return
+     */
+    @Override
+    public Pager queryLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize,boolean isPublish) {
         lineInfo.setStatus(1);//已发布
+        LineInfo cancerInfo = new LineInfo();//取消发布的用于再次编辑
+        cancerInfo.setUserId(lineInfo.getUserId());
+        cancerInfo.setStatus(0);
         //这里很重要，先查总数，再加下面分页条件
         Integer total=lineInfoMapper.countLineInfo(lineInfo);
+        if(isPublish){
+            total = total + lineInfoMapper.countLineInfo(cancerInfo);
+        }
         if (pageIndex!=null && pageSize!=null){
             lineInfo.setBegin(pageIndex*pageSize);
             lineInfo.setPageSize(pageSize);
         }
         List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
+        if(isPublish) {
+            list.addAll(lineInfoMapper.getLineInfoList(cancerInfo));
+        }
+        //加上取消发布的信息
         Pager pager=new Pager();
         pager.setTotal(total.toString());
         pager.setList(list);
@@ -100,4 +133,5 @@ public class LineInfoServiceImpl implements ILineInfoService {
         pager.setList(list);
         return pager;
     }
+
 }

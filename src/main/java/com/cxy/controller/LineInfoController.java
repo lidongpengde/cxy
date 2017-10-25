@@ -3,10 +3,7 @@ package com.cxy.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cxy.common.IpAddress;
-import com.cxy.common.LocationUtil;
-import com.cxy.common.MessageResult;
-import com.cxy.common.Pager;
+import com.cxy.common.*;
 import com.cxy.entity.*;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IuserService;
@@ -39,7 +36,13 @@ public class LineInfoController {
     @RequestMapping(value = "lineInfo",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo){
-        MessageResult messageResult=lineInfoService.saveLineInfo(lineInfo,request);
+        MessageResult messageResult = new MessageResult();
+        if(AtomUtils.isEmpty(lineInfo.getLid())) {
+             messageResult = lineInfoService.saveLineInfo(lineInfo, request);
+        }else{//再次编辑后自动发布
+            lineInfo.setStatus(1);
+            messageResult = lineInfoService.updateByLineInfo(lineInfo);
+        }
         return JSONObject.toJSONString(messageResult);
     }
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
@@ -50,13 +53,18 @@ public class LineInfoController {
            lineInfo.setStartAdcode(adcode);
         }*/
         JSONObject jsonObject=new JSONObject();
-        Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize);
+        Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize,false);
         List<LineInfoAndUserInfo> listAll=null;
         return JSONObject.toJSONString(list);
     }
     @RequestMapping("toPublishlineInfoPage")
-    public String toPublishlineInfoPage(HttpServletRequest request, LineInfo lineInfo){
-
+    public String toPublishlineInfoPage(HttpServletRequest request,ModelMap modelMap, LineInfo lineInfo ){
+        String lid = request.getParameter("lid");
+        LineInfo alterLine = new LineInfo();
+        if(!AtomUtils.isEmpty(lid)){
+             alterLine =lineInfoService.queryLineInfoById(Integer.parseInt(lid));
+        }
+        modelMap.put("alterLine",alterLine);
         return "publishLineInfo";
     }
     @RequestMapping("toIndexPage")
@@ -69,7 +77,7 @@ public class LineInfoController {
         User user=(User)request.getSession().getAttribute("const_user");
         LineInfo lineInfo=new LineInfo();
         lineInfo.setUserId(user.getId().toString());
-        final Pager mylist=lineInfoService.queryLineInfoList(lineInfo,pageIndex,pageSize);
+        final Pager mylist=lineInfoService.queryLineInfoList(lineInfo,pageIndex,pageSize,true);
         modelMap.put("mylist",mylist);
         return "myPublishLineInfo";
     }

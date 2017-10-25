@@ -46,7 +46,12 @@
                     </c:choose>
                 </td>
                 <td>
-                    <a href="#" onclick="cancelPublish('${item.lid}')">取消发布</a>
+                    <c:if test="${item.status=='1'}">
+                        <a href="#" onclick="cancelPublish('${item.lid}')">取消发布</a>
+                    </c:if>
+                    <c:if test="${item.status=='0'}">
+                        <a href="/v1/toPublishlineInfoPage?lid=${item.lid}" >再次编辑</a>
+                    </c:if>
                 </td>
                 <td></td>
             </tr>
@@ -78,6 +83,15 @@
                 location.reload();
             }
         });
+    }
+    function alterInfo(lid){
+        $.ajax({
+            type:"post",
+            url:"/v1/toPublishlineInfoPage?lid="+lid,
+            success:function () {
+
+            }
+        })
     }
 </script>
 </body>

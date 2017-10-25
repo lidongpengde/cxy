@@ -36,15 +36,15 @@
       </label>
     </div>
     <div class="form-group" >
-      <input placeholder="出发地" type="text" name="start" id="start"  class="form-control"  onblur="checkValid(this)"></div>
+      <input placeholder="出发地" type="text" name="start" id="start"  class="form-control"  onblur="checkValid(this)" value="${alterLine.start}"></div>
     <div class="form-group" >
-      <input placeholder="目的地" type="text" name="end" id="end" class="form-control" onblur="checkValid(this)"></div>
+      <input placeholder="目的地" type="text" name="end" id="end" class="form-control" onblur="checkValid(this)" value="${alterLine.end}"></div>
     <%--<div class="form-group" >
       <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
     </div>--%>
       <div class="input-group form-group">
           <span class="input-group-addon">$</span>
-          <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
+          <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" value="${alterLine.price}" >
           <span class="input-group-addon">.00</span>
       </div>
             <div class="form-group" >
@@ -56,7 +56,7 @@
                 </label>
               </div>
     <div class="form-group" >
-        <select name="personCount" id="personCount" class="form-control">
+        <select name="personCount" id="personCount" class="form-control" value="${alterLine.personCount}">
             <option disabled="disabled" selected value="0">请选择人数</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -65,10 +65,10 @@
         </select>
       </div>
               <div class="form-group" >
-      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  ></div>
+      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  value="${alterLine.plateNumber}"></div>
       <div class="form-group">
           <div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
-              <input class="form-control" size="16" type="text" value="" name="startTime" id="startTime" readonly placeholder="出发时间" onblur="checkValid(this)">
+              <input class="form-control" size="16" type="text" value="${alterLine.startTime}" name="startTime" id="startTime" readonly placeholder="出发时间" onblur="checkValid(this)" >
               <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
               <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
           </div>
@@ -78,12 +78,16 @@
       <div class="form-group">
     <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
           </div>
-      <input name="startAdcode" id="startAdcode" hidden="hidden">
-      <input name="startLongitude" id="startLongitude" hidden="hidden">
-      <input name="startLatitude" id="startLatitude" hidden="hidden">
-      <input name="endAdcode" id="endAdcode" hidden="hidden">
-      <input name="endLongitude" id="endLongitude" hidden="hidden">
-      <input name="endLatitude" id="endLatitude" hidden="hidden">
+      <input name="startAdcode" id="startAdcode" hidden="hidden" value="${alterLine.startAdcode}">
+      <input name="startLongitude" id="startLongitude" hidden="hidden" value="${alterLine.startLongitude}">
+      <input name="startLatitude" id="startLatitude" hidden="hidden" value="${alterLine.startLatitude}">
+      <input name="endAdcode" id="endAdcode" hidden="hidden" value="${alterLine.endAdcode}">
+      <input name="endLongitude" id="endLongitude" hidden="hidden" value="${alterLine.endLongitude}">
+      <input name="endLatitude" id="endLatitude" hidden="hidden" value="${alterLine.endLatitude}">
+      <input name="userNickname" id="userNickname" hidden="hidden" value="${alterLine.userNickname}">
+      <input name="userMobile" id="userMobile" hidden="hidden" value="${alterLine.userMobile}">
+      <input name="status" id="status" hidden="hidden" value="${alterLine.status}">
+      <input name="lid" id="lid" hidden="hidden" value="${alterLine.lid}">
 </form>
 </div>
     </div>
@@ -250,6 +254,12 @@
                 }
             }
         });
+        //var selval = ${alterLine.personCount};
+        //var typeval = ${alterLine.type};
+        //var isbarginval = ${alterLine.isbargin};
+        $('#personCount').val(${alterLine.personCount});
+        $("input[name='type'][value=${alterLine.type}]").attr("checked",true);
+        $("input[name='isbargin'][value=${alterLine.isbargin}]").attr("checked",true);
     });
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>

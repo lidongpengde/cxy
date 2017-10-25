@@ -14,9 +14,10 @@ import java.util.List;
  */
 public interface ILineInfoService {
     public MessageResult saveLineInfo(LineInfo lineInfo, HttpServletRequest request);
-    public Pager queryLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
+    public Pager queryLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize,boolean isPublish);
     public int updateLineInfo(int lid);
     LineInfo queryLineInfoById(Integer lid);
     public String getMsgByUser(User user);
     public Pager querySubLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
+    public MessageResult updateByLineInfo(LineInfo lineInfo);
 }
