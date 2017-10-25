@@ -52,7 +52,9 @@
     </div>
     <div class="form-group ">
         <c:if test="${empty userInfo.headImage}">
-                <input  name="file" type="file" accept = "image/*" onchange="submitIdentity()">
+            <a href="javascript:;" class="a-upload">
+                <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">上传头像
+            </a>
         </c:if>
     </div>
 

@@ -146,6 +146,7 @@
         var startTime=$('#startTime').val()
         if (start && end &&price &&personCount&&startTime){
             flag=true;
+            $("#errormsg").fadeOut();
         }else{
             $("#errormsg").text("所填信息不完整");
             $("#errormsg").fadeIn();

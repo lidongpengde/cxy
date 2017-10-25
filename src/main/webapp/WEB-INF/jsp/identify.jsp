@@ -19,12 +19,18 @@
         <div class="form-group">
         <div class="bordered col-xs-5 col-md-6" style="float: left">
             <img src="/asert/image/positive.jpg" id="previewpositive" class="img-responsive" height="297px">
-                <input type="file"  name="file" id="positivefile" accept = "image/*" onchange="submitIdentity('positivefile','previewpositive','positive')">
+            <a href="javascript:;" class="a-upload">
+                <input type="file"  name="file" id="positivefile" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity('positivefile','previewpositive','positive')">上传身份证正面
+            </a>
+
         </div>
 
         <div class="bordered col-xs-5 col-md-6" style="float: right">
             <img src="/asert/image/negetive.jpg" id="previewnegative" class="img-responsive"  height="297px">
-            <input type="file"  name="file1" id="negativefile" accept = "image/*" onchange="submitIdentity('negativefile','previewnegative','negative')">
+            <a href="javascript:;" class="a-upload">
+                <input type="file"  name="file1" id="negativefile" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity('negativefile','previewnegative','negative')">上传身份证反面
+            </a>
+
         </div>
         </div>
         <div class="form-group" style="padding-top: 30px;float: left">
