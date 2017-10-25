@@ -24,8 +24,8 @@
             <option value="4">4</option>
         </select>
     </div>
-    <div class="form-group"><label>联系方式</label><input type="phone" class="form-control" name="personMobile" id="personMobile"></div>
-    <div class="form-group"><label>描述</label><input type="text" class="form-control" name="description" id="description"></div>
+    <div class="form-group"><label>联系方式</label><input type="phone" class="form-control" maxlength="20" name="personMobile" id="personMobile"></div>
+    <div class="form-group"><label>描述</label><input type="text" class="form-control" maxlength="30" name="description" id="description"></div>
     <div class="form-group"><button  class="btn btn-danger">提交</button></div>
 </form>
 </div>
