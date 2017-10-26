@@ -59,6 +59,7 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient-cache:4.1.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.1.2" />
           <element id="library" level="project" name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.3.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=23834821b1465df3fa84571571947619"></script>
+<%--    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=23834821b1465df3fa84571571947619"></script>--%>
     <script src="/asert/js/mricode.pagination.js"></script>
     <script src="/asert/js/jquery.serializejson.js"></script>
     <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
@@ -67,7 +67,7 @@
     /***************************************
      由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
      ***************************************/
-    var map, geolocation;
+/*    var map, geolocation;
     var adCode
     //加载地图，调用浏览器定位服务
     map = new AMap.Map('container', {
@@ -136,7 +136,7 @@
                 totalName:'total'
             }
         });
-    }
+    }*/
 
 
 
@@ -174,7 +174,27 @@
         });*/
         $("#page").pagination('remote');
     }
-
+    $("#page").pagination({
+        pageSize: 10,
+        remote: {
+            url: '/v1/lineInfos',
+            pageParams: function(data){
+                var params = $("#searchForm").serializeJSON();
+                return {
+                    pageIndex:data.pageIndex,
+                    pageSize:data.pageSize,
+                    type:params.type,
+                    start:params.start,
+                    end:params.end,
+                    startTime:params.startTime
+                };
+            },
+            success: function (data) {
+                app.items=data.list;
+            },
+            totalName:'total'
+        }
+    });
     /**
      * 提示输入
      */
