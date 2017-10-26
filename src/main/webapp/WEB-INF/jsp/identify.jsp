@@ -6,7 +6,7 @@
     <meta charset="GB2312">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
-
+    <title>任我行顺风车网</title>
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>

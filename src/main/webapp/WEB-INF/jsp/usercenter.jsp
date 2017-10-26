@@ -13,59 +13,60 @@
 
 
             <div class="col-md-4">
-                <img src="" id="previewPicture" hidden class="img-circle" height="200px" width="200px">
+                <div class="form-group ">
+                <img src="http://gfs14.gomein.net.cn/T1YvKTBsDv1RCvBVdK.png" id="previewPicture"  class="img-circle"  height="100px" width="100px">
                 <c:if test="${!empty userInfo.headImage}">
-                <img class="img-circle"  src="/download/?filename=${userInfo.headImage}" height="200px" width="200px">
+                <img class="img-circle"  src="/download/?filename=${userInfo.headImage}" height="100px" width="100px">
                 </c:if>
+                </div>
+                <div class="form-group ">
+                    <c:if test="${empty userInfo.headImage}">
+                        <a href="javascript:;" class="a-upload">
+                            <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">上传头像
+                        </a>
+                    </c:if>
+                </div>
             </div>
 
-<div class="col-md-8">
-        <div class="form-group ">
-            <label class="col-sm-2 control-label" for="nickname">昵称：</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="text" id="nickname" name="nickname" placeholder="老王" value="${userInfo.nickName}">
+            <div class="col-md-8">
+                    <div class="form-group ">
+                        <label class="control-label" for="nickname">昵称：</label>
+                        <div class="">
+                            <input class="form-control" type="text" id="nickname" name="nickname" placeholder="老王" value="${userInfo.nickName}">
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label class="control-label" for="mobile">手机：</label>
+                        <div class="">
+                            <input class="form-control" type="text" id="mobile" name="mobile" value="${userInfo.mobile}">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label" for="userName">用户名：</label>
+                        <div class="">
+                            <input class="form-control" type="text" id="userName" name="userName" value="${userInfo.userName}">
+                        </div>
+                    </div>
+                <div class="form-group ">
+                    <label class="control-label" >认证状态：</label>
+                    <label class=" control-label" >
+                        <c:if test="${userInfo.identifyStatus=='1'}">
+                            <span style="color: #008200;">已认证</span>
+                        </c:if>
+                        <c:if test="${userInfo.identifyStatus=='0'}">
+                            <a href="/api/toIdentify">未认证</a>
+                        </c:if>
+                    </label>
+                </div>
+
+                        <input type="hidden" value="${userInfo.id}" name="id">
+
+                        <input name="headImage" type="hidden" id="headImage">
+            <div class="form-group">
+                <button class="btn btn-danger" onclick="updateUserInfo()">保存</button>
             </div>
-        </div>
-
-        <div class="form-group ">
-            <label class="col-sm-2 control-label" for="userMail">手机：</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="text" id="userMail" name="userMail" value="${userInfo.mobile}">
             </div>
-        </div>
-        <div class="form-group ">
-            <label class="col-sm-2 control-label" for="qq">用户名：</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="text" id="qq" name="qq" value="${userInfo.userName}">
-            </div>
-        </div>
-    <div class="form-group ">
-        <label class="col-sm-2 control-label" >认证状态：</label>
-        <label class="col-sm-2 control-label" >
-            <c:if test="${userInfo.identifyStatus=='1'}">
-                <span style="color: #008200;">已认证</span>
-            </c:if>
-            <c:if test="${userInfo.identifyStatus=='0'}">
-                <a href="/api/toIdentify">未认证</a>
-            </c:if>
-        </label>
-    </div>
-    <div class="form-group ">
-        <c:if test="${empty userInfo.headImage}">
-            <a href="javascript:;" class="a-upload">
-                <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">上传头像
-            </a>
-        </c:if>
-    </div>
-
-
-            <input type="hidden" value="${userInfo.id}" name="id">
-
-            <input name="headImage" type="hidden" id="headImage">
-<div class="form-group" style="margin-left: 1px">
-    <button class="btn btn-danger" onclick="updateUserInfo()">保存</button>
-</div>
-</div>
     </form>
 </div>
 <script>

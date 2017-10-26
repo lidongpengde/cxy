@@ -263,7 +263,11 @@ button[type=submit].simple:active, .button.simple:active { top: 0; margin-bottom
 .thank-you .social-links { margin-bottom: 40px; margin-top: 40px; }
 
 .post { background: white; position: relative; width: 306px; min-height: 425px; }
-.post:hover { -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+.post:hover {
+    -webkit-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
+    -moz-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
+    box-shadow: 0px 14px 42px 3px rgba(163, 174, 184, 0.4);
+}
 .post a { text-decoration: none; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; padding: 20px 25px; }
 .post a:hover .post-title { color: #e8554e; }
 .post a:hover .read-more { color: #204a65; }

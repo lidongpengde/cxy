@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <title>任我行-我的发布</title>
+    <title>任我行顺风车网</title>
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-<title>实名认证审批</title>
+    <title>任我行顺风车网</title>
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
     <script src="/asert/js/mricode.pagination.js"></script>
 </head>
