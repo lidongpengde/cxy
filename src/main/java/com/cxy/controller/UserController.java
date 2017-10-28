@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,14 +27,20 @@ import java.util.regex.Pattern;
 public class UserController {
     @Autowired
     private IuserService userService;
-    @RequestMapping("/register")
+    @RequestMapping(value = "/register",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
     public String saveUser(User user,HttpServletRequest request){
+        JSONObject jsonObject=new JSONObject();
         int size=userService.saveUser(user);
         if (size>0){
-            request.getSession().setAttribute("const_user",user);
-            return "index";
+            userService.saveLoginStatus(request,user);
+            jsonObject.put("message","注册成功");
+            jsonObject.put("code",200);
+            return jsonObject.toJSONString();
         }
-        return "login";
+        jsonObject.put("message","注册失败");
+        jsonObject.put("code",400);
+        return jsonObject.toJSONString();
     }
     @RequestMapping("/validateExists/{userName}")
     @ResponseBody
@@ -67,12 +74,11 @@ public class UserController {
             return jsonObject.toJSONString();
     }
         if (oldpassWord.equals(user.getPassWord())){
-            HttpSession session=request.getSession();
-            session.setAttribute("const_user",user);
-            if (remindMe=="on"){
+            userService.saveLoginStatus(request,user);
+      /*      if (remindMe=="on"){
                 //如果点了一周免登录按钮，直接将session设置为永久
                 session.setMaxInactiveInterval(0);
-            }
+            }*/
             jsonObject.put("message","登录成功");
             jsonObject.put("code",200);
         }else{
@@ -96,6 +102,7 @@ public class UserController {
        User user= UserTools.getCurrentUser(request);
        if (user.getId()==1){
            User identifyUser=userService.findUserById(userId);
+           identifyUser.setIdentifyStatus(1l);
            userService.updateUser(identifyUser);
        }
         return "identityList";
@@ -122,7 +129,8 @@ public class UserController {
             modelMap.put("result","信息有误");
             return "result";
         }
-        userService.updateUser(user);
+        user=userService.updateUser(user);
+        request.getSession().setAttribute("const_user",user);
         return "usercenter";
     }
     public  boolean isMobile(String mobiles) {

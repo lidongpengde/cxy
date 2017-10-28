@@ -7,7 +7,7 @@
     <title>任我行顺风车网</title>
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>
+   <%-- <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>--%>
     <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
     <script src="/asert/js/jquery.autocompleter.js"></script>
 
@@ -67,12 +67,13 @@
               <div class="form-group" >
       <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  value="${alterLine.plateNumber}"></div>
       <div class="form-group">
-          <div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
+          <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" >
+         <%-- <div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
               <input class="form-control" size="16" type="text" value="${alterLine.startTime}" name="startTime" id="startTime" readonly placeholder="出发时间" onblur="checkValid(this)" >
               <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
               <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
           </div>
-          <input type="hidden" id="dtp_input1" style="margin-top: 350px" value="" />
+          <input type="hidden" id="dtp_input1" style="margin-top: 350px" value="" />--%>
       </div>
       <br/>
       <div class="form-group">
@@ -92,8 +93,8 @@
 </div>
     </div>
   </div>
-<script src="/asert/js/bootstrap-datetimepicker.js"></script>
-<script src="/asert/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<%--<script src="/asert/js/bootstrap-datetimepicker.js"></script>
+<script src="/asert/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>--%>
 <script>
 
     var app=new Vue({
@@ -132,10 +133,6 @@
         }
 
     });
-    $( document ).ready(function() {
-        console.log( "ready!" );
-    });
-
     var flag=true;
     var validatebeforeSubmit=function () {
         var start=$('#start').val();
@@ -175,17 +172,6 @@
         });
 
     }
-    $('.form_datetime').datetimepicker({
-        language:  'zh-CN',
-        weekStart: 1,
-        startDate:new Date(),
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        showMeridian: 1
-    });
      function checkValid(form) {
         var inputVal=form.value;
          if (inputVal){
@@ -262,6 +248,25 @@
         $("input[name='type'][value=${alterLine.type}]").attr("checked",true);
         $("input[name='isbargin'][value=${alterLine.isbargin}]").attr("checked",true);
     });
+    //时间选择框设置为当前时间
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    var startTime=document.getElementById('startTime');
+    var time = new Date().Format("yyyy-MM-ddThh:mm:ss");
+    startTime.value=time;
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

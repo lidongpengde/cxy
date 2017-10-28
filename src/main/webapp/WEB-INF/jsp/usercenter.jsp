@@ -6,6 +6,10 @@
     <title>用户基本信息完善</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 </head>
+<style>
+    .max{width:100%;height:auto;}
+    .min{width:100px;height:auto;}
+    </style>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" style="margin-top: 90px">
@@ -14,9 +18,15 @@
 
             <div class="col-md-4">
                 <div class="form-group ">
-                <img src="http://gfs14.gomein.net.cn/T1YvKTBsDv1RCvBVdK.png" id="previewPicture"  class="img-circle"  height="100px" width="100px">
+                    <c:if test="${empty userInfo.headImage}">
+                        <img src="http://gfs14.gomein.net.cn/T1YvKTBsDv1RCvBVdK.png" id="previewPicture"  class="img-circle min" >
+                    </c:if>
+
                 <c:if test="${!empty userInfo.headImage}">
-                <img class="img-circle"  src="/download/?filename=${userInfo.headImage}" height="100px" width="100px">
+                <img class="img-circle min"  src="/download/?filename=${userInfo.headImage}" id="previewPicture" >
+                    <a href="javascript:;" class="a-upload">
+                        <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">更改头像
+                    </a>
                 </c:if>
                 </div>
                 <div class="form-group ">
@@ -27,12 +37,11 @@
                     </c:if>
                 </div>
             </div>
-
             <div class="col-md-8">
                     <div class="form-group ">
-                        <label class="control-label" for="nickname">昵称：</label>
+                        <label class="control-label" for="nickName">昵称：</label>
                         <div class="">
-                            <input class="form-control" type="text" id="nickname" name="nickname" placeholder="老王" value="${userInfo.nickName}">
+                            <input class="form-control" type="text" id="nickName" name="nickName" placeholder="老王" value="${userInfo.nickName}">
                         </div>
                     </div>
 
@@ -80,6 +89,7 @@
         processData: false,
         contentType: false,
         success:function(data){
+            debugger
             $('#file').fadeOut();
             $('#previewPicture').attr("src","/download/?filename="+data).fadeIn();
             $('#headImage').val(data);
@@ -99,6 +109,10 @@ function updateUserInfo() {
         })
 
 }
+    $('#previewPicture').click(function(){
+        $(this).toggleClass('min');
+        $(this).toggleClass('max');
+    });
 </script>
 <script src="/asert/js/bootstrap.js"></script>
 </body>

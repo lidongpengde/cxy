@@ -21,7 +21,7 @@
             </div>
             <div class="col-xs-12 col-md-4" >
                     <div class="shadow">
-                        <form action="/user/register" id="registerForm" name="registerForm" onsubmit="return registerUser()">
+                        <form action="/user/register" id="registerForm" name="registerForm" onsubmit="return false">
 
                             <div class="aaa">
                                 <div class="login-tab login-tab-l">
@@ -33,11 +33,15 @@
                             </div>
                             <div class=" " id="register" >
                                 <div><strong id="errorMsg"  style="color: red;margin-left: 18px;"></strong></div>
-                                <div class="form-group"><label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"   onblur="vailPhone()"></div>
-                                <div class="form-group"><label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" maxlength="10" type="text" onblur="validateUserName()"required onkeydown="if(event.keyCode==32) return false"></div>
-                                <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" maxlength="10" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
-                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10"  name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
-                                <div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>
+                                <div class="form-group">
+                                    <label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"  maxlength="11" onblur="vailPhone()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" placeholder="zhangsan" maxlength="20" type="text" onblur="validateUserName()"required onkeydown="if(event.keyCode==32) return false">
+                                </div>
+                                <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord" placeholder="字母加数字" maxlength="10" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10" placeholder="字母加数字"  name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
+                                <%--<div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>--%>
                                 <div class="form-group">
                                     <label>
                                         <input type="radio"name="sex"value="1" checked> 男
@@ -46,8 +50,8 @@
                                         <input type="radio" name="sex" value="0"> 女
                                     </label>
                                 </div>
-                                <div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" class="form-control" required></div>
-                                <div class="form-group"><button  class="btn btn-primary  btn-block" type="submit">成为会员</button></div>
+                                <div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" placeholder="张三" class="form-control" required></div>
+                                <div class="form-group"><button  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</button></div>
                                 <br>
                             </div>
 
@@ -119,7 +123,7 @@ function loginPage(){
                     $('#errorMsg').fadeIn();
                     flag=false;
                 }else{
-                    $('#errorMsg').fadeOut();
+
                 }
             }
         });
@@ -142,37 +146,51 @@ function loginPage(){
     function validateUserName(){
         var flag=true;
         var userName=$('#userName').val();
-if (userName){
-    $.ajax({
-        url:'/user/validateExists/'+userName,
-        type:'post',
-        async:false,
-        success:function(data){
-            if (data=='true'){
-                $('#errorMsg').text("用户名已存在，建议换一个！");
-                $('#errorMsg').fadeIn();
-                flag=false;
-            }else{
-                $('#errorMsg').fadeOut();
-            }
+        if (userName){
+            $.ajax({
+                url:'/user/validateExists/'+userName,
+                type:'post',
+                async:false,
+                success:function(data){
+                    if (data=='true'){
+                        $('#errorMsg').text("用户名已存在，建议换一个！");
+                        $('#errorMsg').fadeIn();
+                        flag=false;
+                    }else{
+                        $('#errorMsg').fadeOut();
+                    }
+                }
+            });
+            return flag;
+        }else{
+            return false;
         }
-    });
-    return flag;
-}else{
-    return false;
-}
 
     }
     function registerUser(){
        var mobileFlag= vailPhone();
-       var passwordFlag=validatePassword();
+           var passwordFlag=validatePassword();
        var userNameFlag=validateUserName();
        if (mobileFlag && passwordFlag&&userNameFlag){
-           $("registerForm").submit(function(e){
-               alert("Submitted");
+           $.ajax({
+               cache: true,
+               type: "POST",
+               url:"/user/register",
+               data:$('#registerForm').serialize(),// 你的formid
+               async: false,
+               error: function(request) {
+                   alert("Connection error");
+               },
+               success: function(data) {
+                   debugger
+                   if (data.code==200){
+                       location.href="/v1/toIndexPage";
+                   }else{
+                       alert(data.message);
+                   }
+
+               }
            });
-       }else{
-           return false;
        }
     }
     function realLogin(){

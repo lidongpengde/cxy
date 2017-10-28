@@ -2,6 +2,7 @@ package com.cxy.service;
 
 import com.cxy.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ public interface IuserService {
     public User findUserById(Long userId);
     public User findUserByName(String userName);
 
-    public int updateUser(User user);
+    public User updateUser(User user);
     public User findUserByMobile(String login);
+    public void   saveLoginStatus(HttpServletRequest request,User user);
 }

@@ -11,11 +11,12 @@
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app" style="margin-top: 90px">
-    <form action="/api/Identify"  method="post" id="form">
+    <form action="/api/Identify"  method="post" id="identifyForm" onsubmit="return false">
         <div class="form-group"><label for="realName">真实姓名：</label><input id="realName" class="form-control" maxlength="10" name="realName" required></div>
-        <div class="form-group"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" maxlength="10" name="idCardNumber"  required ></div>
+        <div class="form-group"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" maxlength="20" name="idCardNumber"  required ></div>
         <div class="form-group"><%--<label for="positive">正面：</label>--%><input id="positive" type="hidden" class="form-control" name="positive" ></div>
         <div class="form-group"><%--<label for="negative">反面：</label>--%><input id="negative" type="hidden" class="form-control" name="negative" ></div>
+        <input hidden="hidden" name="age" id="age">
         <div class="form-group">
         <div class="bordered col-xs-5 col-md-6" style="float: left">
             <img src="/asert/image/positive.jpg" id="previewpositive" class="img-responsive" height="297px">
@@ -34,10 +35,11 @@
         </div>
         </div>
         <div class="form-group" style="padding-top: 30px;float: left">
-        <button type="submit" class="btn btn-danger">提交认证</button>
+        <button type="submit" class="btn btn-danger" onclick="submitIdentityForm()">提交认证</button>
         </div>
     </form>
 </div>
+<script src="/asert/js/common/validate.js"></script>
 <script>
     function submitIdentity(upload,preview,col) {
         debugger
@@ -62,7 +64,35 @@
             }
         });
     }
+function submitIdentityForm() {
+       var idCardNumber= $('#idCardNumber').val();
+        var validateResult=IdentityCodeValid(idCardNumber);
+        if (validateResult){
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url:"/api/Identify",
+                data:$('#identifyForm').serialize(),// 你的formid
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    debugger
+                    if (data.code==200){
+                        alert(data.message);
+                        location.href="/v1/toIndexPage";
+                    }else{
+                        alert(data.message);
+                    }
 
+                }
+            });
+        }else{
+            alert("请输入正确的身份证号码");
+        }
+    
+}
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

@@ -53,4 +53,12 @@ public class UserTools {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
+    public static long getAgeByIdCard(String idCard) {
+        long iAge = 0;
+        Calendar cal = Calendar.getInstance();
+        String year = idCard.substring(6, 10);
+        int iCurrYear = cal.get(Calendar.YEAR);
+        iAge = iCurrYear - Integer.valueOf(year);
+        return iAge;
+    }
 }

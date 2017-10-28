@@ -55,7 +55,8 @@ footer{
     position:absolute;
     bottom:0;
     width:100%;
-    height:auto;
+    height:30px;
+    padding-top: 100px;
 /*    background-color: #ffc0cb;*/
 }
 #statisics {

@@ -7,6 +7,7 @@ import com.cxy.common.WarningEnum;
 import com.cxy.entity.Identity;
 import com.cxy.entity.User;
 import com.cxy.service.Iidentity;
+import com.cxy.service.IuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,19 +26,33 @@ import java.util.List;
 public class IdentityController {
     @Autowired
     private Iidentity identityService;
+    @Autowired
+    private IuserService userService;
 
     @RequestMapping("toIdentify")
     public String toIdentify(){
         return "identify";
     }
-    @RequestMapping(value = "Identify",method = RequestMethod.POST)
+    @RequestMapping(value = "Identify",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
     public String addIdentify(HttpServletRequest request, Identity identity, ModelMap modelMap){
+        JSONObject jsonObject=new JSONObject();
         User user=UserTools.getCurrentUser(request);
         String path=request.getParameter("path");
         identity.setUserId(user.getId());
-        identityService.saveIdentity(identity,path);
-        modelMap.put("result", WarningEnum.identify_wait.getMsg());
-        return "result";
+        int size=identityService.saveIdentity(identity,path);
+        if (size>0){
+            jsonObject.put("message", WarningEnum.identify_wait.getMsg());
+            jsonObject.put("code",200);
+        }else{
+            jsonObject.put("message", WarningEnum.system_error.getMsg());
+            jsonObject.put("code",WarningEnum.system_error.getCode());
+
+        }
+        user.setAge(UserTools.getAgeByIdCard(identity.getIdCardNumber()));
+        //从身份证号获取年龄，更新用户年龄信息
+        userService.updateUser(user);
+        return jsonObject.toJSONString();
     }
     @RequestMapping(value = "Identifys",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody

@@ -9,6 +9,8 @@ import com.cxy.service.IuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,35 +44,47 @@ public class UserSerivceImpl implements IuserService{
     public User findUserByName(String userName) {
         User user=userMapper.selectByPrimaryName(userName);
         if (user!=null){
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    UserRecord userRecord=new UserRecord();
-                    userRecord.setUserId(user.getId());
-                    userRecord.setUserName(user.getUserName());
-                    userRecord.setLoginTime(new Date());
-                    userRecordMapper.insert(userRecord);
-                }
-            });
+
 
 
         }
         return userMapper.selectByPrimaryName(userName);
     }
-
     /**
      * 0未认证1已认证2黑名单
      * @param user
      * @return
      */
-    public int updateUser(User user) {
-        user.setIdentifyStatus(1L);
-        return userMapper.updateByPrimaryKeySelective(user);
+    public User updateUser(User user) {
+        //user.setIdentifyStatus(1L);
+        int size=userMapper.updateByPrimaryKeySelective(user);
+        if (size>0){
+          user=  userMapper.selectByPrimaryKey(user.getId());
+        }
+        return user;
     }
 
     @Override
     public User findUserByMobile(String login) {
         User user= userMapper.selectByMobile(login);
         return user;
+    }
+
+    @Override
+    public void saveLoginStatus(HttpServletRequest request,User user) {
+        HttpSession session=request.getSession();
+        session.setAttribute("const_user",user);
+        //如果点了一周免登录按钮，直接将session设置为永久
+        session.setMaxInactiveInterval(0);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                UserRecord userRecord=new UserRecord();
+                userRecord.setUserId(user.getId());
+                userRecord.setUserName(user.getUserName());
+                userRecord.setLoginTime(new Date());
+                userRecordMapper.insert(userRecord);
+            }
+        });
     }
 }
