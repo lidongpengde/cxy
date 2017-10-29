@@ -15,22 +15,21 @@
     <script src="/asert/js/jquery.messager.js"></script>
 </head>
 <body >
-<div class="container" id="app" style="margin-top: 90px">
+<div class="container" id="app" style="margin-top: 70px">
 
         <%--头部搜索栏--%>
 
             <form id="searchForm" class="form-inline" onsubmit="return false">
-                <div class="row">
+                <div class="row " style="margin-bottom: 15px;">
                 <input name="type" value="1" hidden id="type">
-             <div class="col-xs-3"><input name="start" id="start" class="form-control" placeholder="出发地"></div>
-             <div class="col-xs-3"><input name="end" id="end" class="form-control" placeholder="目的地"></div>
-             <div class="col-xs-6"><input name="startTime" id="startTime" type="date" class="form-control" placeholder="出发时间"></div>
+             <div class="col-xs-6 col-md-3" style="margin-bottom: 15px;"><input name="start" id="start" class="form-control" placeholder="出发地"></div>
+             <div class="col-xs-6 col-md-3" style="margin-bottom: 15px;"><input name="end" id="end" class="form-control" placeholder="目的地"></div>
+             <div class="col-xs-6 col-md-4"><input name="startTime" id="startTime" type="date" class="form-control" placeholder="出发时间"></div>
                     <input name="startAdcode" id="startAdcode" hidden="hidden" >
 
-                </div>
-                <br>
-                <div class="row">
-             <div class="col-xs-2"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
+
+
+             <div class="col-xs-2 col-md-2"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
                 </div>
             </form>
 
@@ -260,6 +259,25 @@
             }
         })
     })
+    //时间选择框设置为当前时间
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    var startTime=document.getElementById('startTime');
+    var time = new Date().Format("yyyy-MM-dd");
+    startTime.value=time;
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

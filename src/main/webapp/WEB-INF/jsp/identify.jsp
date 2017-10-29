@@ -18,7 +18,7 @@
         <div class="form-group"><%--<label for="negative">反面：</label>--%><input id="negative" type="hidden" class="form-control" name="negative" ></div>
         <input hidden="hidden" name="age" id="age">
         <div class="form-group">
-        <div class="bordered col-xs-5 col-md-6" style="float: left">
+        <div class="bordered col-xs-5 col-md-6" style="float: left;padding-left: 0px;padding-right: 0px">
             <img src="/asert/image/positive.jpg" id="previewpositive" class="img-responsive" height="297px">
             <a href="javascript:;" class="a-upload">
                 <input type="file"  name="file" id="positivefile" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity('positivefile','previewpositive','positive')">上传身份证正面
@@ -26,7 +26,7 @@
 
         </div>
 
-        <div class="bordered col-xs-5 col-md-6" style="float: right">
+        <div class="bordered col-xs-5 col-md-6" style="float: right;padding-left: 0px;padding-right: 0px"">
             <img src="/asert/image/negetive.jpg" id="previewnegative" class="img-responsive"  height="297px">
             <a href="javascript:;" class="a-upload">
                 <input type="file"  name="file1" id="negativefile" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity('negativefile','previewnegative','negative')">上传身份证反面
