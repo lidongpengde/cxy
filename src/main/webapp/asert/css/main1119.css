@@ -1,0 +1,123 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: #404969;
+}
+
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+#banner-home .action-banner {
+    display: block;
+    /*max-width: 404px;*/
+    float: right;
+    width: 100%;
+    margin: 25px auto;
+}
+#banner-home .action-banner #installnow {
+    background-color: #de4f4f;
+    color: #fff;
+    float: left;
+    border: none;
+    width: 200px;
+}
+.installnow{
+    background-color: #de4f4f;
+    color: #fff;
+    float: left;
+    border: none;
+    width: 200px;
+}
+#banner-home .action-banner .btn-custom {
+    width: 200px;
+    position: relative;
+    z-index: 9;
+    display: inline-block;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'ProximaNova-Bold';
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #fff;
+    margin-right: 20px;
+}
+.action-banner .btn-custom {
+    width: 230px;
+    position: relative;
+    z-index: 9;
+    display: inline-block;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'ProximaNova-Light';
+    text-decoration: none;
+    color: #de4f4f;
+    text-transform: uppercase;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #de4f4f;
+    margin-right: 20px;
+}
+.hvr-rectangle-out-bg {
+    transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+}
+.hvr-rectangle-out:hover, .hvr-rectangle-out:focus, .hvr-rectangle-out:active {
+    color: #fff!important;
+    background-color: #a83636!important;
+    border-color: #a83636!important;
+}
+.hvr-rectangle-out-bg:hover, .hvr-rectangle-out-bg:focus, .hvr-rectangle-out-bg:active {
+    color: #fff!important;
+    background-color: #a83636!important;
+    border-color: #a83636!important;
+}
+#tip {
+    background-color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    font-size: 12px;
+    right: 10px;
+    top: 20px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    line-height: 30px;
+}
+.amap-info-content {
+    font-size: 12px;
+}
+
+#myPageTop {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding:6px;
+    font-family: "Microsoft Yahei", "微软雅黑", "Pinghei";
+    font-size: 14px;
+}
+#myPageTop label {
+    margin: 0 20px 0 0;
+    color: #666666;
+    font-weight: normal;
+}
+#myPageTop input {
+    width: 170px;
+}
+#myPageTop .column2{
+    padding-left: 25px;
+}

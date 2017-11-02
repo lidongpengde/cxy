@@ -62,6 +62,20 @@ public class LineInfoServiceImpl implements ILineInfoService {
         return messageResult;
     }
 
+    @Override
+    public MessageResult getLineInfoListWithLocation(LineInfo lineInfo) {
+        MessageResult<List<LineInfo>> messageResult=new MessageResult();
+        List<LineInfo> list=lineInfoMapper.getLineInfoListForLocation(lineInfo);
+        if (list!=null){
+            messageResult.setBuessObj(list);
+            messageResult.setSuccess(true);
+            return messageResult;
+        }else{
+            messageResult.setSuccess(false);
+        }
+        return messageResult;
+    }
+
     /**
      *
      * @param lineInfo

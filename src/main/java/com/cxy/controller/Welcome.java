@@ -5,7 +5,9 @@ import com.cxy.common.MessageResult;
 import com.cxy.common.WarningEnum;
 import com.cxy.dao.AdviceBoxMapper;
 import com.cxy.entity.AdviceBox;
+import com.cxy.entity.LineInfo;
 import com.cxy.entity.User;
+import com.cxy.service.ILineInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ import java.util.Map;
 public class Welcome {
     @Autowired
     private AdviceBoxMapper adviceBoxMapper;
+    @Autowired
+    ILineInfoService lineInfoService;
     @RequestMapping("/")
     public String hello(HttpServletRequest request, HttpServletResponse response) {
         User user=(User)request.getSession().getAttribute("const_user");
@@ -66,5 +70,16 @@ public class Welcome {
     public String toAddAdvice(HttpServletRequest request) {
 
         return "advice/addAdvice";
+    }
+    @RequestMapping(value = "location/lineInfo",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String getLocatedLineInfo(HttpServletRequest request, LineInfo lineInfo){
+        /*if (StringUtils.isEmpty(lineInfo.getStart())){
+           String adcode= getStartAdressIfLineInfoNull(request);
+           lineInfo.setStartAdcode(adcode);
+        }*/
+        JSONObject jsonObject=new JSONObject();
+        MessageResult list=lineInfoService.getLineInfoListWithLocation(lineInfo);
+        return JSONObject.toJSONString(list);
     }
 }

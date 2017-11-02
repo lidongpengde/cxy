@@ -256,6 +256,9 @@
       <if test="end != null and end != ''">
         and end LIKE CONCAT(CONCAT('%', #{end}), '%')
       </if>
+      <if test="endAdcode != null and endAdcode != ''">
+        and end_adcode = #{endAdcode,jdbcType=VARCHAR}
+      </if>
       <if test="startTime != null and startTime != ''" >
         and  Date(start_time) = #{startTime}
       </if>
@@ -287,6 +290,11 @@
     </where>
   </sql>
   <select id="getLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
+    select <include refid="Base_Column_List" /> from line_info
+    <include refid="sql_where" />
+  </select>
+
+  <select id="getLineInfoListForLocation" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
     select <include refid="Base_Column_List" /> from line_info
     <include refid="sql_where" />
   </select>

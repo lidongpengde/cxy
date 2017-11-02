@@ -145,4 +145,6 @@ public class LineInfoController {
         modelMap.put("mylist",mylist);
         return "myPublishLineInfo";
     }
+
+
 }

@@ -20,4 +20,7 @@ public interface ILineInfoService {
     public String getMsgByUser(User user);
     public Pager querySubLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
     public MessageResult updateByLineInfo(LineInfo lineInfo);
+
+
+    public MessageResult getLineInfoListWithLocation(LineInfo lineInfo);
 }

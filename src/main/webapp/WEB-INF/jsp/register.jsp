@@ -183,7 +183,6 @@ function loginPage(){
                    alert("Connection error");
                },
                success: function(data) {
-                   debugger
                    if (data.code==200){
                        location.href="/v1/toIndexPage";
                    }else{
