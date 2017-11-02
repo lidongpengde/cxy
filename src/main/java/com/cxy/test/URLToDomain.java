@@ -30,6 +30,10 @@ public class URLToDomain {
     }
     @Test
     public  void main() throws IOException {
+        List<User> list=null;
+        if (list!=null){
+            System.out.println(1);
+        }
         String sql="LineInfo";
 
     }
