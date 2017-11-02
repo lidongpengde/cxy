@@ -133,6 +133,15 @@ public class UserController {
         request.getSession().setAttribute("const_user",user);
         return "usercenter";
     }
+    @RequestMapping(value = "/checkloginstatus",method = RequestMethod.GET)
+    @ResponseBody
+    public boolean checkloginstatus(HttpServletRequest request){
+        User olduser= UserTools.getCurrentUser(request);
+        if (olduser!=null){
+            return true;
+        }
+        return false;
+    }
     public  boolean isMobile(String mobiles) {
         Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
 

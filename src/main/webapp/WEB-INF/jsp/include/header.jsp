@@ -39,7 +39,7 @@
                         <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
                     <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a><span id="userMsg"></span></li>
                     <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
-                    <li data-pricing=""><a href="/" class="menu-main"><span>首页</span></a></li>
+                    <li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>
                     <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
                 </ul>
             </nav>
