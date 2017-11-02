@@ -101,22 +101,34 @@ html, body {
 
 #myPageTop {
     position: absolute;
-    bottom: 5px;
-    right: 10px;
-    background: #fff none repeat scroll 0 0;
+    bottom: 50px;
+    /*right: 10px;*/
+    background: #404969 none repeat scroll 0 0;
     border: 1px solid #ccc;
     margin: 10px auto;
     padding:6px;
     font-family: "Microsoft Yahei", "微软雅黑", "Pinghei";
     font-size: 14px;
+    z-index: 9;
 }
 #myPageTop label {
     margin: 0 20px 0 0;
-    color: #666666;
+    color: #fff;
     font-weight: normal;
 }
-#myPageTop input {
-    width: 170px;
+.form-account input {
+   /* display: inline-block;*/
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #8e8e8e;
+    font-style: italic;
+    margin-bottom: 15px;
+    height: 40px;
+    font-family: 'ProximaNovaT-Thin';
+    border: 1px solid #566391;
+    border-radius: 0;
 }
 #myPageTop .column2{
     padding-left: 25px;
