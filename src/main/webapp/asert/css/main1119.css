@@ -101,7 +101,7 @@ html, body {
 
 #myPageTop {
     position: absolute;
-    bottom: 50px;
+    bottom: 150px;
     /*right: 10px;*/
     background: #404969 none repeat scroll 0 0;
     border: 1px solid #ccc;
