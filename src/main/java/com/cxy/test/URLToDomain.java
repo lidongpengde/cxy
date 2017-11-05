@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -31,10 +33,18 @@ public class URLToDomain {
     @Test
     public  void main() throws IOException {
         List<User> list=null;
-        if (list!=null){
-            System.out.println(1);
-        }
-        String sql="LineInfo";
+        int a=1;
+        boolean is=isMobile("18310183096");
+        System.out.println(1^a);
 
+    }
+    public  boolean isMobile(String mobiles) {
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$");
+
+        Matcher m = p.matcher(mobiles);
+
+        System.out.println(m.matches()+"---");
+
+        return m.matches();
     }
 }

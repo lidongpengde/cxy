@@ -53,7 +53,8 @@ html, body {
     margin-right: 20px;
 }
 .action-banner .btn-custom {
-    width: 230px;
+    /*width: 230px;*/
+    width: 200px;
     position: relative;
     z-index: 9;
     display: inline-block;
@@ -101,8 +102,8 @@ html, body {
 
 #myPageTop {
     position: absolute;
-    bottom: 150px;
-    /*right: 10px;*/
+/*    bottom: 0px;*/
+    left:0px;
     background: #404969 none repeat scroll 0 0;
     border: 1px solid #ccc;
     margin: 10px auto;
@@ -116,6 +117,18 @@ html, body {
     color: #fff;
     font-weight: normal;
 }
+@media (max-width: 480px){
+#banner-home .action-banner {
+        max-width: 320px;
+}
+}
+@media (max-width: 480px){
+    #banner-home .action-banner #installnow {
+        margin: 0px 0px 20px 0px;
+        float: none;
+    }
+}
+
 .form-account input {
    /* display: inline-block;*/
     width: 100%;
@@ -132,4 +145,20 @@ html, body {
 }
 #myPageTop .column2{
     padding-left: 25px;
+}
+.choose-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #e45735;
+    border: none;
+    padding: 5px 12px;
+    font-size: 1.143em;
+    line-height: 20px;
+    transition: background .15s;
+}
+.choose-button:hover{
+    text-decoration: none;
+    color: #fff!important;
+    background-color: #a83636!important;
+    border-color: #a83636!important;
 }

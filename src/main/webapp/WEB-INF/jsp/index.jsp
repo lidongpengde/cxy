@@ -46,7 +46,8 @@
                         </h4></a>
                     <p>
                     <ul class="inline"></ul>
-                        人数:<span class="">{{ item.personCount }}</span><span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
+                        <span v-if="item.type==1">剩余座位:</span><span v-if="item.type==0">人数:</span>
+                        <span class="">{{ item.personCount }}</span><span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
                         <a v-bind:href="'tel:'+item.userMobile">{{ item.userMobile }}</a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.userNickname }}</span>
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true">	{{ item.startTime }}</span>

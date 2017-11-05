@@ -22,5 +22,5 @@ public interface ILineInfoService {
     public MessageResult updateByLineInfo(LineInfo lineInfo);
 
 
-    public MessageResult getLineInfoListWithLocation(LineInfo lineInfo);
+    public MessageResult getLineInfoListWithLocation(LineInfo lineInfo,User user);
 }

@@ -2,20 +2,25 @@ package com.cxy.service.Impl;
 
 import com.cxy.common.MessageResult;
 import com.cxy.common.Pager;
+import com.cxy.common.UserTools;
 import com.cxy.common.WarningEnum;
 import com.cxy.dao.LineInfoMapper;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.LineInfoAndUserInfo;
 import com.cxy.entity.User;
+import com.cxy.entity.UserRecord;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.Iidentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by lidongpeng on 2017/7/21.
@@ -24,16 +29,21 @@ import java.util.Map;
 public class LineInfoServiceImpl implements ILineInfoService {
     @Autowired
     private LineInfoMapper lineInfoMapper;
+    private ExecutorService executor;
+    public LineInfoServiceImpl(){
+        executor= Executors.newSingleThreadExecutor();
+    }
     @Override
     public MessageResult saveLineInfo(LineInfo lineInfo,HttpServletRequest request) {
         MessageResult messageResult=new MessageResult();
         User user=(User)request.getSession().getAttribute("const_user");
-        if (user.getIdentifyStatus()==null||user.getIdentifyStatus()!=1L){
+        //鉴于刚开始用户少，先屏蔽掉实名认证后才可以发布
+ /*       if (user.getIdentifyStatus()==null||user.getIdentifyStatus()!=1L){
             messageResult.setCode(WarningEnum.need_identified.getCode());
             messageResult.setMessage(WarningEnum.need_identified.getMsg());
             messageResult.setSuccess(false);
             return messageResult;
-        }
+        }*/
         lineInfo.setUserId(user.getId().toString());
         lineInfo.setUserMobile(user.getMobile().toString());
         lineInfo.setUserNickname(user.getNickName());
@@ -63,16 +73,35 @@ public class LineInfoServiceImpl implements ILineInfoService {
     }
 
     @Override
-    public MessageResult getLineInfoListWithLocation(LineInfo lineInfo) {
+    public MessageResult getLineInfoListWithLocation(LineInfo lineInfo,User user) {
         MessageResult<List<LineInfo>> messageResult=new MessageResult();
+        //如果用户已经登录，将用户的查询信息发布出去,这里多线程情况下有些不稳定，先走单线程
+/*        executor.execute(new Runnable() {
+            @Override
+            public void run() {*/
+                if (user!=null){
+                    lineInfo.setStatus(1);
+                    lineInfo.setUserMobile(user.getMobile().toString());
+                    lineInfo.setUserId(user.getId().toString());
+                    lineInfo.setUserNickname(user.getNickName());
+                    lineInfo.setType(1^lineInfo.getType());
+                    //出发时间默认在当前时间加5个小时
+                    lineInfo.setStartTime(UserTools.addDateMinut(UserTools.getCurrentTime(),5));
+                    lineInfoMapper.insertSelective(lineInfo);
+                }
+/*            }
+        });*/
+        lineInfo.setStart("");
+        lineInfo.setEnd("");
         List<LineInfo> list=lineInfoMapper.getLineInfoListForLocation(lineInfo);
-        if (list!=null){
+        if (list!=null&&list.size()>0){
             messageResult.setBuessObj(list);
             messageResult.setSuccess(true);
             return messageResult;
         }else{
             messageResult.setSuccess(false);
         }
+
         return messageResult;
     }
 

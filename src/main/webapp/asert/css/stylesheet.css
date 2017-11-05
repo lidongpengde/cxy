@@ -96,3 +96,16 @@ footer{
     -webkit-animation-name: fadeInRightBig;
     animation-name: fadeInRightBig;
 }
+.tab-navs {
+    margin: 0 0 10px;
+    padding: 0;
+    text-align: center;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+}
+.tab-navs .tab-nav {
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: -1px;
+}

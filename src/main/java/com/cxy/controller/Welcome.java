@@ -2,6 +2,7 @@ package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cxy.common.MessageResult;
+import com.cxy.common.UserTools;
 import com.cxy.common.WarningEnum;
 import com.cxy.dao.AdviceBoxMapper;
 import com.cxy.entity.AdviceBox;
@@ -78,8 +79,9 @@ public class Welcome {
            String adcode= getStartAdressIfLineInfoNull(request);
            lineInfo.setStartAdcode(adcode);
         }*/
+        User user=UserTools.getCurrentUser(request);
         JSONObject jsonObject=new JSONObject();
-        MessageResult list=lineInfoService.getLineInfoListWithLocation(lineInfo);
+        MessageResult list=lineInfoService.getLineInfoListWithLocation(lineInfo,user);
         return JSONObject.toJSONString(list);
     }
 }

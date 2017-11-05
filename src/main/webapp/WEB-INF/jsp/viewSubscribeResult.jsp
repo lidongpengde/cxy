@@ -30,15 +30,19 @@
     </div>
     <span class="price discuss">¥${ lineinfo.price }</span>
 </div>
-
+    <ul class="tab-navs clearfix">
+        <li class="tab-nav active"><a class="anchor" href="#" >行程预约信息</a></li>
+    </ul>
 <div>
     <c:forEach var="subscribe" items="${subscribeList}" varStatus="status">
-        <div class="tiptitle">
-            <h3>${subscribe.personName} <small><span class="label  label-danger">${subscribe.personCount}人</span></small></h3>
-            <hgroup>
-            <p>联系电话：${subscribe.personMobile}</p>
-            <p><article>描述：${subscribe.description}</article></p>
-            </hgroup>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">预约人：${subscribe.personName} <small>人数：<span class="label">${subscribe.personCount}人</span></small></h3>
+            </div>
+            <div class="panel-body">
+                <p>联系电话：${subscribe.personMobile}</p>
+                <p><article>描述：${subscribe.description}</article></p>
+            </div>
         </div>
     </c:forEach>
 

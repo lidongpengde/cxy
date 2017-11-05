@@ -8,7 +8,7 @@
 </head>
 <style>
     .max{width:100%;height:auto;}
-    .min{width:100px;height:auto;}
+    .min{width:100px;height:100px;}
     </style>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>

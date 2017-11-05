@@ -36,6 +36,7 @@ function submitAdvice() {
             data:$('#adviceForm').serialize(),
             success:function (data) {
                 if(data.code==200){
+                    alert("非常感谢您对我们提出的宝贵意见，我们一定会认真考虑！")
                     location.href="v1/toIndexPage";
                 }
             },

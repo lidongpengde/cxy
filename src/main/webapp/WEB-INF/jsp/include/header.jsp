@@ -12,10 +12,10 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top"><div class="container">
-    <div class="navbar-header">
-        <a href="/" class="navbar-brand"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" width="126" height="21"></a>
-        <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed" href="#" aria-expanded="false">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
+    <div class="navbar-header" style="margin-left: -60px">
+        <a href="/" class="navbar-brand col-md-10" style="padding: 0 ; "><img src="/asert/image/logo.jpg" width="300" height=50></a>
+        <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span></a>
@@ -40,12 +40,12 @@
                     <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a><span id="userMsg"></span></li>
                     <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
                     <li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>
+                    <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>发现更多</span></a></li>
                     <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
                 </ul>
             </nav>
         </c:otherwise>
     </c:choose>
-
 </div>
 </nav>
 <%--<div id="navigation" class="navbar navbar-inverse navbar-fixed-top " >

@@ -44,7 +44,7 @@
     </div>--%>
       <div class="input-group form-group">
           <span class="input-group-addon">$</span>
-          <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" value="${alterLine.price}" >
+          <input placeholder="价格" type="number" name="price" id="price" min="0"  class="form-control" onblur="checkValid(this)" value="${alterLine.price}" >
           <span class="input-group-addon">.00</span>
       </div>
             <div class="form-group" >
@@ -67,13 +67,7 @@
               <div class="form-group" >
       <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  value="${alterLine.plateNumber}"></div>
       <div class="form-group">
-          <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" >
-         <%-- <div class="input-group date form_datetime col-md-5"  data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input1">
-              <input class="form-control" size="16" type="text" value="${alterLine.startTime}" name="startTime" id="startTime" readonly placeholder="出发时间" onblur="checkValid(this)" >
-              <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-              <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-          </div>
-          <input type="hidden" id="dtp_input1" style="margin-top: 350px" value="" />--%>
+          <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" step="1" >
       </div>
       <br/>
       <div class="form-group">
@@ -256,8 +250,8 @@
             "h+": this.getHours(), //小时
             "m+": this.getMinutes(), //分
             "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
+       /*     "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒*/
         };
         if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
         for (var k in o)

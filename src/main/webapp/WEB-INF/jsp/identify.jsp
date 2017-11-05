@@ -89,7 +89,7 @@ function submitIdentityForm() {
                 }
             });
         }else{
-            alert("请输入正确的身份证号码");
+
         }
     
 }
