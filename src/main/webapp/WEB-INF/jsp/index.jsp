@@ -250,9 +250,9 @@
                 });
                 if(htmltext!=""){
                     // $('#userMsg').html(htmltext);  //我的发布下面的span标签
-                    $.messager.lays(500, 200);
+                    $.messager.lays(200, 200);
                     $.messager.anim('fade',2000);//messager消息提示
-                    $.messager.show(0,htmltext);
+                    $.messager.show(0,htmltext,5000);
                 }
             },
             error:function (e) {
