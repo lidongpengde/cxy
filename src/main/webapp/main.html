@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>任我行顺风车网</title>
+    <link rel="shortcut icon" href="/asert/image/smalllogo.jpg" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" media="screen"/>
     <link rel="stylesheet" href="/asert/css/main1119.css"/>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=23834821b1465df3fa84571571947619&plugin=AMap.Autocomplete"></script>
-    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <!--<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>-->
     <script src="/asert/js/jquery-3.1.1.min.js"></script>
     <script src="/asert/js/bootstrap.js"></script>
     <script src="/asert/js/vue.js"></script>
@@ -40,7 +41,7 @@
             </ul>
         </nav>
     </div>
-    <div v-if="!showheader" id="" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
+    <div v-if="!showheader" id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
         <ul class="nav navbar-nav navbar-right">
             <li data-pricing=""><a href="/user/tologin" class="menu-main"><span>请登录</span></a></li>
         </ul>
@@ -128,6 +129,15 @@
     var startauto = new AMap.Autocomplete({
         input: "startlocationname"
     });
+window.onload = function() {
+    map.plugin(["AMap.ToolBar"], function() {
+        map.addControl(new AMap.ToolBar());
+    });
+    if(location.href.indexOf('&guide=1')!==-1){
+        map.setStatus({scrollWheel:false})
+    }
+}
+
     AMap.event.addListener(startauto, "select", startselect);//注册监听，当选中某条记录时会触发
     function startselect (e) {
         document.getElementById('startlocationname').value = e.poi.name;

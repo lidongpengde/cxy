@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <link rel="shortcut icon" href="//app.gomein.net.cn/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/asert/image/smalllogo.jpg" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
     <link href="/asert/css/stylesheet.css" rel="stylesheet" type="text/css">

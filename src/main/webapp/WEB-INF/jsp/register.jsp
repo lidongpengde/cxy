@@ -13,7 +13,7 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="header" style="background-image: url(http://static.bootcss.com/expo/img/d/dd/2de797545de56274f03a5920eb3a1.jpg);">
+<div class="header" style="background-image: url(/asert/image/backgrond.jpg);">
     <div class="container">
         <div class="row">
             <div class="hidden-xs col-md-8">

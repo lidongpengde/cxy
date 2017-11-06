@@ -247,7 +247,7 @@
         var o = {
             "M+": this.getMonth() + 1, //月份
             "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
+            "H+": this.getHours(), //小时
             "m+": this.getMinutes(), //分
             "s+": this.getSeconds(), //秒
        /*     "q+": Math.floor((this.getMonth() + 3) / 3), //季度
@@ -259,7 +259,7 @@
         return fmt;
     }
     var startTime=document.getElementById('startTime');
-    var time = new Date().Format("yyyy-MM-ddThh:mm:ss");
+    var time = new Date().Format("yyyy-MM-ddTHH:mm:ss");
     startTime.value=time;
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>

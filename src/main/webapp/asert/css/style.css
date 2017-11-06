@@ -3,7 +3,7 @@
     background-repeat: no-repeat;
     background-position: center 0;
     -webkit-background-size: cover;
-    background-size: contain;
+    background-size: cover;
     padding: 138px 0 0;
     min-height: 400px;
     position: relative;
@@ -15,7 +15,8 @@
     margin-bottom: 10px;
     -webkit-box-shadow: 3px 7px 5px 1px rgba(163, 174, 184, 0.4);
     -moz-box-shadow: 3px 7px 5px 1px rgba(163, 174, 184, 0.4);
-    box-shadow: 3px 3px 5px 1px rgba(163, 174, 184, 0.4); }
+    box-shadow: 3px 3px 5px 1px rgba(163, 174, 184, 0.4);
+ }
 
 body {
     color: #727272;
@@ -112,9 +113,11 @@ p {
     margin: 0; }
 .comments li h4 .date {
     font-size: 12px;
-    font-weight: normal; }
+    font-weight: normal;
+}
 .comments li h4 a {
-    font-size: 12px; }
+    font-size: 12px;
+}
 .comments li p:last-child {
     margin-bottom: 0; }
 

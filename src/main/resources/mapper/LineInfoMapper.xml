@@ -23,7 +23,7 @@
     <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List">
-    lid, start, end,date_format(start_time, '%Y-%m-%d %h:%i:%s') as start_time, plate_number, price, isBargin, status, person_count,
+    lid, start, end,date_format(start_time, '%Y-%m-%d %H:%i:%s') as start_time, plate_number, price, isBargin, status, person_count,
     type, user_id, start_adcode, start_longitude, start_latitude, end_adcode, end_longitude,
     end_latitude, user_nickname, user_mobile
   </sql>

@@ -103,7 +103,7 @@ html, body {
 #myPageTop {
     position: absolute;
 /*    bottom: 0px;*/
-    left:0px;
+    right:0px;
     background: #404969 none repeat scroll 0 0;
     border: 1px solid #ccc;
     margin: 10px auto;
@@ -128,7 +128,6 @@ html, body {
         float: none;
     }
 }
-
 .form-account input {
    /* display: inline-block;*/
     width: 100%;
