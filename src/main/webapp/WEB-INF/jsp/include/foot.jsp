@@ -13,10 +13,10 @@
 <body>
 
 <footer>
-            <div class="col-sm-12">
+            <div class="col-sm-12"><small>
                 <span>Copyright © <a href="#">任我行顺风车网</a></span> |
                 <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备17060186号</a></span>|
-                <span><a href="/advices" target="_blank" >意见箱</a></span>
+                <span><a href="/advices" target="_blank" >意见箱</a></span></small>
 <%--                <span><a href="/template/joinus.html" target="_blank" >加入我们</a></span>|
                 <span><a href="/advices" target="_blank" >意见箱</a></span>--%>
         </div>

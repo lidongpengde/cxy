@@ -13,11 +13,11 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="header" style="background-image: url(/asert/image/backgrond.jpg);">
+<div class="header " style="background-image: url(/asert/image/backgrond.jpg);">
     <div class="container">
         <div class="row">
             <div class="hidden-xs col-md-8">
-                <h2 style="color: #fff">“顺路接一单，油费全省了，小金库也富裕了”</h2>
+                <h2 style="color: #fff">“任我行顺风车网，和志同道合的人一起出行...”</h2>
             </div>
             <div class="col-xs-12 col-md-4" >
                     <div class="shadow">

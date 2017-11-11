@@ -9,6 +9,7 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="identify_status" jdbcType="BIGINT" property="identifyStatus" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -39,10 +40,10 @@
   <insert id="insert" parameterType="com.cxy.entity.User" keyProperty="id">
     insert into user (id, mobile, age, 
       sex, user_name, pass_word, 
-      nick_name, identify_status)
+      nick_name, identify_status,create_time)
     values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=BIGINT}, #{age,jdbcType=BIGINT}, 
       #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
-      #{nickName,jdbcType=BIGINT}, #{identifyStatus,jdbcType=BIGINT})
+      #{nickName,jdbcType=BIGINT}, #{identifyStatus,jdbcType=BIGINT},#{createTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cxy.entity.User">
     insert into user

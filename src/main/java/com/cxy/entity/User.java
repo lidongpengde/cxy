@@ -15,6 +15,16 @@ public class User {
 
     private String nickName;
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    private String createTime;
+
     public String getHeadImage() {
         return headImage;
     }

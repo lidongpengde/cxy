@@ -10,9 +10,14 @@
    <%-- <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>--%>
     <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
     <script src="/asert/js/jquery.autocompleter.js"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=23834821b1465df3fa84571571947619&plugin=AMap.Autocomplete"></script>
 
 </head>
-
+<style>
+    .amap-sug-result{
+        position: absolute;
+    }
+</style>
 <body>
 <div class="container" style="margin-top: 90px">
     <div class="main">
@@ -182,8 +187,31 @@
     /**
      * 提示输入
      */
+    var startauto = new AMap.Autocomplete({
+        input: "start"
+    });
+    AMap.event.addListener(startauto, "select", startselect);//注册监听，当选中某条记录时会触发
+    function startselect (e) {
+        debugger
+        $('#startAdcode').val(e.poi.adcode);
+        $('#startLongitude').val(e.poi.location.lng);
+        $('#startLatitude').val(e.poi.location.lat);
+    }
+
+    var endauto = new AMap.Autocomplete({
+        input: "end"
+    });
+    AMap.event.addListener(endauto, "select", endselect);//注册监听，当选中某条记录时会触发
+    function endselect (e) {
+        $('#endAdcode').val(e.poi.adcode);
+        $('#endLongitude').val(e.poi.location.lng);
+        $('#endLatitude').val(e.poi.location.lat);
+    }
+    /**
+     * 提示输入
+     */
     $(function () {
-        $('#start').autocompleter({
+/*        $('#start').autocompleter({
             cache: false,
             // marker for autocomplete matches
             highlightMatches: true,
@@ -191,7 +219,7 @@
             // object to local or url to remote search
             source: '/v2//HintInfo' ,
 
-           /* template: '<img src="{{ id }}" alt="Image for autocompleter list item" /> {{ label }}{{ cityName }} {{ name }}',*/
+           /!* template: '<img src="{{ id }}" alt="Image for autocompleter list item" /> {{ label }}{{ cityName }} {{ name }}',*!/
             template: '{{ cityName }} {{ name }}<em>{{ id }}</em>',
             // show hint
             hint: false,
@@ -209,8 +237,8 @@
                     $('#startLatitude').val(selected.latitude);
                 }
             }
-        });
-        $('#end').autocompleter({
+        });*/
+        /*$('#end').autocompleter({
             cache: false,
             // marker for autocomplete matches
             highlightMatches: true,
@@ -234,7 +262,7 @@
                     $('#endLatitude').val(selected.latitude);
                 }
             }
-        });
+        });*/
         //var selval = ${alterLine.personCount};
         //var typeval = ${alterLine.type};
         //var isbarginval = ${alterLine.isbargin};

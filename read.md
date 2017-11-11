@@ -38,3 +38,5 @@ sessionStorage.obj = str;
 str = sessionStorage.obj; 
 //重新转换为对象 
 obj = JSON.parse(str);
+
+

@@ -14,6 +14,11 @@
 
     <script src="/asert/js/jquery.messager.js"></script>
 </head>
+<style>
+    body{
+        position: relative;
+    }
+</style>
 <body >
 <div class="container" id="app" style="margin-top: 70px">
 
@@ -42,8 +47,10 @@
 
                 <div class="post-content">
                     <a v-bind:href="'/api/mySubscibe/'+item.lid">
-                    <h4><strong>{{ item.start }}</strong></strong><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong><strong>{{ item.end }}</strong>
-                        </h4></a>
+                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>{{ item.start }}</span></p>
+                     <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
+                         <span>{{ item.end }}</span>
+                        </p></a>
                     <p>
                     <ul class="inline"></ul>
                         <span v-if="item.type==1">剩余座位:</span><span v-if="item.type==0">人数:</span>
