@@ -146,5 +146,10 @@ public class LineInfoController {
         return "myPublishLineInfo";
     }
 
+    @RequestMapping("myMenu")
+    public String myMenu(HttpServletRequest request, ModelMap modelMap){
+        return "usercenterIndex";
+    }
+
 
 }

@@ -5,26 +5,27 @@
 <head>
     <title>用户中心</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link href="/asert/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/asert/css/style.css" rel="stylesheet" type="text/css">
-
-
-    <script src="/asert/js/jquery-3.1.1.min.js"></script>
-
-    <script src="/asert/js/ng-file-upload-shim.js"></script>
-    <script src="/asert/js/ng-file-upload.js"></script>
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container">
+<div class="container" style="margin-top: 70px">
     <div class="row">
     <div class="list-group">
         <a href="#" class="list-group-item active">
             个人中心
         </a>
-        <a href="/message/list/${user.userId}" class="list-group-item"><span class="badge">${msgCount}</span>我的私信</a>
-        <a href="#" class="list-group-item"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>基本信息</a>
-        <a href="/user/toUpdatePage/${user.userId}" class="list-group-item"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>设置基本信息</a>
+        <a href="/user/inner/${ sessionScope.const_user.id}" class="list-group-item">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>基本信息
+        </a>
+        <a href="/api/toIdentify" class="list-group-item">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>实名认证
+        </a>
+        <a href="/v1/myPublishLineInfo" class="list-group-item">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>我的发布
+        </a>
+        <a href="/user/logout" class="list-group-item">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>退出
+        </a>
     </div>
             <input type="hidden" value="${user.userId}" name="userId">
 

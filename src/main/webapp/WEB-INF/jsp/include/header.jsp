@@ -12,9 +12,12 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
-    <div class="navbar-header" style="margin-left: -60px">
-        <a href="/" class="navbar-brand col-md-10" style="padding: 0 ; "><img src="/asert/image/logo.jpg" width="300" height=50></a>
+<nav class="navbar navbar-default navbar-fixed-top"><div class="container">
+    <div class="navbar-header">
+        <a href="/" class="navbar-brand" style="font-family: 'Xingkai SC';color: #00A87E ;font-size: 30px">
+            <strong>任我行</strong><strong style="color: #0086BF">顺风车</strong><strong style="color: #F53F5B">网</strong>
+            <%--<img src="/asert/image/logo.jpg" width="300" height=50>--%>
+        </a>
         <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -37,11 +40,9 @@
                     </li>
                     <li data-home="" >
                         <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
-                    <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a><span id="userMsg"></span></li>
-                    <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
                     <li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>
                     <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>发现更多</span></a></li>
-                    <li data-orders=""><a class="menu-child" href="/user/logout">退出</a></li>
+                    <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的</span></a></li>
                 </ul>
             </nav>
         </c:otherwise>

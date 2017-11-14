@@ -37,6 +37,7 @@
         <property name="autoCommitOnClose" value="false" />
         <!-- 获取连接超时时间 -->
         <property name="checkoutTimeout" value="10000" />
+        <property name="maxIdleTime" value="28700" />
         <!-- 当获取连接失败重试次数 -->
         <property name="acquireRetryAttempts" value="2" />
     </bean>

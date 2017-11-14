@@ -19,15 +19,15 @@
     }
 </style>
 <body>
-<div class="container" style="margin-top: 90px">
+<div class="container" style="margin-top: 70px">
     <div class="main">
       
 
-<h4 class="title">
-  <div class="normal-title">
-    <p class="lead text-left"><strong>发布需求</strong> </p>
-  </div>
-</h4>
+<%--<h4 class="title">--%>
+  <%--<div class="normal-title">--%>
+    <%--<p class="lead text-left"><strong>发布需求</strong> </p>--%>
+  <%--</div>--%>
+<%--</h4>--%>
 <div id="app">
 
   <form id="message" onsubmit="return false">
@@ -48,7 +48,7 @@
       <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
     </div>--%>
       <div class="input-group form-group">
-          <span class="input-group-addon">$</span>
+          <span class="input-group-addon">¥</span>
           <input placeholder="价格" type="number" name="price" id="price" min="0"  class="form-control" onblur="checkValid(this)" value="${alterLine.price}" >
           <span class="input-group-addon">.00</span>
       </div>
