@@ -34,10 +34,10 @@
       <div class="errors" ><span id="errormsg"></span></div>
     <div class="form-group">
       <label>
-        <input type="radio"name="type"value="1" checked v-on:click="selectType(1)"> 司机
+        <input type="radio"name="type"value="1" checked v-on:click="selectType(1)"> 我是司机
       </label>
       <label>
-        <input type="radio" name="type" value="0" v-on:click="selectType(0)"> 乘客
+        <input type="radio" name="type" value="0" v-on:click="selectType(0)"> 我是乘客
       </label>
     </div>
     <div class="form-group" >

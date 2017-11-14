@@ -15,15 +15,23 @@
             个人中心
         </a>
         <a href="/user/inner/${ sessionScope.const_user.id}" class="list-group-item">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>基本信息
+            <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>
+            基本信息
         </a>
         <a href="/api/toIdentify" class="list-group-item">
+
+            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>实名认证
         </a>
         <a href="/v1/myPublishLineInfo" class="list-group-item">
+
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>我的发布
         </a>
         <a href="/user/logout" class="list-group-item">
+
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>退出
         </a>
     </div>

@@ -42,7 +42,7 @@ public class AuthFilter implements Filter {
         if (password == null || "".equals(password)) {
             // 跳转到登录页面
             //resp.sendRedirect(prefix+host+loginUrltest);
-            resp.sendRedirect(loginUrlOnline);
+            resp.sendRedirect(loginUrltest);
         } else {
             arg2.doFilter(req, resp);
         }

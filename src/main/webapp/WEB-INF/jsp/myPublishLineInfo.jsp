@@ -38,10 +38,10 @@
                 <td>
                     <c:choose>
                         <c:when test="${item.isbargin== '0'}">
-                            不接受议价
+                            否
                         </c:when>
                         <c:otherwise>
-                            接受议价
+                            是
                         </c:otherwise>
                     </c:choose>
                 </td>
