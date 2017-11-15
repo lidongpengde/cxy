@@ -12,25 +12,38 @@
     <script src="/asert/js/jquery-3.1.1.min.js"></script>
     <script src="/asert/js/bootstrap.js"></script>
 <body>
+<!--<style>
+    @font-face
+    {
+        font-family: myFirstFont;
+        src: url('/asert/fonts/huawenxingkai.ttf');
+    }
+    .navbar-brand{
+        font-family: myFirstFont;
+    }
+</style>-->
 <div id="app">
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
-        <div class="navbar-header" style="margin-left: -60px">
-            <a href="/" class="navbar-brand col-md-10" style="padding: 0 ; "><img src="/asert/image/logo.jpg" width="300" height=50></a>
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand" style="color: #00A87E ;font-size: 30px;font-family:  STXingkai">
+                <strong>任我行</strong><strong style="color: #0086BF">顺风车</strong><strong style="color: #F53F5B">网</strong>
+            </a>
             <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span></a>
         </div>
-<div v-if="showheader">
-    <nav   id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="true" style="height: 227px;">
-        <ul class="nav navbar-nav navbar-right">
-            <li data-home="" ><a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
-            <li data-home="" ><a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
-            <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的</span></a></li>
-        </ul>
-    </nav>
-</div>
-    <div v-if="!showheader" id="" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
+    <div v-if="showheader">
+        <nav   id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="true" style="height: 227px;">
+            <ul class="nav navbar-nav navbar-right">
+                <li data-home="" >
+                    <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
+                <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>发现更多</span></a></li>
+                <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的</span></a></li>
+            </ul>
+        </nav>
+    </div>
+    <div v-if="!showheader" id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
         <ul class="nav navbar-nav navbar-right">
             <li data-pricing=""><a href="/user/tologin" class="menu-main"><span>请登录</span></a></li>
         </ul>

@@ -12,9 +12,19 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 </head>
 <body>
+<%--<style>
+    @font-face
+    {
+        font-family: myFirstFont;
+        src: url('/asert/fonts/huawenxingkai.ttf');
+    }
+    .navbar-brand{
+        font-family: myFirstFont;
+    }
+</style>--%>
 <nav class="navbar navbar-default navbar-fixed-top"><div class="container">
     <div class="navbar-header">
-        <a href="/" class="navbar-brand" style="font-family: 'Xingkai SC';color: #00A87E ;font-size: 30px">
+        <a href="/" class="navbar-brand" style="color: #00A87E ;font-size: 30px;font-family:  STXingkai">
             <strong>任我行</strong><strong style="color: #0086BF">顺风车</strong><strong style="color: #F53F5B">网</strong>
             <%--<img src="/asert/image/logo.jpg" width="300" height=50>--%>
         </a>
