@@ -55,7 +55,7 @@
                     <ul class="inline"></ul>
                         <span v-if="item.type==1">剩余座位:</span><span v-if="item.type==0">人数:</span>
                         <span class="">{{ item.personCount }}</span><span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
-                        <a v-bind:href="'tel:'+item.userMobile">{{ item.userMobile }}</a>
+                        <a v-bind:href="'tel:'+item.userMobile"><span class="glyphicon glyphicon-phone" aria-hidden="true">{{ item.userMobile }}</span></a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.userNickname }}</span>
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true">	{{ item.startTime }}</span>
                     </p>
@@ -244,7 +244,7 @@
             limit: 5,
         });
     });
-    $(document).ready(function(){
+/*    $(document).ready(function(){
         var  classes = "LineInfo";
         var  htmltext="" ;
         $.ajax({
@@ -266,7 +266,7 @@
                 alert("系统繁忙"+e);
             }
         })
-    })
+    })*/
     //时间选择框设置为当前时间
     Date.prototype.Format = function (fmt) {
         var o = {

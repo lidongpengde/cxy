@@ -8,7 +8,7 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" style="margin-top: 70px">
+<div class="container" style="margin-top: 70px" id="myapp">
     <div class="row">
     <div class="list-group">
         <a href="#" class="list-group-item active">
@@ -29,6 +29,11 @@
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>我的发布
         </a>
+        <a href="/template/noticeList.html" class="list-group-item">
+
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span class="badge" aria-hidden="true" style="float: right;">{{message}}</span>我的通知
+        </a>
         <a href="/user/logout" class="list-group-item">
 
             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -40,7 +45,28 @@
     </div>
 </div>
 <script>
-
+    var myapp = new Vue({
+        el: '#myapp',
+        data: {
+            items: [
+            ],
+            message:""
+        }
+    })
+    $(document).ready(function(){
+        var  classes = "LineInfo";
+        var  htmltext="" ;
+        $.ajax({
+            type:'post',
+            url:'/notice/getMsgByUser?classes='+classes,
+            success:function (data){
+                myapp.message=data.length;
+            },
+            error:function (e) {
+                alert("系统繁忙"+e);
+            }
+        })
+    })
 </script>
 <script src="/asert/js/bootstrap.js"></script>
 <jsp:include page="include/foot.jsp"></jsp:include>

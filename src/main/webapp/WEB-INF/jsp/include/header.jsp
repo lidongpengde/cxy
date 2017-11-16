@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <link rel="shortcut icon" href="/asert/image/smalllogo.jpg" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
     <link href="/asert/css/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
@@ -22,11 +22,10 @@
         font-family: myFirstFont;
     }
 </style>--%>
-<nav class="navbar navbar-default navbar-fixed-top"><div class="container">
+<nav class="navbar navbar-default navbar-fixed-top"><div class="container" id="headapp">
     <div class="navbar-header">
-        <a href="/" class="navbar-brand" style="color: #00A87E ;font-size: 30px;font-family:  STXingkai">
-            <strong>任我行</strong><strong style="color: #0086BF">顺风车</strong><strong style="color: #F53F5B">网</strong>
-            <%--<img src="/asert/image/logo.jpg" width="300" height=50>--%>
+        <a href="/" class="navbar-brand" style="height: 55px;padding-top: 0px">
+            <img src="/asert/image/newlogo.png" style="margin-top: -5px">
         </a>
         <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
             <span class="icon-bar"></span>
@@ -52,44 +51,16 @@
                         <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
                     <li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>
                     <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>发现更多</span></a></li>
-                    <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的</span></a></li>
+                    <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的<span class="label-warning badge ">{{message}}</span></span></a></li>
                 </ul>
             </nav>
         </c:otherwise>
     </c:choose>
 </div>
 </nav>
-<%--<div id="navigation" class="navbar navbar-inverse navbar-fixed-top " >
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand crawler-logo" href="/"><img src="https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/blablacar-ridesharing-logo.svg" alt="BlaBlaCar" width="126" height="21"></a>
-        </div>
-        <div class="navbar-collapse collapse ">
-            <ul class="nav navbar-nav pull-right">
-                <li data-home="" ><a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
-
-                <li id="我的" class="menu-main has-sub-menu" data-letters="Solutions" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
-                    <a id="Solutions" href="" class="menu-main" data-letters="Solutions" >
-                        <span>我的</span>
-                        <ul class="sub-menu-secondary">
-                            <li data-services=""><a class="menu-child" href="/v1/myPublishLineInfo">我的发布</a></li>
-                            <li data-orders=""><a class="menu-child" href="/api/orders">我的订单</a></li>
-                        </ul>
-                    </a>
-                </li>
-
-                <li data-orders=""><a href="/api/toIdentify" class="menu-main"><span>实名认证</span></a></li>
-                <li data-pricing=""><a href="/user/logout" class="menu-main"><span>退出</span></a></li>
-            </ul>
-        </div>
-</div>--%>
-<script src="/asert/js/jquery-3.1.1.min.js"></script>
-<script src="/asert/js/bootstrap.js"></script>
-<script src="/asert/js/vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
 <script>
     var path='/cxy';
@@ -103,6 +74,29 @@
         }
 
     }
+    var headapp = new Vue({
+        el: '#headapp',
+        data: {
+            items: [
+            ],
+            message:""
+        }
+    })
+    $(document).ready(function(){
+        var  classes = "LineInfo";
+        var  htmltext="" ;
+        $.ajax({
+            type:'post',
+            url:'/notice/getMsgByUser?classes='+classes,
+            success:function (data){
+                debugger
+                headapp.message=data.length;
+            },
+            error:function (e) {
+                alert("系统繁忙"+e);
+            }
+        })
+    })
 </script>
 </body>
 </html>
