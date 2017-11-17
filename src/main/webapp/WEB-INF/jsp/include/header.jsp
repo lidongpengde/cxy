@@ -51,7 +51,7 @@
                         <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
                     <li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>
                     <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>发现更多</span></a></li>
-                    <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的<span class="label-warning badge ">{{message}}</span></span></a></li>
+                    <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的<span class="badge ">{{message}}</span></span></a></li>
                 </ul>
             </nav>
         </c:otherwise>
