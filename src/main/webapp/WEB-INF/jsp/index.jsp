@@ -18,6 +18,9 @@
     body{
         position: relative;
     }
+    .glyphicon {
+        color: #337ab7;
+    }
 </style>
 <body >
 <div class="container" id="app" style="margin-top: 70px">
@@ -40,33 +43,41 @@
 
         <%--tab切换栏--%>
         <div class="identity ">
-            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6 text-center hover" id="tabdriver">找车</div></a>
-            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 text-center" id="tabpassenger">找人</div></a>
+            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6  col-xs-6 text-center hover" id="tabdriver">找车</div></a>
+            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 col-xs-6 text-center" id="tabpassenger">找人</div></a>
         </div>
             <div class="post" v-for="item in items">
 
                 <div class="post-content">
                     <a v-bind:href="'/api/mySubscibe/'+item.lid">
-                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>{{ item.start }}</span></p>
+                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>{{ item.start }}</span><span class="price">¥{{ item.price }}</span></p>
                      <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
                          <span>{{ item.end }}</span>
                         </p></a>
-                    <p>
-                    <ul class="inline"></ul>
-                        <span v-if="item.type==1">剩余座位:</span><span v-if="item.type==0">人数:</span>
-                        <span class="">{{ item.personCount }}</span><span v-if="item.plateNumber ">车牌号：{{ item.plateNumber }}</span>
-                        <a v-bind:href="'tel:'+item.userMobile"><span class="glyphicon glyphicon-phone" aria-hidden="true">{{ item.userMobile }}</span></a>
-                        <span class="glyphicon glyphicon-user" aria-hidden="true">{{ item.userNickname }}</span>
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true">	{{ item.startTime }}</span>
+                    <p >
+                    <ul class="inline" style="float: left;margin-bottom: 5px;margin-top: 5px">
+                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0"></span>
+                        <span class="">{{ item.personCount }}座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>{{ item.plateNumber }}
+                        <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>{{ item.userMobile }} </a>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>{{ item.userNickname }}
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>{{ item.startTime }}
+                    <%--<span class="bargin-label" v-if="item.isbargin === 0">不议价</span>--%>
+                    <%--<span class="bargin-label" v-if="item.isbargin === 1">可议价</span>--%>
+                </ul>
                     </p>
-                <p><span class="price">¥{{ item.price }}</span>
-                    <span class="bargin-label" v-if="item.isbargin === 0">不议价</span>
-                    <span class="bargin-label" v-if="item.isbargin === 1">可议价</span>
+                <p>
 
+                    <%--<span class="price">¥{{ item.price }}</span>--%>
                 </p>
                 </div>
-                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-danger">马上预约</a>
-                <%--<span class="price discuss">¥{{ item.price }}</span>--%>
+                <div class="hidden-xs">
+                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-subscribe">
+                    马上预约</a>
+                </div>
+                <div class="hidden-md hidden-lg">
+                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==1" class=" btn btn-subscribe">电话联系</a>
+                    <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class=" btn btn-subscribe-nobg">预约</a>
+                </div>
             </div>
             <div id="page" class="m-pagination" ></div>
 </div>

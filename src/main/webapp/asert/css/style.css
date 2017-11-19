@@ -86,8 +86,8 @@ p {
     display: block;
     margin: 7px 12px 0 0;
     float: left; }
-.post .post-content {
-    float: left; }
+/*.post .post-content {*/
+    /*float: left; }*/
 .post .post-content h3 {
     margin: 0;
     line-height: 1.4;
@@ -229,7 +229,8 @@ h1{
      padding-right: 20px;
  }
  .price{
-     margin-right: 60px;
+     float: right;
+     /*margin-right: 60px;*/
      font-style: normal;
      font-size: 18px;
      font-weight: 700;
@@ -366,4 +367,13 @@ h1{
     background: #eee;
     border-color: #ccc;
     text-decoration: none
+}
+.btn-subscribe {
+    color: #fff;
+    background-color: #3385ff;
+    border-color: #2d78f4;
+}
+.btn-subscribe-nobg {
+    color: #3385ff;
+    border-color: #2d78f4;
 }
