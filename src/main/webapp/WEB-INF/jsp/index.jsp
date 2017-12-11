@@ -56,8 +56,8 @@
                         </p></a>
                     <p >
                     <ul class="inline" style="float: left;margin-bottom: 5px;margin-top: 5px">
-                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0"></span>
-                        <span class="">{{ item.personCount }}座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>{{ item.plateNumber }}
+                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0">{{ item.personCount }}人</span>
+                        <span class="" v-if="item.type==1">{{ item.personCount }}座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>{{ item.plateNumber }}
                         <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>{{ item.userMobile }} </a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>{{ item.userNickname }}
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>{{ item.startTime }}

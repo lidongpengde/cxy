@@ -31,7 +31,7 @@
         </a>
         <a href="/template/noticeList.html" class="list-group-item">
 
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
             <span class="badge" aria-hidden="true" style="float: right;">{{message}}</span>我的通知
         </a>
         <a href="/user/logout" class="list-group-item">
