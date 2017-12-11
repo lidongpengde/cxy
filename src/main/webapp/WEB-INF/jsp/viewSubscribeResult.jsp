@@ -18,7 +18,7 @@
 
     <div class="post-content">
 
-            <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>${ lineinfo.start } </span><span class="price">¥${item.price }</span></p>
+            <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>${ lineinfo.start } </span><span class="price">¥${lineinfo.price }</span></p>
             <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
                 <span>${ lineinfo.end } </span>
             </p>
