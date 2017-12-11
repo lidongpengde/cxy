@@ -17,25 +17,36 @@
 
 
             <div class="col-md-4">
+                <c:if test="${empty userInfo.headImage}">
                 <div class="form-group ">
-                    <c:if test="${empty userInfo.headImage}">
+
                         <img src="http://gfs14.gomein.net.cn/T1YvKTBsDv1RCvBVdK.png" id="previewPicture"  class="img-circle min" >
+                </div>
+                    <div class="form-group ">
+                        <a href="javascript:;" class="a-upload">
+                            <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">上传头像
+                        </a>
+                </div>
                     </c:if>
 
                 <c:if test="${!empty userInfo.headImage}">
-                <img class="img-circle min"  src="/download/?filename=${userInfo.headImage}" id="previewPicture" >
+                <div class="form-group ">
+                <img class="img-circle min"  src="${userInfo.headImage}" id="previewPicture" >
+                </div>
+                    <div class="form-group ">
                     <a href="javascript:;" class="a-upload">
                         <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">更改头像
                     </a>
-                </c:if>
                 </div>
-                <div class="form-group ">
+                </c:if>
+
+            <%--    <div class="form-group ">
                     <c:if test="${empty userInfo.headImage}">
                         <a href="javascript:;" class="a-upload">
                             <input  name="file" type="file" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity()">上传头像
                         </a>
                     </c:if>
-                </div>
+                </div>--%>
             </div>
             <div class="col-md-8">
                     <div class="form-group ">
@@ -91,8 +102,8 @@
         success:function(data){
             debugger
             $('#file').fadeOut();
-            $('#previewPicture').attr("src","/download/?filename="+data).fadeIn();
-            $('#headImage').val(data);
+            $('#previewPicture').attr("src",data.imagePath).fadeIn();
+            $('#headImage').val(data.imagePath);
         },
         error:function(e){
             alert("网络错误，请重试！！");

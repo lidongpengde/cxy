@@ -119,4 +119,12 @@ public class Welcome {
         //java+getOutputStream() has already been called for this response
         return null;
     }
+    @RequestMapping(value = "saveSinglelineInfo",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Integer saveSinglelineInfo(HttpServletRequest request, LineInfo lineInfo){
+        MessageResult messageResult = new MessageResult();
+        lineInfo.setStatus(1);
+        int size = lineInfoService.savelineinfofirsingle(lineInfo);
+        return size;
+    }
 }

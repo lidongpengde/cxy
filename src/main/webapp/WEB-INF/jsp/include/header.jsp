@@ -24,8 +24,8 @@
 </style>--%>
 <nav class="navbar navbar-default navbar-fixed-top"><div class="container" id="headapp">
     <div class="navbar-header">
-        <a href="/" class="navbar-brand" style="height: 55px;padding-top: 0px">
-            <img src="/asert/image/newlogo.png" style="margin-top: -5px">
+        <a href="/" class="navbar-brand">
+            <img src="/asert/image/newlogo.png" style="margin-top: -5px" width="200" height="30" class="img-responsive" >
         </a>
         <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
             <span class="icon-bar"></span>
@@ -89,11 +89,10 @@
             type:'post',
             url:'/notice/getMsgByUser?classes='+classes,
             success:function (data){
-                debugger
                 headapp.message=data.length;
             },
             error:function (e) {
-                alert("系统繁忙"+e);
+                console.log("系统繁忙"+e);
             }
         })
     })

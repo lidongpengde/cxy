@@ -24,18 +24,17 @@ public class URLToDomain {
      * @throws IOException
      */
 
-    public void parseDomain() throws IOException {
-        User user = null;
-        if (StringUtils.isEmpty(user.getMobile()))
-            System.out.println("tinghaoder");
+    public int parseDomain(Boolean b){
+        return b?1:2;
 
     }
     @Test
     public  void main() throws IOException {
-        List<User> list=null;
-        int a=1;
-        boolean is=isMobile("18310183096");
-        System.out.println(1^a);
+        Map<String,String> map=new HashMap<>();
+       String res= map.put("柳柴","hahha");
+        res=map.put("柴柕","okokok");
+        map.put("lidongpeng","hehehehe");
+        System.out.println(parseDomain(null));
 
     }
     public  boolean isMobile(String mobiles) {

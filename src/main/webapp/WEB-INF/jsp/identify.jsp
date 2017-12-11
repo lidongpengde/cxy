@@ -12,29 +12,29 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="container" id="app" style="margin-top: 90px">
     <form action="/api/Identify"  method="post" id="identifyForm" onsubmit="return false">
-        <div class="form-group"><label for="realName">真实姓名：</label><input id="realName" class="form-control" maxlength="10" name="realName" required></div>
-        <div class="form-group"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" maxlength="20" name="idCardNumber"  required ></div>
+        <div class="form-group row"><label for="realName">真实姓名：</label><input id="realName" class="form-control" maxlength="10" name="realName" required></div>
+        <div class="form-group row"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" maxlength="20" name="idCardNumber"  required ></div>
         <div class="form-group"><%--<label for="positive">正面：</label>--%><input id="positive" type="hidden" class="form-control" name="positive" ></div>
         <div class="form-group"><%--<label for="negative">反面：</label>--%><input id="negative" type="hidden" class="form-control" name="negative" ></div>
         <input hidden="hidden" name="age" id="age">
-        <div class="form-group">
-        <div class="bordered col-xs-5 col-md-6" style="float: left;padding-left: 0px;padding-right: 0px">
-            <img src="/asert/image/positive.jpg" id="previewpositive" class="img-responsive" height="297px">
+        <div class="form-group row">
+        <div class="bordered col-xs-5 col-md-4" style="float: left;padding-left: 0px;padding-right: 0px">
+            <img src="/asert/image/positive.jpg" id="previewpositive" class="img-responsive" height="180" width="385">
             <a href="javascript:;" class="a-upload">
                 <input type="file"  name="file" id="positivefile" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity('positivefile','previewpositive','positive')">上传身份证正面
             </a>
 
         </div>
 
-        <div class="bordered col-xs-5 col-md-6" style="float: right;padding-left: 0px;padding-right: 0px"">
-            <img src="/asert/image/negetive.jpg" id="previewnegative" class="img-responsive"  height="297px">
+        <div class="bordered col-xs-5 col-md-4" style="float: right;padding-left: 0px;padding-right: 0px">
+            <img src="/asert/image/negetive.jpg" id="previewnegative"   height="180" width="385" class="img-responsive">
             <a href="javascript:;" class="a-upload">
                 <input type="file"  name="file1" id="negativefile" accept = "image/jpg,image/jpeg,image/png" onchange="submitIdentity('negativefile','previewnegative','negative')">上传身份证反面
             </a>
 
         </div>
         </div>
-        <div class="form-group" style="padding-top: 30px;float: left">
+        <div class="form-group row" style="padding-top: 10px;float: left">
         <button type="submit" class="btn btn-danger" onclick="submitIdentityForm()">提交认证</button>
         </div>
     </form>
@@ -56,8 +56,8 @@
             contentType: false,
             success:function(data){
                 $('#file').fadeOut();
-                $('#'+preview).attr("src","/download/?filename="+data).fadeIn();
-                $('#'+col).val(data);
+                $('#'+preview).attr("src",data.imagePath).fadeIn();
+                $('#'+col).val(data.imagePath);
             },
             error:function(e){
                 alert("网络错误，请重试！！");

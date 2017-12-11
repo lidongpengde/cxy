@@ -5,7 +5,7 @@
          id="WebApp_ID" version="2.5">
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <welcome-file-list>
-        <welcome-file>/main.html</welcome-file>
+        <welcome-file>/index.html</welcome-file>
     </welcome-file-list>
     <!-- 配置DispatcherServlet -->
   <servlet>

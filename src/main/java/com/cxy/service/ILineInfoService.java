@@ -23,4 +23,6 @@ public interface ILineInfoService {
 
 
     public MessageResult getLineInfoListWithLocation(LineInfo lineInfo,User user);
+
+    public int savelineinfofirsingle(LineInfo lineInfo);
 }

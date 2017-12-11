@@ -93,11 +93,10 @@ p.caption {
  */
 
 .autocompleter {
-    width:auto;
-    background: #dddddd;
+    min-width:500px;
     position: absolute;
-    /*top: 180px;*/
-    /*left: 0;*/
+    background-color: #fefefe;
+
     z-index: 100;
 }
 
@@ -107,6 +106,7 @@ p.caption {
 }
 
 .autocompleter-list {
+    /*border: 1px solid #d1d1d1;*/
     box-shadow: inset 0px 0px 6px rgba(0,0,0,0.1);
     list-style: none;
     margin: 0;
@@ -115,23 +115,20 @@ p.caption {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 .autocompleter-item-selected {
     background: #ffffff;
 }
 
 .autocompleter-item {
-    padding: 1px 12px;
-    color: #777;
-    font-size: 20px;
+    font-size: 12px;
     cursor: pointer;
+    padding: 4px;
+    line-height: 22px;
 }
 
 .autocompleter-item:hover {
-    background: #de4f4f;
-    color: #fff;
+    background-color: #CAE1FF;
 }
-
 
 
 .autocompleter-item span {
@@ -142,9 +139,10 @@ p.caption {
 }
 
 .autocompleter-hint {
+
     color: #ccc;
     text-align: left;
-    font-weight: 400;
+   /* font-weight: 400;*/
     left: 0;
     width: 100%;
     padding: 12px 12px 12px 12px;

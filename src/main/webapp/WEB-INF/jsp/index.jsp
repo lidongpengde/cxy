@@ -50,7 +50,7 @@
 
                 <div class="post-content">
                     <a v-bind:href="'/api/mySubscibe/'+item.lid">
-                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>{{ item.start }}</span><span class="price">¥{{ item.price }}</span></p>
+                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span> {{ item.start }}</span><span class="price">¥{{ item.price }}</span></p>
                      <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
                          <span>{{ item.end }}</span>
                         </p></a>
@@ -74,9 +74,10 @@
                 <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-subscribe">
                     马上预约</a>
                 </div>
-                <div class="hidden-md hidden-lg">
-                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==1" class=" btn btn-subscribe">电话联系</a>
+                <div class="hidden-md hidden-lg col-xs-12">
+                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==1" class="  btn-subscribe">电话联系</a>
                     <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class=" btn btn-subscribe-nobg">预约</a>
+                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==0" class="  btn-subscribe" style="margin-right: 30px">电话联系</a>
                 </div>
             </div>
             <div id="page" class="m-pagination" ></div>
@@ -279,7 +280,7 @@
         })
     })*/
     //时间选择框设置为当前时间
-    Date.prototype.Format = function (fmt) {
+/*    Date.prototype.Format = function (fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份
             "d+": this.getDate(), //日
@@ -296,7 +297,7 @@
     }
     var startTime=document.getElementById('startTime');
     var time = new Date().Format("yyyy-MM-dd");
-    startTime.value=time;
+    startTime.value=time;*/
 </script>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

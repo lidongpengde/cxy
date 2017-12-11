@@ -13,7 +13,8 @@
 </head>
 <body>
 <div class="container" style="margin-top: 90px">
-<h3>${result}</h3>
+    <h3>${result}</h3>
+    <p>点击<a href="#" onClick="javascript :history.back(-1);">返回</a></p>
 </div>
 <jsp:include page="include/foot.jsp"></jsp:include>
 </body>

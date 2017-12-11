@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,12 +81,14 @@ public class UserController {
                 //如果点了一周免登录按钮，直接将session设置为永久
                 session.setMaxInactiveInterval(0);
             }*/
+            jsonObject.put("refer",request.getSession().getAttribute("refer"));
             jsonObject.put("message","登录成功");
             jsonObject.put("code",200);
         }else{
             jsonObject.put("message","用户名和密码不匹配");
             jsonObject.put("code",500);
         }
+        request.getSession().removeAttribute("refer");
         return jsonObject.toJSONString();
     }
     @RequestMapping("/logout")
@@ -95,6 +99,8 @@ public class UserController {
     @RequestMapping("/tologin")
     public String tologin(HttpServletRequest request){
         request.getSession().removeAttribute("const_user");
+        String refer=request.getHeader("referer");
+        request.getSession().setAttribute("refer",refer);
         return "register";
     }
     @RequestMapping("/{userId}")
@@ -136,6 +142,7 @@ public class UserController {
     @RequestMapping(value = "/checkloginstatus",method = RequestMethod.GET)
     @ResponseBody
     public boolean checkloginstatus(HttpServletRequest request){
+
         User olduser= UserTools.getCurrentUser(request);
         if (olduser!=null){
             return true;

@@ -48,7 +48,7 @@ public class SubscribeController {
     public String toSubscibe(HttpServletRequest request,@PathVariable String lid,ModelMap modelMap){
         User user=(User)request.getSession().getAttribute("const_user");
         LineInfo lineInfo = lineInfoService.queryLineInfoById(Integer.parseInt(lid));
-        if(lineInfo.getUserId().equals(user.getId().toString())){
+        if(lineInfo.getUserId()!=null&&lineInfo.getUserId().equals(user.getId().toString())){
             modelMap.put("result","无法对自己的订单进行预约");
             return "result";
         }
@@ -59,6 +59,10 @@ public class SubscribeController {
     @RequestMapping(value = "mySubscibe/{lid}",method = RequestMethod.GET)
     public String toSubscibe(@PathVariable Integer lid,ModelMap modelMap,HttpServletRequest request){
         LineInfo lineInfo=lineInfoService.queryLineInfoById(lid);
+        if (lineInfo==null){
+            modelMap.put("result","您查找的信息不存在");
+            return "result";
+        }
         List<Subscribe> subscribeList=subscribeService.querySubscibeList(lineInfo);
         modelMap.put("lineinfo",lineInfoService.queryLineInfoById(lid));
         modelMap.put("subscribeList",subscribeList);

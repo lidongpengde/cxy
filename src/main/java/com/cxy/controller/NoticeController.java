@@ -22,7 +22,10 @@ public class NoticeController {
     @ResponseBody
     public String getMsgByUser(HttpServletRequest request,String classes){
         User user=(User)request.getSession().getAttribute("const_user");
-        List list =noticeService.getMessByUserAndCla(user.getId().toString(),classes);
+        List list=null;
+        if (user!=null){
+             list =noticeService.getMessByUserAndCla(user.getId().toString(),classes);
+        }
         return JSONArray.toJSONString(list);
     }
 }

@@ -25,8 +25,8 @@
 <div id="app">
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
         <div class="navbar-header">
-            <a href="/" class="navbar-brand" style="height: 55px;padding-top: 0px">
-                <img src="/asert/image/newlogo.png" style="margin-top: -5px">
+            <a href="/" class="navbar-brand">
+                <img src="/asert/image/newlogo.png" style="margin-top: -5px" width="200" height="30" class="img-responsive" >
             </a>
             <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
                 <span class="icon-bar"></span>
@@ -60,10 +60,13 @@
         <p >
         <span style="border: 2px solid #d9534f;padding:1px 5px;color: #d9534f;font-size: 12px;margin-right: 20px">¥{{ item.price }}</span>
         <span style="border: 2px solid #d9534f;padding:1px 5px;color: #d9534f;font-size: 12px;margin-right: 20px">	{{ item.startTime }}</span>
+        <span style="border: 2px solid #d9534f;padding:1px 5px;color: #d9534f;font-size: 12px;margin-right: 20px" class="hidden-xs">{{ item.userMobile }}</span>
+
         </p>
         <p style="padding-top: 10px">
             <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==1" class="choose-button">电话联系</a>
             <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="choose-button">预约</a>
+            <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==0" class="choose-button">电话联系</a>
         </p>
     </div>
 </div>
@@ -92,7 +95,6 @@
         type : "GET",
         url : "/user/checkloginstatus",
         success : function(data) {
-            debugger
             app.showheader=data;
         }
     });
@@ -109,7 +111,6 @@
             url : "/location/lineInfo",
             data : params,
             success : function(data) {
-                debugger
                 app.items=data.buessObj;
                 if (!data.success||app.items.length==0){
                     app.show=true;
@@ -118,11 +119,6 @@
         });
 
     });
-
-    console.log(localStorage.getItem("startlocationname"));
-    console.log(localStorage.getItem("startlocationadcode"));
-    console.log(localStorage.getItem("detanationname"));
-    console.log(localStorage.getItem("detanationadcode"));
 </script>
 </body>
 </html>

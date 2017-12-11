@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>123</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=23834821b1465df3fa84571571947619&plugin=AMap.Autocomplete"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
+
+</head>
+<style>
+    .amap-sug-result{
+        position: absolute;
+    }
+</style>
+<body>
+<div class="container" style="margin-top: 70px">
+    <div class="main">
+      
+<div id="app">
+
+  <form id="message" onsubmit="return false">
+      <div class="errors" ><span id="errormsg"></span></div>
+    <div class="form-group">
+      <label>
+        <input type="radio"name="type"value="1" checked v-on:click="selectType(1)"> 我是司机
+      </label>
+      <label>
+        <input type="radio" name="type" value="0" v-on:click="selectType(0)"> 我是乘客
+      </label>
+    </div>
+    <div class="form-group" >
+      <input placeholder="出发地" type="text" name="start" id="start"  class="form-control" autocomplete="off"></div>
+    <div class="form-group" >
+      <input placeholder="目的地" type="text" name="end" id="end" class="form-control" autocomplete="off" ></div>
+      <div class="input-group form-group">
+          <span class="input-group-addon">¥</span>
+          <input placeholder="价格" type="number" name="price" id="price" min="0"  class="form-control" >
+          <span class="input-group-addon">.00</span>
+      </div>
+            <div class="form-group" >
+                <label>
+                  <input type="radio"name="isbargin"value="1" checked > 接受议价
+                </label>
+                <label>
+                  <input type="radio" name="isbargin" value="0" > 不接受
+                </label>
+              </div>
+    <div class="form-group" >
+        <select name="personCount" id="personCount" class="form-control" >
+            <option disabled="disabled" selected value="0">请选择人数</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+      </div>
+              <div class="form-group" >
+      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  ></div>
+      <div class="form-group">
+          <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" step="1" >
+      </div>
+       <div class="form-group">
+          <input type="text" name="userMobile" id="userMobile" class="form-control" placeholder="手机号">
+      </div>
+      <div class="form-group">
+          <input type="text" name="userNickname" id="userNickname" class="form-control" placeholder="发布人">
+      </div>
+      <br/>
+      <div class="form-group">
+    <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
+          </div>
+      <input name="startAdcode" id="startAdcode" hidden="hidden" value="${alterLine.startAdcode}">
+      <input name="startLongitude" id="startLongitude" hidden="hidden" value="${alterLine.startLongitude}">
+      <input name="startLatitude" id="startLatitude" hidden="hidden" value="${alterLine.startLatitude}">
+      <input name="endAdcode" id="endAdcode" hidden="hidden" value="${alterLine.endAdcode}">
+      <input name="endLongitude" id="endLongitude" hidden="hidden" value="${alterLine.endLongitude}">
+      <input name="endLatitude" id="endLatitude" hidden="hidden" value="${alterLine.endLatitude}">
+</form>
+</div>
+    </div>
+  </div>
+<script>
+
+    var app=new Vue({
+
+        el: '#app',
+        data: {
+            options:'',
+            error: ''
+        },
+        methods: {
+            submit: function(event) {
+                    var params = $("#message").serialize();
+                    $.ajax( {
+                        type : "POST",
+                        url : "/v1/lineInfos",
+                        data : params,
+                        success : function(msg) {
+                            alert("success: " + msg);
+                        }
+                    });
+
+            },
+            selectType:function(message){
+                debugger
+                var type=message;
+                console.log(type);
+                if(type==1){
+                    $('#plateNumber').show();
+                }else{
+                    $('#plateNumber').hide();
+                }
+            }
+        }
+
+    });
+
+     function submitline(){
+        //ajax提交
+        var params = $("#message").serialize();
+        $.ajax({
+            type : "POST",
+            url : "/saveSinglelineInfo",
+            data : params,
+            success : function(data) {
+                alert("提交成功")
+
+            }
+        });
+
+    }
+
+    /**
+     * 提示输入
+     */
+    var startauto = new AMap.Autocomplete({
+        input: "start"
+    });
+    AMap.event.addListener(startauto, "select", startselect);//注册监听，当选中某条记录时会触发
+    function startselect (e) {
+        debugger
+        $('#startAdcode').val(e.poi.adcode);
+        $('#startLongitude').val(e.poi.location.lng);
+        $('#startLatitude').val(e.poi.location.lat);
+    }
+
+    var endauto = new AMap.Autocomplete({
+        input: "end"
+    });
+    AMap.event.addListener(endauto, "select", endselect);//注册监听，当选中某条记录时会触发
+    function endselect (e) {
+        $('#endAdcode').val(e.poi.adcode);
+        $('#endLongitude').val(e.poi.location.lng);
+        $('#endLatitude').val(e.poi.location.lat);
+    }
+
+</script>
+<jsp:include page="include/foot.jsp"></jsp:include>
+</body>
+</html>

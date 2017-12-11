@@ -5,9 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>任我行顺风车网</title>
+    <meta name="keywords" content="顺风车，拼车，发布拼车信息，长途拼车顺风车，上下班拼车，方便快捷出行">
+    <meta name="description" content="任我行顺风车网，是一个顺风车、拼车网络平台">
+    <meta name="360-site-verification" content="c4bb38a2202ca179c5b1a01a5f1938de" />
+    <meta name="sogou_site_verification" content="yZCnHk5EE0"/>
     <link rel="shortcut icon" href="/asert/image/smalllogo.jpg" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
     <link rel="stylesheet" href="/asert/css/main1119.css"/>
+<!--    <link rel="stylesheet" href="/asert/css/bootstrap.css"/>-->
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=23834821b1465df3fa84571571947619&plugin=AMap.Autocomplete"></script>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <!--<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>-->
@@ -28,16 +33,16 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
+        <a href="/" class="navbar-brand">
+            <img src="/asert/image/newlogo.png" style="margin-top: -5px" width="200" height="30" class="img-responsive" >
+        </a>
+    <div v-if="showheader">
         <div class="navbar-header">
-            <a href="/" class="navbar-brand" style="height: 55px;padding-top: 0px;">
-                <img src="/asert/image/newlogo.png" style="margin-top: -5px">
-            </a>
             <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span></a>
         </div>
-    <div v-if="showheader">
         <nav   id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="true" style="height: 227px;">
             <ul class="nav navbar-nav navbar-right">
                 <li data-home="" >
@@ -47,9 +52,12 @@
             </ul>
         </nav>
     </div>
-    <div v-if="!showheader" id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
-        <ul class="nav navbar-nav navbar-right">
-            <li data-pricing=""><a href="/user/tologin" class="menu-main"><span>请登录</span></a></li>
+    <div v-if="!showheader">
+        <ul class="nav  navbar-right">
+            <li data-pricing="">
+                <a href="/user/tologin" class="" style="float: right;margin-top: 6px;"><span>登录</span></a>
+                <span class="hidden-xs" style="float: right;padding: 16px 15px">更多行程信息，点击</span>
+            </li>
         </ul>
     </div>
 
@@ -85,6 +93,7 @@
             <a id="installnow" href="#" onclick="goSearchResult(1)" class="discuss btn-custom hvr-rectangle-out-bg" style="width: 150px;height:36px;line-height:36px;float: left">找司机</a>
             <a id="more-features" href="#" onclick="goSearchResult(0)"class="discuss btn-custom hvr-rectangle-out" style="width: 150px;height:36px;line-height:36px;float: left;margin-left: 20px; margin-right: 0px"> 找乘客</a>
         </div>
+
     </div>
 </div>
 </div>

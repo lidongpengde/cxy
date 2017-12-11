@@ -79,6 +79,7 @@ public class LineInfoServiceImpl implements ILineInfoService {
 /*        executor.execute(new Runnable() {
             @Override
             public void run() {*/
+        int linetype=lineInfo.getType();
                 if (user!=null){
                     lineInfo.setStatus(1);
                     lineInfo.setUserMobile(user.getMobile().toString());
@@ -93,6 +94,8 @@ public class LineInfoServiceImpl implements ILineInfoService {
         });*/
         lineInfo.setStart("");
         lineInfo.setEnd("");
+        lineInfo.setStartTime("");
+        lineInfo.setType(linetype);
         List<LineInfo> list=lineInfoMapper.getLineInfoListForLocation(lineInfo);
         if (list!=null&&list.size()>0){
             messageResult.setBuessObj(list);
@@ -103,6 +106,11 @@ public class LineInfoServiceImpl implements ILineInfoService {
         }
 
         return messageResult;
+    }
+
+    @Override
+    public int savelineinfofirsingle(LineInfo lineInfo) {
+        return lineInfoMapper.insertSelective(lineInfo);
     }
 
     /**

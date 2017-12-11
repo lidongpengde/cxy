@@ -31,18 +31,19 @@ public class AuthFilter implements Filter {
                          FilterChain arg2) throws IOException, ServletException {
         //线上换成这个，不然重定向找不到路径
         final String loginUrlOnline="http://go366.club/user/tologin";
-        final String prefix="http://";
+        String pre="http://";
         //调试用这个
         final String loginUrltest="/user/tologin";
         HttpServletRequest req = (HttpServletRequest)arg0;
         HttpServletResponse resp =(HttpServletResponse) arg1;
+        final String host=req.getContextPath();
         HttpSession session = req.getSession();
-        String host = "47.95.239.247";
+        String loginaddress =host+loginUrltest;
         User password = (User) session.getAttribute("const_user");
         if (password == null || "".equals(password)) {
             // 跳转到登录页面
             //resp.sendRedirect(prefix+host+loginUrltest);
-            resp.sendRedirect(loginUrlOnline);
+            resp.sendRedirect(loginaddress);
         } else {
             arg2.doFilter(req, resp);
         }

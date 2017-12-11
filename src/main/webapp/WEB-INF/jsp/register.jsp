@@ -14,7 +14,7 @@
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
 <div class="header " style="background-image: url(/asert/image/backgrond.jpg);">
-    <div class="container">
+    <div class="container" >
         <div class="row">
             <div class="hidden-xs col-md-8">
                 <h2 style="color: #fff">“任我行顺风车网，和志同道合的人一起出行...”</h2>
@@ -77,8 +77,18 @@
         </div>
 
     </div>
-    </div>
 
+    </div>
+<div class="container">
+    <div style="float: left" class="col-xs-12 col-md-6">
+        <h5 style="text-align: center">微信公众号</h5>
+        <img style="margin-right: auto;margin-left: auto" src="/asert/image/gongzhonghao.png" width="280" height="280" class="img-responsive">
+    </div>
+ <%--   <div class="col-xs-12 col-md-6">
+        <h5 style="text-align: center">手机客户端</h5>
+        <img style="margin-right: auto;margin-left: auto" src="/asert/image/app.png" class="img-responsive" width="280" height="280">
+    </div>--%>
+</div>
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -103,7 +113,7 @@ function loginPage(){
         var phone = $("#mobile").val();
         var flag = false;
         var message = "";
-        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{9})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
         if(phone == ''){
             message = "手机号码不能为空！";
         }else if(phone.length !=11){
@@ -205,7 +215,11 @@ function loginPage(){
                 },
                 success: function(data) {
                     if (data.code==200){
-                        location.href="/v1/toIndexPage";
+                        if (data.refer){
+                            location.href=data.refer;
+                        }else{
+                            location.href="/v1/toIndexPage";
+                        }
                     }else{
                         alert(data.message);
                     }

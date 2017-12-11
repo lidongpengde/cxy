@@ -17,18 +17,21 @@
 <div class=" effect" >
 
     <div class="post-content">
-        <h3><strong>${ lineinfo.start }</strong>	&nbsp;</strong><strong class="glyphicon glyphicon-arrow-right" aria-hidden="true"></strong>	&nbsp;<strong>${ lineinfo.end }</strong>	&nbsp;
-            <span class="glyphicon glyphicon-earphone" aria-hidden="true">${ lineinfo.userMobile }</span></h3>
+
+            <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span>${ lineinfo.start } </span><span class="price">¥${item.price }</span></p>
+            <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
+                <span>${ lineinfo.end } </span>
+            </p>
         <p>
             剩余座位:	&nbsp;<span class="">${ lineinfo.personCount }</span>		&nbsp;&nbsp;<span v-if="item.plateNumber ">车牌号：${ lineinfo.plateNumber }</span>
             &nbsp;	&nbsp;
             <span class="glyphicon glyphicon-user" aria-hidden="true">${ lineinfo.userNickname }</span>
             &nbsp;	&nbsp;
-            <span class="glyphicon glyphicon-calendar" aria-hidden="true">	${ lineinfo.startTime }</span>
-            <%--<span class="price">¥{{ item.price }}</span>--%>
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true">${ lineinfo.startTime }</span>
         </p>
+
     </div>
-    <span class="price discuss">¥${ lineinfo.price }</span>
+
 </div>
     <ul class="tab-navs clearfix">
         <li class="tab-nav active"><a class="anchor" href="#" >行程预约信息</a></li>
@@ -45,7 +48,9 @@
             </div>
         </div>
     </c:forEach>
-
+    <c:if test="${empty subscribeList}">
+        <em>目前还没有人预约。。。</em>
+    </c:if>
 </div>
 </div>
 <jsp:include page="include/foot.jsp"></jsp:include>
