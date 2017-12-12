@@ -55,9 +55,13 @@
             processData: false,
             contentType: false,
             success:function(data){
+                if(data.success){
                 $('#file').fadeOut();
                 $('#'+preview).attr("src",data.imagePath).fadeIn();
                 $('#'+col).val(data.imagePath);
+                }else{
+                    alert(data.message);
+                }
             },
             error:function(e){
                 alert("网络错误，请重试！！");

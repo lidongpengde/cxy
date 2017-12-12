@@ -42,7 +42,12 @@ public class UploadAction {
             List<FileItem> list = upload.parseRequest(request);
              fileItem=list.get(0);
         } catch (FileUploadException e) {
+            Map<String,Object> map=new HashMap<>();
+            map.put("message","图片过大，请您上传3M大小一下图片");
+            map.put("success",false);
             e.printStackTrace();
+            return JSONObject.toJSONString(map);
+
         }
         String oldfileName=fileItem.getName();
         String prefix=oldfileName.substring(oldfileName.lastIndexOf("."));
@@ -57,9 +62,9 @@ public class UploadAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Map<String,String> map=new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
         map.put("imagePath","/download?filename="+fileName);
-        map.put("success","true");
+        map.put("success",true);
         return JSONObject.toJSONString(map);
     }
     @RequestMapping("/download")

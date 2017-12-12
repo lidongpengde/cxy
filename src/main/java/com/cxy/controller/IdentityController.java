@@ -40,6 +40,12 @@ public class IdentityController {
         User user=UserTools.getCurrentUser(request);
         String path=request.getParameter("path");
         identity.setUserId(user.getId());
+        if (user.getIdentifyStatus()==3){
+            jsonObject.put("isSuccess",false);
+            jsonObject.put("message","您已提交认证信息，无需重复提交！");
+            jsonObject.put("code",400);
+            return JSONObject.toJSONString(jsonObject);
+        }
         int size=identityService.saveIdentity(identity,path);
         if (size>0){
             jsonObject.put("message", WarningEnum.identify_wait.getMsg());

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -128,16 +129,37 @@ public class UserController {
         return "usercenter";
     }
 
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/update",produces = "application/json; charset=utf-8")
+    @ResponseBody
     public String updateUserinfo(User user, HttpServletRequest request, ModelMap modelMap){
          User olduser= UserTools.getCurrentUser(request);
+         JSONObject jsonObject=new JSONObject();
         if (!user.getId().equals(olduser.getId())){
-            modelMap.put("result","信息有误");
-            return "result";
+            jsonObject.put("isSuccess",false);
+            jsonObject.put("message","非法访问啊，老铁");
+            return JSONObject.toJSONString(jsonObject);
+        }
+        User oldUser= userService.findUserByMobile(String.valueOf(user.getMobile()));
+        if (oldUser!=null){
+            jsonObject.put("isSuccess",false);
+            jsonObject.put("message","该手机号已被占用");
+            return JSONObject.toJSONString(jsonObject);
+        }
+        oldUser=userService.findUserByName(user.getUserName());
+        if (oldUser!=null){
+            jsonObject.put("isSuccess",false);
+            jsonObject.put("message","该用户名已被占用");
+            return JSONObject.toJSONString(jsonObject);
         }
         user=userService.updateUser(user);
+        if (user!=null){
+            if (oldUser!=null){
+                jsonObject.put("isSuccess",true);
+                jsonObject.put("message","修改成功");
+            }
+        }
         request.getSession().setAttribute("const_user",user);
-        return "usercenter";
+        return JSONObject.toJSONString(jsonObject);
     }
     @RequestMapping(value = "/checkloginstatus",method = RequestMethod.GET)
     @ResponseBody

@@ -11,16 +11,17 @@ import com.cxy.entity.User;
 import com.cxy.entity.UserRecord;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.Iidentity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sound.sampled.Line;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * Created by lidongpeng on 2017/7/21.
@@ -29,9 +30,9 @@ import java.util.concurrent.Executors;
 public class LineInfoServiceImpl implements ILineInfoService {
     @Autowired
     private LineInfoMapper lineInfoMapper;
-    private ExecutorService executor;
+    ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(5,10,1000, TimeUnit.MICROSECONDS,new ArrayBlockingQueue<Runnable>(10));
     public LineInfoServiceImpl(){
-        executor= Executors.newSingleThreadExecutor();
+
     }
     @Override
     public MessageResult saveLineInfo(LineInfo lineInfo,HttpServletRequest request) {
@@ -76,27 +77,25 @@ public class LineInfoServiceImpl implements ILineInfoService {
     public MessageResult getLineInfoListWithLocation(LineInfo lineInfo,User user) {
         MessageResult<List<LineInfo>> messageResult=new MessageResult();
         //如果用户已经登录，将用户的查询信息发布出去,这里多线程情况下有些不稳定，先走单线程
-/*        executor.execute(new Runnable() {
-            @Override
-            public void run() {*/
         int linetype=lineInfo.getType();
-                if (user!=null){
-                    lineInfo.setStatus(1);
-                    lineInfo.setUserMobile(user.getMobile().toString());
-                    lineInfo.setUserId(user.getId().toString());
-                    lineInfo.setUserNickname(user.getNickName());
-                    lineInfo.setType(1^lineInfo.getType());
-                    //出发时间默认在当前时间加5个小时
-                    lineInfo.setStartTime(UserTools.addDateMinut(UserTools.getCurrentTime(),5));
-                    lineInfoMapper.insertSelective(lineInfo);
-                }
-/*            }
-        });*/
+        LineInfo newLine=new LineInfo();
+        BeanUtils.copyProperties(lineInfo,newLine);
         lineInfo.setStart("");
         lineInfo.setEnd("");
         lineInfo.setStartTime("");
         lineInfo.setType(linetype);
         List<LineInfo> list=lineInfoMapper.getLineInfoListForLocation(lineInfo);
+        if (user!=null){
+            newLine.setStatus(1);
+            newLine.setUserMobile(user.getMobile().toString());
+            newLine.setUserId(user.getId().toString());
+            newLine.setUserNickname(user.getNickName());
+            newLine.setPersonCount(3);
+            newLine.setType(1^lineInfo.getType());
+            //出发时间默认在当前时间加5个小时
+            newLine.setStartTime(UserTools.addDateMinut(UserTools.getCurrentTime(),3));
+            lineInfoMapper.insertSelective(newLine);
+        }
         if (list!=null&&list.size()>0){
             messageResult.setBuessObj(list);
             messageResult.setSuccess(true);

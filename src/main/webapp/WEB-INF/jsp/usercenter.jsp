@@ -77,6 +77,9 @@
                         <c:if test="${userInfo.identifyStatus=='0'}">
                             <a href="/api/toIdentify">未认证</a>
                         </c:if>
+                        <c:if test="${userInfo.identifyStatus=='3'}">
+                            <span href="/api/toIdentify">认证中</span>
+                        </c:if>
                     </label>
                 </div>
 
@@ -115,7 +118,8 @@ function updateUserInfo() {
             data:$('#form').serialize(),
             type:'post',
             success:function (data) {
-               alert("修改成功")
+
+               alert(data.message)
             }
         })
 
