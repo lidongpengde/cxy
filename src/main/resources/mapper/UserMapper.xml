@@ -11,9 +11,10 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="identify_status" jdbcType="BIGINT" property="identifyStatus" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, mobile, age, sex, user_name, pass_word, nick_name, identify_status,head_image
+    id, mobile, age, sex, user_name, pass_word, nick_name, identify_status,head_image,email
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -59,6 +60,9 @@
       </if>
       <if test="sex != null">
         sex,
+      </if>
+      <if test="email != null">
+        email,
       </if>
       <if test="userName != null">
         user_name,

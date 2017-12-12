@@ -62,11 +62,23 @@
                             <input class="form-control" type="text" id="mobile" name="mobile" value="${userInfo.mobile}">
                         </div>
                     </div>
+                <div class="form-group ">
+                    <label class="control-label" for="userName">邮箱：</label>
+                    <c:if test="${ userInfo.email}">
+                        <div class="">
+                            <input class="form-control" type="text" id="email" name="email" value="${userInfo.email}">
+                        </div>
+                    </c:if>
+                    <c:if test="${empty userInfo.email}">
+                        <a href="/template/bindEmail.html">绑定邮箱</a>
+                    </c:if>
+                </div>
                     <div class="form-group ">
                         <label class="control-label" for="userName">用户名：</label>
                         <div class="">
                             <input class="form-control" type="text" id="userName" name="userName" value="${userInfo.userName}">
                         </div>
+
                     </div>
                 <div class="form-group ">
                     <label class="control-label" >认证状态：</label>

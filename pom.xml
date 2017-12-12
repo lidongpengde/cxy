@@ -215,6 +215,13 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.3.2</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>cxy</finalName>

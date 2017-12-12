@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
  *
  */
 public class CallableFuture {
+    static final String a="1";
     public static void main(String[] args) throws Exception {
         ExecutorService es = Executors.newSingleThreadExecutor();
 

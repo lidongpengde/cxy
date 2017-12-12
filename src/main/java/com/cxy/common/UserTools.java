@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -86,5 +87,19 @@ public class UserTools {
         cal = null;
         return format.format(date);
 
+    }
+    /**
+     * 产生4位随机数(0000-9999)
+     * @return 4位随机数
+     */
+    public static String getFourRandom(){
+        Random random = new Random();
+        String fourRandom = random.nextInt(10000) + "";
+        int randLength = fourRandom.length();
+        if(randLength<4){
+            for(int i=1; i<=4-randLength; i++)
+                fourRandom = "0" + fourRandom  ;
+        }
+        return fourRandom;
     }
 }

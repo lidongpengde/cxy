@@ -35,6 +35,15 @@ public class User {
 
     private String headImage;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
 
     private Long identifyStatus;
 
