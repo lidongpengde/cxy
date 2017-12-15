@@ -10,7 +10,7 @@
 </head>
 <body >
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" id="app" style="margin-top: 90px">
+<div class="container" id="app" style="margin-top: 55px;min-height: 100%">
     <form action="/api/Identify"  method="post" id="identifyForm" onsubmit="return false">
         <div class="form-group row"><label for="realName">真实姓名：</label><input id="realName" class="form-control" maxlength="10" name="realName" required></div>
         <div class="form-group row"><label for="idCardNumber">身份证号：</label><input id="idCardNumber" class="form-control" maxlength="20" name="idCardNumber"  required ></div>

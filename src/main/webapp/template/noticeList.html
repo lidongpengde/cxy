@@ -15,14 +15,6 @@
         background: #d2edf4;
         background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
     }
-    .container {
-        padding-top: 10px;
-        max-width: 600px;
-        margin: 0 auto;
-        min-height: 100%;
-        background: #d2edf4;
-        background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
-    }
 </style>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
@@ -47,10 +39,10 @@
 
 </div>
 </nav>
-
     </nav>
+
 <div class="list-group" id="headapp">
-<div class="container" style="margin-top: 60px">
+<div class="container" style="margin-top: 58px">
     <h3>我的通知</h3>
     <a v-bind:href="'/api/mySubscibe/'+item.businessid+'?id='+item.id" class="list-group-item list-group-item-success" v-for="item in items">{{item.messages}}</a>
 </div>

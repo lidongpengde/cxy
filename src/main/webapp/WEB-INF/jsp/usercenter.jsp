@@ -12,7 +12,7 @@
     </style>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" style="margin-top: 60px">
+<div class="container" style="margin-top: 55px;min-height: 100%">
     <form action="/user/update" id="form" class="form-horizontal" onsubmit="return false">
 
 

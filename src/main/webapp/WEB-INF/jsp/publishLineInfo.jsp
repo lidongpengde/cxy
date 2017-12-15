@@ -22,17 +22,17 @@
          background-image: linear-gradient(to bottom, #315481, #918e82 100%);
          /*position: relative;*/
      }
-    form {
+    .container {
         padding-top: 10px;
         max-width: 600px;
         margin: 0 auto;
         min-height: 100%;
-        background: #d2edf4;
-        background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+        /*background: #d2edf4;*/
+        /*background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);*/
     }
 </style>
 <body>
-<div class="container" style="margin-top: 70px">
+<div class="container" style="margin-top: 55px;background: #fafafa;">
     <div class="main">
       
 
