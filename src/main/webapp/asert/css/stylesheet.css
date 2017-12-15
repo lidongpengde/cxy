@@ -5,7 +5,6 @@
 
  .login-tab-l,  .login-tab-r {
      width: 173px;
-     background-color: #fff;
      padding-bottom: 20px;
 }
  .login-tab {
@@ -32,7 +31,6 @@
 .aaa{
     padding-top: 10px;
     padding-bottom: 40px;
-    background-color: #fff;
 
 }
 .login-tab a.checked,  .login-tab a:hover {

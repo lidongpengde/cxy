@@ -12,16 +12,12 @@
     <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
 </head>
 <body>
-<%--<style>
-    @font-face
-    {
-        font-family: myFirstFont;
-        src: url('/asert/fonts/huawenxingkai.ttf');
+<style>
+    .navbar{
+        background: #d2edf4;
+        background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
     }
-    .navbar-brand{
-        font-family: myFirstFont;
-    }
-</style>--%>
+</style>
 <nav class="navbar navbar-default navbar-fixed-top"><div class="container" id="headapp">
     <div class="navbar-header">
         <a href="/" class="navbar-brand">
@@ -48,9 +44,9 @@
                         </a>
                     </li>
                     <li data-home="" >
-                        <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布</span></a></li>
-                    <li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>
-                    <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>发现更多</span></a></li>
+                        <a href="/v1/toPublishlineInfoPage" class="menu-main"><span>发布行程</span></a></li>
+                    <%--<li data-pricing=""><a href="/main.html" class="menu-main"><span>首页</span></a></li>--%>
+                    <li data-pricing=""><a href="/v1/toIndexPage" class="menu-main"><span>查找</span></a></li>
                     <li data-pricing=""><a href="/v1/myMenu" class="menu-main"><span>我的<span class="badge ">{{message}}</span></span></a></li>
                 </ul>
             </nav>

@@ -16,14 +16,22 @@
 </head>
 <style>
     body{
-        position: relative;
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        /*position: relative;*/
     }
     .glyphicon {
         color: #337ab7;
     }
+    .container{
+        max-width: 800px;
+        background: #d2edf4;
+        min-height: 100%;
+        background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+    }
 </style>
 <body >
-<div class="container" id="app" style="margin-top: 70px">
+<div class="container" id="app" style="margin-top: 52px;padding-top: 15px;">
 
         <%--头部搜索栏--%>
 

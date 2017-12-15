@@ -6,20 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 <style type="text/css">
-/*    .copyright{
-        position: inherit !important;
-    }*/
+    body{
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        /*position: relative;*/
+    }
+    .glyphicon {
+        color: #337ab7;
+    }
+    .container{
+        position: relative;
+        max-width: 500px !important;
+    }
 </style>
 </head>
+
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="header " style="background-image: url(/asert/image/backgrond.jpg);">
-    <div class="container" >
+    <div class="container" style="margin-top: 60px;height: 500px;background-color: #fafafa;background-image: none" >
         <div class="row">
-            <div class="hidden-xs col-md-8">
-                <h2 style="color: #fff">“任我行顺风车网，和志同道合的人一起出行...”</h2>
-            </div>
-            <div class="col-xs-12 col-md-4" >
+            <div class="" >
                     <div class="shadow">
                         <form action="/user/register" id="registerForm" name="registerForm" onsubmit="return false">
 
@@ -42,14 +48,14 @@
                                 <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord"  maxlength="10" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
                                 <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10"   name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
                                 <%--<div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>--%>
-                                <div class="form-group">
+                            <%--    <div class="form-group">
                                     <label>
                                         <input type="radio"name="sex"value="1" checked> 男
                                     </label>
                                     <label>
                                         <input type="radio" name="sex" value="0"> 女
                                     </label>
-                                </div>
+                                </div>--%>
                                 <div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" placeholder="张三" class="form-control" required></div>
                                 <div class="form-group"><a  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</a></div>
                                 <br>
@@ -78,17 +84,6 @@
 
     </div>
 
-    </div>
-<div class="container">
-    <div style="float: left" class="col-xs-12 col-md-6">
-        <h5 style="text-align: center">微信公众号</h5>
-        <img style="margin-right: auto;margin-left: auto" src="/asert/image/gongzhonghao.png" width="280" height="280" class="img-responsive">
-    </div>
- <%--   <div class="col-xs-12 col-md-6">
-        <h5 style="text-align: center">手机客户端</h5>
-        <img style="margin-right: auto;margin-left: auto" src="/asert/image/app.png" class="img-responsive" width="280" height="280">
-    </div>--%>
-</div>
     </div>
 <script type="text/javascript">
     $(document).ready(function(){

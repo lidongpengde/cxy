@@ -32,7 +32,7 @@ public class URLToDomain {
     public  void main() throws IOException {
         Map<String,String> map=new HashMap<>();
        String res= map.put("柳柴","hahha");
-        res=map.put("柴柕","okokok");
+        res=map.put("woshi","okokok");
         map.put("lidongpeng","hehehehe");
         System.out.println(parseDomain(null));
 

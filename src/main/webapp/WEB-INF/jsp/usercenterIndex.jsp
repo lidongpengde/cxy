@@ -8,7 +8,7 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" style="margin-top: 70px" id="myapp">
+<div class="container" style="margin-top: 60px;min-height: 100%" id="myapp">
     <div class="row">
     <div class="list-group">
         <a href="#" class="list-group-item active">

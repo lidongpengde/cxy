@@ -1,14 +1,10 @@
 package com.cxy.service.Impl;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
-import org.junit.Test;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
