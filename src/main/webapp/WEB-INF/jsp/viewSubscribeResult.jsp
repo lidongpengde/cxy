@@ -12,8 +12,8 @@
 <head>
     <title>任我行顺风车网</title>
 </head>
-<body style="background-color: #fff">
-<div class="container" style="margin-top: 90px">
+<body>
+<div class="container" style="margin-top: 55px">
 <div class=" effect" >
 
     <div class="post-content">

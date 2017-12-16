@@ -16,14 +16,14 @@
     }
     .container{
         position: relative;
-        max-width: 500px !important;
+        max-width: 450px !important;
     }
 </style>
 </head>
 
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-    <div class="container" style="margin-top: 60px;height: 500px;background-color: #fafafa;background-image: none" >
+    <div class="container" style="margin-top: 55px;height: 500px;background-color: #fafafa;background-image: none" >
         <div class="row">
             <div class="" >
                     <div class="shadow">

@@ -303,6 +303,6 @@
     var time = new Date().Format("yyyy-MM-ddTHH:mm:ss");
     startTime.value=time;
 </script>
-<jsp:include page="include/foot.jsp"></jsp:include>
+<%--<jsp:include page="include/foot.jsp"></jsp:include>--%>
 </body>
 </html>

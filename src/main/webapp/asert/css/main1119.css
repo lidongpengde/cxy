@@ -162,3 +162,25 @@ html, body {
     background-color: #a83636!important;
     border-color: #a83636!important;
 }
+.form-account .btn-primary-meteor {
+    display: inline-block;
+    width: 100%;
+    background-color: #de4f4f;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    border: none;
+    height: 42px;
+    text-align: center;
+    line-height: 42px;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+.form-account .error-account {
+    display: inherit;
+    color: #de4f4f;
+    font-size: 13px;
+    position: relative;
+    top: -5px;
+    margin-bottom: 10px;
+}

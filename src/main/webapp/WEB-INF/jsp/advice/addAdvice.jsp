@@ -5,7 +5,7 @@
     <title>意见箱</title>
 </head>
 <body>
-<div class="container" style="margin-top: 80px">
+<div class="container" style="margin-top: 55px">
     <form onsubmit="return false" id="adviceForm">
     <div class="form-group">
         <input class="form-control" placeholder="标题" name="adviceTitle" id="adviceTitle">

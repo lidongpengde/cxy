@@ -113,6 +113,9 @@
       <if test="age != null and age != ''">
         age = #{age,jdbcType=BIGINT},
       </if>
+      <if test="email != null and email != ''">
+        email = #{email,jdbcType=BIGINT},
+      </if>
       <if test="sex != null and sex != ''">
         sex = #{sex,jdbcType=VARCHAR},
       </if>
