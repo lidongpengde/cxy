@@ -146,17 +146,15 @@ public class UserController {
             return JSONObject.toJSONString(jsonObject);
         }
         oldUser=userService.findUserByName(user.getUserName());
-        if (oldUser!=null){
+        if (oldUser!=null ){
             jsonObject.put("isSuccess",false);
             jsonObject.put("message","该用户名已被占用");
             return JSONObject.toJSONString(jsonObject);
         }
         user=userService.updateUser(user);
         if (user!=null){
-            if (oldUser!=null){
                 jsonObject.put("isSuccess",true);
                 jsonObject.put("message","修改成功");
-            }
         }
         request.getSession().setAttribute("const_user",user);
         return JSONObject.toJSONString(jsonObject);

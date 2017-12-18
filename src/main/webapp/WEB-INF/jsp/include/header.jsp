@@ -85,7 +85,9 @@
             type:'post',
             url:'/notice/getMsgByUser?classes='+classes,
             success:function (data){
-                headapp.message=data.length;
+                if (data){
+                    headapp.message=data.length;
+                }
             },
             error:function (e) {
                 console.log("系统繁忙"+e);

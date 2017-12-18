@@ -87,4 +87,41 @@ public class EmailController {
         }
         return JSONObject.toJSONString(jsonObject);
     }
+    @RequestMapping("/getPassword")
+    public String getPassword(String email, String mobile){
+        MailService mailService= MailService.getInstance();
+        JSONObject jsonObject=new JSONObject();
+        if (StringUtils.isEmpty(email)){
+            jsonObject.put("code","400");
+            jsonObject.put("message","请输入邮箱地址");
+            return JSONObject.toJSONString(jsonObject);
+        }
+        if (StringUtils.isEmpty(mobile) ||!UserTools.isMobile(mobile)){
+            jsonObject.put("code","400");
+            jsonObject.put("message","请输入手机");
+            return JSONObject.toJSONString(jsonObject);
+        }
+        User user=userService.findUserByMobile(mobile);
+        if (user==null ||StringUtils.isEmpty(user.getEmail())){
+            jsonObject.put("code","403");
+            jsonObject.put("message","该用户不存在或邮箱未绑定");
+            return JSONObject.toJSONString(jsonObject);
+        }
+
+        if(!user.getEmail().equals(email)){
+            jsonObject.put("code","403");
+            jsonObject.put("message","绑定邮箱和您输入邮箱不一致");
+            return JSONObject.toJSONString(jsonObject);
+        }
+        try {
+            mailService.sendMail("任我行顺风车网",email,"您的密码是"+user.getPassWord(),"10分钟有效");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        jsonObject.put("code","200");
+        jsonObject.put("message","密码已发送至您邮箱，请查看");
+        return JSONObject.toJSONString(jsonObject);
+    }
 }

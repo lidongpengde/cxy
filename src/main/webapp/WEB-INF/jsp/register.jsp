@@ -18,16 +18,21 @@
         position: relative;
         max-width: 450px !important;
     }
+    @media (min-width: 600px) {
+        .hello {
+            min-height: 600px !important;
+        }
+    }
 </style>
 </head>
 
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-    <div class="container" style="margin-top: 55px;height: 500px;background-color: #fafafa;background-image: none" >
+    <div class="container hello" style="margin-top: 55px;background-color: #fafafa;background-image: none" >
         <div class="row">
             <div class="" >
                     <div class="shadow">
-                        <form action="/user/register" id="registerForm" name="registerForm" onsubmit="return false">
+                        <form action="#" id="registerForm" name="registerForm" onsubmit="return false">
 
                             <div class="aaa">
                                 <div class="login-tab login-tab-l">
@@ -41,12 +46,17 @@
                                 <div><strong id="errorMsg"  style="color: red;margin-left: 18px;"></strong></div>
                                 <div class="form-group">
                                     <label for="userName">手机：</label><input id="mobile" class="form-control" name="mobile"  maxlength="11" onblur="vailPhone()">
+                                    <span class="error-account" id="error-mobile"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="userName">用户名：</label><input id="userName" class="form-control" name="userName" placeholder="zhangsan" maxlength="20" type="text" onblur="validateUserName()"required onkeydown="if(event.keyCode==32) return false">
+                                    <span class="error-account" id="error-userName"></span>
                                 </div>
                                 <div class="form-group"><label for="passWord">密码：</label><input id="passWord"class="form-control" name="passWord"  maxlength="10" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
-                                <div class="form-group"><label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10"   name="confirmPassWord" type="password" required onkeydown="if(event.keyCode==32) return false"></div>
+                                <div class="form-group">
+                                    <label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10"   name="confirmPassWord" type="password" onblur="validatePassword()" required onkeydown="if(event.keyCode==32) return false">
+                                    <span class="error-account" id="error-passWord"></span>
+                                </div>
                                 <%--<div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>--%>
                             <%--    <div class="form-group">
                                     <label>
@@ -56,7 +66,7 @@
                                         <input type="radio" name="sex" value="0"> 女
                                     </label>
                                 </div>--%>
-                                <div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" placeholder="张三" class="form-control" required></div>
+                                <%--<div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" placeholder="张三" class="form-control" required></div>--%>
                                 <div class="form-group"><a  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</a></div>
                                 <br>
                             </div>
@@ -77,7 +87,10 @@
 
                             </div>
                         </form>
-                </div>
+                        <div style="text-align: center">
+                        <a href="/template/forgetPassword.html"> 忘记密码? </a>
+                        </div>
+                    </div>
 
             </div>
         </div>
@@ -118,6 +131,10 @@ function loginPage(){
         }else{
             flag = true;
         }
+        if(!flag){
+            $('#error-mobile').text(message);
+            return;
+        }
         $.ajax({
             url:'/user/validateExists/'+phone,
             type:'post',
@@ -125,7 +142,7 @@ function loginPage(){
             success:function(data){
                 if (data=='true'){
                     message="手机号已存在，建议换一个！";
-                    $('#errorMsg').fadeIn();
+                    $('#error-mobile').fadeIn();
                     flag=false;
                 }else{
 
@@ -133,9 +150,9 @@ function loginPage(){
             }
         });
         if(!flag){
-            $('#errorMsg').text(message);
+            $('#error-mobile').text(message);
         }else{
-            $('#errorMsg').text('');
+            $('#error-mobile').text('');
         }
         return flag;
     }
@@ -143,14 +160,24 @@ function loginPage(){
 
        var passWord= $('#passWord').val();
         var confirmPassWord= $('#confirmPassWord').val();
-        if (!passWord==confirmPassWord){
-            $('#errorMsg').text("两次密码输入不一致！");
+        if (!passWord){
+            $('#error-passWord').text("请设置登录密码");
+            return false;
+        }
+        if (passWord!=confirmPassWord){
+            $('#error-passWord').text("两次密码输入不一致！");
+        }else{
+            $('#error-passWord').text("");
         }
         return passWord==confirmPassWord;
     }
     function validateUserName(){
         var flag=true;
         var userName=$('#userName').val();
+        if (!userName){
+            $('#error-userName').text("请输入用户名");
+            return;
+        }
         if (userName){
             $.ajax({
                 url:'/user/validateExists/'+userName,
@@ -158,11 +185,11 @@ function loginPage(){
                 async:false,
                 success:function(data){
                     if (data=='true'){
-                        $('#errorMsg').text("用户名已存在，建议换一个！");
-                        $('#errorMsg').fadeIn();
+                        $('#error-userName').text("用户名已存在，建议换一个！");
+                        $('#error-userName').fadeIn();
                         flag=false;
                     }else{
-                        $('#errorMsg').fadeOut();
+                        $('#error-userName').fadeOut();
                     }
                 }
             });
@@ -173,10 +200,18 @@ function loginPage(){
 
     }
     function registerUser(){
-        debugger
        var mobileFlag= vailPhone();
+        if (!mobileFlag){
+            return false;
+        }
        var passwordFlag=validatePassword();
+        if (!passwordFlag){
+            return false;
+        }
        var userNameFlag=validateUserName();
+        if (!userNameFlag){
+            return false;
+        }
        if (mobileFlag && passwordFlag&&userNameFlag){
            $.ajax({
                cache: true,
@@ -197,6 +232,7 @@ function loginPage(){
                }
            });
        }
+       return false;
     }
     function realLogin(){
             $.ajax({
@@ -222,9 +258,8 @@ function loginPage(){
                 }
             });
     }
-
 </script>
-<jsp:include page="include/foot.jsp"></jsp:include>
+<%--<jsp:include page="include/foot.jsp"></jsp:include>--%>
 </body>
 
 </html>

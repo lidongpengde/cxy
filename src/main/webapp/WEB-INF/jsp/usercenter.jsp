@@ -49,19 +49,25 @@
                 </div>--%>
             </div>
             <div class="col-md-8">
-                    <div class="form-group ">
-
-                        <div class="">
-                            <label class="control-label" for="nickName">昵称：</label>
-                            <input class="form-control" type="text" id="nickName" name="nickName" placeholder="老王" value="${userInfo.nickName}">
-                        </div>
-                    </div>
                 <div class="form-group ">
-                    <label class="control-label" for="userName">用户名：</label>
+                    <label class="control-label" >用户名：</label>
                     <div class="">
-                        <input class="form-control" type="text" id="userName" name="userName" value="${userInfo.userName}">
+                        <label class="form-control" >${userInfo.userName}</label>
                     </div>
 
+                </div>
+                <div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" value="${userInfo.age}"></div>
+                    <%--<div class="form-group">
+                        <label>
+                            <input type="radio"name="sex"value="1" checked> 男
+                        </label>
+                        <label>
+                            <input type="radio" name="sex" value="0"> 女
+                        </label>
+                    </div>--%>
+                <div class="form-group">
+                    <label for="nickName">昵称：</label>
+                    <input id="nickName" name="nickName" maxlength="18" placeholder="张三" class="form-control" value="${userInfo.nickName}">
                 </div>
                     <div class="form-group ">
 
@@ -72,7 +78,7 @@
                     </div>
                 <div class="form-group ">
 
-                    <c:if test="${ userInfo.email!=''}">
+                    <c:if test="${not empty userInfo.email}">
                         <div class="">
                             <label class="control-label" >邮箱：</label>
                             <label  >${userInfo.email}</label>
@@ -128,6 +134,11 @@
         }
     });}
 function updateUserInfo() {
+        var age=$('#age').val();
+        var nickName=$('#nickName').val();
+        if (age && nickName){
+            return false;
+        }
         $.ajax({
             url:'/user/update',
             data:$('#form').serialize(),

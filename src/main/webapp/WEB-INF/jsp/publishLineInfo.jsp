@@ -30,17 +30,16 @@
         /*background: #d2edf4;*/
         /*background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);*/
     }
+    @media (min-width: 600px) {
+        .hello {
+            min-height: 600px !important;
+            width: 500px;
+        }
+    }
 </style>
 <body>
-<div class="container" style="margin-top: 55px;background: #fafafa;">
+<div class="container hello" style="margin-top: 55px;background: #fafafa;">
     <div class="main">
-      
-
-<%--<h4 class="title">--%>
-  <%--<div class="normal-title">--%>
-    <%--<p class="lead text-left"><strong>发布需求</strong> </p>--%>
-  <%--</div>--%>
-<%--</h4>--%>
 <div id="app">
 
   <form id="message" onsubmit="return false">
@@ -108,7 +107,31 @@
 <%--<script src="/asert/js/bootstrap-datetimepicker.js"></script>
 <script src="/asert/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>--%>
 <script>
-
+    var map, geolocation;
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map('container', {
+        resizeEnable: true
+    });
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+        var str=['定位成功'];
+        /*document.getElementById('tip').innerHTML = str.join('<br>');*/
+        document.getElementById("start").value=data.formattedAddress;
+        document.getElementById("startAdcode").value=data.addressComponent.adcode;
+    }
     var app=new Vue({
 
         el: '#app',
@@ -224,64 +247,6 @@
      * 提示输入
      */
     $(function () {
-/*        $('#start').autocompleter({
-            cache: false,
-            // marker for autocomplete matches
-            highlightMatches: true,
-
-            // object to local or url to remote search
-            source: '/v2//HintInfo' ,
-
-           /!* template: '<img src="{{ id }}" alt="Image for autocompleter list item" /> {{ label }}{{ cityName }} {{ name }}',*!/
-            template: '{{ cityName }} {{ name }}<em>{{ id }}</em>',
-            // show hint
-            hint: false,
-
-            // abort source if empty field
-            empty: false,
-
-            // max results
-            limit: 5,
-
-            callback: function (value, index, selected) {
-                if (selected) {
-                    $('#startAdcode').val(selected.adCode);
-                    $('#startLongitude').val(selected.longitude);
-                    $('#startLatitude').val(selected.latitude);
-                }
-            }
-        });*/
-        /*$('#end').autocompleter({
-            cache: false,
-            // marker for autocomplete matches
-            highlightMatches: true,
-
-            // object to local or url to remote search
-            source: '/v2//HintInfo' ,
-
-            template: '{{ cityName }} {{ name }}',
-            // show hint
-            hint: false,
-
-            // abort source if empty field
-            empty: false,
-
-            // max results
-            limit: 5,
-            callback: function (value, index, selected) {
-                if (selected) {
-                    $('#endAdcode').val(selected.adCode);
-                    $('#endLongitude').val(selected.longitude);
-                    $('#endLatitude').val(selected.latitude);
-                }
-            }
-        });*/
-        //var selval = ${alterLine.personCount};
-        //var typeval = ${alterLine.type};
-        //var isbarginval = ${alterLine.isbargin};
-        $('#personCount').val(${alterLine.personCount});
-        $("input[name='type'][value=${alterLine.type}]").attr("checked",true);
-        $("input[name='isbargin'][value=${alterLine.isbargin}]").attr("checked",true);
     });
     //时间选择框设置为当前时间
     Date.prototype.Format = function (fmt) {

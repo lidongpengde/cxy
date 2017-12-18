@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lidp on 2017/3/19.
@@ -101,5 +103,14 @@ public class UserTools {
                 fourRandom = "0" + fourRandom  ;
         }
         return fourRandom;
+    }
+    public static boolean isMobile(String mobiles) {
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$");
+
+        Matcher m = p.matcher(mobiles);
+
+        System.out.println(m.matches()+"---");
+
+        return m.matches();
     }
 }
