@@ -35,6 +35,10 @@ public class EmailController {
         }
         try {
             request.getSession().setAttribute("emailcode",emailcode);
+            /**
+             * 设置十分钟有效
+             */
+            request.getSession().setMaxInactiveInterval(10*60);
             mailService.sendMail("任我行顺风车网",email,"验证码为"+emailcode,"10分钟有效");
             jsonObject.put("code","200");
             jsonObject.put("message","邮件验证码已发送成功");
@@ -80,7 +84,7 @@ public class EmailController {
             user.setEmail(email);
             userService.updateUser(user);
             jsonObject.put("code","200");
-            jsonObject.put("message","邮件绑定成功");
+            jsonObject.put("message","邮箱绑定成功");
             return JSONObject.toJSONString(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();

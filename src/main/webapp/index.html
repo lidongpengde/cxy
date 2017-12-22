@@ -16,7 +16,19 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
 </head>
-<body style="background-color: #fafafa">
+<style>
+    body{
+        color: #fff;
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        position: relative;
+    }
+    .navbar{
+        background: #d2edf4;
+        background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+    }
+
+</style>
 <div id="app">
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
         <a href="/" class="navbar-brand">
@@ -51,15 +63,15 @@
     </nav>
 </div>
 </nav>
-<div class="container" STYLE="margin-top: 70px">
+<div class="container" STYLE="margin-top: 70px" id="container">
     <div class="row row-bottom-padded-lg">
         <div class="col-md-10 col-md-offset-1">
             <div class="col-md-4 animate-box fadeInLeft animated" data-animate-effect="fadeInLeft">
                 <img src="/asert/image/IMG_2251.PNG" alt="Free HTML5 Bootstrap Template" class=" img-responsive">
             </div>
             <div class="col-md-7 col-md-push-1">
-                <h2>我是车主</h2>
-                <p>乘客发布行程前可以查看附近车主，如果双方的路线顺路，乘客可以点击确认同行，搭乘车主的车多人顺路拼车，让车主更容易降低养车成本，让乘客更方便出行， 让你结识身边的TA，上下班不再孤单。</p>
+                <h3>我是车主</h3>
+                <p>车主发布行程,可以查看附近车主，如果双方的路线顺路，乘客可以点击<strong class="danger">预约</strong>或者直接<strong>电话联系</strong>车主，确认同行，搭乘车主的车多人顺路拼车，让车主更容易降低养车成本，让乘客更方便出行， 让你结识身边的TA，出行从此不再孤单。</p>
                 <p><a href="/v1/toPublishlineInfoPage" class="btn btn-primary">发布行程</a></p>
             </div>
         </div>
@@ -70,36 +82,41 @@
                 <img src="/asert/image/IMG_2235.PNG" alt="Free HTML5 Bootstrap Template" class=" img-responsive">
             </div>
             <div class="col-md-7 col-md-pull-4">
-                <h2>我是乘客</h2>
-                <p>乘客可以自己发布行程，有需要的车主可以根据行程找到乘客，用户将从海量的用户线路中 匹配出合适的司机或乘客供您选择， 让您轻松选出最心仪的通勤伴侣。</p>
+                <h3>我是乘客</h3>
+                <p>乘客可以自己发布行程，有需要的车主可以根据行程找到乘客，用户将从海量的用户线路中 匹配出合适的司机或乘客，<strong>电话联系</strong>车主， 让您轻松选出最心仪的通勤伴侣。</p>
                 <p><a href="/v1/toIndexPage" class="btn btn-primary">查找</a></p>
             </div>
 
         </div>
     </div>
+    <div style="text-align: center" >
+        <h3 >扫码下载任我行客户端</h3>
+        <img src="/asert/image/qrdownload.png" class="img-responsive" style="margin-left: auto;margin-right: auto" width="140">
+    </div>
     <footer>
         <div class="col-sm-12" style="text-align: center;"><small>
-            <span>Copyright © <a href="#">任我行顺风车网</a></span> |
-            <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备17060186号</a></span>|
-            <span><a href="/advices" target="_blank" >意见箱</a></span></small>
-            <span>站长qq：202655989</span>
+            <span>Copyright ©任我行顺风车网</span> |
+            <span>京ICP备17060186号</span></small>
+            <!--<span><a href="/advices" target="_blank" >意见箱</a></span>-->
+           <!-- <span>站长qq：202655989</span>-->
         </div>
     </footer>
 </div>
 <script>
     var app = new Vue({
-    el: '#app',
-    data: {
-    showheader:false
-    }
+        el: '#app',
+        data: {
+        showheader:false
+        }
     });
     $.ajax({
-    type : "GET",
-    url : "/user/checkloginstatus",
-    success : function(data) {
-    app.showheader=data;
-    }
+        type : "GET",
+        url : "/user/checkloginstatus",
+        success : function(data) {
+            app.showheader=data;
+        }
     });
+    console.log('%cqq:202655989 ', 'background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );color:transparent;-webkit-background-clip: text;font-size:5em;');
 </script>
 </body>
 </html>

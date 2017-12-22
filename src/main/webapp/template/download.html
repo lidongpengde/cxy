@@ -3,6 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <title>下载任我行手机客户端</title>
 </head>
 <style>
@@ -28,6 +29,11 @@
     .ios-link {
         background-position: -282px -100px;
     }
+    *{margin:0; padding:0;}
+    a{text-decoration: none;}
+    img{max-width: 100%; height: auto;}
+    .weixin-tip{display: none; position: fixed; left:0; top:0; bottom:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80);  height: 100%; width: 100%; z-index: 100;}
+    .weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%;}
 </style>
 <body>
 <!--<img src="/asert/image/timg.jpg" class="img-responsive" >-->
@@ -40,5 +46,28 @@
     <span class="ios-link"></span>
     </a>
 </div>
+<div class="weixin-tip">
+    <p>
+        <img src="/asert/image/live_weixin.png" alt="微信打开"/>
+    </p>
+</div>
+<script type="text/javascript">
+    $(window).on("load",function(){
+        var winHeight = $(window).height();
+        function is_weixin() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        var isWeixin = is_weixin();
+        if(isWeixin){
+            $(".weixin-tip").css("height",winHeight);
+            $(".weixin-tip").show();
+        }
+    })
+</script>
 </body>
 </html>

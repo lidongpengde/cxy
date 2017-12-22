@@ -9,10 +9,15 @@
 <style>
     .max{width:100%;height:auto;}
     .min{width:100px;height:100px;}
+    body{
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        position: relative;
+    }
     </style>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" style="margin-top: 55px;min-height: 100%">
+<div class="container" style="margin-top: 55px;background: #fafafa">
     <form action="/user/update" id="form" class="form-horizontal" onsubmit="return false">
 
 

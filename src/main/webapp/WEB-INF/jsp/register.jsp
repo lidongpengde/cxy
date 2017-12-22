@@ -82,7 +82,7 @@
                                     <label >密码：</label>
                                     <input class="form-control" name="passWord" type="password" required placeholder="密码">
                                 </div>
-                                <div class="form-group"> <input type="checkbox" name="remindMe" >一周免登录</div>
+                                <div class="form-group"> <input type="checkbox" name="remindMe">7天免登录</div>
                                 <div class="form-group"> <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button></div>
 
                             </div>

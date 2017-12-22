@@ -6,9 +6,16 @@
     <title>用户中心</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 </head>
+<style>
+    body{
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        /*position: relative;*/
+    }
+</style>
 <body>
 <jsp:include page="include/header.jsp"></jsp:include>
-<div class="container" style="margin-top: 58px;min-height: 100%" id="myapp">
+<div class="container" style="margin-top: 55px;min-height: 100%" id="myapp">
     <div class="row">
     <div class="list-group">
         <a href="#" class="list-group-item active">
@@ -69,6 +76,6 @@
     })
 </script>
 <script src="/asert/js/bootstrap.js"></script>
-<jsp:include page="include/foot.jsp"></jsp:include>
+<%--<jsp:include page="include/foot.jsp"></jsp:include>--%>
 </body>
 </html>

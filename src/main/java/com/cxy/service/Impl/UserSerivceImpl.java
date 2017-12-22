@@ -6,6 +6,7 @@ import com.cxy.dao.UserRecordMapper;
 import com.cxy.entity.User;
 import com.cxy.entity.UserRecord;
 import com.cxy.service.IuserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ public class UserSerivceImpl implements IuserService{
         //新增用户默认状态为未认证
         user.setIdentifyStatus(0L);
         user.setCreateTime(UserTools.getCurrentTime());
+        user.setNickName(user.getUserName());
         int size=userMapper.insert(user);
         return size;
     }
@@ -76,7 +78,12 @@ public class UserSerivceImpl implements IuserService{
         HttpSession session=request.getSession();
         session.setAttribute("const_user",user);
         //如果点了一周免登录按钮，直接将session设置为永久
-        session.setMaxInactiveInterval(0);
+        String remindMe=request.getParameter("remindMe");
+        if (StringUtils.isNotBlank(remindMe)){
+            session.setMaxInactiveInterval(7*24*60*60);
+        }else{
+            session.setMaxInactiveInterval(24*60*60);
+        }
         executor.execute(new Runnable() {
             @Override
             public void run() {
