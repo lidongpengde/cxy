@@ -59,6 +59,7 @@
         </tbody>
     </table>
 </div>
+    <button class="btn btn-danger" onClick="javascript :history.back(-1);">返回</button>
 </div>
 <script>
 

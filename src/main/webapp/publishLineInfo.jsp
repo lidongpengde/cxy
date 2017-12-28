@@ -1,6 +1,6 @@
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="include/header.jsp"></jsp:include>
+<jsp:include page=""></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>

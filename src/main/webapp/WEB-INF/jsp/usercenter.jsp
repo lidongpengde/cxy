@@ -114,6 +114,7 @@
                         <input name="headImage" type="hidden" id="headImage">
             <div class="form-group">
                 <button class="btn btn-danger" onclick="updateUserInfo()">保存</button>
+                <button class="btn btn-danger" onClick="javascript :history.back(-1);">返回</button>
             </div>
             </div>
     </form>

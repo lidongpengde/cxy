@@ -89,6 +89,25 @@
                 </div>
             </div>
             <div id="page" class="m-pagination" ></div>
+            <footer class="skill-ftw">
+                <ul class="fixed-skill-ftw">
+                    <li class="skill-ftw-li">
+                        <a href="/v1/toPublishlineInfoPage" onclick="return seckillMPingJDSeckill(this.href)">
+                            <span class="skill-ftw-item jd-goods   ">发布行程</span>
+                        </a>
+                    </li>
+                    <li class="skill-ftw-li">
+                        <a href="/v1/toIndexPage" onclick="return seckillMPingNewBrandSecKill(this.href)">
+                            <span class="skill-ftw-item brand-goods active">查找</span>
+                        </a>
+                    </li>
+                    <li class="skill-ftw-li">
+                        <a href="/v1/myMenu" onclick="return seckillMPingBrandSecKill(this.href)">
+                            <span class="skill-ftw-item choice-goods ">我的</span>
+                        </a>
+                    </li>
+                </ul>
+            </footer>
 </div>
 <script src="/asert/js/jquery.autocompleter.js"></script>
 <script>

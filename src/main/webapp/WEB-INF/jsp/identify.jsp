@@ -43,6 +43,7 @@
         </div>
         <div class="form-group row" style="padding-top: 10px;float: left">
         <button type="submit" class="btn btn-danger" onclick="submitIdentityForm()">提交认证</button>
+            <button class="btn btn-danger" onClick="javascript :history.back(-1);">返回</button>
         </div>
     </form>
 </div>
