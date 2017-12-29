@@ -16,7 +16,7 @@
     }
 </style>
 <body>
-<div class="container" style="margin-top: 55px;min-height: 100%" id="myapp">
+<div class="container" style="margin-top: 54px;min-height: 100%;background: #fafafa" id="myapp">
     <div class="row">
     <div class="list-group">
         <a href="#" class="list-group-item active">
@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li class="skill-ftw-li">
-                <a href="/v1/toIndexPage" onclick="return seckillMPingNewBrandSecKill(this.href)">
+                <a href="/template/searchIndex.html" onclick="return seckillMPingNewBrandSecKill(this.href)">
                     <span class="skill-ftw-item brand-goods ">查找</span>
                 </a>
             </li>

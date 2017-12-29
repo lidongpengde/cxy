@@ -381,8 +381,8 @@ a:hover {
     max-width: 600px;
     margin: 0 auto;
     min-height: 100%;
-    background: #d2edf4;
-    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+/*    background: #d2edf4;
+    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);*/
 }
  .error-account {
      display: inherit;

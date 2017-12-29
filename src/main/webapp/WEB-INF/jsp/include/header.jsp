@@ -23,10 +23,12 @@
         <a href="/" class="navbar-brand">
             <img src="/asert/image/newlogo.png" style="margin-top: -5px" width="200" height="30" class="img-responsive" >
         </a>
-        <a data-toggle="collapse" data-target="#NavbarCollapse" class="navbar-toggle collapsed col-md-2" href="#" aria-expanded="false">
+        <a  class="navbar-toggle collapsed col-md-2" href="javascript:history.back(-1)">
+            <%--<span class="icon-bar"></span>
             <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span></a>
+            <span class="icon-bar"></span>--%>
+            <span class="glyphicon glyphicon-arrow-left" style="font-size: 16px;color: #888;"></span>
+        </a>
     </div>
     <c:choose><c:when test="${sessionScope.const_user== null}">
         <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">

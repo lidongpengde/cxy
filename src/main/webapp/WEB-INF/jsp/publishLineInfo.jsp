@@ -111,7 +111,7 @@
                 </a>
             </li>
             <li class="skill-ftw-li">
-                <a href="/v1/toIndexPage" onclick="return seckillMPingNewBrandSecKill(this.href)">
+                <a href="/template/searchIndex.html" onclick="return seckillMPingNewBrandSecKill(this.href)">
                     <span class="skill-ftw-item brand-goods ">查找</span>
                 </a>
             </li>

@@ -1,0 +1,353 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <title>任我行顺风车网</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/asert/js/mricode.pagination.js"></script>
+    <script src="/asert/js/jquery.serializejson.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <link rel="shortcut icon" href="/asert/image/smalllogo.jpg" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/asert/css/style.css" />
+    <link href="/asert/css/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
+</head>
+<body>
+<style>
+    .navbar{
+        background: #d2edf4;
+        background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+    }
+</style>
+<nav class="navbar navbar-default navbar-fixed-top"><div class="container" id="headapp">
+    <div class="navbar-header">
+        <a href="/" class="navbar-brand">
+            <img src="/asert/image/newlogo.png" style="margin-top: -5px" width="200" height="30" class="img-responsive" >
+        </a>
+        <a  class="navbar-toggle collapsed col-md-2" href="javascript:history.back(-1)">
+            <!--<span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>-->
+            <span class="glyphicon glyphicon-arrow-left" style="font-size: 16px;color: #888;"></span>
+        </a>
+    </div>
+    </c:choose>
+</div>
+</nav>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
+<style>
+    body{
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        /*position: relative;*/
+    }
+    .glyphicon {
+        color: #337ab7;
+    }
+    .container{
+        max-width: 800px;
+        /*background: #d2edf4;*/
+        min-height: 100%;
+       /* background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);*/
+    }
+</style>
+<body >
+<div class="container" id="app" style="margin-top: 52px;padding-top: 15px;background: #fafafa">
+
+
+            <form id="searchForm" class="form-inline" onsubmit="return false">
+                <div class="row " style="margin-bottom: 15px;">
+                <input name="type" value="1" hidden id="type">
+             <div class="col-xs-6 col-md-3" style="margin-bottom: 15px;"><input name="start" id="start" class="form-control" placeholder="出发地"></div>
+             <div class="col-xs-6 col-md-3" style="margin-bottom: 15px;"><input name="end" id="end" class="form-control" placeholder="目的地"></div>
+             <div class="col-xs-6 col-md-4"><input name="startTime" id="startTime" type="date" class="form-control" placeholder="出发时间"></div>
+                    <input name="startAdcode" id="startAdcode" hidden="hidden" >
+
+
+
+             <div class="col-xs-2 col-md-2"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
+                </div>
+            </form>
+
+        <div class="identity ">
+            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6  col-xs-6 text-center hover" id="tabdriver">找车</div></a>
+            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 col-xs-6 text-center" id="tabpassenger">找人</div></a>
+        </div>
+            <div class="post" v-for="item in items">
+
+                <div class="post-content">
+                    <a v-bind:href="'/api/mySubscibe/'+item.lid">
+                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span> {{ item.start }}</span><span class="price">¥{{ item.price }}</span></p>
+                     <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
+                         <span>{{ item.end }}</span>
+                        </p></a>
+                    <p >
+                    <ul class="inline" style="float: left;margin-bottom: 5px;margin-top: 5px">
+                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0">{{ item.personCount }}人</span>
+                        <span class="" v-if="item.type==1">{{ item.personCount }}座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>{{ item.plateNumber }}
+                        <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>{{ item.userMobile }} </a>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>{{ item.userNickname }}
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>{{ item.startTime }}
+                </ul>
+                    </p>
+                <p>
+
+                    <!--<span class="price">¥{{ item.price }}</span>-->
+                </p>
+                </div>
+                <div class="hidden-xs">
+                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-subscribe">
+                    马上预约</a>
+                </div>
+                <div class="hidden-md hidden-lg col-xs-12">
+                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==1" class="  btn-subscribe">电话联系</a>
+                    <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class=" btn btn-subscribe-nobg">预约</a>
+                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==0" class="  btn-subscribe" style="margin-right: 30px">电话联系</a>
+                </div>
+            </div>
+            <div id="page" class="m-pagination" ></div>
+            <footer class="skill-ftw">
+                <ul class="fixed-skill-ftw">
+                    <li class="skill-ftw-li">
+                        <a href="/v1/toPublishlineInfoPage" onclick="return seckillMPingJDSeckill(this.href)">
+                            <span class="skill-ftw-item jd-goods   ">发布行程</span>
+                        </a>
+                    </li>
+                    <li class="skill-ftw-li">
+                        <a href="/template/searchIndex.html" onclick="return seckillMPingNewBrandSecKill(this.href)">
+                            <span class="skill-ftw-item brand-goods active">查找</span>
+                        </a>
+                    </li>
+                    <li class="skill-ftw-li">
+                        <a href="/v1/myMenu" onclick="return seckillMPingBrandSecKill(this.href)">
+                            <span class="skill-ftw-item choice-goods ">我的</span>
+                        </a>
+                    </li>
+                </ul>
+            </footer>
+</div>
+<script src="/asert/js/jquery.autocompleter.js"></script>
+<script>
+    /***************************************
+     由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
+     ***************************************/
+/*    var map, geolocation;
+    var adCode
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map('container', {
+        resizeEnable: true
+    });
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+        adCode=data.addressComponent.adcode;
+        console.log(adCode);
+        $("#page").pagination({
+            pageSize: 10,
+            remote: {
+                url: '/v1/lineInfos',
+                pageParams: function(data){
+                    var params = $("#searchForm").serializeJSON();
+                    return {
+                        pageIndex:data.pageIndex,
+                        pageSize:data.pageSize,
+                        type:params.type,
+                        start:params.start,
+                        end:params.end,
+                        startTime:params.startTime,
+                        startAdcode:adCode
+                    };
+                },
+                success: function (data) {
+                    app.items=data.list;
+                },
+                totalName:'total'
+            }
+        });
+    }
+    //解析定位错误信息
+    function onError(data) {
+        $("#page").pagination({
+            pageSize: 10,
+            remote: {
+                url: '/v1/lineInfos',
+                pageParams: function(data){
+                    var params = $("#searchForm").serializeJSON();
+                    return {
+                        pageIndex:data.pageIndex,
+                        pageSize:data.pageSize,
+                        type:params.type,
+                        start:params.start,
+                        end:params.end,
+                        startTime:params.startTime
+                    };
+                },
+                success: function (data) {
+                    app.items=data.list;
+                },
+                totalName:'total'
+            }
+        });
+    }*/
+
+
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            items: [
+            ]
+        }
+    })
+    function changeIdentity(type){
+        if(type==0){
+            $('#tabpassenger').addClass("hover");
+            $('#tabdriver').removeClass("hover");
+            $('#type').val(0);
+
+        }else{
+            $('#tabdriver').addClass("hover");
+            $('#tabpassenger').removeClass("hover");
+            $('#type').val(1);
+        }
+        searchLineInfo();
+    }
+    function searchLineInfo(){
+      /*  //ajax提交
+        var params = $("#searchForm").serialize();
+        $.ajax({
+            type : "GET",
+            url : "/v1/lineInfos",
+            data : params,
+            success : function(data) {
+                app.items=data.list;
+            }
+        });*/
+        $("#page").pagination('remote');
+    }
+    $("#page").pagination({
+        pageSize: 10,
+        remote: {
+            url: '/v1/lineInfos',
+            pageParams: function(data){
+                var params = $("#searchForm").serializeJSON();
+                return {
+                    pageIndex:data.pageIndex,
+                    pageSize:data.pageSize,
+                    type:params.type,
+                    start:params.start,
+                    end:params.end,
+                    startTime:params.startTime
+                };
+            },
+            success: function (data) {
+                app.items=data.list;
+            },
+            totalName:'total'
+        }
+    });
+    /**
+     * 提示输入
+     */
+    $(function () {
+        $('#start').autocompleter({
+            cache: false,
+            // marker for autocomplete matches
+            highlightMatches: true,
+
+            // object to local or url to remote search
+            source: '/v2//HintInfo' ,
+
+            template: '{{ name }}',
+            // show hint
+            hint: false,
+
+            // abort source if empty field
+            empty: false,
+
+            // max results
+            limit: 5,
+        });
+        $('#end').autocompleter({
+            cache: false,
+            // marker for autocomplete matches
+            highlightMatches: true,
+
+            // object to local or url to remote search
+            source: '/v2//HintInfo' ,
+
+            template: '{{ name }}',
+            // show hint
+            hint: false,
+
+            // abort source if empty field
+            empty: false,
+
+            // max results
+            limit: 5,
+        });
+    });
+/*    $(document).ready(function(){
+        var  classes = "LineInfo";
+        var  htmltext="" ;
+        $.ajax({
+            type:'post',
+            url:'/notice/getMsgByUser?classes='+classes,
+            success:function (data){
+                var dataitem = eval(data);
+                jQuery.each(dataitem,function(rec){
+                    htmltext = "<a class=\"menu-child\" href=\"/api/mySubscibe/"+this.businessid+"?id="+this.id+"\">"+this.messages+"</a><br>"+htmltext;
+                });
+                if(htmltext!=""){
+                    // $('#userMsg').html(htmltext);  //我的发布下面的span标签
+                    $.messager.lays(200, 200);
+                    $.messager.anim('fade',2000);//messager消息提示
+                    $.messager.show(0,htmltext,5000);
+                }
+            },
+            error:function (e) {
+                alert("系统繁忙"+e);
+            }
+        })
+    })*/
+    //时间选择框设置为当前时间
+/*    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    var startTime=document.getElementById('startTime');
+    var time = new Date().Format("yyyy-MM-dd");
+    startTime.value=time;*/
+</script>
+<!--<jsp:include page="include/foot.jsp"></jsp:include>-->
+</body>
+</html>
