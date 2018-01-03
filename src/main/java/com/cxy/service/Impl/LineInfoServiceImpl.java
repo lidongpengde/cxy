@@ -11,6 +11,7 @@ import com.cxy.entity.User;
 import com.cxy.entity.UserRecord;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.Iidentity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,22 +124,38 @@ public class LineInfoServiceImpl implements ILineInfoService {
     @Override
     public Pager queryLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize,boolean isPublish) {
         lineInfo.setStatus(1);//已发布
-        LineInfo cancerInfo = new LineInfo();//取消发布的用于再次编辑
-        cancerInfo.setUserId(lineInfo.getUserId());
-        cancerInfo.setStatus(0);
+        if (StringUtils.isEmpty(lineInfo.getStartTime())){
+            lineInfo.setStartTime(UserTools.getCurrentTime());
+        }
         //这里很重要，先查总数，再加下面分页条件
         Integer total=lineInfoMapper.countLineInfo(lineInfo);
-        if(isPublish){
-            total = total + lineInfoMapper.countLineInfo(cancerInfo);
-        }
         if (pageIndex!=null && pageSize!=null){
             lineInfo.setBegin(pageIndex*pageSize);
             lineInfo.setPageSize(pageSize);
         }
         List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
-        if(isPublish) {
-            list.addAll(lineInfoMapper.getLineInfoList(cancerInfo));
+        //加上取消发布的信息
+        Pager pager=new Pager();
+        pager.setTotal(total.toString());
+        pager.setList(list);
+        return pager;
+    }
+    /**
+     *查询我的发布
+     * @param lineInfo
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Pager queryMyLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize) {
+        //这里很重要，先查总数，再加下面分页条件
+        Integer total=lineInfoMapper.countLineInfo(lineInfo);
+        if (pageIndex!=null && pageSize!=null){
+            lineInfo.setBegin(pageIndex*pageSize);
+            lineInfo.setPageSize(pageSize);
         }
+        List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
         //加上取消发布的信息
         Pager pager=new Pager();
         pager.setTotal(total.toString());

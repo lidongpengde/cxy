@@ -77,7 +77,7 @@ public class LineInfoController {
         User user=(User)request.getSession().getAttribute("const_user");
         LineInfo lineInfo=new LineInfo();
         lineInfo.setUserId(user.getId().toString());
-        final Pager mylist=lineInfoService.queryLineInfoList(lineInfo,pageIndex,pageSize,true);
+        final Pager mylist=lineInfoService.queryMyLineInfoList(lineInfo,pageIndex,pageSize);
         modelMap.put("mylist",mylist);
         return "myPublishLineInfo";
     }

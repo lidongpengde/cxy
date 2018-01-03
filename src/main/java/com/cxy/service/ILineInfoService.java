@@ -25,4 +25,6 @@ public interface ILineInfoService {
     public MessageResult getLineInfoListWithLocation(LineInfo lineInfo,User user);
 
     public int savelineinfofirsingle(LineInfo lineInfo);
+    public Pager queryMyLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
+
 }
