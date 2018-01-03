@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
    <%-- <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>--%>
-    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
+ <%--   <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>--%>
     <script src="/asert/js/jquery.autocompleter.js"></script>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=23834821b1465df3fa84571571947619&plugin=AMap.Autocomplete"></script>
 
@@ -37,6 +37,76 @@
         }
     }
 </style>
+<style type="text/css">
+    ul,
+    li {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    a:link {
+        text-decoration: none;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .btn-numbox {
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .btn-numbox li {
+        float: left;
+    }
+
+    .btn-numbox li .number {
+        display: inline-block;
+        font-size: 12px;
+        color: #808080;
+        vertical-align: sub;
+    }
+
+    .btn-numbox .count {
+        overflow: hidden;
+        margin: 0 16px 0 20px;
+    }
+
+    .btn-numbox .count .num-jian,
+    .input-num,
+    .num-jia {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        border: 1px solid #e6e6e6;
+    }
+
+    .btn-numbox .count .num-jia {
+        margin-left: 1px;
+    }
+
+    .btn-numbox .count .input-num {
+        width: 58px;
+        height: 28px;
+        color: #333;
+        border-left: 0;
+        border-right: 0;
+    }
+</style>
 <body>
 <div class="container hello" style="margin-top: 55px;background: #fafafa;">
     <div class="main">
@@ -62,7 +132,7 @@
       <div class="input-group form-group">
           <span class="input-group-addon">¥</span>
           <input placeholder="价格" type="number" name="price" id="price" min="0"  class="form-control" onblur="checkValid(this)" value="${alterLine.price}" >
-          <span class="input-group-addon">.00</span>
+          <span class="input-group-addon">/人</span>
       </div>
             <div class="form-group" >
                 <label>
@@ -73,16 +143,19 @@
                 </label>
               </div>
     <div class="form-group" >
-        <select name="personCount" id="personCount" class="form-control" value="${alterLine.personCount}">
-            <option disabled="disabled" selected value="0">请选择人数</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
+        <ul class="btn-numbox">
+            <li><span class="number">人数</span></li>
+            <li>
+                <ul class="count">
+                    <li><span id="num-jian" class="num-jian">-</span></li>
+                    <li><input type="text" class="input-num" id="input-num" name="personCount" max="4" min="1" value="1" /></li>
+                    <li><span id="num-jia" class="num-jia">+</span></li>
+                </ul>
+            </li>
+            　　　  </ul>
       </div>
               <div class="form-group" >
-      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  value="${alterLine.plateNumber}"></div>
+      <input placeholder="车牌号:后四位即可" type="text" name="plateNumber" id="plateNumber" class="form-control"  value="${alterLine.plateNumber}"></div>
       <div class="form-group">
           <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" step="1" >
       </div>
@@ -192,7 +265,7 @@
         var start=$('#start').val();
         var end=$('#end').val();
         var price=$('#price').val();
-        var personCount=$('#personCount').val();
+        var personCount=$('#input-num').val();
         var plateNumber=$('#plateNumber').val();
         var startTime=$('#startTime').val()
         if (start && end &&price &&personCount&&startTime){
@@ -286,6 +359,29 @@
     var startTime=document.getElementById('startTime');
     var time = new Date().Format("yyyy-MM-ddTHH:mm:ss");
     startTime.value=time;
+    /**
+     * 加减控件
+     * @type {Element}
+     */
+
+    var num_jia = document.getElementById("num-jia");
+    var num_jian = document.getElementById("num-jian");
+    var input_num = document.getElementById("input-num");
+    num_jia.onclick = function() {
+        if (input_num.value>=4) {
+            input_num.value =4;
+        }else{
+            input_num.value = parseInt(input_num.value) + 1;
+        }
+
+    }
+    num_jian.onclick = function() {
+        if(input_num.value <= 0) {
+            input_num.value = 0;
+        } else {
+            input_num.value = parseInt(input_num.value) - 1;
+        }
+    }
 </script>
 <%--<jsp:include page="include/foot.jsp"></jsp:include>--%>
 </body>
