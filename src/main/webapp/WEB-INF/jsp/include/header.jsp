@@ -21,7 +21,7 @@
 <nav class="navbar navbar-default navbar-fixed-top"><div class="container" id="headapp">
     <div class="navbar-header">
         <a href="/" class="navbar-brand">
-            <img src="/asert/image/headlogo.png" style="margin-top: -10px;margin-left: 5px" width="117" height="39" class="img-responsive" >
+            <img src="/asert/image/headlogo.png" style="margin-top: -7px;margin-left: 5px;width:105px ;height:35px" class="img-responsive" >
         </a>
         <a  class="navbar-toggle collapsed col-md-2" href="javascript:history.back(-1)">
             <%--<span class="icon-bar"></span>

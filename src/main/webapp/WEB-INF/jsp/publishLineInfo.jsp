@@ -290,7 +290,7 @@
             data : params,
             success : function(data) {
                 if(data.code==200){
-                    location.href="toIndexPage";
+                    location.href="/template/searchIndex.html";
                 }else{
                     alert(data.message)
                 }
