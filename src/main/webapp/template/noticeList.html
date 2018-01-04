@@ -29,11 +29,17 @@
         background: #d2edf4;
         background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
     }
+    li {
+        position: relative;
+        list-style: none;
+        padding: 15px;
+        border-bottom: #eee solid 1px;
+    }
 </style>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #fff"><div class="container">
     <a href="/" class="navbar-brand">
-        <img src="/asert/image/newlogo.png" style="margin-top: -5px" width="200" height="30" class="img-responsive" >
+        <img src="/asert/image/headlogo.png" style="margin-top: -5px;margin-left: 0px;width:99px ;height:33px" class="img-responsive" >
     </a>
     <div class="navbar-header" style="float: right!important;margin: 10px;">
         <a href="javascript:history.back(-1)" class="collapsed col-md-2"  aria-expanded="false">
@@ -47,8 +53,10 @@
 <div class="container" style="margin-top: 55px;background: #fafafa">
 
     <div class="list-group" id="headapp">
-        <h3>我的通知</h3>
-        <a v-bind:href="'/api/mySubscibe/'+item.businessid+'?id='+item.id" class="list-group-item list-group-item-success" v-for="item in items">{{item.messages}}</a>
+        <p class="text-center"><span>我的通知</span></p>
+        <a v-bind:href="'/api/mySubscibe/'+item.businessid+'?id='+item.id"  v-for="item in items">
+            <li>{{item.messages}}</li>
+            </a>
     </div>
 
 </div>
@@ -68,6 +76,7 @@
             type:'post',
             url:'/notice/getMsgByUser?classes='+classes,
             success:function (data){
+/*                data=[{messages:123432444444444444444444444444},{messages:2},{messages:3}]*/
                 headapp.items=data;
             },
             error:function (e) {

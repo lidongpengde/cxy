@@ -46,9 +46,9 @@
                     </c:choose>
                 </td>--%>
                 <td class="form-inline" >
-                        <a href="#" onclick="cancelPublish('${item.lid}')" class="btn btn-danger btn-xs ">取消</a>
+                        <a href="#" onclick="cancelPublish('${item.lid}')" class="btn btn-danger btn-xs " style="margin: 3px 0">取消</a>
 
-                        <a href="/v1/toPublishlineInfoPage?lid=${item.lid}" class="btn btn-warning btn-xs "style="margin-top: 5px">编辑</a>
+                        <a href="/v1/toPublishlineInfoPage?lid=${item.lid}" class="btn btn-warning btn-xs "style="margin: 3px 0">编辑</a>
                 </td>
                 <td></td>
             </tr>

@@ -21,7 +21,7 @@
 <nav class="navbar navbar-default navbar-fixed-top"><div class="container" id="headapp">
     <div class="navbar-header">
         <a href="/" class="navbar-brand">
-            <img src="/asert/image/headlogo.png" style="margin-top: -7px;margin-left: 5px;width:105px ;height:35px" class="img-responsive" >
+            <img src="/asert/image/headlogo.png" style="margin-top: -5px;margin-left: 5px;width:99px ;height:33px" class="img-responsive" >
         </a>
         <a  class="navbar-toggle collapsed col-md-2" href="javascript:history.back(-1)">
             <%--<span class="icon-bar"></span>
@@ -31,14 +31,14 @@
         </a>
     </div>
     <c:choose><c:when test="${sessionScope.const_user== null}">
-        <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 227px;">
+        <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 200px;">
             <ul class="nav navbar-nav navbar-right">
                 <li data-pricing=""><a href="/" class="menu-main"><span>绿色出行，任我行</span></a></li>
             </ul>
         </div>
     </c:when>
         <c:otherwise>
-            <nav id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="true" style="height: 227px;">
+            <nav id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="true" style="height: 200px;">
                 <ul class="nav navbar-nav navbar-right">
                     <li data-services="" class="menu-main has-sub-menu" onmouseover="viewDetaiMenu(1)" onmouseout="viewDetaiMenu(0)">
                         <a class="menu-child" href="/user/inner/${ sessionScope.const_user.id}" style="color: #FF8400;">
