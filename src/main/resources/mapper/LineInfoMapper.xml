@@ -260,7 +260,7 @@
         and end_adcode = #{endAdcode,jdbcType=VARCHAR}
       </if>
       <if test="startTime != null and startTime != ''" >
-        and  Date(start_time) >= #{startTime}
+        and  start_time >= #{startTime}
       </if>
       <if test="plateNumber != null" >
         and plate_number = #{plateNumber}
