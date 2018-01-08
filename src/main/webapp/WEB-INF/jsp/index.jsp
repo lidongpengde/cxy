@@ -92,17 +92,17 @@
             <footer class="skill-ftw">
                 <ul class="fixed-skill-ftw">
                     <li class="skill-ftw-li">
-                        <a href="/v1/toPublishlineInfoPage" onclick="return seckillMPingJDSeckill(this.href)">
+                        <a href="/v1/toPublishlineInfoPage" >
                             <span class="skill-ftw-item jd-goods   ">发布行程</span>
                         </a>
                     </li>
                     <li class="skill-ftw-li">
-                        <a href="/v1/toIndexPage" onclick="return seckillMPingNewBrandSecKill(this.href)">
+                        <a href="/v1/toIndexPage">
                             <span class="skill-ftw-item brand-goods active">查找</span>
                         </a>
                     </li>
                     <li class="skill-ftw-li">
-                        <a href="/v1/myMenu" onclick="return seckillMPingBrandSecKill(this.href)">
+                        <a href="/v1/myMenu" >
                             <span class="skill-ftw-item choice-goods ">我的</span>
                         </a>
                     </li>

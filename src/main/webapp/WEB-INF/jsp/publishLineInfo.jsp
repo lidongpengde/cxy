@@ -138,13 +138,15 @@
                            onblur="checkValid(this)" value="${alterLine.price}">
                     <span class="input-group-addon">/人</span>
                 </div>
+
                 <div class="form-group">
-                    <label>
+                    <input type="hidden" name="isbargin" value="0">
+                    <%--<label>
                         <input type="radio" name="isbargin" value="1" checked> 接受议价
                     </label>
                     <label>
                         <input type="radio" name="isbargin" value="0"> 不接受
-                    </label>
+                    </label>--%>
                 </div>
                 <div class="form-group">
                     <ul class="btn-numbox">
@@ -187,17 +189,17 @@
     <footer class="skill-ftw">
         <ul class="fixed-skill-ftw">
             <li class="skill-ftw-li">
-                <a href="/v1/toPublishlineInfoPage" onclick="return seckillMPingJDSeckill(this.href)">
+                <a href="/v1/toPublishlineInfoPage">
                     <span class="skill-ftw-item jd-goods  active ">发布行程</span>
                 </a>
             </li>
             <li class="skill-ftw-li">
-                <a href="/template/searchIndex.html" onclick="return seckillMPingNewBrandSecKill(this.href)">
+                <a href="/template/searchIndex.html">
                     <span class="skill-ftw-item brand-goods ">查找</span>
                 </a>
             </li>
             <li class="skill-ftw-li">
-                <a href="/v1/myMenu" onclick="return seckillMPingBrandSecKill(this.href)">
+                <a href="/v1/myMenu">
                     <span class="/v1/myMenu">我的</span>
                 </a>
             </li>
