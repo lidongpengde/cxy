@@ -39,6 +39,7 @@
     <filter>
         <filter-name>cors</filter-name>
         <filter-class>com.cxy.filter.HeadersCORSFilter</filter-class><!--你过滤器的包 -->
+
     </filter>
     <filter-mapping>
         <filter-name>cors</filter-name>

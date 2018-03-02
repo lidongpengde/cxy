@@ -2,8 +2,6 @@ package com.cxy.filter;
 
 
 import com.cxy.entity.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -22,6 +20,8 @@ import javax.servlet.http.HttpSession;
  * Created by lidp on 2017/3/19.
  */
 public class AuthFilter implements Filter {
+
+
 
     public void destroy() {
         // TODO Auto-generated method stub

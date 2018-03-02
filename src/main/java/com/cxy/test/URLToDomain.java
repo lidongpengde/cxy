@@ -1,5 +1,6 @@
 package com.cxy.test;
 
+import com.cxy.dao.UserMapper;
 import com.cxy.entity.User;
 
 import org.junit.Test;
@@ -31,10 +32,9 @@ public class URLToDomain {
     @Test
     public  void main() throws IOException {
         Map<String,String> map=new HashMap<>();
-       String res= map.put("柳柴","hahha");
-        res=map.put("woshi","okokok");
-        map.put("lidongpeng","hehehehe");
-        System.out.println(parseDomain(null));
+        System.out.println(20+30+40);
+        //System.out.println(parseDomain(null));
+        isMobile("131");
 
     }
     public  boolean isMobile(String mobiles) {
@@ -43,7 +43,13 @@ public class URLToDomain {
         Matcher m = p.matcher(mobiles);
 
         System.out.println(m.matches()+"---");
+        ClassLoader loader=null;
+        try {
+            Class<?>  userMapper=loader.loadClass("UserMapper");
 
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return m.matches();
     }
 }

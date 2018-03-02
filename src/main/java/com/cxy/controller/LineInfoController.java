@@ -7,6 +7,8 @@ import com.cxy.common.*;
 import com.cxy.entity.*;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IuserService;
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Index;
 import jdk.nashorn.internal.objects.annotations.Property;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,17 +35,36 @@ public class LineInfoController {
     ILineInfoService lineInfoService;
     @Autowired
     IuserService userService;
+
+    /**
+     * 保存行程信息
+     * @param request
+     * @param lineInfo
+     * @return
+     */
     @RequestMapping(value = "lineInfo",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String publishInfo(HttpServletRequest request, LineInfo lineInfo){
+    public JestResult publishInfo(HttpServletRequest request, LineInfo lineInfo){
         MessageResult messageResult = new MessageResult();
+        JestResult jestResult = null;
         if(AtomUtils.isEmpty(lineInfo.getLid())) {
-             messageResult = lineInfoService.saveLineInfo(lineInfo, request);
+            User user=(User)request.getSession().getAttribute("const_user");
+            lineInfo.setUserId(user.getId().toString());
+            lineInfo.setUserMobile(user.getMobile().toString());
+            lineInfo.setUserNickname(user.getNickName());
+            lineInfo.setStatus(1);
+            Index index = new Index.Builder(lineInfo).index("go366").type("lineinfo").build();
+            try {
+                 jestResult=new ESUtils().ceateClient().execute(index);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            messageResult = lineInfoService.saveLineInfo(lineInfo, request);
         }else{//再次编辑后自动发布
             lineInfo.setStatus(1);
             messageResult = lineInfoService.updateByLineInfo(lineInfo);
         }
-        return JSONObject.toJSONString(messageResult);
+        return jestResult;
     }
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody

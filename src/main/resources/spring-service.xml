@@ -15,7 +15,6 @@
     <bean id="jedisConnFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
           p:use-pool="true"/>
-
     <!-- redis template definition -->
 <!--    <bean id="redisTemplate"
           class="org.springframework.data.redis.core.RedisTemplate"

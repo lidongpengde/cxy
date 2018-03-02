@@ -127,4 +127,15 @@ public class Welcome {
         int size = lineInfoService.savelineinfofirsingle(lineInfo);
         return size;
     }
+    @RequestMapping(value = "aaa",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    public String aaa(HttpServletRequest request, LineInfo lineInfo){
+        System.out.println(11111);
+        return "redirect:/bbb";
+    }
+    @RequestMapping(value = "bbb",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String bbb(HttpServletRequest request, LineInfo lineInfo){
+
+        return "bbbb";
+    }
 }
