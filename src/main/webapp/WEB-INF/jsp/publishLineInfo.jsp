@@ -129,6 +129,10 @@
                 <div class="form-group">
                     <input placeholder="目的地" type="text" name="end" id="end" class="form-control"
                            onblur="checkValid(this)" value="${alterLine.end}"></div>
+                <div class="form-group">
+                    <input placeholder="途径（选填）" type="text" name="passThrough" id="passThrough" class="form-control"
+                            value="${alterLine.passThrough}"></div>
+
                 <%--<div class="form-group" >
                   <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
                 </div>--%>
@@ -301,7 +305,7 @@
             data: params,
             success: function (data) {
                 if (data.code == 200) {
-                    location.href = "/template/searchIndex.html";
+                    location.href = "/v1/toIndexPage";
                 } else {
                     alert(data.message)
                 }

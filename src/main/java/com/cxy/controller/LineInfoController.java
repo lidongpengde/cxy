@@ -1,28 +1,36 @@
 package com.cxy.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.cxy.common.*;
 import com.cxy.entity.*;
+import com.cxy.service.IJestService;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.IuserService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Index;
-import jdk.nashorn.internal.objects.annotations.Property;
+import io.searchbox.core.SearchResult;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.elasticsearch.action.support.QuerySourceBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by lidongpeng on 2017/7/21.
@@ -36,6 +44,8 @@ public class LineInfoController {
     @Autowired
     IuserService userService;
 
+    @Autowired
+    IJestService jestService;
     /**
      * 保存行程信息
      * @param request
@@ -44,39 +54,67 @@ public class LineInfoController {
      */
     @RequestMapping(value = "lineInfo",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public JestResult publishInfo(HttpServletRequest request, LineInfo lineInfo){
+    public String publishInfo(HttpServletRequest request, LineInfo lineInfo){
         MessageResult messageResult = new MessageResult();
         JestResult jestResult = null;
+        Gson gson = new GsonBuilder().create();
         if(AtomUtils.isEmpty(lineInfo.getLid())) {
             User user=(User)request.getSession().getAttribute("const_user");
+            lineInfo.setLid(UUID.randomUUID().toString().substring(0,8));
             lineInfo.setUserId(user.getId().toString());
             lineInfo.setUserMobile(user.getMobile().toString());
             lineInfo.setUserNickname(user.getNickName());
             lineInfo.setStatus(1);
-            Index index = new Index.Builder(lineInfo).index("go366").type("lineinfo").build();
             try {
-                 jestResult=new ESUtils().ceateClient().execute(index);
-            } catch (IOException e) {
+                List<Object> objs = new ArrayList<Object>();
+                objs.add(lineInfo);
+                boolean stauts=jestService.index(jestService.getJestClient(),"go366","lineinfo",objs);
+                if (stauts){
+                        messageResult.setCode(WarningEnum.update_success.getCode());
+                        messageResult.setMessage(WarningEnum.update_success.getMsg());
+                        messageResult.setSuccess(true);
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            messageResult = lineInfoService.saveLineInfo(lineInfo, request);
+            //messageResult = lineInfoService.saveLineInfo(lineInfo, request);
         }else{//再次编辑后自动发布
-            lineInfo.setStatus(1);
-            messageResult = lineInfoService.updateByLineInfo(lineInfo);
+            //lineInfo.setStatus(1);
+            //messageResult = lineInfoService.updateByLineInfo(lineInfo);
         }
-        return jestResult;
+        return gson.toJson(messageResult);
     }
+
+    /**
+     * 首页展示
+     * @param request
+     * @param lineInfo
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo,Integer pageIndex,Integer pageSize){
-        /*if (StringUtils.isEmpty(lineInfo.getStart())){
-           String adcode= getStartAdressIfLineInfoNull(request);
-           lineInfo.setStartAdcode(adcode);
-        }*/
+        SearchResult result=null;
         JSONObject jsonObject=new JSONObject();
-        Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize,false);
-        List<LineInfoAndUserInfo> listAll=null;
-        return JSONObject.toJSONString(list);
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        QueryBuilder queryBuilder = QueryBuilders
+                .rangeQuery("startTime").gt(new Date());
+
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(100);
+        searchSourceBuilder.from(0);
+        String query = searchSourceBuilder.toString();
+        try {
+            result=jestService.search(jestService.getJestClient(),"go366","lineinfo",query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       // Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize,false);
+       // List<LineInfoAndUserInfo> listAll=null;
+        return gson.toJson(result.getSourceAsObjectList(LineInfo.class,false));
     }
     @RequestMapping("toPublishlineInfoPage")
     public String toPublishlineInfoPage(HttpServletRequest request,ModelMap modelMap, LineInfo lineInfo ){
@@ -89,8 +127,26 @@ public class LineInfoController {
         return "publishLineInfo";
     }
     @RequestMapping("toIndexPage")
-    public String toIndexPage(HttpServletRequest request, HttpServletResponse response){
-
+    public String toIndexPage(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap){
+        SearchResult result=null;
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        QueryBuilder queryBuilder = QueryBuilders
+//                .rangeQuery("startTime").gt(new Date());
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        queryBuilder.must(QueryBuilders.matchQuery("type", 1));
+        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(100);
+        searchSourceBuilder.from(0);
+        String query = searchSourceBuilder.toString();
+        try {
+            result=jestService.search(jestService.getJestClient(),"go366","lineinfo",query);
+            List<LineInfo> list =gson.fromJson(gson.toJson(result.getSourceAsObjectList(LineInfo.class,true)), new TypeToken<List<LineInfo>>() {}.getType());
+            modelMap.put("result",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "index";
     }
     @RequestMapping("myPublishLineInfo")

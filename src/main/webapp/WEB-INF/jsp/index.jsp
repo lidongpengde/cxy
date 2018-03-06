@@ -54,28 +54,30 @@
             <a href="#" onclick="changeIdentity(1)"><div class="col-md-6  col-xs-6 text-center hover" id="tabdriver">找车</div></a>
             <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 col-xs-6 text-center" id="tabpassenger">找人</div></a>
         </div>
-            <div class="post" v-for="item in items">
-
+            <c:forEach var="item"   items="${result}"   varStatus="status">
+            
+            <div class="post">
                 <div class="post-content">
-                    <a v-bind:href="'/api/mySubscibe/'+item.lid">
-                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span> {{ item.start }}</span><span class="price">¥{{ item.price }}</span></p>
+                    <a href="/api/mySubscibe/+${item.lid}">
+                        <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span> ${ item.start }</span><span class="price">¥${ item.price }</span></p>
                      <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
-                         <span>{{ item.end }}</span>
+                         <span>${ item.end }</span>
                         </p></a>
                     <p >
                     <ul class="inline" style="float: left;margin-bottom: 5px;margin-top: 5px">
-                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0">{{ item.personCount }}人</span>
-                        <span class="" v-if="item.type==1">{{ item.personCount }}座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>{{ item.plateNumber }}
-                        <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>{{ item.userMobile }} </a>
-                        <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>{{ item.userNickname }}
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>{{ item.startTime }}
+                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0">${ item.personCount }人</span>
+                        <span class="" v-if="item.type==1">${ item.personCount }座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>${ item.plateNumber }
+                        <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>${ item.userMobile } </a>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>${ item.userNickname }
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>${ item.startTime }
+                    <span  >途径：</span>${ item.passThrough }
                     <%--<span class="bargin-label" v-if="item.isbargin === 0">不议价</span>--%>
                     <%--<span class="bargin-label" v-if="item.isbargin === 1">可议价</span>--%>
                 </ul>
                     </p>
                 <p>
 
-                    <%--<span class="price">¥{{ item.price }}</span>--%>
+                    <%--<span class="price">¥${ item.price }</span>--%>
                 </p>
                 </div>
                 <div class="hidden-xs">
@@ -83,11 +85,11 @@
                     马上预约</a>
                 </div>
                 <div class="hidden-md hidden-lg col-xs-12">
-                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==1" class="  btn-subscribe">电话联系</a>
-                    <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class=" btn btn-subscribe-nobg">预约</a>
+                    <a v-bind:href="'/api/toSubscibe/'+item.lid"   class=" btn btn-subscribe-nobg">预约</a>
                     <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==0" class="  btn-subscribe" style="margin-right: 30px">电话联系</a>
                 </div>
             </div>
+            </c:forEach>
             <div id="page" class="m-pagination" ></div>
             <footer class="skill-ftw">
                 <ul class="fixed-skill-ftw">
@@ -111,90 +113,14 @@
 </div>
 <script src="/asert/js/jquery.autocompleter.js"></script>
 <script>
-    /***************************************
-     由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
-     ***************************************/
-/*    var map, geolocation;
-    var adCode
-    //加载地图，调用浏览器定位服务
-    map = new AMap.Map('container', {
-        resizeEnable: true
-    });
-    map.plugin('AMap.Geolocation', function() {
-        geolocation = new AMap.Geolocation({
-            enableHighAccuracy: true,//是否使用高精度定位，默认:true
-            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-            buttonPosition:'RB'
-        });
-        map.addControl(geolocation);
-        geolocation.getCurrentPosition();
-        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
-        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
-    });
-    //解析定位结果
-    function onComplete(data) {
-        adCode=data.addressComponent.adcode;
-        console.log(adCode);
-        $("#page").pagination({
-            pageSize: 10,
-            remote: {
-                url: '/v1/lineInfos',
-                pageParams: function(data){
-                    var params = $("#searchForm").serializeJSON();
-                    return {
-                        pageIndex:data.pageIndex,
-                        pageSize:data.pageSize,
-                        type:params.type,
-                        start:params.start,
-                        end:params.end,
-                        startTime:params.startTime,
-                        startAdcode:adCode
-                    };
-                },
-                success: function (data) {
-                    app.items=data.list;
-                },
-                totalName:'total'
-            }
-        });
-    }
-    //解析定位错误信息
-    function onError(data) {
-        $("#page").pagination({
-            pageSize: 10,
-            remote: {
-                url: '/v1/lineInfos',
-                pageParams: function(data){
-                    var params = $("#searchForm").serializeJSON();
-                    return {
-                        pageIndex:data.pageIndex,
-                        pageSize:data.pageSize,
-                        type:params.type,
-                        start:params.start,
-                        end:params.end,
-                        startTime:params.startTime
-                    };
-                },
-                success: function (data) {
-                    app.items=data.list;
-                },
-                totalName:'total'
-            }
-        });
-    }*/
 
-
-
-
-    var app = new Vue({
+ /*   var app = new Vue({
         el: '#app',
         data: {
             items: [
             ]
         }
-    })
+    })*/
     function changeIdentity(type){
         if(type==0){
             $('#tabpassenger').addClass("hover");
@@ -209,39 +135,21 @@
         searchLineInfo();
     }
     function searchLineInfo(){
-      /*  //ajax提交
+        //ajax提交
         var params = $("#searchForm").serialize();
         $.ajax({
             type : "GET",
             url : "/v1/lineInfos",
             data : params,
             success : function(data) {
-                app.items=data.list;
+                //app.items=data;
             }
-        });*/
-        $("#page").pagination('remote');
+        });
+        //$("#page").pagination('remote');
     }
-    $("#page").pagination({
-        pageSize: 10,
-        remote: {
-            url: '/v1/lineInfos',
-            pageParams: function(data){
-                var params = $("#searchForm").serializeJSON();
-                return {
-                    pageIndex:data.pageIndex,
-                    pageSize:data.pageSize,
-                    type:params.type,
-                    start:params.start,
-                    end:params.end,
-                    startTime:params.startTime
-                };
-            },
-            success: function (data) {
-                app.items=data.list;
-            },
-            totalName:'total'
-        }
+    $(document).ready(function(){
     });
+
     /**
      * 提示输入
      */
@@ -254,7 +162,7 @@
             // object to local or url to remote search
             source: '/v2//HintInfo' ,
 
-            template: '{{ name }}',
+            template: '${ name }',
             // show hint
             hint: false,
 
@@ -272,7 +180,7 @@
             // object to local or url to remote search
             source: '/v2//HintInfo' ,
 
-            template: '{{ name }}',
+            template: '${ name }',
             // show hint
             hint: false,
 

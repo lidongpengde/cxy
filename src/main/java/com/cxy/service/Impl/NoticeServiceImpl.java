@@ -21,7 +21,7 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setIsread(0);
         notice.setClasses(LineInfo.class.getSimpleName());
         notice.setUserid(lineInfo.getUserId());
-        notice.setBusinessid(lineInfo.getLid().toString());
+        notice.setBusinessid(lineInfo.getLid());
         notice.setMessages("您的【"+lineInfo.getStart()+"】-->【"+lineInfo.getEnd()+"】发布已被预约，请注意查看");
         new NoticeThread(notice);
     }
