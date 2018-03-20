@@ -1,3 +1,4 @@
+/*
 package com.cxy.service.Impl;
 
 import com.cxy.common.MessageResult;
@@ -16,9 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
+*/
 /**
  * Created by lidongpeng on 2017/9/18.
- */
+ *//*
+
 @Service
 public class SubscibeImpl implements IsubscribeService{
     @Autowired
@@ -34,7 +37,7 @@ public class SubscibeImpl implements IsubscribeService{
             return messageResult;
         }
         User user=UserTools.getCurrentUser(request);
-        subscribe.setPersonId(user.getId());
+        //subscribe.setPersonId(user.getId());
         subscribe.setPersonName(user.getNickName());
         subscribe.setCreateTime(UserTools.getCurrentTime());
            LineInfo lineInfo= lineInfoMapper.selectByPrimaryKey(subscribe.getLineinfoId());
@@ -58,3 +61,4 @@ public class SubscibeImpl implements IsubscribeService{
         return subscribeMapper.selectByLineinfoId(lineInfo.getLid());
     }
 }
+*/

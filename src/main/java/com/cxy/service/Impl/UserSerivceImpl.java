@@ -5,14 +5,26 @@ import com.cxy.dao.UserMapper;
 import com.cxy.dao.UserRecordMapper;
 import com.cxy.entity.User;
 import com.cxy.entity.UserRecord;
+import com.cxy.service.IJestService;
 import com.cxy.service.IuserService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,36 +34,72 @@ import java.util.concurrent.Executors;
  */
 @Service
 public class UserSerivceImpl implements IuserService{
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private UserRecordMapper userRecordMapper;
     private ExecutorService executor;
+    @Autowired
+    IJestService jestService;
     public UserSerivceImpl(){
         executor=Executors.newSingleThreadExecutor();
     }
 
-    public int saveUser(User user) {
+    public boolean saveUser(User user) {
+        boolean stauts=false;
         //新增用户默认状态为未认证
         user.setIdentifyStatus(0L);
         user.setCreateTime(UserTools.getCurrentTime());
         user.setNickName(user.getUserName());
-        int size=userMapper.insert(user);
-        return size;
+        user.setId(UUID.randomUUID().toString().substring(0,8));
+
+
+        try {
+
+             stauts=jestService.index(jestService.getJestClient(),"user","user",user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //int size=userMapper.insert(user);
+        return stauts;
     }
 
-    public User findUserById(Long userId) {
-        return userMapper.selectByPrimaryKey(userId);
+    public User findUserById(String userId) {
+        SearchResponse result=null;
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        QueryBuilder queryBuilder = QueryBuilders.matchQuery("id",userId);
+
+        searchSourceBuilder.query(queryBuilder);
+        String query = searchSourceBuilder.toString();
+        try {
+            result=jestService.search(jestService.getJestClient(),"user","user",query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //User user= userMapper.selectByMobile(login);
+        User user=null;
+        return user;
     }
 
     public User findUserByName(String userName) {
-        User user=userMapper.selectByPrimaryName(userName);
-        if (user!=null){
+        SearchResponse result=null;
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        QueryBuilder queryBuilder = QueryBuilders.matchQuery("userName",userName);
 
+        searchSourceBuilder.query(queryBuilder);
+        String query = searchSourceBuilder.toString();
+        long totalHits=0l;
+        User user=null;
+        try {
+            result=jestService.search(jestService.getJestClient(),"user","user",query);
+            SearchHits searchHits = result.getHits();
+            for (SearchHit hit: searchHits) {
+                String res= hit.getSourceAsString();
+                user=gson.fromJson(res,User.class);
+            }
 
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return userMapper.selectByPrimaryName(userName);
+        return user;
     }
     /**
      * 0未认证1已认证2黑名单
@@ -60,16 +108,35 @@ public class UserSerivceImpl implements IuserService{
      */
     public User updateUser(User user) {
         //user.setIdentifyStatus(1L);
-        int size=userMapper.updateByPrimaryKeySelective(user);
+        /*int size=userMapper.updateByPrimaryKeySelective(user);
         if (size>0){
-          user=  userMapper.selectByPrimaryKey(user.getId());
-        }
+          //user=  userMapper.selectByPrimaryKey(user.getId());
+        }*/
         return user;
     }
 
     @Override
     public User findUserByMobile(String login) {
-        User user= userMapper.selectByMobile(login);
+        SearchResponse result=null;
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        QueryBuilder queryBuilder = QueryBuilders.matchQuery("mobile",login);
+
+        searchSourceBuilder.query(queryBuilder);
+        String query = searchSourceBuilder.toString();
+        long totalHits=0l;
+        User user=null;
+        try {
+            result=jestService.search(jestService.getJestClient(),"user","user",query);
+            SearchHits searchHits = result.getHits();
+            for (SearchHit hit: searchHits) {
+               String res= hit.getSourceAsString();
+               user=gson.fromJson(res,User.class);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return user;
     }
 
@@ -88,10 +155,10 @@ public class UserSerivceImpl implements IuserService{
             @Override
             public void run() {
                 UserRecord userRecord=new UserRecord();
-                userRecord.setUserId(user.getId());
+             //   userRecord.setUserId(user.getId());
                 userRecord.setUserName(user.getUserName());
                 userRecord.setLoginTime(new Date());
-                userRecordMapper.insert(userRecord);
+               // userRecordMapper.insert(userRecord);
             }
         });
     }

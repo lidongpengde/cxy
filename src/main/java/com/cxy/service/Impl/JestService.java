@@ -1,19 +1,36 @@
 package com.cxy.service.Impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cxy.service.IJestService;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.searchbox.client.JestClient;
-import io.searchbox.client.JestClientFactory;
-import io.searchbox.client.JestResult;
-import io.searchbox.client.config.HttpClientConfig;
-import io.searchbox.core.*;
-import io.searchbox.indices.CreateIndex;
-import io.searchbox.indices.DeleteIndex;
-import io.searchbox.indices.mapping.GetMapping;
-import io.searchbox.indices.mapping.PutMapping;
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
+
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.ScrollableHitSource;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.elasticsearch.index.reindex.ScrollableHitSource.Hit;
+
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by lidongpeng on 2018/3/5.
@@ -25,173 +42,91 @@ public class JestService implements IJestService{
      * 获取JestClient对象
      * @return
      */
-    public JestClient getJestClient() {
+    public RestHighLevelClient getJestClient() {
 
-        JestClientFactory factory = new JestClientFactory();
-        factory.setHttpClientConfig(new HttpClientConfig
-                .Builder("http://10.58.62.243:9200")
-                .gson(new GsonBuilder().setDateFormat("yyyy-MM-dd''hh:mm:ss").create())
-                .connTimeout(1500)
-                .readTimeout(3000)
-                .multiThreaded(true)
-                .build());
-        return factory.getObject();
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(
+                        new HttpHost("47.95.239.247",9200, "http")));
+        return client;
     }
 
-    /**
-     * 创建索引
-     * @param jestClient
-     * @param indexName
-     * @return
-     * @throws Exception
-     */
-    public boolean createIndex(JestClient jestClient, String indexName) throws Exception {
-
-        JestResult jr = jestClient.execute(new CreateIndex.Builder(indexName).build());
-        return jr.isSucceeded();
+    @Override
+    public BulkResponse createIndex(RestHighLevelClient jestClient, String indexName) throws Exception {
+        BulkRequest request = new BulkRequest();
+        request.add(new IndexRequest("posts", "doc", "1")
+                .source(XContentType.JSON,"field", "foo"));
+        BulkResponse bulkResponse = jestClient.bulk(request);
+        return bulkResponse;
     }
 
-    /**
-     * Put映射
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @param source
-     * @return
-     * @throws Exception
-     */
-    public boolean createIndexMapping(JestClient jestClient, String indexName, String typeName, String source) throws Exception {
-
-        PutMapping putMapping = new PutMapping.Builder(indexName, typeName, source).build();
-        JestResult jr = jestClient.execute(putMapping);
-        return jr.isSucceeded();
+    @Override
+    public boolean createIndexMapping(RestHighLevelClient jestClient, String indexName, String typeName, String source) throws Exception {
+        return false;
     }
 
-    /**
-     * Get映射
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @return
-     * @throws Exception
-     */
-    public String getIndexMapping(JestClient jestClient, String indexName, String typeName) throws Exception {
-
-        GetMapping getMapping = new GetMapping.Builder().addIndex(indexName).addType(typeName).build();
-        JestResult jr = jestClient.execute(getMapping);
-        return jr.getJsonString();
+    @Override
+    public String getIndexMapping(RestHighLevelClient jestClient, String indexName, String typeName) throws Exception {
+        return null;
     }
 
-    /**
-     * 索引文档
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @param objs
-     * @return
-     * @throws Exception
-     */
-    public boolean index(JestClient jestClient, String indexName, String typeName, List<Object> objs) throws Exception {
+    @Override
+    public boolean index(RestHighLevelClient jestClient, String indexName, String typeName, Object obj) throws Exception {
+        IndexRequest request = new IndexRequest(
+                indexName,
+                typeName,
+                UUID.randomUUID().toString());
+        request.source(JSONObject.toJSONString(obj), XContentType.JSON);
+        IndexResponse indexResponse = jestClient.index(request);
+        indexResponse.status();
+        return true;
+    }
 
-        Bulk.Builder bulk = new Bulk.Builder().defaultIndex(indexName).defaultType(typeName);
-        for (Object obj : objs) {
-            Index index = new Index.Builder(obj).build();
-            bulk.addAction(index);
+    @Override
+    public SearchResponse search(RestHighLevelClient jestClient, String indexName, String typeName, String query) throws Exception {
+        SearchRequest searchRequest = new SearchRequest(indexName);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchRequest.types(typeName);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(QueryBuilders.simpleQueryStringQuery(query));
+
+        sourceBuilder.from(0);
+        sourceBuilder.size(5);
+
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+        searchRequest.source(sourceBuilder);
+        SearchResponse searchResponse=jestClient.search(searchRequest);
+        SearchHits searchHits=searchResponse.getHits();
+        for (SearchHit hit: searchHits ) {
+            System.out.println(hit.getSourceAsString());
+            hit.getSourceAsString();
         }
-        BulkResult br = jestClient.execute(bulk.build());
-        return br.isSucceeded();
+        return searchResponse;
     }
 
-    /**
-     * 搜索文档
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @param query
-     * @return
-     * @throws Exception
-     */
-    public SearchResult search(JestClient jestClient, String indexName, String typeName, String query) throws Exception {
-
-        Search search = new Search.Builder(query)
-                .addIndex(indexName)
-                .addType(typeName)
-                .build();
-        return jestClient.execute(search);
+    @Override
+    public Double count(RestHighLevelClient jestClient, String indexName, String typeName, String query) throws Exception {
+        return null;
     }
 
-    /**
-     * Count文档
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @param query
-     * @return
-     * @throws Exception
-     */
-    public Double count(JestClient jestClient, String indexName, String typeName, String query) throws Exception {
-
-        Count count = new Count.Builder()
-                .addIndex(indexName)
-                .addType(typeName)
-                .query(query)
-                .build();
-        CountResult results = jestClient.execute(count);
-        return results.getCount();
+    @Override
+    public RestHighLevelClient get(RestHighLevelClient jestClient, String indexName, String typeName, String id) throws Exception {
+        return null;
     }
 
-    /**
-     * Get文档
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    public JestResult get(JestClient jestClient, String indexName, String typeName, String id) throws Exception {
-
-        Get get = new Get.Builder(indexName, id).type(typeName).build();
-        return jestClient.execute(get);
+    @Override
+    public boolean delete(RestHighLevelClient jestClient, String indexName) throws Exception {
+        return false;
     }
 
-    /**
-     * Delete索引
-     * @param jestClient
-     * @param indexName
-     * @return
-     * @throws Exception
-     */
-    public boolean delete(JestClient jestClient, String indexName) throws Exception {
-
-        JestResult jr = jestClient.execute(new DeleteIndex.Builder(indexName).build());
-        return jr.isSucceeded();
+    @Override
+    public boolean delete(RestHighLevelClient jestClient, String indexName, String typeName, String id) throws Exception {
+        return false;
     }
 
-    /**
-     * Delete文档
-     * @param jestClient
-     * @param indexName
-     * @param typeName
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    public boolean delete(JestClient jestClient, String indexName, String typeName, String id) throws Exception {
+    @Override
+    public void closeJestClient(RestHighLevelClient jestClient) throws Exception {
 
-        DocumentResult dr = jestClient.execute(new Delete.Builder(id).index(indexName).type(typeName).build());
-        return dr.isSucceeded();
     }
 
-    /**
-     * 关闭JestClient客户端
-     * @param jestClient
-     * @throws Exception
-     */
-    public void closeJestClient(JestClient jestClient) throws Exception {
 
-        if (jestClient != null) {
-            jestClient.shutdownClient();
-        }
-    }
 }

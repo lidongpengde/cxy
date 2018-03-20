@@ -1,3 +1,4 @@
+/*
 package com.cxy.service.Impl;
 
 import com.cxy.common.NoticeThread;
@@ -32,3 +33,4 @@ public class NoticeServiceImpl implements NoticeService {
         noticeMapper.updById(id);
     }
 }
+*/

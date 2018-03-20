@@ -9,6 +9,7 @@ import com.cxy.entity.LineInfo;
 import com.cxy.entity.LineInfoAndUserInfo;
 import com.cxy.entity.User;
 import com.cxy.entity.UserRecord;
+import com.cxy.service.IJestService;
 import com.cxy.service.ILineInfoService;
 import com.cxy.service.Iidentity;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +31,7 @@ import java.util.concurrent.*;
 @Service
 public class LineInfoServiceImpl implements ILineInfoService {
     @Autowired
+    IJestService jestService;
     private LineInfoMapper lineInfoMapper;
     ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(5,10,1000, TimeUnit.MICROSECONDS,new ArrayBlockingQueue<Runnable>(10));
     public LineInfoServiceImpl(){
@@ -39,19 +41,17 @@ public class LineInfoServiceImpl implements ILineInfoService {
     public MessageResult saveLineInfo(LineInfo lineInfo,HttpServletRequest request) {
         MessageResult messageResult=new MessageResult();
         User user=(User)request.getSession().getAttribute("const_user");
-        //鉴于刚开始用户少，先屏蔽掉实名认证后才可以发布
- /*       if (user.getIdentifyStatus()==null||user.getIdentifyStatus()!=1L){
-            messageResult.setCode(WarningEnum.need_identified.getCode());
-            messageResult.setMessage(WarningEnum.need_identified.getMsg());
-            messageResult.setSuccess(false);
-            return messageResult;
-        }*/
         lineInfo.setUserId(user.getId().toString());
         lineInfo.setUserMobile(user.getMobile().toString());
         lineInfo.setUserNickname(user.getNickName());
         lineInfo.setStatus(1);
-        int size=lineInfoMapper.insertSelective(lineInfo);
-        if (size>0){
+        boolean status = false;
+        try {
+            status = jestService.index(jestService.getJestClient(),"lineinfo","lineinfo",lineInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (status){
             messageResult.setCode(WarningEnum.update_success.getCode());
             messageResult.setMessage(WarningEnum.update_success.getMsg());
             messageResult.setSuccess(true);
@@ -101,6 +101,7 @@ public class LineInfoServiceImpl implements ILineInfoService {
             messageResult.setBuessObj(list);
             messageResult.setSuccess(true);
             return messageResult;
+
         }else{
             messageResult.setSuccess(false);
         }
@@ -178,10 +179,10 @@ public class LineInfoServiceImpl implements ILineInfoService {
 
     public String getMsgByUser(User user){
         String msg = "";
-        Integer cnt =  lineInfoMapper.getLineInfoSubCount(user.getId());
+       /* Integer cnt =  lineInfoMapper.getLineInfoSubCount(user.getId());
         if(cnt!=null&&cnt>0){
             msg = "已预约<a class=\"menu-child\" href=\"/v1/mySubLineInfo\">【"+cnt+"】</a>";
-        }
+        }*/
         return msg;
     }
 

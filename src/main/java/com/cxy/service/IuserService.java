@@ -9,8 +9,8 @@ import java.util.List;
  * Created by lidp on 2017/3/19.
  */
 public interface IuserService {
-    public int saveUser(User user);
-    public User findUserById(Long userId);
+    public boolean saveUser(User user);
+    public User findUserById(String userId);
     public User findUserByName(String userName);
 
     public User updateUser(User user);

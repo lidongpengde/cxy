@@ -34,8 +34,8 @@ public class UserController {
     @ResponseBody
     public String saveUser(User user,HttpServletRequest request){
         JSONObject jsonObject=new JSONObject();
-        int size=userService.saveUser(user);
-        if (size>0){
+        boolean size=userService.saveUser(user);
+        if (size){
             userService.saveLoginStatus(request,user);
             jsonObject.put("message","注册成功");
             jsonObject.put("code",200);
@@ -104,18 +104,8 @@ public class UserController {
         request.getSession().setAttribute("refer",refer);
         return "register";
     }
-    @RequestMapping("/{userId}")
-    public String tologin(@PathVariable Long userId, HttpServletRequest request){
-       User user= UserTools.getCurrentUser(request);
-       if (user.getId()==1){
-           User identifyUser=userService.findUserById(userId);
-           identifyUser.setIdentifyStatus(1l);
-           userService.updateUser(identifyUser);
-       }
-        return "identityList";
-    }
     @RequestMapping("inner/{userId}")
-    public String getUserinfo(@PathVariable Long userId, HttpServletRequest request, ModelMap modelMap){
+    public String getUserinfo(@PathVariable String userId, HttpServletRequest request, ModelMap modelMap){
         User user= UserTools.getCurrentUser(request);
         if (user==null){
             modelMap.put("result","您还没有登录");

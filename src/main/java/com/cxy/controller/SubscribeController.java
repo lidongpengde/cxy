@@ -1,3 +1,4 @@
+/*
 package com.cxy.controller;
 
 import com.cxy.common.AtomUtils;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+*/
 /**
  * Created by lidongpeng on 2017/9/18.
- */
+ *//*
+
 @RequestMapping("/api")
 @Controller
 public class SubscribeController {
@@ -74,3 +77,4 @@ public class SubscribeController {
         return "viewSubscribeResult";
     }
 }
+*/

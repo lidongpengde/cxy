@@ -17,7 +17,7 @@
 <body>
 <div class="container" style="margin-top: 54px;min-height: 100%;background: #fafafa" id="myapp">
     <div class="row">
-    <div class="list-group">
+   <%-- <div class="list-group">
         <a href="#" class="list-group-item active">
             个人中心
         </a>
@@ -46,7 +46,8 @@
             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>退出
         </a>
-    </div>
+    </div>--%>
+        <h3 class="text-center">暂未开放</h3>
             <input type="hidden" value="${user.userId}" name="userId">
 
     </div>
@@ -71,28 +72,7 @@
     </footer>
 </div>
 <script>
-    var myapp = new Vue({
-        el: '#myapp',
-        data: {
-            items: [
-            ],
-            message:""
-        }
-    })
-    $(document).ready(function(){
-        var  classes = "LineInfo";
-        var  htmltext="" ;
-        $.ajax({
-            type:'post',
-            url:'/notice/getMsgByUser?classes='+classes,
-            success:function (data){
-                myapp.message=data.length;
-            },
-            error:function (e) {
-                alert("系统繁忙"+e);
-            }
-        })
-    })
+
 </script>
 <script src="/asert/js/bootstrap.js"></script>
 <%--<jsp:include page="include/foot.jsp"></jsp:include>--%>

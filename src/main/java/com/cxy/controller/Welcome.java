@@ -8,18 +8,29 @@ import com.cxy.dao.AdviceBoxMapper;
 import com.cxy.entity.AdviceBox;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.User;
+import com.cxy.service.IJestService;
 import com.cxy.service.ILineInfoService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.naming.directory.SearchResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lidongpeng on 2017/6/10.
@@ -28,16 +39,39 @@ import java.util.Map;
  */
 @Controller
 public class Welcome {
-    @Autowired
     private AdviceBoxMapper adviceBoxMapper;
     @Autowired
     ILineInfoService lineInfoService;
+    @Autowired
+    IJestService jestService;
     @RequestMapping("/")
-    public String hello(HttpServletRequest request, HttpServletResponse response) {
-        User user=(User)request.getSession().getAttribute("const_user");
-        if (user!=null)
-            return "publishLineInfo";
-        return "register";
+    public String hello(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        SearchResponse result=null;
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        QueryBuilder queryBuilder = QueryBuilders
+//                .rangeQuery("startTime").gt(new Date());
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        queryBuilder.must(QueryBuilders.matchQuery("type", 1));
+        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(100);
+        searchSourceBuilder.from(0);
+        String query = searchSourceBuilder.toString();
+        try {
+            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
+            SearchHits searchHits = result.getHits();
+            List<LineInfo> list=new ArrayList<>();
+            for (SearchHit hit: searchHits) {
+                String res= hit.getSourceAsString();
+                LineInfo lineInfo=gson.fromJson(res,LineInfo.class);
+                list.add(lineInfo);
+            }
+            modelMap.put("result",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "index";
     }
     @RequestMapping("/jsonpTest")
     @ResponseBody

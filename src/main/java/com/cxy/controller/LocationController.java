@@ -1,3 +1,4 @@
+/*
 package com.cxy.controller;
 
 import com.alibaba.fastjson.JSONObject;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+*/
 /**
  * Created by lidongpeng on 2017/8/18.
- */
+ *//*
+
 @RequestMapping("/v2")
 @Controller
 public class LocationController {
@@ -25,3 +28,4 @@ public class LocationController {
         return JSONObject.toJSONString(list);
     }
 }
+*/

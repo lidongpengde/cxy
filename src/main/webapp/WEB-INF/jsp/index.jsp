@@ -31,7 +31,7 @@
     }
 </style>
 <body >
-<div class="container" id="app" style="margin-top: 52px;padding-top: 15px;">
+<div class="container" id="app" style="margin-top: 52px;padding-top: 15px;background: #fafafa;">
 
         <%--头部搜索栏--%>
 
@@ -51,21 +51,21 @@
 
         <%--tab切换栏--%>
         <div class="identity ">
-            <a href="#" onclick="changeIdentity(1)"><div class="col-md-6  col-xs-6 text-center hover" id="tabdriver">找车</div></a>
-            <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 col-xs-6 text-center" id="tabpassenger">找人</div></a>
+            <a href="/v1/toIndexPage" ><div class="col-md-6  col-xs-6 text-center hover" id="tabdriver">找车</div></a>
+            <a href="/v1/searchMessenger" ><div class="col-md-6 col-xs-6 text-center" id="tabpassenger">找人</div></a>
         </div>
             <c:forEach var="item"   items="${result}"   varStatus="status">
             
             <div class="post">
                 <div class="post-content">
-                    <a href="/api/mySubscibe/+${item.lid}">
+
                         <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span> ${ item.start }</span><span class="price">¥${ item.price }</span></p>
                      <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
                          <span>${ item.end }</span>
-                        </p></a>
+                        </p>
                     <p >
                     <ul class="inline" style="float: left;margin-bottom: 5px;margin-top: 5px">
-                        <span v-if="item.type==1" class="glyphicon glyphicon-shopping-cart"></span><span  class="glyphicon glyphicon-shopping-cart" v-if="item.type==0">${ item.personCount }人</span>
+                       <span  class="glyphicon glyphicon-shopping-cart" >${ item.personCount }人</span>
                         <span class="" v-if="item.type==1">${ item.personCount }座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>${ item.plateNumber }
                         <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>${ item.userMobile } </a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>${ item.userNickname }
@@ -137,15 +137,7 @@
     function searchLineInfo(){
         //ajax提交
         var params = $("#searchForm").serialize();
-        $.ajax({
-            type : "GET",
-            url : "/v1/lineInfos",
-            data : params,
-            success : function(data) {
-                //app.items=data;
-            }
-        });
-        //$("#page").pagination('remote');
+        alert("暂时关闭查询")
     }
     $(document).ready(function(){
     });
@@ -153,8 +145,8 @@
     /**
      * 提示输入
      */
-    $(function () {
-        $('#start').autocompleter({
+   /* $(function () {*/
+   /*     $('#start').autocompleter({
             cache: false,
             // marker for autocomplete matches
             highlightMatches: true,
@@ -190,7 +182,7 @@
             // max results
             limit: 5,
         });
-    });
+    });*/
 /*    $(document).ready(function(){
         var  classes = "LineInfo";
         var  htmltext="" ;

@@ -33,7 +33,7 @@
     <c:choose><c:when test="${sessionScope.const_user== null}">
         <div id="NavbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 200px;">
             <ul class="nav navbar-nav navbar-right">
-                <li data-pricing=""><a href="/" class="menu-main"><span>绿色出行，任我行</span></a></li>
+                <li data-pricing=""><a href="/user/tologin" class="" style="float: right;margin-top: 6px;"><span>登录</span></a></li>
             </ul>
         </div>
     </c:when>
@@ -81,7 +81,7 @@
         }
     })
     $(document).ready(function(){
-        var  classes = "LineInfo";
+/*        var  classes = "LineInfo";
         var  htmltext="" ;
         $.ajax({
             type:'post',
@@ -94,7 +94,7 @@
             error:function (e) {
                 console.log("系统繁忙"+e);
             }
-        })
+        })*/
     })
 </script>
 </body>

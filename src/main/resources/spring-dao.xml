@@ -10,56 +10,58 @@
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
     <context:property-placeholder location="classpath:db.properties" />
-    <tx:annotation-driven  transaction-manager="transactionManager"/>
+    <!--<tx:annotation-driven  transaction-manager="transactionManager"/>-->
     <!--      扫描注解bean -->
       <!-- <context:component-scan base-package="cn.us.aspect"/>-->
 
   <!--      开启切面代理 使得spring认识 @Aspect -->
        <aop:aspectj-autoproxy/>
 
-       <!-- 事务管理器 -->
+<!--       &lt;!&ndash; 事务管理器 &ndash;&gt;
       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
           <property name="dataSource" ref="dataSource" />
       </bean>
 
-        <!-- 2.数据库连接池 -->
+        &lt;!&ndash; 2.数据库连接池 &ndash;&gt;
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!-- 配置连接池属性 -->
+        &lt;!&ndash; 配置连接池属性 &ndash;&gt;
         <property name="driverClass" value="${jdbc.driver}" />
         <property name="jdbcUrl" value="${jdbc.url}" />
         <property name="user" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
 
-        <!-- c3p0连接池的私有属性 -->
+        &lt;!&ndash; c3p0连接池的私有属性 &ndash;&gt;
         <property name="maxPoolSize" value="30" />
         <property name="minPoolSize" value="10" />
-        <!-- 关闭连接后不自动commit -->
+        &lt;!&ndash; 关闭连接后不自动commit &ndash;&gt;
         <property name="autoCommitOnClose" value="false" />
-        <!-- 获取连接超时时间 -->
+        &lt;!&ndash; 获取连接超时时间 &ndash;&gt;
         <property name="testConnectionOnCheckin" value="false"/>
         <property name="testConnectionOnCheckout" value="true"/>
         <property name="maxIdleTime" value="28700" />
-        <!-- 当获取连接失败重试次数 -->
+
+        &lt;!&ndash; 当获取连接失败重试次数 &ndash;&gt;
         <property name="acquireRetryAttempts" value="2" />
     </bean>
 
-    <!-- 3.配置SqlSessionFactory对象 -->
+    &lt;!&ndash; 3.配置SqlSessionFactory对象 &ndash;&gt;
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!-- 注入数据库连接池 -->
+        &lt;!&ndash; 注入数据库连接池 &ndash;&gt;
         <property name="dataSource" ref="dataSource" />
-        <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+        &lt;!&ndash; 配置MyBaties全局配置文件:mybatis-config.xml &ndash;&gt;
         <property name="configLocation" value="classpath:mybatis-config.xml" />
-        <!-- 扫描entity包 使用别名 -->
+        &lt;!&ndash; 扫描entity包 使用别名 &ndash;&gt;
         <property name="typeAliasesPackage" value="com.cxy.entity" />
-        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+        &lt;!&ndash; 扫描sql配置文件:mapper需要的xml文件 &ndash;&gt;
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
 
-    <!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
+
+    &lt;!&ndash; 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 &ndash;&gt;
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 注入sqlSessionFactory -->
+        &lt;!&ndash; 注入sqlSessionFactory &ndash;&gt;
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-        <!-- 给出需要扫描Dao接口包 -->
+        &lt;!&ndash; 给出需要扫描Dao接口包 &ndash;&gt;
         <property name="basePackage" value="com.cxy.dao" />
-    </bean>
+    </bean>-->
 </beans>

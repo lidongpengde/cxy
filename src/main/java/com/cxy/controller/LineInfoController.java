@@ -9,21 +9,22 @@ import com.cxy.service.IuserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import io.searchbox.client.JestResult;
-import io.searchbox.core.Index;
-import io.searchbox.core.SearchResult;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.elasticsearch.action.support.QuerySourceBuilder;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.directory.SearchResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class LineInfoController {
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo){
         MessageResult messageResult = new MessageResult();
-        JestResult jestResult = null;
+        SearchResult jestResult = null;
         Gson gson = new GsonBuilder().create();
         if(AtomUtils.isEmpty(lineInfo.getLid())) {
             User user=(User)request.getSession().getAttribute("const_user");
@@ -68,8 +69,8 @@ public class LineInfoController {
             try {
                 List<Object> objs = new ArrayList<Object>();
                 objs.add(lineInfo);
-                boolean stauts=jestService.index(jestService.getJestClient(),"go366","lineinfo",objs);
-                if (stauts){
+                messageResult=lineInfoService.saveLineInfo(lineInfo,request);
+                if (messageResult.isSuccess()){
                         messageResult.setCode(WarningEnum.update_success.getCode());
                         messageResult.setMessage(WarningEnum.update_success.getMsg());
                         messageResult.setSuccess(true);
@@ -77,10 +78,7 @@ public class LineInfoController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //messageResult = lineInfoService.saveLineInfo(lineInfo, request);
-        }else{//再次编辑后自动发布
-            //lineInfo.setStatus(1);
-            //messageResult = lineInfoService.updateByLineInfo(lineInfo);
+        }else{
         }
         return gson.toJson(messageResult);
     }
@@ -96,7 +94,7 @@ public class LineInfoController {
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo,Integer pageIndex,Integer pageSize){
-        SearchResult result=null;
+        SearchResponse result=null;
         JSONObject jsonObject=new JSONObject();
         Gson gson = new GsonBuilder().create();
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -108,13 +106,13 @@ public class LineInfoController {
         searchSourceBuilder.from(0);
         String query = searchSourceBuilder.toString();
         try {
-            result=jestService.search(jestService.getJestClient(),"go366","lineinfo",query);
+            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
         } catch (Exception e) {
             e.printStackTrace();
         }
        // Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize,false);
        // List<LineInfoAndUserInfo> listAll=null;
-        return gson.toJson(result.getSourceAsObjectList(LineInfo.class,false));
+        return null;
     }
     @RequestMapping("toPublishlineInfoPage")
     public String toPublishlineInfoPage(HttpServletRequest request,ModelMap modelMap, LineInfo lineInfo ){
@@ -128,7 +126,7 @@ public class LineInfoController {
     }
     @RequestMapping("toIndexPage")
     public String toIndexPage(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap){
-        SearchResult result=null;
+        SearchResponse result=null;
         Gson gson = new GsonBuilder().create();
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 //        QueryBuilder queryBuilder = QueryBuilders
@@ -141,13 +139,48 @@ public class LineInfoController {
         searchSourceBuilder.from(0);
         String query = searchSourceBuilder.toString();
         try {
-            result=jestService.search(jestService.getJestClient(),"go366","lineinfo",query);
-            List<LineInfo> list =gson.fromJson(gson.toJson(result.getSourceAsObjectList(LineInfo.class,true)), new TypeToken<List<LineInfo>>() {}.getType());
+            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
+            SearchHits searchHits = result.getHits();
+            List<LineInfo> list=new ArrayList<>();
+            for (SearchHit hit: searchHits) {
+                String res= hit.getSourceAsString();
+                LineInfo lineInfo=gson.fromJson(res,LineInfo.class);
+                list.add(lineInfo);
+            }
             modelMap.put("result",list);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "index";
+    }
+    @RequestMapping("searchMessenger")
+    public String searchMessenger(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap){
+        SearchResponse result=null;
+        Gson gson = new GsonBuilder().create();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        QueryBuilder queryBuilder = QueryBuilders
+//                .rangeQuery("startTime").gt(new Date());
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        queryBuilder.must(QueryBuilders.matchQuery("type", 0));
+        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(100);
+        searchSourceBuilder.from(0);
+        String query = searchSourceBuilder.toString();
+        try {
+            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
+            SearchHits searchHits = result.getHits();
+            List<LineInfo> list=new ArrayList<>();
+            for (SearchHit hit: searchHits) {
+                String res= hit.getSourceAsString();
+                LineInfo lineInfo=gson.fromJson(res,LineInfo.class);
+                list.add(lineInfo);
+            }
+            modelMap.put("result",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "searchMessenger";
     }
     @RequestMapping("myPublishLineInfo")
     public String myPublish(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){

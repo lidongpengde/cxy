@@ -16,15 +16,14 @@ import java.util.List;
 @Controller
 @RequestMapping("notice")
 public class NoticeController {
-    @Autowired
     NoticeService noticeService;
     @RequestMapping(value = "getMsgByUser",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String getMsgByUser(HttpServletRequest request,String classes){
         User user=(User)request.getSession().getAttribute("const_user");
         List list=null;
-        if (user!=null){
-             list =noticeService.getMessByUserAndCla(user.getId().toString(),classes);
+        if (user!=null&&user.getId()!=null){
+             list =noticeService.getMessByUserAndCla(user.getId(),classes);
         }
         return JSONArray.toJSONString(list);
     }
