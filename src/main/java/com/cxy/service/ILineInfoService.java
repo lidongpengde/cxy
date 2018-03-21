@@ -18,7 +18,7 @@ public interface ILineInfoService {
     public int updateLineInfo(int lid);
     LineInfo queryLineInfoById(Integer lid);
     public String getMsgByUser(User user);
-    public Pager querySubLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
+    public List<LineInfo> querySubLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
     public MessageResult updateByLineInfo(LineInfo lineInfo);
 
 

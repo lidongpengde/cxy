@@ -46,27 +46,10 @@ public class Welcome {
     IJestService jestService;
     @RequestMapping("/")
     public String hello(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-        SearchResponse result=null;
-        Gson gson = new GsonBuilder().create();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-//        QueryBuilder queryBuilder = QueryBuilders
-//                .rangeQuery("startTime").gt(new Date());
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-        queryBuilder.must(QueryBuilders.matchQuery("type", 1));
-        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
-        searchSourceBuilder.query(queryBuilder);
-        searchSourceBuilder.size(100);
-        searchSourceBuilder.from(0);
-        String query = searchSourceBuilder.toString();
+        LineInfo lineInfo=new LineInfo();
+        lineInfo.setType(1);
         try {
-            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
-            SearchHits searchHits = result.getHits();
-            List<LineInfo> list=new ArrayList<>();
-            for (SearchHit hit: searchHits) {
-                String res= hit.getSourceAsString();
-                LineInfo lineInfo=gson.fromJson(res,LineInfo.class);
-                list.add(lineInfo);
-            }
+            List<LineInfo> list =lineInfoService.querySubLineInfoList(lineInfo,0,10);
             modelMap.put("result",list);
         } catch (Exception e) {
             e.printStackTrace();

@@ -65,7 +65,6 @@
                         </p>
                     <p >
                     <ul class="inline" style="float: left;margin-bottom: 5px;margin-top: 5px">
-                       <span  class="glyphicon glyphicon-shopping-cart" >${ item.personCount }人</span>
                         <span class="" v-if="item.type==1">${ item.personCount }座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>${ item.plateNumber }
                         <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>${ item.userMobile } </a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>${ item.userNickname }
@@ -80,13 +79,9 @@
                     <%--<span class="price">¥${ item.price }</span>--%>
                 </p>
                 </div>
-                <div class="hidden-xs">
-                <a v-bind:href="'/api/toSubscibe/'+item.lid"  v-if="item.type==1" class="discuss btn btn-subscribe">
-                    马上预约</a>
-                </div>
+
                 <div class="hidden-md hidden-lg col-xs-12">
-                    <a v-bind:href="'/api/toSubscibe/'+item.lid"   class=" btn btn-subscribe-nobg">预约</a>
-                    <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==0" class="  btn-subscribe" style="margin-right: 30px">电话联系</a>
+                    <a href="tel:${item.userMobile}"  v-if="item.type==0" class="  btn-subscribe" style="margin-right: 30px">电话联系</a>
                 </div>
             </div>
             </c:forEach>

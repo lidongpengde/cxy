@@ -128,25 +128,10 @@ public class LineInfoController {
     public String toIndexPage(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap){
         SearchResponse result=null;
         Gson gson = new GsonBuilder().create();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-//        QueryBuilder queryBuilder = QueryBuilders
-//                .rangeQuery("startTime").gt(new Date());
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-        queryBuilder.must(QueryBuilders.matchQuery("type", 1));
-        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
-        searchSourceBuilder.query(queryBuilder);
-        searchSourceBuilder.size(100);
-        searchSourceBuilder.from(0);
-        String query = searchSourceBuilder.toString();
+        LineInfo lineInfo=new LineInfo();
+        lineInfo.setType(1);
         try {
-            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
-            SearchHits searchHits = result.getHits();
-            List<LineInfo> list=new ArrayList<>();
-            for (SearchHit hit: searchHits) {
-                String res= hit.getSourceAsString();
-                LineInfo lineInfo=gson.fromJson(res,LineInfo.class);
-                list.add(lineInfo);
-            }
+            List<LineInfo> list =lineInfoService.querySubLineInfoList(lineInfo,0,10);
             modelMap.put("result",list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,27 +140,10 @@ public class LineInfoController {
     }
     @RequestMapping("searchMessenger")
     public String searchMessenger(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap){
-        SearchResponse result=null;
-        Gson gson = new GsonBuilder().create();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-//        QueryBuilder queryBuilder = QueryBuilders
-//                .rangeQuery("startTime").gt(new Date());
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-        queryBuilder.must(QueryBuilders.matchQuery("type", 0));
-        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
-        searchSourceBuilder.query(queryBuilder);
-        searchSourceBuilder.size(100);
-        searchSourceBuilder.from(0);
-        String query = searchSourceBuilder.toString();
+        LineInfo lineInfo=new LineInfo();
+        lineInfo.setType(0);
         try {
-            result=jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",query);
-            SearchHits searchHits = result.getHits();
-            List<LineInfo> list=new ArrayList<>();
-            for (SearchHit hit: searchHits) {
-                String res= hit.getSourceAsString();
-                LineInfo lineInfo=gson.fromJson(res,LineInfo.class);
-                list.add(lineInfo);
-            }
+            List<LineInfo> list =lineInfoService.querySubLineInfoList(lineInfo,0,10);
             modelMap.put("result",list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -238,23 +206,6 @@ public class LineInfoController {
         return lineInfoService.getMsgByUser(user);
     }
 
-    /**
-     * 获取我的被预约的发布
-     * @param request
-     * @param modelMap
-     * @param pageIndex
-     * @param pageSize
-     * @return
-     */
-    @RequestMapping("mySubLineInfo")
-    public String mySub(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){
-        User user=(User)request.getSession().getAttribute("const_user");
-        LineInfo lineInfo=new LineInfo();
-        lineInfo.setUserId(user.getId().toString());
-        final Pager mylist=lineInfoService.querySubLineInfoList(lineInfo,pageIndex,pageSize);
-        modelMap.put("mylist",mylist);
-        return "myPublishLineInfo";
-    }
 
     @RequestMapping("myMenu")
     public String myMenu(HttpServletRequest request, ModelMap modelMap){
