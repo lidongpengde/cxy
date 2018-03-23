@@ -150,14 +150,11 @@ public class LineInfoController {
         }
         return "searchMessenger";
     }
-    @RequestMapping("myPublishLineInfo")
-    public String myPublish(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){
-        User user=(User)request.getSession().getAttribute("const_user");
-        LineInfo lineInfo=new LineInfo();
-        lineInfo.setUserId(user.getId().toString());
-        final Pager mylist=lineInfoService.queryMyLineInfoList(lineInfo,pageIndex,pageSize);
-        modelMap.put("mylist",mylist);
-        return "myPublishLineInfo";
+    @RequestMapping("search/lineinfo")
+    public String myPublish(HttpServletRequest request, ModelMap modelMap,LineInfo lineInfo){
+        List<LineInfo>  list=lineInfoService.searchLineinfoListWithCondition(request,lineInfo);
+        modelMap.put("result",list);
+        return lineInfo.getType()==1? "index":"searchMessenger";
     }
     @RequestMapping(value = "lineInfo/{lid}",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
@@ -169,41 +166,6 @@ public class LineInfoController {
             return JSONObject.toJSONString(jsonObject);
         }
         return JSONObject.toJSONString(jsonObject.put("message","操作异常"));
-    }
-/*    private String getStartAdressIfLineInfoNull(HttpServletRequest request){
-        String clientIp = IpAddress.getIpAddrForManyIps(request);
-        log.debug("clientIp="+clientIp);
-        System.out.println("clientIp="+clientIp);
-        String defaltAddress=null;
-        try {
-            defaltAddress=LocationUtil.getLocation(clientIp);
-            Address location = JSON.parseObject(defaltAddress, Address.class);
-            String[] array=defaltAddress.split(",");
-            List list=Arrays.asList(array);
-            log.debug("clientIp="+clientIp);
-            if (location.getAdcode().replace("[]","")=="") {
-                return "";
-            }else{
-                return location.getAdcode().replace("[]","");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  defaltAddress;
-    }*/
-
-
-    /**
-     * 获取我的预约消息msg
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "getMsgByUser",produces = "application/text; charset=utf-8")
-    @ResponseBody
-    public String getMsgByUser(HttpServletRequest request){
-        User user=(User)request.getSession().getAttribute("const_user");
-        return lineInfoService.getMsgByUser(user);
     }
 
 

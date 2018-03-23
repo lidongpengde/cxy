@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
+import java.sql.Connection;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
  * Created by lidongpeng on 2017/9/1.
  */
 public class URLToDomain {
+    private ThreadLocal<User> userThreadLocal=new ThreadLocal<>();
     /**
      * 根据url获取domain
      * @return
@@ -68,16 +70,10 @@ public class URLToDomain {
     }
     @Test
     public void testEs(){
-        JestService jestService=new JestService();
         User user=new User();
-        user.setNickName("加上");
-        user.setMobile(Long.parseLong("13153771737"));
-        try {
-            //jestService.index(jestService.getJestClient(),"test","doc", user);
-            jestService.search(jestService.getJestClient(),"lineinfo","lineinfo",null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        user.setId("5555555555");
+        userThreadLocal.set(user);
+        user.setId("666666666666666");
     }
 
 }

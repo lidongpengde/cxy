@@ -35,7 +35,7 @@
 
         <%--头部搜索栏--%>
 
-            <form id="searchForm" class="form-inline" onsubmit="return false">
+            <form id="searchForm" class="form-inline" action="/v1/search/lineinfo" method="post">
                 <div class="row " style="margin-bottom: 15px;">
                 <input name="type" value="1" hidden id="type">
              <div class="col-xs-6 col-md-3" style="margin-bottom: 15px;"><input name="start" id="start" class="form-control" placeholder="出发地"></div>
@@ -45,7 +45,7 @@
 
 
 
-             <div class="col-xs-2 col-md-2"><button class="btn btn-info"  onclick="searchLineInfo()">查询</button></div>
+             <div class="col-xs-2 col-md-2"><button class="btn btn-info">查询</button></div>
                 </div>
             </form>
 
@@ -68,7 +68,7 @@
                         <span class="" v-if="item.type==1">${ item.personCount }座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>${ item.plateNumber }
                         <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>${ item.userMobile } </a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>${ item.userNickname }
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>${ item.startTime }
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span> <fmt:formatDate value="${item.startTime}" pattern="yyyy/MM/dd HH:mm:ss"  />
                     <span  >途径：</span>${ item.passThrough }
                     <%--<span class="bargin-label" v-if="item.isbargin === 0">不议价</span>--%>
                     <%--<span class="bargin-label" v-if="item.isbargin === 1">可议价</span>--%>
@@ -76,7 +76,6 @@
                     </p>
                 <p>
 
-                    <%--<span class="price">¥${ item.price }</span>--%>
                 </p>
                 </div>
 

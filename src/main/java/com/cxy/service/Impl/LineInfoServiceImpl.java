@@ -185,31 +185,75 @@ public class LineInfoServiceImpl implements ILineInfoService {
         return lineInfo;
     }
 
-    public String getMsgByUser(User user){
-        String msg = "";
-       /* Integer cnt =  lineInfoMapper.getLineInfoSubCount(user.getId());
-        if(cnt!=null&&cnt>0){
-            msg = "已预约<a class=\"menu-child\" href=\"/v1/mySubLineInfo\">【"+cnt+"】</a>";
-        }*/
-        return msg;
+    /**
+     * 点击查询
+     * @param request
+     * @param lineInfo
+     * @return
+     */
+    public List<LineInfo>  searchLineinfoListWithCondition(HttpServletRequest request,LineInfo lineInfo){
+        User user=(User)request.getSession().getAttribute("const_user");
+        if (lineInfo==null){
+            return null;
+        }else{
+            String start=lineInfo.getStart();
+            String end =lineInfo.getEnd();
+            String startTime=lineInfo.getStartTime();
+            Gson gson = new GsonBuilder().create();
+            SearchRequest searchRequest = new SearchRequest("lineinfo");
+            searchRequest.types("lineinfo");
+            BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+            if (start!=null && !Objects.equals(start, "")){
+                queryBuilder.must(QueryBuilders.matchQuery("start", start));
+            }
+            if (end!=null && !Objects.equals(end, "")){
+                queryBuilder.must(QueryBuilders.matchQuery("end", end));
+            }
+            queryBuilder.must(QueryBuilders.matchQuery("type", lineInfo.getType()));
+            if (startTime!=null && !Objects.equals(startTime, "")){
+                queryBuilder.must(QueryBuilders.matchQuery("startTime",startTime));
+            }
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            sourceBuilder.query(queryBuilder);
+            sourceBuilder.from(0);
+            sourceBuilder.size(5);
+            sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+            searchRequest.source(sourceBuilder);
+            SearchResponse searchResponse=null;
+            List<LineInfo> list=new ArrayList<>();
+            try {
+                searchResponse=jestService.getJestClient().search(searchRequest);
+                SearchHits searchHits = searchResponse.getHits();
+                for (SearchHit hit: searchHits) {
+                    String res= hit.getSourceAsString();
+                    lineInfo=gson.fromJson(res,LineInfo.class);
+                    list.add(lineInfo);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return list;
+        }
     }
 
+    /**
+     * 首页查询所有行程信息
+     * @param lineInfo
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
     @Override
     public List<LineInfo> querySubLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize) {
-
-    /*    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-        queryBuilder.must(QueryBuilders.matchQuery("type", 1));
-        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
-        searchSourceBuilder.query(queryBuilder);
-        searchSourceBuilder.size(10);
-        searchSourceBuilder.from(0);*/
         Gson gson = new GsonBuilder().create();
         SearchRequest searchRequest = new SearchRequest("lineinfo");
         searchRequest.types("lineinfo");
-
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        queryBuilder.must(QueryBuilders.matchQuery("type", lineInfo.getType()));
+        queryBuilder.must(QueryBuilders.rangeQuery("startTime").gt(new Date()));
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.termQuery("type", lineInfo.getType()));
+        sourceBuilder.query(queryBuilder);
         sourceBuilder.from(0);
         sourceBuilder.size(5);
         sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));

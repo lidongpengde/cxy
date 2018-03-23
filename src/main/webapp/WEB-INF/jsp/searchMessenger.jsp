@@ -187,49 +187,6 @@
             limit: 5,
         });
     });
-/*    $(document).ready(function(){
-        var  classes = "LineInfo";
-        var  htmltext="" ;
-        $.ajax({
-            type:'post',
-            url:'/notice/getMsgByUser?classes='+classes,
-            success:function (data){
-                var dataitem = eval(data);
-                jQuery.each(dataitem,function(rec){
-                    htmltext = "<a class=\"menu-child\" href=\"/api/mySubscibe/"+this.businessid+"?id="+this.id+"\">"+this.messages+"</a><br>"+htmltext;
-                });
-                if(htmltext!=""){
-                    // $('#userMsg').html(htmltext);  //我的发布下面的span标签
-                    $.messager.lays(200, 200);
-                    $.messager.anim('fade',2000);//messager消息提示
-                    $.messager.show(0,htmltext,5000);
-                }
-            },
-            error:function (e) {
-                alert("系统繁忙"+e);
-            }
-        })
-    })*/
-    //时间选择框设置为当前时间
-/*    Date.prototype.Format = function (fmt) {
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    var startTime=document.getElementById('startTime');
-    var time = new Date().Format("yyyy-MM-dd");
-    startTime.value=time;*/
 </script>
-<%--<jsp:include page="include/foot.jsp"></jsp:include>--%>
 </body>
 </html>
