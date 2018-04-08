@@ -153,8 +153,8 @@ public class URLToDomain {
         Person person=new Person();
         person.setName("123");
         person.setAttachAddress("lidp");
-        revertObject(person,PersonA.class, PersonB.class);
-        PersonA personA=new PersonA();
+        revertObject(person,PersonA.class, PersonB.class,PersonC.class);
+     /*   PersonA personA=new PersonA();
         personA.setAttachAddress1("lidp");
         PersonB personB=new PersonB();
         personB.setName2("123");
@@ -163,7 +163,7 @@ public class URLToDomain {
             Person p=(Person)o;
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     /**
@@ -293,7 +293,7 @@ public class URLToDomain {
                     if (result != null) {
                         map.put(propertyName, result);
                     } else {
-                        map.put(propertyName, "");
+                        map.put(propertyName, null);
                     }
                 }
             }

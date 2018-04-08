@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <jsp:include page="include/header.jsp"></jsp:include>
 <html lang="en">
 <head>
@@ -68,10 +69,8 @@
                         <span class="" v-if="item.type==1">${ item.personCount }座 </span><span v-if="item.plateNumber " class="glyphicon glyphicon-adjust"></span>${ item.plateNumber }
                         <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>${ item.userMobile } </a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>${ item.userNickname }
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span> <fmt:formatDate value="${item.startTime}" pattern="yyyy/MM/dd HH:mm:ss"  />
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>${item.startTime}
                     <span  >途径：</span>${ item.passThrough }
-                    <%--<span class="bargin-label" v-if="item.isbargin === 0">不议价</span>--%>
-                    <%--<span class="bargin-label" v-if="item.isbargin === 1">可议价</span>--%>
                 </ul>
                     </p>
                 <p>
@@ -136,90 +135,6 @@
     $(document).ready(function(){
     });
 
-    /**
-     * 提示输入
-     */
-   /* $(function () {*/
-   /*     $('#start').autocompleter({
-            cache: false,
-            // marker for autocomplete matches
-            highlightMatches: true,
-
-            // object to local or url to remote search
-            source: '/v2//HintInfo' ,
-
-            template: '${ name }',
-            // show hint
-            hint: false,
-
-            // abort source if empty field
-            empty: false,
-
-            // max results
-            limit: 5,
-        });
-        $('#end').autocompleter({
-            cache: false,
-            // marker for autocomplete matches
-            highlightMatches: true,
-
-            // object to local or url to remote search
-            source: '/v2//HintInfo' ,
-
-            template: '${ name }',
-            // show hint
-            hint: false,
-
-            // abort source if empty field
-            empty: false,
-
-            // max results
-            limit: 5,
-        });
-    });*/
-/*    $(document).ready(function(){
-        var  classes = "LineInfo";
-        var  htmltext="" ;
-        $.ajax({
-            type:'post',
-            url:'/notice/getMsgByUser?classes='+classes,
-            success:function (data){
-                var dataitem = eval(data);
-                jQuery.each(dataitem,function(rec){
-                    htmltext = "<a class=\"menu-child\" href=\"/api/mySubscibe/"+this.businessid+"?id="+this.id+"\">"+this.messages+"</a><br>"+htmltext;
-                });
-                if(htmltext!=""){
-                    // $('#userMsg').html(htmltext);  //我的发布下面的span标签
-                    $.messager.lays(200, 200);
-                    $.messager.anim('fade',2000);//messager消息提示
-                    $.messager.show(0,htmltext,5000);
-                }
-            },
-            error:function (e) {
-                alert("系统繁忙"+e);
-            }
-        })
-    })*/
-    //时间选择框设置为当前时间
-/*    Date.prototype.Format = function (fmt) {
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    var startTime=document.getElementById('startTime');
-    var time = new Date().Format("yyyy-MM-dd");
-    startTime.value=time;*/
 </script>
-<%--<jsp:include page="include/foot.jsp"></jsp:include>--%>
 </body>
 </html>

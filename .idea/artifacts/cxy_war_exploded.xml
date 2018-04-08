@@ -97,6 +97,9 @@
           <element id="library" level="project" name="Maven: com.tdunning:t-digest:3.0" />
           <element id="library" level="project" name="Maven: org.hdrhistogram:HdrHistogram:2.1.9" />
           <element id="library" level="project" name="Maven: org.elasticsearch:jna:4.5.1" />
+          <element id="library" level="project" name="Maven: org.apache.kafka:kafka-clients:0.9.0.1" />
+          <element id="library" level="project" name="Maven: org.xerial.snappy:snappy-java:1.1.1.7" />
+          <element id="library" level="project" name="Maven: net.jpountz.lz4:lz4:1.2.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

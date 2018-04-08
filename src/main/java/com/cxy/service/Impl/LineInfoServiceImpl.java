@@ -30,6 +30,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.sound.sampled.Line;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -91,7 +93,7 @@ public class LineInfoServiceImpl implements ILineInfoService {
         BeanUtils.copyProperties(lineInfo,newLine);
         lineInfo.setStart("");
         lineInfo.setEnd("");
-        lineInfo.setStartTime("");
+        /*lineInfo.setStartTime("");*/
         lineInfo.setType(linetype);
         List<LineInfo> list=lineInfoMapper.getLineInfoListForLocation(lineInfo);
         if (user!=null){
@@ -102,7 +104,7 @@ public class LineInfoServiceImpl implements ILineInfoService {
             newLine.setPersonCount(3);
             newLine.setType(1^lineInfo.getType());
             //出发时间默认在当前时间加5个小时
-            newLine.setStartTime(UserTools.addDateMinut(UserTools.getCurrentTime(),3));
+        /*    newLine.setStartTime(UserTools.addDateMinut(UserTools.getCurrentTime(),3));*/
             lineInfoMapper.insertSelective(newLine);
         }
         if (list!=null&&list.size()>0){
@@ -133,9 +135,9 @@ public class LineInfoServiceImpl implements ILineInfoService {
     @Override
     public Pager queryLineInfoList(LineInfo lineInfo,Integer pageIndex,Integer pageSize,boolean isPublish) {
         lineInfo.setStatus(1);//已发布
-        if (StringUtils.isEmpty(lineInfo.getStartTime())){
+        /*if (StringUtils.isEmpty(lineInfo.getStartTime())){
             lineInfo.setStartTime(UserTools.getCurrentTime());
-        }
+        }*/
         //这里很重要，先查总数，再加下面分页条件
         Integer total=lineInfoMapper.countLineInfo(lineInfo);
         if (pageIndex!=null && pageSize!=null){

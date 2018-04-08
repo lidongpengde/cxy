@@ -105,6 +105,7 @@ public class JestService implements IJestService{
 
     @Override
     public Double count(RestHighLevelClient jestClient, String indexName, String typeName, String query) throws Exception {
+        System.out.println("count");
         return null;
     }
 

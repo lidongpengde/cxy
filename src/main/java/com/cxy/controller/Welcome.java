@@ -70,7 +70,7 @@ public class Welcome {
     @ResponseBody
     public String httpclienttest(String key,Map<String,String> map) {
 
-        return key+"oo";
+        return key+"我是";
     }
     @RequestMapping(value = "/advice",method = RequestMethod.POST)
     @ResponseBody
