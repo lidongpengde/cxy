@@ -35,7 +35,7 @@ public class KafkaProducerExample {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(props);
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 100000000; i++) {
             Future<RecordMetadata> future = producer.send(new ProducerRecord<>("test", Integer.toString(i), Integer.toString(i)));
             try {
                 RecordMetadata recordMetadata=future.get();

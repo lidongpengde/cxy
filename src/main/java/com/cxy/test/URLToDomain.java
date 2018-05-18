@@ -1,25 +1,20 @@
 package com.cxy.test;
 
-import com.alibaba.fastjson.JSONObject;
-import com.cxy.dao.UserMapper;
+import com.cxy.classicProblems.dubbo.server.DemoService;
 import com.cxy.entity.*;
-
 import com.cxy.service.Impl.JestService;
-import org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.*;
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Connection;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.Matcher;
@@ -276,6 +271,7 @@ public class URLToDomain {
      * @param object
      * @return
      */
+    @Transactional()
     public static Map objectToMap(Object object){
 
         Class clazz = object.getClass();
@@ -301,11 +297,28 @@ public class URLToDomain {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
 
         return map;
+    }
+
+    @Test
+    public  void producer() throws IOException {
+        ClassPathXmlApplicationContext  context = new ClassPathXmlApplicationContext("classpath:producer.xml");
+        context.start();
+        // press any key to exit
+        System.in.read();
+    }
+    @Test
+    public  void mai111n() {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:consumer.xml");
+        DemoService demoService =(DemoService)ac.getBean("demoService");
+        String hello = demoService.sayHello("world");
+        // show the result
+        System.out.println(hello);
     }
 }
 
