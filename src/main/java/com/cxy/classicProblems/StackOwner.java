@@ -2,6 +2,9 @@ package com.cxy.classicProblems;
 
 /**
  * Created by lidongpeng on 2018/4/21.
+ * 17865202474
+
+ jianqingchun5566
  */
 public class StackOwner<E> {
     E[] array;
