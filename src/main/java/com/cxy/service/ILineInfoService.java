@@ -5,6 +5,7 @@ import com.cxy.common.Pager;
 import com.cxy.entity.LineInfo;
 import com.cxy.entity.LineInfoAndUserInfo;
 import com.cxy.entity.User;
+import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,8 +18,8 @@ public interface ILineInfoService {
     public Pager queryLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize,boolean isPublish);
     public int updateLineInfo(int lid);
     LineInfo queryLineInfoById(Integer lid);
-    public String getMsgByUser(User user);
-    public Pager querySubLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
+    public List<LineInfo>  searchLineinfoListWithCondition(HttpServletRequest request,LineInfo lineInfo);
+    public List<LineInfo> querySubLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
     public MessageResult updateByLineInfo(LineInfo lineInfo);
 
 

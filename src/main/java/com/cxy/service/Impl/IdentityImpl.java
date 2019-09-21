@@ -1,3 +1,4 @@
+/*
 package com.cxy.service.Impl;
 
 import com.cxy.common.Pager;
@@ -14,9 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * Created by lidongpeng on 2017/9/1.
- */
+ *//*
+
 @Service
 public class IdentityImpl implements Iidentity{
     @Autowired
@@ -42,3 +45,4 @@ public class IdentityImpl implements Iidentity{
     }
 
 }
+*/
