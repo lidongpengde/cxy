@@ -25,6 +25,8 @@ public class SubscibeImpl implements IsubscribeService{
     SubscribeMapper subscribeMapper;
     @Autowired
     LineInfoMapper lineInfoMapper;
+    @Autowired
+    private UserTools userTools;
     @Transactional
     @Override
     public MessageResult addSubscibe(HttpServletRequest request,Subscribe subscribe) {
@@ -33,7 +35,7 @@ public class SubscibeImpl implements IsubscribeService{
             messageResult.setSuccess(false);
             return messageResult;
         }
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         subscribe.setPersonId(user.getId());
         subscribe.setPersonName(user.getNickName());
         subscribe.setCreateTime(UserTools.getCurrentTime());

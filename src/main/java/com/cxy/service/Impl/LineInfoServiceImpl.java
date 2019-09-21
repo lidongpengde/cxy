@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.sound.sampled.Line;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,9 @@ import java.util.concurrent.*;
 public class LineInfoServiceImpl implements ILineInfoService {
     @Autowired
     private LineInfoMapper lineInfoMapper;
+
+    @Autowired
+    private UserTools userTools;
     ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(5,10,1000, TimeUnit.MICROSECONDS,new ArrayBlockingQueue<Runnable>(10));
     public LineInfoServiceImpl(){
 
@@ -38,7 +43,7 @@ public class LineInfoServiceImpl implements ILineInfoService {
     @Override
     public MessageResult saveLineInfo(LineInfo lineInfo,HttpServletRequest request) {
         MessageResult messageResult=new MessageResult();
-        User user=(User)request.getSession().getAttribute("const_user");
+        //User user=userTools.getCurrentUser(request);
         //鉴于刚开始用户少，先屏蔽掉实名认证后才可以发布
  /*       if (user.getIdentifyStatus()==null||user.getIdentifyStatus()!=1L){
             messageResult.setCode(WarningEnum.need_identified.getCode());
@@ -46,15 +51,16 @@ public class LineInfoServiceImpl implements ILineInfoService {
             messageResult.setSuccess(false);
             return messageResult;
         }*/
-        lineInfo.setUserId(user.getId().toString());
-        lineInfo.setUserMobile(user.getMobile().toString());
-        lineInfo.setUserNickname(user.getNickName());
+        //lineInfo.setUserId(user.getId().toString());
+        //lineInfo.setUserMobile(user.getMobile().toString());
+        //lineInfo.setUserNickname(user.getNickName());
         lineInfo.setStatus(1);
         int size=lineInfoMapper.insertSelective(lineInfo);
         if (size>0){
             messageResult.setCode(WarningEnum.update_success.getCode());
             messageResult.setMessage(WarningEnum.update_success.getMsg());
             messageResult.setSuccess(true);
+            messageResult.setBuessObj(lineInfo.getLid());
         }
         return messageResult;
     }
@@ -134,6 +140,14 @@ public class LineInfoServiceImpl implements ILineInfoService {
             lineInfo.setPageSize(pageSize);
         }
         List<LineInfoAndUserInfo> list= lineInfoMapper.getLineInfoList(lineInfo);
+//        for (LineInfoAndUserInfo lineInfoAndUserInfo:list) {
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH");
+//            try {
+//                lineInfoAndUserInfo.setStartTime(formatter.format(formatter.parse(lineInfoAndUserInfo.getStartTime())));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
         //加上取消发布的信息
         Pager pager=new Pager();
         pager.setTotal(total.toString());
@@ -162,6 +176,13 @@ public class LineInfoServiceImpl implements ILineInfoService {
         pager.setList(list);
         return pager;
     }
+
+    @Override
+    public int deleteLineInfo(Integer lid) {
+
+        return lineInfoMapper.deleteByPrimaryKey(lid);
+    }
+
     @Override
     public int updateLineInfo(int lid) {
         LineInfo lineInfo=lineInfoMapper.selectByPrimaryKey(lid);

@@ -141,6 +141,19 @@ html, body {
     height: 40px;
     font-family: 'ProximaNovaT-Thin';
     border: 1px solid #566391;
+}
+.form-account select {
+    /* display: inline-block;*/
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #8e8e8e;
+    font-style: italic;
+    margin-bottom: 15px;
+    height: 40px;
+    font-family: 'ProximaNovaT-Thin';
+    border: 1px solid #566391;
     border-radius: 0;
 }
 #myPageTop .column2{
@@ -183,4 +196,9 @@ html, body {
     position: relative;
     top: -5px;
     margin-bottom: 10px;
+}
+input[type="radio"] {
+    color: #04BE02 !important;
+    border-color: #04BE02;
+    background-color: #04BE02;
 }

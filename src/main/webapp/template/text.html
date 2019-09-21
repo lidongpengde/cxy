@@ -1,28 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>123</title>
+    <title>极速发布拼车信息</title>
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
      <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/asert/css/style.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=23834821b1465df3fa84571571947619&plugin=AMap.Autocomplete"></script>
     <script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
 
 </head>
 <style>
-    .amap-sug-result{
-        position: absolute;
+    .btn-numbox {
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .btn-numbox li {
+        float: left;
+    }
+
+    .btn-numbox li .number {
+        display: inline-block;
+        /*font-size: 12px;
+        color: #808080;*/
+        vertical-align: sub;
+    }
+
+    .btn-numbox .count {
+        overflow: hidden;
+        margin: 0 16px 0 16px;
+    }
+
+    .btn-numbox .count .num-jian,
+    .input-num,
+    .num-jia {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        /* line-height: 28px;*/
+        text-align: center;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        border: 1px solid #e6e6e6;
+    }
+
+
+    .btn-numbox .count .input-num {
+        width: 58px;
+        height: 28px;
+        color: #333;
+        border-left: 0;
+        border-right: 0;
     }
 </style>
 <body>
-<div class="container" style="margin-top: 70px">
+<div class="container" style="margin-top: 70px;background-color: #fafafa">
     <div class="main">
       
 <div id="app">
 
-  <form id="message" onsubmit="return false">
+  <form id="message" onsubmit="return false" class="form-account">
       <div class="errors" ><span id="errormsg"></span></div>
     <div class="form-group">
       <label>
@@ -39,54 +79,95 @@
       <div class="input-group form-group">
           <span class="input-group-addon">¥</span>
           <input placeholder="价格" type="number" name="price" id="price" min="0"  class="form-control" >
-          <span class="input-group-addon">.00</span>
+          <span class="input-group-addon">/人</span>
       </div>
-            <div class="form-group" >
-                <label>
-                  <input type="radio"name="isbargin"value="1" checked > 接受议价
-                </label>
-                <label>
-                  <input type="radio" name="isbargin" value="0" > 不接受
-                </label>
-              </div>
-    <div class="form-group" >
-        <select name="personCount" id="personCount" class="form-control" >
-            <option disabled="disabled" selected value="0">请选择人数</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-      </div>
-              <div class="form-group" >
-      <input placeholder="车牌号" type="text" name="plateNumber" id="plateNumber" class="form-control"  ></div>
+
       <div class="form-group">
-          <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" step="1" >
+          <ul class="btn-numbox">
+              <li><span class="number"style="    margin-left: -32px;" >人数/可载</span></li>
+              <li>
+                  <ul class="count">
+                      <li><span id="num-jian" class="num-jian">-</span></li>
+                      <li><input type="text" class="input-num" id="input-num" name="personCount" max="4"
+                                 min="1" value="1"/></li>
+                      <li><span id="num-jia" class="num-jia">+</span></li>
+                  </ul>
+              </li>
+              　　　
+          </ul>
       </div>
-       <div class="form-group">
+      <div class="form-group">
           <input type="text" name="userMobile" id="userMobile" class="form-control" placeholder="手机号">
+          <span id="error-mobile" class="error-account"></span>
       </div>
       <div class="form-group">
-          <input type="text" name="userNickname" id="userNickname" class="form-control" placeholder="发布人">
+          <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间" step="1">
       </div>
       <br/>
       <div class="form-group">
-    <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
+    <button class="btn btn-subscribe" onclick="submitline()" style="width: 100%">提交</button>
           </div>
-      <input name="startAdcode" id="startAdcode" hidden="hidden" value="${alterLine.startAdcode}">
-      <input name="startLongitude" id="startLongitude" hidden="hidden" value="${alterLine.startLongitude}">
-      <input name="startLatitude" id="startLatitude" hidden="hidden" value="${alterLine.startLatitude}">
-      <input name="endAdcode" id="endAdcode" hidden="hidden" value="${alterLine.endAdcode}">
-      <input name="endLongitude" id="endLongitude" hidden="hidden" value="${alterLine.endLongitude}">
-      <input name="endLatitude" id="endLatitude" hidden="hidden" value="${alterLine.endLatitude}">
+      <input name="startAdcode" id="startAdcode" hidden="hidden" >
+      <input name="startLongitude" id="startLongitude" hidden="hidden" >
+      <input name="startLatitude" id="startLatitude" hidden="hidden" >
+      <input name="endAdcode" id="endAdcode" hidden="hidden" >
+      <input name="endLongitude" id="endLongitude" hidden="hidden" >
+      <input name="endLatitude" id="endLatitude" hidden="hidden" >
 </form>
 </div>
     </div>
   </div>
 <script>
-
+    var map, geolocation;
+    var position1,position2;
+    var flag;
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map('container', {
+        resizeEnable: true
+    });
+    map.plugin('AMap.Geolocation', function () {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition: 'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+        position1= new AMap.LngLat(data.position.lng, data.position.lat);
+        var str = ['定位成功'];
+        /*document.getElementById('tip').innerHTML = str.join('<br>');*/
+        var start=$('#start').val();
+        if (!start){
+            document.getElementById("start").value = data.formattedAddress;
+        }
+        document.getElementById("startAdcode").value = data.addressComponent.adcode;
+        $('#startLongitude').val(position1.lng);
+        $('#startLatitude').val(position1.lat);
+    }
+    var validatebeforeSubmit = function () {
+        var start = $('#start').val();
+        var end = $('#end').val();
+        var price = $('#price').val();
+        var personCount = $('#input-num').val();
+        var plateNumber = $('#plateNumber').val();
+        var startTime = $('#startTime').val();
+        if (start && end && price && personCount && startTime) {
+            flag = true;
+            $("#errormsg").fadeOut();
+        } else {
+            $("#errormsg").text("所填信息不完整");
+            $("#errormsg").fadeIn();
+            flag = false;
+        }
+    }
     var app=new Vue({
-
         el: '#app',
         data: {
             options:'',
@@ -118,8 +199,37 @@
         }
 
     });
-
+    function vailPhone(){
+        var phone = $("#userMobile").val();
+         flag = false;
+        var message = "";
+        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(phone == ''){
+            message = "手机号码不能为空！";
+        }else if(phone.length !=11){
+            message = "请输入有效的手机号码！";
+        }else if(!myreg.test(phone)){
+            message = "请输入有效的手机号码！";
+        }else{
+            flag = true;
+        }
+        if(!flag){
+            $('#error-mobile').text(message);
+            return;
+        }
+        if(!flag){
+            $('#error-mobile').text(message);
+        }else{
+            $('#error-mobile').text('');
+        }
+        return flag;
+    }
      function submitline(){
+         validatebeforeSubmit();
+         vailPhone()
+         if (!flag) {
+             return false;
+         }
         //ajax提交
         var params = $("#message").serialize();
         $.ajax({
@@ -128,7 +238,7 @@
             data : params,
             success : function(data) {
                 alert("提交成功")
-
+                location.href="/api/mySubscibe/"+data;
             }
         });
 
@@ -142,10 +252,15 @@
     });
     AMap.event.addListener(startauto, "select", startselect);//注册监听，当选中某条记录时会触发
     function startselect (e) {
-        debugger
         $('#startAdcode').val(e.poi.adcode);
         $('#startLongitude').val(e.poi.location.lng);
         $('#startLatitude').val(e.poi.location.lat);
+        if(e.poi.location){
+            position1= new AMap.LngLat(e.poi.location.lng, e.poi.location.lat);
+            var distance = computeDis();
+        }else{
+            position1="";
+        }
     }
 
     var endauto = new AMap.Autocomplete({
@@ -156,9 +271,70 @@
         $('#endAdcode').val(e.poi.adcode);
         $('#endLongitude').val(e.poi.location.lng);
         $('#endLatitude').val(e.poi.location.lat);
+        if(e.poi.location && position1) {
+            position2 = new AMap.LngLat(e.poi.location.lng, e.poi.location.lat);
+            var distance = computeDis();
+        }else{
+            position2="";
+        }
+    }
+    function computeDis(){
+        if(position1 && position2)
+            var textPos = position1.divideBy(2).add(position2.divideBy(2));
+        var distance = Math.round(position1.distance(position2));
+        var guidePrice;
+        if (distance>450000){
+            guidePrice = distance / 1000 * 0.38;
+        }else{
+            guidePrice = distance / 1000 * 0.48;
+        }
+        guidePrice = Math.round(guidePrice)
+        $("#price").val(guidePrice);
+        return distance;
+    }
+    //时间选择框设置为当前时间
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            /*     "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+             "S": this.getMilliseconds() //毫秒*/
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    var startTime = document.getElementById('startTime');
+    var time = new Date().Format("yyyy-MM-ddTHH:mm:ss");
+    startTime.value = time;
+    /**
+     * 加减控件
+     * @type {Element}
+     */
+
+    var num_jia = document.getElementById("num-jia");
+    var num_jian = document.getElementById("num-jian");
+    var input_num = document.getElementById("input-num");
+    num_jia.onclick = function () {
+        if (input_num.value >= 4) {
+            input_num.value = 4;
+        } else {
+            input_num.value = parseInt(input_num.value) + 1;
+        }
+
+    }
+    num_jian.onclick = function () {
+        if (input_num.value <= 0) {
+            input_num.value = 0;
+        } else {
+            input_num.value = parseInt(input_num.value) - 1;
+        }
     }
 
 </script>
-<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 </html>

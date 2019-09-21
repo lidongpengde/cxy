@@ -27,4 +27,6 @@ public interface ILineInfoService {
     public int savelineinfofirsingle(LineInfo lineInfo);
     public Pager queryMyLineInfoList(LineInfo lineInfo, Integer start, Integer pageSize);
 
+    public int deleteLineInfo(Integer lid);
+
 }

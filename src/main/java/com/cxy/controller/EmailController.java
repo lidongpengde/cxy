@@ -23,6 +23,8 @@ import java.util.Objects;
 public class EmailController {
     @Autowired
     IuserService userService;
+    @Autowired
+    private UserTools userTools;
     @RequestMapping("/sendEmail")
     public String sendEmail(String email, HttpServletRequest request){
         MailService mailService= MailService.getInstance();
@@ -68,7 +70,7 @@ public class EmailController {
             jsonObject.put("message","请输入验证码");
             return JSONObject.toJSONString(jsonObject);
         }
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         if (user==null){
             jsonObject.put("code","403");
             jsonObject.put("message","您还没有登录");

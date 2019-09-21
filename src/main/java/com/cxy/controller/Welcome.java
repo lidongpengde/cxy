@@ -10,6 +10,7 @@ import com.cxy.entity.LineInfo;
 import com.cxy.entity.User;
 import com.cxy.service.ILineInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,12 @@ public class Welcome {
     private AdviceBoxMapper adviceBoxMapper;
     @Autowired
     ILineInfoService lineInfoService;
+
+    @Autowired
+    private UserTools userTools;
+
+    @Value("${jdbc.username}")
+    String username;
     @RequestMapping("/")
     public String hello(HttpServletRequest request, HttpServletResponse response) {
         User user=(User)request.getSession().getAttribute("const_user");
@@ -80,7 +87,7 @@ public class Welcome {
            String adcode= getStartAdressIfLineInfoNull(request);
            lineInfo.setStartAdcode(adcode);
         }*/
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         JSONObject jsonObject=new JSONObject();
         MessageResult list=lineInfoService.getLineInfoListWithLocation(lineInfo,user);
         return JSONObject.toJSONString(list);
@@ -125,6 +132,6 @@ public class Welcome {
         MessageResult messageResult = new MessageResult();
         lineInfo.setStatus(1);
         int size = lineInfoService.savelineinfofirsingle(lineInfo);
-        return size;
+        return lineInfo.getLid();
     }
 }

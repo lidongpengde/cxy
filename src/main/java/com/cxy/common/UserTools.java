@@ -2,6 +2,9 @@ package com.cxy.common;
 
 
 import com.cxy.entity.User;
+import com.cxy.service.IuserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +20,23 @@ import java.util.regex.Pattern;
 /**
  * Created by lidp on 2017/3/19.
  */
+@Service
 public class UserTools {
-    public static User getCurrentUser(HttpServletRequest request){
-        User user=(User)request.getSession().getAttribute("const_user");
+
+    @Autowired
+    IuserService userService;
+    public  User getCurrentUser(HttpServletRequest request){
+
+        Cookie[] cookies = request.getCookies();
+        String cookieValue = null;
+        for (Cookie cookie:cookies) {
+            if (cookie.getName().equals("const_user")){
+                cookieValue =  cookie.getValue();
+                break;
+            }
+        }
+        // User user = (User) session.getAttribute("const_user");
+        User user = userService.getUserBykey(cookieValue);
         return user;
     }
     public static String getUUID(){

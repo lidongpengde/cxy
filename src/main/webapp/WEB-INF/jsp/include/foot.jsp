@@ -40,10 +40,13 @@
     }
     .skill-ftw-li {
         flex: 1;
-        font-size: 12px;
+        font-size: 16px;
         color: #2d2c37;
         text-align: center;
         float: left;
+    }
+    a {
+        color: #777;
     }
 </style>
 <body>
@@ -60,18 +63,18 @@
 <footer class="skill-ftw">
     <ul class="fixed-skill-ftw">
         <li class="skill-ftw-li">
-            <a href="/v1/toPublishlineInfoPage" onclick="return seckillMPingJDSeckill(this.href)">
-                <span class="skill-ftw-item jd-goods  active ">发布行程</span>
+            <a href="/v1/toPublishlineInfoPage" >
+                <span class="skill-ftw-item jd-goods   ">发布行程</span>
             </a>
         </li>
         <li class="skill-ftw-li">
-            <a href="/v1/toIndexPage" onclick="return seckillMPingNewBrandSecKill(this.href)">
+            <a href="/template/searchIndex.html" >
                 <span class="skill-ftw-item brand-goods ">查找</span>
             </a>
         </li>
         <li class="skill-ftw-li">
-            <a href="/seckill/seckillBrand" onclick="return seckillMPingBrandSecKill(this.href)">
-                <span class="skill-ftw-item choice-goods ">我的</span>
+            <a href="/v1/myMenu">
+                <span class="skill-ftw-item choice-goods active">我的</span>
             </a>
         </li>
     </ul>

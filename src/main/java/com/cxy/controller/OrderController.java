@@ -29,6 +29,8 @@ public class OrderController {
     private IorderService orderService;
     @Autowired
     private ILineInfoService lineInfoService;
+    @Autowired
+    private UserTools userTools;
     /**生成
      * @param lid
      * @return
@@ -36,7 +38,7 @@ public class OrderController {
     @RequestMapping(value = "/order/{lid}",method = RequestMethod.GET)
     public String createOrder(@PathVariable int lid, ModelMap modelMap, HttpServletRequest request){
         OrderFrom order=new OrderFrom();
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         order.setSubscriberId(user.getId().intValue());
         List<OrderFrom> list;
         list=orderService.findOrderForListBySubScribeId(order);
@@ -81,7 +83,7 @@ public class OrderController {
      */
     @RequestMapping(value = "/orders",method = RequestMethod.GET)
     public String getOrders(HttpServletRequest request,ModelMap modelMap){
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         modelMap.put("orders",orderService.findOrderForListByuserId(user.getId().intValue()));
         return "myOrderList";
     }
@@ -93,7 +95,7 @@ public class OrderController {
     @ResponseBody
     public MessageResult updateOrder(@PathVariable int orderId,HttpServletRequest request){
         MessageResult result=new MessageResult();
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         int CurrentUserId=user.getId().intValue();
         OrderFrom orderFrom=orderService.findOrder(orderId);
         if (orderFrom.getPublisherId().equals(CurrentUserId)){
@@ -118,7 +120,7 @@ public class OrderController {
     public MessageResult finishOrder(@PathVariable int orderId,HttpServletRequest request){
         MessageResult result=new MessageResult();
         JSONObject jsonObject=new JSONObject();
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         int CurrentUserId=user.getId().intValue();
         OrderFrom orderFrom=orderService.findOrder(orderId);
         if (orderFrom.getSubscriberId().equals(CurrentUserId)){

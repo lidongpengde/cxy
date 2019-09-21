@@ -28,6 +28,8 @@ public class IdentityController {
     private Iidentity identityService;
     @Autowired
     private IuserService userService;
+    @Autowired
+    private UserTools userTools;
 
     @RequestMapping("toIdentify")
     public String toIdentify(){
@@ -37,7 +39,7 @@ public class IdentityController {
     @ResponseBody
     public String addIdentify(HttpServletRequest request, Identity identity, ModelMap modelMap){
         JSONObject jsonObject=new JSONObject();
-        User user=UserTools.getCurrentUser(request);
+        User user=userTools.getCurrentUser(request);
         String path=request.getParameter("path");
         identity.setUserId(user.getId());
         if (user.getIdentifyStatus()==3){

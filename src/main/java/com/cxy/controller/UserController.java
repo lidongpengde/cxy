@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by lidp on 2017/3/19.
@@ -30,13 +31,16 @@ import java.util.regex.Pattern;
 public class UserController {
     @Autowired
     private IuserService userService;
+    
+    @Autowired
+    private UserTools userTools;
     @RequestMapping(value = "/register",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String saveUser(User user,HttpServletRequest request){
+    public String saveUser(User user,HttpServletRequest request,HttpServletResponse response){
         JSONObject jsonObject=new JSONObject();
         int size=userService.saveUser(user);
         if (size>0){
-            userService.saveLoginStatus(request,user);
+            userService.saveLoginStatus(request,user,response);
             jsonObject.put("message","注册成功");
             jsonObject.put("code",200);
             return jsonObject.toJSONString();
@@ -61,7 +65,7 @@ public class UserController {
     }
     @RequestMapping(value = "/login",produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String userlogin(User user, HttpServletRequest request,String remindMe){
+    public String userlogin(User user, HttpServletRequest request,String remindMe,HttpServletResponse response){
         JSONObject jsonObject=new JSONObject();
        String oldpassWord= user.getPassWord();
        String login=user.getUserName();
@@ -77,11 +81,8 @@ public class UserController {
             return jsonObject.toJSONString();
     }
         if (oldpassWord.equals(user.getPassWord())){
-            userService.saveLoginStatus(request,user);
-      /*      if (remindMe=="on"){
-                //如果点了一周免登录按钮，直接将session设置为永久
-                session.setMaxInactiveInterval(0);
-            }*/
+            userService.saveLoginStatus(request,user,response);
+
             jsonObject.put("refer",request.getSession().getAttribute("refer"));
             jsonObject.put("message","登录成功");
             jsonObject.put("code",200);
@@ -106,7 +107,7 @@ public class UserController {
     }
     @RequestMapping("/{userId}")
     public String tologin(@PathVariable Long userId, HttpServletRequest request){
-       User user= UserTools.getCurrentUser(request);
+       User user= userTools.getCurrentUser(request);
        if (user.getId()==1){
            User identifyUser=userService.findUserById(userId);
            identifyUser.setIdentifyStatus(1l);
@@ -114,25 +115,21 @@ public class UserController {
        }
         return "identityList";
     }
-    @RequestMapping("inner/{userId}")
-    public String getUserinfo(@PathVariable Long userId, HttpServletRequest request, ModelMap modelMap){
-        User user= UserTools.getCurrentUser(request);
+    @RequestMapping("inner")
+    public String getUserinfo(Long userId, HttpServletRequest request, ModelMap modelMap){
+        User user= userTools.getCurrentUser(request);
         if (user==null){
             modelMap.put("result","您还没有登录");
             return "result";
         }
-        if (!user.getId().equals(userId)){
-            modelMap.put("result","信息有误！");
-            return "result";
-        }
-        modelMap.put("userInfo",userService.findUserById(userId));
+        modelMap.put("userInfo",userService.findUserById(user.getId()));
         return "usercenter";
     }
 
     @RequestMapping(value = "/update",produces = "application/json; charset=utf-8")
     @ResponseBody
     public String updateUserinfo(User user, HttpServletRequest request, ModelMap modelMap){
-         User olduser= UserTools.getCurrentUser(request);
+         User olduser= userTools.getCurrentUser(request);
          JSONObject jsonObject=new JSONObject();
         if (!user.getId().equals(olduser.getId())){
             jsonObject.put("isSuccess",false);
@@ -162,20 +159,48 @@ public class UserController {
     @RequestMapping(value = "/checkloginstatus",method = RequestMethod.GET)
     @ResponseBody
     public boolean checkloginstatus(HttpServletRequest request){
-
-        User olduser= UserTools.getCurrentUser(request);
+        User olduser= userTools.getCurrentUser(request);
         if (olduser!=null){
             return true;
         }
         return false;
     }
     public  boolean isMobile(String mobiles) {
-        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$");
+        String check = "^(((13[0-9])|(14[579])|(15([0-3]|[5-9]))|(16[6])|(17[0135678])|(18[0-9])|(19[89]))\\d{8})$";
+
+        Pattern p = Pattern.compile(check);
 
         Matcher m = p.matcher(mobiles);
 
         System.out.println(m.matches()+"---");
 
         return m.matches();
+    }
+
+    /**
+     * 切换角色
+     * @param user
+     * @param request
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/changeUserType",produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String changeUserType(User user, HttpServletRequest request, ModelMap modelMap){
+        HttpSession session = request.getSession();
+        Integer type =(Integer) session.getAttribute("user_type");
+        session.setAttribute("user_type",1^type);
+        JSONObject jsonObject=new JSONObject();
+        if (user!=null){
+            jsonObject.put("isSuccess",true);
+            String name;
+            if (type==1){
+                 name="乘客身份";
+            }else{
+                name="司机身份";
+            }
+            jsonObject.put("message","已切换为"+name);
+        }
+        return JSONObject.toJSONString(jsonObject);
     }
 }

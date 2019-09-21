@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>任我行顺风车网</title>
+    <title>济宁拼车网</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 <style type="text/css">
@@ -23,6 +23,20 @@
             min-height: 600px !important;
         }
     }
+    .btn-primary-meteor {
+        display: inline-block;
+        width: 80%;
+        background-color: #de4f4f;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        color: #fff;
+        border: none;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        font-size: 17px;
+        text-transform: uppercase;
+    }
 </style>
 </head>
 
@@ -36,10 +50,10 @@
 
                             <div class="aaa">
                                 <div class="login-tab login-tab-l">
-                                    <a href="#"  onclick="registerPage()" id="registerPage" class="checked" > 注册</a>
+                                    <a href="#"  onclick="registerPage()" id="registerPage" class="" > 注册</a>
                                 </div>
                                 <div class="login-tab login-tab-r">
-                                    <a href="#"  onclick="loginPage()" id="loginPage"  class="">账户登录</a>
+                                    <a href="#"  onclick="loginPage()" id="loginPage"  class="checked">账户登录</a>
                                 </div>
                             </div>
                             <div class=" " id="register" >
@@ -57,17 +71,7 @@
                                     <label for="confirmPassWord">确认密码：</label><input id="confirmPassWord"class="form-control" maxlength="10"   name="confirmPassWord" type="password" onblur="validatePassword()" required onkeydown="if(event.keyCode==32) return false">
                                     <span class="error-account" id="error-passWord"></span>
                                 </div>
-                                <%--<div class="form-group"><label for="age">年龄：</label><input id="age" name="age" maxlength="2" type="number"class="form-control" required></div>--%>
-                            <%--    <div class="form-group">
-                                    <label>
-                                        <input type="radio"name="sex"value="1" checked> 男
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="sex" value="0"> 女
-                                    </label>
-                                </div>--%>
-                                <%--<div class="form-group"><label for="nickName">昵称：</label><input id="nickName" name="nickName" maxlength="18" placeholder="张三" class="form-control" required></div>--%>
-                                <div class="form-group"><a  class="btn btn-primary  btn-block" onclick="registerUser()">成为会员</a></div>
+                                <div class="form-group"><a  class="btn btn-primary  btn-block" id="adduserbtn" onclick="registerUser()">成为会员</a></div>
                                 <br>
                             </div>
 
@@ -75,20 +79,28 @@
                         <form action="user/login" name="loginForm" id="loginForm" onsubmit="return false">
                             <div class="" id="login">
                                 <div class="form-group">
-                                    <label >用户名：</label>
-                                    <input  class="form-control" name="userName"  type="text" required placeholder="用户名/手机号">
+                                    <label >手机号：</label>
+                                    <input  class="form-control" name="userName"  type="text" required placeholder="手机号">
                                 </div>
                                 <div class="form-group">
                                     <label >密码：</label>
                                     <input class="form-control" name="passWord" type="password" required placeholder="密码">
                                 </div>
-                                <div class="form-group"> <input type="checkbox" name="remindMe">7天免登录</div>
-                                <div class="form-group"> <button  class="btn btn-primary  btn-block" onclick="realLogin()">登录</button></div>
+                                <div class="form-group">
+                                    <label >选择角色：</label>
+                                    <select class="form-control"  name="remindMe">
+                                    <option value="1">我是司机</option>
+                                    <option value="0">我是乘客</option>
+                                </select>
+                                </div>
+                                <div class="form-group"> <button  class="btn btn-primary  btn-block"  onclick="realLogin()">登录</button></div>
 
                             </div>
                         </form>
                         <div style="text-align: center">
-                        <a href="/template/forgetPassword.html"> 忘记密码? </a>
+                            <a href="javascript:alert('请到公众号留言，我们在后台收到会回复您！')"> 忘记密码? </a>
+                            <br>
+                            <a class="btn-primary-meteor" href="/template/text.html">不登录直接发布拼车</a>
                         </div>
                     </div>
 
@@ -100,7 +112,7 @@
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#login").hide();
+        $("#register").hide();
     });
 function registerPage(){
     $('#registerPage').addClass("checked");
@@ -121,7 +133,7 @@ function loginPage(){
         var phone = $("#mobile").val();
         var flag = false;
         var message = "";
-        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
         if(phone == ''){
             message = "手机号码不能为空！";
         }else if(phone.length !=11){
@@ -213,6 +225,8 @@ function loginPage(){
             return false;
         }
        if (mobileFlag && passwordFlag&&userNameFlag){
+
+           $("#adduserbtn").attr('disabled',true);
            $.ajax({
                cache: true,
                type: "POST",
@@ -221,10 +235,13 @@ function loginPage(){
                async: false,
                error: function(request) {
                    alert("Connection error");
+                   $("#adduserbtn").attr('disabled',false);
                },
                success: function(data) {
+                   $("#adduserbtn").attr('disabled',false);
                    if (data.code==200){
-                       location.href="/v1/toIndexPage";
+                       alert("注册成功，现在可以去登录。");
+                       loginPage();
                    }else{
                        alert(data.message);
                    }
@@ -249,7 +266,7 @@ function loginPage(){
                         if (data.refer){
                             location.href=data.refer;
                         }else{
-                            location.href="/v1/toIndexPage";
+                            location.href="/v1/toPublishlineInfoPage";
                         }
                     }else{
                         alert(data.message);

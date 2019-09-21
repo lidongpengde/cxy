@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxy.dao.ViolationMapper">
+  <resultMap id="BaseResultMap" type="com.cxy.entity.Violation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="plate_num" jdbcType="VARCHAR" property="plateNum" />
+    <result column="egnum" jdbcType="VARCHAR" property="egnum" />
+    <result column="vnum" jdbcType="VARCHAR" property="vnum" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+
+  <insert id="insert" parameterType="com.cxy.entity.Comment">
+    insert into violation ( city_id, plate_num, egnum, vnum, user_id, create_time)
+    values (#{cityId,jdbcType=VARCHAR}, #{plateNum,jdbcType=VARCHAR}, #{egnum,jdbcType=VARCHAR},
+      #{vnum,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+</mapper>

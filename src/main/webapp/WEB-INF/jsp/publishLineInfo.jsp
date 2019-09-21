@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>任我行顺风车网</title>
+    <title>济宁拼车网</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <%-- <link rel="stylesheet" type="text/css" href="/asert/css/bootstrap-datetimepicker.min.css" media="screen"/>--%>
@@ -19,19 +19,10 @@
         position: absolute;
     }
 
-    body {
-        background-color: #315481;
-        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
-        /*position: relative;*/
-    }
-
     .container {
-/*        padding-top: 10px;*/
         max-width: 600px;
         margin: 0 auto;
         min-height: 100%;
-        /*background: #d2edf4;*/
-        /*background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);*/
     }
 
     @media (min-width: 600px) {
@@ -39,6 +30,10 @@
             min-height: 600px !important;
             width: 500px;
         }
+    }
+    ul {
+        margin: 0;
+        padding: 0;
     }
 </style>
 <style type="text/css">
@@ -109,29 +104,19 @@
     }
 </style>
 <body>
-<div class="container hello" style="margin-top: 55px;background: #fafafa;">
+<div class="container hello" style="background: #fafafa;>
     <div class="main">
         <div id="app">
-
+            <p class="text-center"><span>发布行程</span></p>
+            <br>
             <form id="message" onsubmit="return false">
                 <div class="errors"><span id="errormsg"></span></div>
-                <div class="form-group">
-                    <label>
-                        <input type="radio" name="type" value="1" checked v-on:click="selectType(1)"> 我是司机
-                    </label>
-                    <label>
-                        <input type="radio" name="type" value="0" v-on:click="selectType(0)"> 我是乘客
-                    </label>
-                </div>
                 <div class="form-group">
                     <input placeholder="出发地" type="text" name="start" id="start" class="form-control"
                            onblur="checkValid(this)" value="${alterLine.start}"></div>
                 <div class="form-group">
-                    <input placeholder="目的地" type="text" name="end" id="end" class="form-control"
+                    <input placeholder="您想要去哪" type="text" name="end" id="end" class="form-control"
                            onblur="checkValid(this)" value="${alterLine.end}"></div>
-                <%--<div class="form-group" >
-                  <input placeholder="价格" type="number" name="price" id="price" class="form-control" onblur="checkValid(this)" >
-                </div>--%>
                 <div class="input-group form-group">
                     <span class="input-group-addon">¥</span>
                     <input placeholder="价格" type="number" name="price" id="price" min="0" class="form-control"
@@ -141,16 +126,10 @@
 
                 <div class="form-group">
                     <input type="hidden" name="isbargin" value="0">
-                    <%--<label>
-                        <input type="radio" name="isbargin" value="1" checked> 接受议价
-                    </label>
-                    <label>
-                        <input type="radio" name="isbargin" value="0"> 不接受
-                    </label>--%>
                 </div>
                 <div class="form-group">
                     <ul class="btn-numbox">
-                        <li><span class="number">人数</span></li>
+                        <li><span class="number">人数/可载</span></li>
                         <li>
                             <ul class="count">
                                 <li><span id="num-jian" class="num-jian">-</span></li>
@@ -162,16 +141,20 @@
                         　　　
                     </ul>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden="hidden">
                     <input placeholder="车牌号:后四位即可" type="text" name="plateNumber" id="plateNumber" class="form-control"
-                           value="${alterLine.plateNumber}"></div>
+                           value="${alterLine.plateNumber}" hidden="hidden"></div>
                 <div class="form-group">
                     <input type="datetime-local" name="startTime" id="startTime" class="form-control" title="出发时间"
                            step="1">
                 </div>
+                <div class="form-group">
+                    <input type="text" name="userMobile" id="userMobile" class="form-control" placeholder="手机号">
+                    <span id="error-mobile" class="error-account"></span>
+                </div>
                 <br/>
                 <div class="form-group">
-                    <button class="btn btn-primary" onclick="submitline()" style="width: 100%">提交</button>
+                    <button class="btn btn-primary" onclick="submitline()" style="width: 100%">发布</button>
                 </div>
                 <input name="startAdcode" id="startAdcode" hidden="hidden" value="${alterLine.startAdcode}">
                 <input name="startLongitude" id="startLongitude" hidden="hidden" value="${alterLine.startLongitude}">
@@ -180,7 +163,6 @@
                 <input name="endLongitude" id="endLongitude" hidden="hidden" value="${alterLine.endLongitude}">
                 <input name="endLatitude" id="endLatitude" hidden="hidden" value="${alterLine.endLatitude}">
                 <input name="userNickname" id="userNickname" hidden="hidden" value="${alterLine.userNickname}">
-                <input name="userMobile" id="userMobile" hidden="hidden" value="${alterLine.userMobile}">
                 <input name="status" id="status" hidden="hidden" value="${alterLine.status}">
                 <input name="lid" id="lid" hidden="hidden" value="${alterLine.lid}">
             </form>
@@ -210,6 +192,7 @@
 <script src="/asert/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>--%>
 <script>
     var map, geolocation;
+    var position1,position2;
     //加载地图，调用浏览器定位服务
     map = new AMap.Map('container', {
         resizeEnable: true
@@ -229,6 +212,7 @@
     });
     //解析定位结果
     function onComplete(data) {
+        position1= new AMap.LngLat(data.position.lng, data.position.lat);
         var str = ['定位成功'];
         /*document.getElementById('tip').innerHTML = str.join('<br>');*/
         var start=$('#start').val();
@@ -236,6 +220,8 @@
             document.getElementById("start").value = data.formattedAddress;
         }
         document.getElementById("startAdcode").value = data.addressComponent.adcode;
+        $('#startLongitude').val(position1.lng);
+        $('#startLatitude').val(position1.lat);
     }
     var app = new Vue({
 
@@ -271,6 +257,31 @@
         }
 
     });
+    function vailPhone(){
+        var phone = $("#userMobile").val();
+        flag = false;
+        var message = "";
+        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(phone == ''){
+            message = "手机号码不能为空！";
+        }else if(phone.length !=11){
+            message = "请输入有效的手机号码！";
+        }else if(!myreg.test(phone)){
+            message = "请输入有效的手机号码！";
+        }else{
+            flag = true;
+        }
+        if(!flag){
+            $('#error-mobile').text(message);
+            return;
+        }
+        if(!flag){
+            $('#error-mobile').text(message);
+        }else{
+            $('#error-mobile').text('');
+        }
+        return flag;
+    }
     var flag = true;
     var validatebeforeSubmit = function () {
         var start = $('#start').val();
@@ -278,8 +289,8 @@
         var price = $('#price').val();
         var personCount = $('#input-num').val();
         var plateNumber = $('#plateNumber').val();
-        var startTime = $('#startTime').val()
-        if (start && end && price && personCount && startTime) {
+        var startTime = $('#startTime').val();
+        if (start && end && price && personCount && startTime&&vailPhone()) {
             flag = true;
             $("#errormsg").fadeOut();
         } else {
@@ -301,7 +312,8 @@
             data: params,
             success: function (data) {
                 if (data.code == 200) {
-                    location.href = "/template/searchIndex.html";
+                    alert("拼车信息发布成功！");
+                    location.href = "http://www.rwxing.cn/api/mySubscibe/"+data.buessObj;
                 } else {
                     alert(data.message)
                 }
@@ -331,10 +343,16 @@
     });
     AMap.event.addListener(startauto, "select", startselect);//注册监听，当选中某条记录时会触发
     function startselect(e) {
-        debugger
         $('#startAdcode').val(e.poi.adcode);
         $('#startLongitude').val(e.poi.location.lng);
         $('#startLatitude').val(e.poi.location.lat);
+        if(e.poi.location){
+            position1= new AMap.LngLat(e.poi.location.lng, e.poi.location.lat);
+            var distance = computeDis();
+        }else{
+            position1="";
+        }
+
     }
 
     var endauto = new AMap.Autocomplete({
@@ -345,6 +363,12 @@
         $('#endAdcode').val(e.poi.adcode);
         $('#endLongitude').val(e.poi.location.lng);
         $('#endLatitude').val(e.poi.location.lat);
+        if(e.poi.location && position1) {
+            position2 = new AMap.LngLat(e.poi.location.lng, e.poi.location.lat);
+            var distance = computeDis();
+        }else{
+            position2="";
+        }
     }
     /**
      * 提示输入
@@ -392,6 +416,25 @@
         } else {
             input_num.value = parseInt(input_num.value) - 1;
         }
+    }
+
+    /**
+     * 获取两点之间距离
+     */
+    var line,text;
+    function computeDis(){
+        if(position1 && position2)
+        var textPos = position1.divideBy(2).add(position2.divideBy(2));
+        var distance = Math.round(position1.distance(position2));
+        var guidePrice;
+        if (distance>450000){
+            guidePrice = distance / 1000 * 0.38;
+        }else{
+            guidePrice = distance / 1000 * 0.48;
+        }
+        guidePrice = Math.round(guidePrice)
+        $("#price").val(guidePrice);
+        return distance;
     }
 </script>
 <%--<jsp:include page="include/foot.jsp"></jsp:include>--%>

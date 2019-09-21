@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxy.dao.LocationMapper">
   <resultMap id="BaseResultMap" type="com.cxy.entity.Location">
-    <id column="_id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
     <result column="ad_code" jdbcType="VARCHAR" property="adCode" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -21,8 +21,8 @@
     where _id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select b.name as cityName ,a.* from location a left join (select distinct city_code,name from location where level='city') b on a.city_code=b.city_code
-    where a.name like  CONCAT(CONCAT('%', #{name}), '%');
+    select * from location a
+    where a.name like  CONCAT(CONCAT('%', #{name}), '%') or a.pinyin like  CONCAT(CONCAT('%', #{name}), '%') and level = 2;
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from location

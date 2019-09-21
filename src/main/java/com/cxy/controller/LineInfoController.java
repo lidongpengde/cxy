@@ -33,10 +33,15 @@ public class LineInfoController {
     ILineInfoService lineInfoService;
     @Autowired
     IuserService userService;
+
+    @Autowired
+    private UserTools userTools;
     @RequestMapping(value = "lineInfo",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo){
         MessageResult messageResult = new MessageResult();
+        Integer userType = (Integer) request.getSession().getAttribute("user_type");
+        lineInfo.setType(userType);
         if(AtomUtils.isEmpty(lineInfo.getLid())) {
              messageResult = lineInfoService.saveLineInfo(lineInfo, request);
         }else{//再次编辑后自动发布
@@ -48,17 +53,23 @@ public class LineInfoController {
     @RequestMapping(value = "lineInfos",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String publishInfo(HttpServletRequest request, LineInfo lineInfo,Integer pageIndex,Integer pageSize){
-        /*if (StringUtils.isEmpty(lineInfo.getStart())){
-           String adcode= getStartAdressIfLineInfoNull(request);
-           lineInfo.setStartAdcode(adcode);
-        }*/
+        Integer userType = (Integer) request.getSession().getAttribute("user_type");
+        if(userType==null){
+            request.getSession().setAttribute("user_type",1);
+            userType =1;
+        }
+        userType = 1^ userType;
+        lineInfo.setType(userType);
         JSONObject jsonObject=new JSONObject();
         Pager list=lineInfoService.queryLineInfoList(lineInfo,pageIndex, pageSize,false);
         List<LineInfoAndUserInfo> listAll=null;
         return JSONObject.toJSONString(list);
     }
     @RequestMapping("toPublishlineInfoPage")
-    public String toPublishlineInfoPage(HttpServletRequest request,ModelMap modelMap, LineInfo lineInfo ){
+    public String toPublishlineInfoPage(HttpServletRequest request,ModelMap modelMap, Integer userType){
+        if (userType!=null){
+            request.getSession().setAttribute("user_type",userType);
+        }
         String lid = request.getParameter("lid");
         LineInfo alterLine = new LineInfo();
         if(!AtomUtils.isEmpty(lid)){
@@ -74,7 +85,7 @@ public class LineInfoController {
     }
     @RequestMapping("myPublishLineInfo")
     public String myPublish(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){
-        User user=(User)request.getSession().getAttribute("const_user");
+        User user=userTools.getCurrentUser(request);
         LineInfo lineInfo=new LineInfo();
         lineInfo.setUserId(user.getId().toString());
         final Pager mylist=lineInfoService.queryMyLineInfoList(lineInfo,pageIndex,pageSize);
@@ -85,7 +96,7 @@ public class LineInfoController {
     @ResponseBody
     public String updatePublishInfo( @PathVariable  String lid){
         JSONObject jsonObject=new JSONObject();
-        int size=lineInfoService.updateLineInfo(Integer.parseInt(lid));
+        int size=lineInfoService.deleteLineInfo(Integer.parseInt(lid));
         if (size>0){
             jsonObject.put("message","发布已取消");
             return JSONObject.toJSONString(jsonObject);
@@ -124,7 +135,7 @@ public class LineInfoController {
     @RequestMapping(value = "getMsgByUser",produces = "application/text; charset=utf-8")
     @ResponseBody
     public String getMsgByUser(HttpServletRequest request){
-        User user=(User)request.getSession().getAttribute("const_user");
+        User user=userTools.getCurrentUser(request);
         return lineInfoService.getMsgByUser(user);
     }
 
@@ -138,7 +149,7 @@ public class LineInfoController {
      */
     @RequestMapping("mySubLineInfo")
     public String mySub(HttpServletRequest request, ModelMap modelMap,Integer pageIndex,Integer pageSize){
-        User user=(User)request.getSession().getAttribute("const_user");
+        User user=userTools.getCurrentUser(request);
         LineInfo lineInfo=new LineInfo();
         lineInfo.setUserId(user.getId().toString());
         final Pager mylist=lineInfoService.querySubLineInfoList(lineInfo,pageIndex,pageSize);

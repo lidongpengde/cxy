@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <title>任我行顺风车网</title>
-    <link href="/asert/css/jquery.pagination.css" rel="stylesheet" />
+    <link href="/asert/css/mricode.pagination.css" rel="stylesheet" />
 <%--    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=23834821b1465df3fa84571571947619"></script>--%>
     <script src="/asert/js/mricode.pagination.js"></script>
     <script src="/asert/js/jquery.serializejson.js"></script>
@@ -31,7 +31,7 @@
     }
 </style>
 <body >
-<div class="container" id="app" style="margin-top: 52px;padding-top: 15px;">
+<div class="container" id="app" style="margin-top: 52px;padding-top: 15px;background: #fafafa">
 
         <%--头部搜索栏--%>
 
@@ -54,9 +54,9 @@
             <a href="#" onclick="changeIdentity(1)"><div class="col-md-6  col-xs-6 text-center hover" id="tabdriver">找车</div></a>
             <a href="#" onclick="changeIdentity(0)"><div class="col-md-6 col-xs-6 text-center" id="tabpassenger">找人</div></a>
         </div>
-            <div class="post" v-for="item in items">
+            <div class="post" v-for="item in items" >
 
-                <div class="post-content">
+                <div class="post-content" v-on:click="showMap(item.startLongitude,item.startLatitude,item.endLongitude,item.endLatitude)" onclick="alert(1)">
                     <a v-bind:href="'/api/mySubscibe/'+item.lid">
                         <p ><span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color:#5cb85c ;margin-right: 6px"></span><span> {{ item.start }}</span><span class="price">¥{{ item.price }}</span></p>
                      <p> <span class="glyphicon glyphicon-map-marker" aria-hidden="true" style="color: #f0ad4e;margin-right: 6px"></span>
@@ -69,13 +69,9 @@
                         <a v-bind:href="'tel:'+item.userMobile" class="hidden-xs"><span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>{{ item.userMobile }} </a>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>{{ item.userNickname }}
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span>{{ item.startTime }}
-                    <%--<span class="bargin-label" v-if="item.isbargin === 0">不议价</span>--%>
-                    <%--<span class="bargin-label" v-if="item.isbargin === 1">可议价</span>--%>
                 </ul>
                     </p>
                 <p>
-
-                    <%--<span class="price">¥{{ item.price }}</span>--%>
                 </p>
                 </div>
                 <div class="hidden-xs">
@@ -88,6 +84,7 @@
                     <a v-bind:href="'tel:'+item.userMobile"  v-if="item.type==0" class="  btn-subscribe" style="margin-right: 30px">电话联系</a>
                 </div>
             </div>
+            <div id="container">12313</div>
             <div id="page" class="m-pagination" ></div>
             <footer class="skill-ftw">
                 <ul class="fixed-skill-ftw">
@@ -111,88 +108,18 @@
 </div>
 <script src="/asert/js/jquery.autocompleter.js"></script>
 <script>
-    /***************************************
-     由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
-     ***************************************/
-/*    var map, geolocation;
-    var adCode
-    //加载地图，调用浏览器定位服务
-    map = new AMap.Map('container', {
-        resizeEnable: true
-    });
-    map.plugin('AMap.Geolocation', function() {
-        geolocation = new AMap.Geolocation({
-            enableHighAccuracy: true,//是否使用高精度定位，默认:true
-            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-            buttonPosition:'RB'
-        });
-        map.addControl(geolocation);
-        geolocation.getCurrentPosition();
-        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
-        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
-    });
-    //解析定位结果
-    function onComplete(data) {
-        adCode=data.addressComponent.adcode;
-        console.log(adCode);
-        $("#page").pagination({
-            pageSize: 10,
-            remote: {
-                url: '/v1/lineInfos',
-                pageParams: function(data){
-                    var params = $("#searchForm").serializeJSON();
-                    return {
-                        pageIndex:data.pageIndex,
-                        pageSize:data.pageSize,
-                        type:params.type,
-                        start:params.start,
-                        end:params.end,
-                        startTime:params.startTime,
-                        startAdcode:adCode
-                    };
-                },
-                success: function (data) {
-                    app.items=data.list;
-                },
-                totalName:'total'
-            }
-        });
-    }
-    //解析定位错误信息
-    function onError(data) {
-        $("#page").pagination({
-            pageSize: 10,
-            remote: {
-                url: '/v1/lineInfos',
-                pageParams: function(data){
-                    var params = $("#searchForm").serializeJSON();
-                    return {
-                        pageIndex:data.pageIndex,
-                        pageSize:data.pageSize,
-                        type:params.type,
-                        start:params.start,
-                        end:params.end,
-                        startTime:params.startTime
-                    };
-                },
-                success: function (data) {
-                    app.items=data.list;
-                },
-                totalName:'total'
-            }
-        });
-    }*/
-
-
-
 
     var app = new Vue({
         el: '#app',
         data: {
             items: [
             ]
+        },
+        methods:{
+            showMap: function (a,b,c,d) {
+                $('#container').modal('toggle')
+                console.log(a)
+            }
         }
     })
     function changeIdentity(type){
@@ -209,16 +136,6 @@
         searchLineInfo();
     }
     function searchLineInfo(){
-      /*  //ajax提交
-        var params = $("#searchForm").serialize();
-        $.ajax({
-            type : "GET",
-            url : "/v1/lineInfos",
-            data : params,
-            success : function(data) {
-                app.items=data.list;
-            }
-        });*/
         $("#page").pagination('remote');
     }
     $("#page").pagination({

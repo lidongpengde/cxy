@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cxy.entity.User;
 import com.cxy.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,9 +17,14 @@ import java.util.List;
 @Controller
 @RequestMapping("notice")
 public class NoticeController {
+
+
+    @Value("${jdbc.username}")
+    String username;
     @Autowired
     NoticeService noticeService;
-    @RequestMapping(value = "getMsgByUser",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+
+    @RequestMapping(value = "getMsgByUser",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String getMsgByUser(HttpServletRequest request,String classes){
         User user=(User)request.getSession().getAttribute("const_user");

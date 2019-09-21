@@ -8,46 +8,46 @@
     <link rel="stylesheet" type="text/css" href="/asert/css/main.css" media="screen"/>
 </head>
 <style>
-    body{
-        background-color: #315481;
-        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
-        /*position: relative;*/
+    ul {
+        margin: 0;
+        padding: 0;
     }
 </style>
 <body>
-<div class="container" style="margin-top: 54px;min-height: 100%;background: #fafafa" id="myapp">
+<div class="container" style="min-height: 100%;background: #fafafa" id="myapp">
     <div class="row">
     <div class="list-group">
         <a href="#" class="list-group-item active">
             个人中心
         </a>
-        <a href="/user/inner/${ sessionScope.const_user.id}" class="list-group-item">
-            <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>
-            基本信息
-        </a>
-        <a href="/api/toIdentify" class="list-group-item">
+        <%--<a href="/user/inner" class="list-group-item">--%>
+            <%--<span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>--%>
+            <%--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>--%>
+            <%--基本信息(车主/乘客切换)--%>
+        <%--</a>--%>
+        <%--<a href="/api/toIdentify" class="list-group-item">--%>
 
-            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>实名认证
-        </a>
-        <a href="/v1/myPublishLineInfo" class="list-group-item">
+            <%--<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>--%>
+            <%--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>实名认证--%>
+        <%--</a>--%>
+        <%--<a href="/v1/myPublishLineInfo" class="list-group-item">--%>
 
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>我的发布
-        </a>
-        <a href="/template/noticeList.html" class="list-group-item">
+            <%--<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>--%>
+            <%--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>我的发布--%>
+        <%--</a>--%>
+        <%--<a href="/template/noticeList.html" class="list-group-item">--%>
 
-            <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-            <span class="badge" aria-hidden="true" style="float: right;">{{message}}</span>我的通知
-        </a>
-        <a href="/user/logout" class="list-group-item">
+            <%--<span class="glyphicon glyphicon-bell" aria-hidden="true"></span>--%>
+            <%--<span class="badge" aria-hidden="true" style="float: right;">{{message}}</span>我的通知--%>
+        <%--</a>--%>
+        <%--<a href="/user/logout" class="list-group-item">--%>
 
-            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>退出
-        </a>
+            <%--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>--%>
+            <%--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="float: right;"></span>退出--%>
+        <%--</a>--%>
+        <em>抱歉，此功能暂时关闭。</em>
     </div>
-            <input type="hidden" value="${user.userId}" name="userId">
+            <%--<input type="hidden" value="${user.userId}" name="userId">--%>
 
     </div>
     <footer class="skill-ftw">
@@ -78,20 +78,6 @@
             ],
             message:""
         }
-    })
-    $(document).ready(function(){
-        var  classes = "LineInfo";
-        var  htmltext="" ;
-        $.ajax({
-            type:'post',
-            url:'/notice/getMsgByUser?classes='+classes,
-            success:function (data){
-                myapp.message=data.length;
-            },
-            error:function (e) {
-                alert("系统繁忙"+e);
-            }
-        })
     })
 </script>
 <script src="/asert/js/bootstrap.js"></script>

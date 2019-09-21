@@ -1,5 +1,4 @@
-
-/*!
+﻿/*!
  * Mricode Pagination Plugin
  * Github: https://github.com/mricle/Mricode.Pagination
  * Version: 1.4.4
@@ -155,17 +154,17 @@
         },
         initEvent: function () {
             this.$element
-                .on('click', { page: this }, function (event) {
-                    if ($(event.target).is('button')) {
-                        if ($(event.target).data('pageBtn') == 'jump') {
-                            var $input = event.data.page.$element.find('input[data-page-btn=jump]');
-                            event.data.page.jumpEventHandler($input.val(), event);
-                        }
-                    } else {
-                        if ($(event.target).data('pageIndex') !== undefined)
-                            eventHandler.call(event.data.page, event);
+            .on('click', { page: this }, function (event) {
+                if ($(event.target).is('button')) {
+                    if ($(event.target).data('pageBtn') == 'jump') {
+                        var $input = event.data.page.$element.find('input[data-page-btn=jump]');
+                        event.data.page.jumpEventHandler($input.val(), event);
                     }
-                }).on('change', { page: this }, function (event) {
+                } else {
+                    if ($(event.target).data('pageIndex') !== undefined)
+                        eventHandler.call(event.data.page, event);
+                }
+            }).on('change', { page: this }, function (event) {
                 var $this = $(event.target);
                 if ($this.data('pageBtn') == 'jump') {
                     event.data.page.jumpEventHandler($this.val(), event);
@@ -179,6 +178,16 @@
                     event.data.page.jumpEventHandler($input.val(), event);
                 }
             });
+            
+            this.$element.find('input[data-page-btn=jump]').on('blur', {
+              page: this
+            }, function(event){
+              event.stopPropagation();
+              var pageIndex = $(this).val();
+              event.data.page.jumpEventHandler($(this).val(), event);
+              $(this).val(pageIndex)
+            })
+
         },
         jumpEventHandler: function (inputValue, event) {
             if (!inputValue) {
@@ -289,7 +298,14 @@
                 that.currentPageIndex = lastPageNum - 1;
             }
             that.onEvent(pagination.event.pageSizeChanged, that.currentPageIndex, newPageSize);
+        } else if (event.type === 'blur'){
+            var pageIndexStr = that.$jump.find('input').val();
+            if (utility.convertInt(pageIndexStr) <= that.getLastPageNum()) {
+              that.onEvent(pagination.event.jumpClicked, pageIndexStr - 1, null);
+              that.$jump.find('input').val(null);
+            }
         }
+
     };
 
     var pagination = {};
@@ -321,11 +337,11 @@
     };
     pagination.core = {
         /*
-         options : {
-         showFirstLastBtn
-         firstBtnText:
-         }
-         */
+        options : {
+            showFirstLastBtn
+            firstBtnText:
+        }
+        */
         renderPages: function (pageIndex, pageSize, total, pageBtnCount, options) {
             options = options || {};
             var pageNumber = pageIndex + 1;
@@ -506,7 +522,7 @@
                 else if (data && typeof option === 'object') {
                     throw new Error('MricodePagination is initialized.');
                 }
-                //初始化
+                    //初始化
                 else if (!data && typeof option === 'object') {
                     var options = typeof option == 'object' && option;
                     var data_api_options = $this.data();

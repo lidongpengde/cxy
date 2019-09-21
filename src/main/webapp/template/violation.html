@@ -1,0 +1,117 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>任我行</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="/asert/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="/asert/css/main1119.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
+    <script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body ng-app="starter" ng-controller="modelListCtrl">
+<div id="app" class="container">
+    <h5>违章查询</h5>
+    <form id="form" onsubmit="return false"  class="form-account">
+        <select id="sheng" style="min-width:142px"
+                onchange="changeSheng(this.options[this.options.selectedIndex].value)" >
+            <option v-for="province in provinces" v-bind:value="province.code">{{province.name}}</option>
+        </select>
+        <select id="cityid" name="cityid" style="min-width:150px">
+            <option v-for="city in cities" v-bind:value="city.code">{{city.name}}</option>
+        </select>
+        <input name="platenum" placeholder="车牌号">
+        <input name="egnum" placeholder="发动机号后六位">
+        <input name="vnum" placeholder="车架号后六位">
+        <input name="authcode" placeholder="验证码" id="authcode" hidden>
+        <img id="qrcode" src="" hidden>
+        <button onclick="search()" class="btn-custom btn-primary-meteor hvr-rectangle-out-bg">查违章</button>
+    </form>
+    <div>
+        <ul>
+            <li v-for="item in result">
+                <span>位置：{{item.location}}</span>
+                <span>原因：{{item.content}}</span>
+                <span>罚款：{{item.pay}}</span>
+                <span>扣分：{{item.score}}</span>
+                <span>日期：{{item.time}}</span>
+                <span>状态：{{item.processstatustext}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            provinces: [],
+            cities:[],
+            result:[]
+        }
+    });
+    $(document).ready(function(){
+        init();
+    });
+    function init()
+    {
+        $.ajax({
+            url:"/asert/js/common/province.json",
+            success:function (data) {
+                app.provinces = data;
+            }
+        })
+    }
+
+    function getCity(province_code)
+    {
+        $.ajax({
+            url:"/asert/js/common/city.json",
+            success:function (data) {
+                app.cities = data[province_code];
+            }
+        })
+    }
+
+    function changeSheng(event){
+        getCity(event)
+
+
+    }
+function search(){
+        var ss  = "data:image/png;base64,";
+        var data= $("#form").serialize();
+        $.ajax({
+            url:"/violation/query",
+            type:"post",
+            data:data,
+            dataType:"json",
+            success:function (data) {
+                if(data.returncode==-54){
+                    $("#authcode").show();
+                    $("#qrcode").show();
+                    ss = ss +data.result.citys[0].authimage;
+                    $("#qrcode").attr("src",ss);
+                    alert("查询频繁，请输入验证码");
+                }else if(data.returncode==-55){
+                    alert(data.message)
+                }
+                else{
+                    var res=JSON.parse(data.Data);
+                    var result = res.result.citys[0].violationdata;
+                    if(!result){
+                        alert("查询失败，请检查输入信息！")
+                    }
+                    app.result = result;
+                    $("#form").hide();
+                }
+
+            }
+        })
+}
+
+</script>

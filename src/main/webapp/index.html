@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>redis测啊</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+    <meta name="description" content="济宁拼车网@中国最大最早的拼车网站，找拼车，顺风车，预定长途汽车票，就上济宁拼车网">
+
+    <meta name="keywords" content="拼车网,拼车,顺风车,嘀嗒拼车,长途拼车,拼车回家,顺丰车,滴答拼车,拼车软件,微微拼车,顺路拼车,滴滴顺风车,滴滴拼车,汽车票,带货,滴滴打车,优步,曹操专车,嘀嘀打车,神州专车,拼客,嘀嘀顺风车,约车,拼车帮,跨城顺风车,51用车,长途客车">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" media="screen"/>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.3/vue.js"></script>
+</head>
+<style>
+</style>
+<div id="app">
+    <nav class="navbar navbar-default navbar-fixed-top"><div class="container">
+        <a href="/" class="navbar-brand">测啊测
+        </a>
+
+    </div>
+    </nav>
+</div>
+</nav>
+<div class="container" STYLE="margin-top: 70px" id="container">
+
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+        showheader:false
+        }
+    });
+    $.ajax({
+        type : "GET",
+        url : "/user/checkloginstatus",
+        success : function(data) {
+            app.showheader=data;
+        }
+    });
+    console.log('%cqq:202655989 ', 'background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );color:transparent;-webkit-background-clip: text;font-size:5em;');
+</script>
+</body>
+</html>

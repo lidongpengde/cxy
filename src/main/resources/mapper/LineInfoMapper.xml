@@ -50,7 +50,7 @@
       #{isbargin,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{personCount,jdbcType=INTEGER}, 
       #{type,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cxy.entity.LineInfo">
+  <insert id="insertSelective" parameterType="com.cxy.entity.LineInfo" useGeneratedKeys="true" keyProperty="lid" >
     insert into line_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="lid != null" >
@@ -65,7 +65,7 @@
       <if test="startTime != null" >
         start_time,
       </if>
-      <if test="plateNumber != null" >
+      <if test="plateNumber != null and  plateNumber != ''" >
         plate_number,
       </if>
       <if test="price != null" >
@@ -124,7 +124,7 @@
       <if test="startTime != null" >
         #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="plateNumber != null" >
+      <if test="plateNumber != null and  plateNumber != ''" >
         #{plateNumber,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
@@ -260,8 +260,9 @@
         and end_adcode = #{endAdcode,jdbcType=VARCHAR}
       </if>
       <if test="startTime != null and startTime != ''" >
-        and  start_time >= #{startTime}
+        and  to_days(start_time) >= to_days(#{startTime})
       </if>
+      and to_days(start_time)>=to_days(now())
       <if test="plateNumber != null" >
         and plate_number = #{plateNumber}
       </if>
@@ -283,10 +284,11 @@
       <if test="userId != null" >
         and user_id = #{userId}
       </if>
-       order by start_time desc
+       order by start_time ASC
       <if test="begin!=null and pageSize!=null">
         limit #{begin},#{pageSize}
       </if>
+
     </where>
   </sql>
   <select id="getLineInfoList" resultMap="BaseResultMap" parameterType="com.cxy.entity.LineInfo" >
