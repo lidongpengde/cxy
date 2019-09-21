@@ -18,6 +18,11 @@
     .amap-sug-result {
         position: absolute;
     }
+    body {
+        background-color: #315481;
+        background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+        /*position: relative;*/
+    }
 
     .container {
         max-width: 600px;

@@ -233,7 +233,6 @@
         //ajax提交
         var params = $("#message").serialize();
         $.ajax({
-            dataType: "jsonp",
             type : "POST",
             url : "/saveSinglelineInfo",
             data : params,

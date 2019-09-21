@@ -54,5 +54,5 @@ public interface SubscribeMapper {
      */
     int updateByPrimaryKey(Subscribe record);
 
-    List<Subscribe> selectByLineinfoId(String lineinfoId);
+    List<Subscribe> selectByLineinfoId(Integer lineinfoId);
 }

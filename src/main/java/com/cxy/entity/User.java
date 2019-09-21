@@ -1,7 +1,7 @@
 package com.cxy.entity;
 
 public class User {
-    private String id;
+    private Long id;
 
     private Long mobile;
 
@@ -47,11 +47,11 @@ public class User {
 
     private Long identifyStatus;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

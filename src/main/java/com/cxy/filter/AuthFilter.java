@@ -2,14 +2,14 @@ package com.cxy.filter;
 
 
 import com.cxy.entity.User;
+import com.cxy.service.IuserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  */
 public class AuthFilter implements Filter {
 
-
+    private IuserService userService;
 
     public void destroy() {
         // TODO Auto-generated method stub
@@ -39,8 +39,23 @@ public class AuthFilter implements Filter {
         final String host=req.getContextPath();
         HttpSession session = req.getSession();
         String loginaddress =host+loginUrltest;
-        User password = (User) session.getAttribute("const_user");
-        if (password == null || "".equals(password)) {
+
+        Integer userType = (Integer) req.getSession().getAttribute("user_type");
+        if(userType==null){
+            req.getSession().setAttribute("user_type",1);
+        }
+        Cookie[] cookies = req.getCookies();
+        String cookieValue = null;
+        for (Cookie cookie:cookies) {
+            if (cookie.getName().equals("const_user")){
+                cookieValue =  cookie.getValue();
+                break;
+            }
+        }
+        getUerBean(req);
+       // User user = (User) session.getAttribute("const_user");
+        User user = userService.getUserBykey(cookieValue);
+        if (user == null || "".equals(user)) {
             // 跳转到登录页面
             //resp.sendRedirect(prefix+host+loginUrltest);
             resp.sendRedirect(loginaddress);
@@ -48,7 +63,15 @@ public class AuthFilter implements Filter {
             arg2.doFilter(req, resp);
         }
     }
-    public void init(FilterConfig arg0) throws ServletException {
+    public void init(FilterConfig config) throws ServletException {
         // TODO Auto-generated method stub
+
+    }
+    public void getUerBean(HttpServletRequest request){
+        ServletContext context = request.getSession().getServletContext();
+        WebApplicationContext cxt = WebApplicationContextUtils.getWebApplicationContext(context);
+        if (cxt != null){
+            userService = (IuserService) cxt.getBean(IuserService.class);
+        }
     }
 }
